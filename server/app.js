@@ -6,7 +6,10 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var basicAuth = require('express-basic-auth');
 var User = require('./routes/User');
+var Auth = require('./routes/Auth');
 var app = express();
+
+var apiUrl = '/api/v1';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/user',User);
+app.use(apiUrl + '/', Auth);
+app.use(apiUrl + '/user', User);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
