@@ -9,7 +9,12 @@ var User = require('./routes/User');
 var Auth = require('./routes/Auth');
 var app = express();
 
+var expressJWT = require('express-jwt');
+
 var apiUrl = '/api/v1';
+var cors_options = {
+  origin: '*'
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,18 +22,23 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(basicAuth({
-  users: {
-    'admin': 'admin'
-  },
-  unauthorizedResponse: getUnauthorizedResponse
-}));
-app.use(cors());
+// app.use(basicAuth({
+//   users: {
+//     'admin': 'admin'
+//   },
+//   unauthorizedResponse: getUnauthorizedResponse
+// }));
+app.use(cors(cors_options));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressJWT({
+  secret: 'y&6GEQxQ+P=r)+Zyve2&,C>^ILaSBxUbQ|!:aVs|ffM@%@Tc5#i}&be/5sAg/Jux'
+}).unless({
+  path: ['/api/v1/auth', '/api/v1/register']
+}));
 
 app.use(apiUrl + '/', Auth);
 app.use(apiUrl + '/user', User);
