@@ -17,7 +17,6 @@ export class AuthServiceProvider {
 
   login(credentials) {
     return new Promise((resolve, reject) => {
-    console.log(credentials);
       this.http.post(apiUrl+'auth', credentials, options)
         .subscribe(res => {
           resolve(res.json());
@@ -45,7 +44,7 @@ export class AuthServiceProvider {
 
       this.http.post(apiUrl+'logout', {}, options)
         .subscribe(res => {
-          localStorage.clear();
+          window.localStorage.clear();
         }, (err) => {
           reject(err);
         });

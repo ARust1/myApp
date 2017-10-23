@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {App, LoadingController, NavController, ToastController} from 'ionic-angular';
+import {AlertController, App, LoadingController, NavController, ToastController} from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {LoginPage} from "../login/login";
 
@@ -16,7 +16,8 @@ export class HomePage {
               public app: App,
               public authService: AuthServiceProvider,
               public loadingCtrl: LoadingController,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController) {
 
     if(window.localStorage.getItem("token")) {
       this.isLoggedIn = true;
@@ -24,11 +25,8 @@ export class HomePage {
   }
 
   logout() {
-    this.showLoader();
-    this.loading.dismiss();
-    this.navCtrl.setRoot(LoginPage);
+  this.logoutConfirm();
     this.authService.logout().then((result) => {
-      this.navCtrl.setRoot(LoginPage);
     }, (err) => {
       this.presentToast(err);
     });
@@ -40,6 +38,31 @@ export class HomePage {
     });
 
     this.loading.present();
+  }
+
+  logoutConfirm() {
+    let alert = this.alertCtrl.create({
+      title: '',
+      message: 'Wollen Sie sich wirklich abmelden?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'Abmelden',
+          handler: () => {
+            this.showLoader();
+            this.loading.dismiss();
+            this.navCtrl.setRoot(LoginPage);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   presentToast(msg) {
