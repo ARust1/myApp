@@ -12,8 +12,8 @@ import {HomePage} from "../home/home";
 export class TabsPage {
 
   tab1Root = WalletPage;
-  tab2Root = ProfilePage;
-  tab3Root = ContactPage;
+  tab2Root = ContactPage;
+  tab3Root = ProfilePage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     if(!window.localStorage.getItem("token")) {
