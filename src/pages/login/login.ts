@@ -26,6 +26,7 @@ export class LoginPage {
       this.data = result;
       window.localStorage.setItem('token', this.data.token);
       this.navCtrl.setRoot(TabsPage);
+      console.log(result);
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);
@@ -34,6 +35,10 @@ export class LoginPage {
 
   register() {
     this.navCtrl.push(RegisterPage);
+  }
+
+  goBack() {
+    this.navCtrl.pop();
   }
 
   showLoader(){

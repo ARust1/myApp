@@ -1,20 +1,22 @@
+<ion-header no-border padding-left padding-right>
+  <ion-toolbar>
+    <ion-icon name="arrow-back" (click)="goBack()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content padding>
-  <h2>Please, Login</h2>
   <form (submit)="doLogin()">
     <ion-item>
-      <ion-label stacked>Username</ion-label>
-      <ion-input [(ngModel)]="loginData.email" name="username" type="text" placeholder="Username" ></ion-input>
+      <ion-input [(ngModel)]="loginData.email" name="email" type="text" placeholder="Email" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Password</ion-label>
       <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
-    <button ion-button block type="submit">
+    <button class="button-1" type="submit">
       Login
     </button>
+    <div class="click-text" clear (click)="register()">
+      Keinen Account? <strong>Hier registrieren!</strong>
+    </div>
   </form>
-
-  <button ion-button block clear (click)="register()">
-    No have an account? Register Now
-  </button>
 </ion-content>

@@ -33,6 +33,7 @@ router.post('/auth', function(req, res, next){
         }, 'y&6GEQxQ+P=r)+Zyve2&,C>^ILaSBxUbQ|!:aVs|ffM@%@Tc5#i}&be/5sAg/Jux');
         console.log(token);
         res.status(200).json({
+          data: json[0],
           success: true,
           token : token
         });
@@ -64,17 +65,6 @@ router.post('/logout', function(req, res) {
 function JSONFY(result) {
   var string = JSON.stringify(result);
   return JSON.parse(string);
-}
-
-function generate_token(length){
-  //edit the token allowed characters
-  var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-  var b = [];
-  for (var i=0; i<length; i++) {
-    var j = (Math.random() * (a.length-1)).toFixed(0);
-    b[i] = a[j];
-  }
-  return b.join("");
 }
 
 module.exports = router;

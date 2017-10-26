@@ -1,23 +1,26 @@
 import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { AboutPage } from '../about/about';
+import { ProfilePage } from '../profile/profile';
 import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
-import {NavController} from "ionic-angular";
-import {LoginPage} from "../login/login";
+import { WalletPage } from '../wallet/wallet';
+import {HomePage} from "../home/home";
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
+  tab1Root = WalletPage;
+  tab2Root = ProfilePage;
   tab3Root = ContactPage;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     if(!window.localStorage.getItem("token")) {
-      navCtrl.setRoot(LoginPage);
+      navCtrl.setRoot(HomePage);
     }
+  }
+  ionViewDidLoad() {
+    // Put here the code you want to execute
   }
 }

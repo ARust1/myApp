@@ -1,16 +1,19 @@
+<ion-header no-border padding-left padding-right>
+  <ion-toolbar>
+    <ion-icon name="arrow-back" (click)="goBack()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content padding>
-  <h2>Register Here</h2>
   <form (submit)="doSignup()">
     <ion-item>
-      <ion-label stacked>Username</ion-label>
-      <ion-input [(ngModel)]="regData.email" name="username" type="text" placeholder="Your username" ></ion-input>
+      <ion-input [(ngModel)]="regData.email" name="email" type="text" placeholder="Email" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Password</ion-label>
-      <ion-input [(ngModel)]="regData.password" name="password" type="password" placeholder="Your password"></ion-input>
+      <ion-input [(ngModel)]="regData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
-    <button ion-button block type="submit">
-      SignUp
+    <button class="button-1" type="submit">
+      Registrieren
     </button>
   </form>
 </ion-content>

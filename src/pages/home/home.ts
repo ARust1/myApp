@@ -1,83 +1,35 @@
 import { Component } from '@angular/core';
-import {AlertController, App, LoadingController, NavController, ToastController} from 'ionic-angular';
-import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {LoginPage} from "../login/login";
+import {RegisterPage} from "../register/register";
 
+/**
+ * Generated class for the HomePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
 
-  loading: any;
-  isLoggedIn: boolean = false;
-
-  constructor(public navCtrl: NavController,
-              public app: App,
-              public authService: AuthServiceProvider,
-              public loadingCtrl: LoadingController,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController) {
-
-    if(window.localStorage.getItem("token")) {
-      this.isLoggedIn = true;
-    }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  logout() {
-  this.logoutConfirm();
-    this.authService.logout().then((result) => {
-    }, (err) => {
-      this.presentToast(err);
-    });
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
   }
 
-  showLoader(){
-    this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
-    });
-
-    this.loading.present();
+  goToLogin() {
+    this.navCtrl.push(LoginPage);
   }
 
-  logoutConfirm() {
-    let alert = this.alertCtrl.create({
-      title: '',
-      message: 'Wollen Sie sich wirklich abmelden?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            return;
-          }
-        },
-        {
-          text: 'Abmelden',
-          handler: () => {
-            this.showLoader();
-            this.loading.dismiss();
-            this.navCtrl.setRoot(LoginPage);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'bottom',
-      dismissOnPageChange: true
-    });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
+  goToRegister() {
+    this.navCtrl.push(RegisterPage);
   }
 
 }

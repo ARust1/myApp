@@ -34,6 +34,10 @@ export class RegisterPage {
     });
   }
 
+  goBack() {
+    this.navCtrl.pop();
+  }
+
   showLoader(){
     this.loading = this.loadingCtrl.create({
       content: 'Authenticating...'
