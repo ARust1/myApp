@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import { RegisterPage } from '../register/register';
 import { TabsPage } from '../tabs/tabs';
+import { User } from "../../models/user-model";
 
 @IonicPage()
 @Component({
@@ -10,9 +11,13 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  loading: any;
-  loginData = { email:'', password:'' };
-  data: any;
+
+  /*
+   * Class Variables
+   */
+  private userData: User = new User();
+  private loading: any;
+  private loginData = { email:'', password:'' };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public authService: AuthServiceProvider, public loadingCtrl: LoadingController,
@@ -21,16 +26,29 @@ export class LoginPage {
 
   doLogin() {
     this.showLoader();
-    this.authService.login(this.loginData).then((result) => {
+    this.authService.login(this.loginData).then((result:any) => {
       this.loading.dismiss();
-      this.data = result;
-      window.localStorage.setItem('token', this.data.token);
-      this.navCtrl.setRoot(TabsPage);
-      console.log(result);
+
+      this.setLocalStorageItems(result.token,
+        this.loginData.email,
+        this.loginData.password);
+
+      this.userData.setEmail(result.data.email);
+      this.userData.setPassword(result.data.password);
+
+      this.navCtrl.setRoot(TabsPage, {
+        user: this.userData
+      });
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);
     });
+  }
+
+  setLocalStorageItems(token, email, password) {
+    window.localStorage.setItem('token', token);
+    window.localStorage.setItem('email', email);
+    window.localStorage.setItem('password', password);
   }
 
   register() {

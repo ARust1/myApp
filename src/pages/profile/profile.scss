@@ -1,3 +1,56 @@
 page-profile {
+  ion-header {
+    ion-icon[name="more"] {
+      font-size: 1.6em;
+      transform: rotate(-90deg);
+    }
+  }
 
+  ion-content {
+    h5 {
+      margin-bottom: 0;
+    }
+    h6 {
+      margin: 0 !important;
+      //color: #484848;
+    }
+    .member-profile-position {
+      margin-top: 0.1rem !important;
+      color: #484848;
+    }
+    ion-grid {
+      &.member-profile {
+      }
+      .member-profile-options {
+        justify-content: flex-end;
+        ion-icon {
+
+        }
+      }
+      ion-row {
+        ion-col {
+          &.member-profile-pic img {
+            width: 80px;
+            height: auto;
+            border-radius: 100%;
+            border: 1px solid #909090;
+          }
+          &.member-profile-name {
+            align-self: center;
+          }
+          &.member-profile-trickot {
+            .trickot-number {
+              position: absolute;
+              display: inline-block;
+              top: 28%;
+              font-size: 23px;
+              font-weight: 700;
+              color: #fff;
+              left: 42.5%;
+            }
+          }
+        }
+      }
+    }
+  }
 }

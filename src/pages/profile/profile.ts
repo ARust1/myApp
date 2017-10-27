@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
-import {AlertController, App, LoadingController, NavController, ToastController} from 'ionic-angular';
+import {Component, Input} from '@angular/core';
+import {AlertController, App, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {HomePage} from "../home/home";
+import { User } from "../../models/user-model";
 
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'
 })
 export class ProfilePage {
-
   loading: any;
   isLoggedIn: boolean = false;
+  userData: User = this.navParams.data;
 
   constructor(public navCtrl: NavController,
               public app: App,
               public authService: AuthServiceProvider,
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              public navParams: NavParams) {
 
     if(window.localStorage.getItem("token")) {
       this.isLoggedIn = true;
@@ -25,7 +27,6 @@ export class ProfilePage {
   }
 
   logout() {
-    this.logoutConfirm();
     this.authService.logout().then((result) => {
     }, (err) => {
       this.presentToast(err);
@@ -55,9 +56,10 @@ export class ProfilePage {
         {
           text: 'Abmelden',
           handler: () => {
-            this.showLoader();
-            this.loading.dismiss();
-            this.navCtrl.setRoot(HomePage);
+              this.logout();
+              this.showLoader();
+              this.app.getRootNav().setRoot(HomePage);
+              this.loading.dismiss();
           }
         }
       ]

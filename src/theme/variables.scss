@@ -5,7 +5,6 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
@@ -33,7 +32,10 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+$default-color: #484848;
+
 $colors: (
+  focus-color: #ff4146,
   primary:    #488aff,
   secondary:  #32db64,
   danger:     #f53d3d,

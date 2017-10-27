@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { ProfilePage } from '../pages/profile/profile';
-import { ContactPage } from '../pages/contact/contact';
+import { EventsPage } from '../pages/events/events';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -15,13 +15,17 @@ import { LoginPage } from "../pages/login/login";
 import { RegisterPage } from "../pages/register/register";
 import { HttpModule } from "@angular/http";
 import { HomePage } from "../pages/home/home";
+import {PenaltiesPage} from "../pages/penalties/penalties";
+import {DebtPage} from "../pages/debt/debt";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ProfilePage,
-    ContactPage,
+    EventsPage,
+    PenaltiesPage,
+    DebtPage,
     WalletPage,
     TabsPage,
     LoginPage,
@@ -37,7 +41,9 @@ import { HomePage } from "../pages/home/home";
     MyApp,
     HomePage,
     ProfilePage,
-    ContactPage,
+    EventsPage,
+    PenaltiesPage,
+    DebtPage,
     WalletPage,
     TabsPage,
     LoginPage,
