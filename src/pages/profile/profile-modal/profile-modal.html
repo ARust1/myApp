@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Profil bearbeiten</ion-title>
+    <ion-buttons end>
+      <button type="submit" (click)="updateUser()">
+        <span>fertig</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row class="member-profile-pic">
+      <img class="pic" src="../../assets/imgs/default-no-profile-pic.jpg">
+    <span class="add">
+      <!--<img class="add-img" src="../../assets/icon/pencil.svg">-->
+      <ion-icon name="add" class="add-img"></ion-icon>
+    </span>
+  </ion-row>
+  <ion-row>
+    <form>
+      <ion-item>
+        <ion-icon name="mail" item-start=""></ion-icon>
+        <ion-input [(ngModel)]="newUserData.email" name="email" type="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="person" item-start=""></ion-icon>
+        <ion-input [(ngModel)]="newUserData.prename" name="prename" type="text" placeholder="Vorname"></ion-input>
+        <ion-input [(ngModel)]="newUserData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
+
+      </ion-item>
+      <!--<ion-item>-->
+        <!--<ion-input [(ngModel)]="newUserData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>-->
+      <!--</ion-item>-->
+    </form>
+  </ion-row>
+</ion-content>

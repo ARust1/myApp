@@ -33,8 +33,7 @@ export class LoginPage {
         this.loginData.email,
         this.loginData.password);
 
-      this.userData.setEmail(result.data.email);
-      this.userData.setPassword(result.data.password);
+      this.setUserData(result);
 
       this.navCtrl.setRoot(TabsPage, {
         user: this.userData
@@ -57,6 +56,14 @@ export class LoginPage {
 
   goBack() {
     this.navCtrl.pop();
+  }
+
+  setUserData(result) {
+    this.userData.setUuid(result.data.uuid);
+    this.userData.setPrename(result.data.prename);
+    this.userData.setSurname(result.data.surname);
+    this.userData.setEmail(result.data.email);
+    this.userData.setPassword(result.data.password);
   }
 
   showLoader(){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 26, 2017 at 11:19 AM
+-- Generation Time: Oct 28, 2017 at 08:39 AM
 -- Server version: 5.7.20-0ubuntu0.17.04.1
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -23,6 +23,71 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `uuid` char(36) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `sum` double NOT NULL DEFAULT '0',
+  `team_id` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Triggers `events`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_event` BEFORE INSERT ON `events` FOR EACH ROW SET new.uuid = uuid()
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penalties`
+--
+
+CREATE TABLE `penalties` (
+  `uuid` char(36) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `user_id` char(36) DEFAULT NULL,
+  `team_id` char(36) DEFAULT NULL,
+  `sum` double NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Triggers `penalties`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_penalty` BEFORE INSERT ON `penalties` FOR EACH ROW SET new.uuid = uuid()
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `team`
+--
+
+CREATE TABLE `team` (
+  `uuid` char(36) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `owner_id` char(36) DEFAULT NULL,
+  `balance` double NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Triggers `team`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_team` BEFORE INSERT ON `team` FOR EACH ROW SET new.uuid = uuid()
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -30,8 +95,20 @@ CREATE TABLE `user` (
   `uuid` char(36) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `team` varchar(255) DEFAULT NULL
+  `prename` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `team_id` varchar(255) DEFAULT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `back_number` int(11) DEFAULT NULL,
+  `position` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`) VALUES
+('baddeec4-ba60-11e7-8c62-080027c12564', 'a', 'a', 'Alexander', 'Frust', NULL, 0, NULL, NULL);
 
 --
 -- Triggers `user`
@@ -46,11 +123,56 @@ DELIMITER ;
 --
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `team_id` (`team_id`);
+
+--
+-- Indexes for table `penalties`
+--
+ALTER TABLE `penalties`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `team_id` (`team_id`);
+
+--
+-- Indexes for table `team`
+--
+ALTER TABLE `team`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `owner_id` (`owner_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`uuid`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`uuid`);
+
+--
+-- Constraints for table `penalties`
+--
+ALTER TABLE `penalties`
+  ADD CONSTRAINT `penalties_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`uuid`),
+  ADD CONSTRAINT `penalties_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`uuid`);
+
+--
+-- Constraints for table `team`
+--
+ALTER TABLE `team`
+  ADD CONSTRAINT `team_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `user` (`uuid`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Headers, Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Observable} from "rxjs/Observable";
 
 let apiUrl = 'http://localhost:3000/api/v1/';
 let headers = new Headers();

@@ -17,6 +17,8 @@ import { HttpModule } from "@angular/http";
 import { HomePage } from "../pages/home/home";
 import {PenaltiesPage} from "../pages/penalties/penalties";
 import {DebtPage} from "../pages/debt/debt";
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {DebtPage} from "../pages/debt/debt";
     WalletPage,
     TabsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ProfileModalPage
   ],
   imports: [
     BrowserModule,
@@ -47,13 +50,15 @@ import {DebtPage} from "../pages/debt/debt";
     WalletPage,
     TabsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ProfileModalPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    UserServiceProvider
   ]
 })
 export class AppModule {}

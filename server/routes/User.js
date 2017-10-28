@@ -44,20 +44,13 @@ router.delete('/:id',function(req,res,next){
     }
 
   });
-});
+});*/
 router.put('/:id',function(req,res,next){
 
-  Task.updateTask(req.params.id,req.body,function(err,rows){
-
-    if(err)
-    {
-      res.json(err);
-    }
-    else
-    {
-      res.json(rows);
-    }
+  User.updateUser(req.params.id,req.body,function(err,rows){
+    if(err) return res.json(err);
+    res.json(rows);
   });
-});*/
+});
 
 module.exports = router;

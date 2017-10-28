@@ -1,8 +1,12 @@
-import {Component, Input} from '@angular/core';
-import {AlertController, App, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
-import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
-import {HomePage} from "../home/home";
+import { Component } from '@angular/core';
+import {
+  ActionSheetController, AlertController, App, LoadingController, ModalController, NavController, NavParams,
+  ToastController
+} from 'ionic-angular';
+import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
+import  { HomePage } from "../home/home";
 import { User } from "../../models/user-model";
+import {ProfileModalPage} from "./profile-modal/profile-modal";
 
 @Component({
   selector: 'page-profile',
@@ -19,11 +23,14 @@ export class ProfilePage {
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public actionSheetCtrl: ActionSheetController,
+              public modalCtrl: ModalController) {
 
     if(window.localStorage.getItem("token")) {
       this.isLoggedIn = true;
     }
+    console.log(this.userData);
   }
 
   logout() {
@@ -82,4 +89,39 @@ export class ProfilePage {
     toast.present();
   }
 
+  presentActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Profil bearbeiten',
+          handler: () => {
+            this.presentProfileModal();
+          }
+        },
+        {
+          text: 'Abmelden',
+          handler: () => {
+            this.logoutConfirm();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }
+
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(ProfileModalPage, {data : this.userData});
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
+  }
 }

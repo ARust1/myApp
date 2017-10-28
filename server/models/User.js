@@ -17,8 +17,10 @@ var User = {
     return db.query("delete from task where Id=?",[id],callback);
   },
 
-  updateTask:function(id, Task, callback){
-    return db.query("update task set Title=?,Status=? where Id=?",[Task.Title,Task.Status,id],callback);
+  updateUser:function(uuid, User, callback){
+    return db.query("UPDATE user SET email=?,prename=?,surname=? where uuid=?",
+      [User.email, User.prename, User.surname, uuid],
+      callback);
   }
 
 };
