@@ -28,6 +28,7 @@ export class TabsPage {
     }
 
     this.userData = this.navParams.get('user');
+    console.log(this.userData);
   }
   ionViewDidLoad() {
     // Put here the code you want to execute

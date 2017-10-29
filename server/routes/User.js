@@ -7,14 +7,21 @@ router.get('/:id?',function(req, res, next) {
   if(req.params.id){
     User.getUserById(req.params.id,function(err,rows){
       if(err) return res.json(err);
-        res.json(rows);
+      res.json(rows);
 
     });
-  } else{
-    User.getAllUser(function(err,rows){
-      if(err) return res.json(err);
-      res.json(rows);
-    });
+  }  else {
+    if(req.query.token) {
+      User.getUserByToken(req.query.token, function (err, rows) {
+        if (err) return res.json(err);
+        res.json(rows);
+      });
+    } else {
+      User.getAllUser(function(err,rows){
+        if(err) return res.json(err);
+        res.json(rows);
+      });
+    }
   }
 });
 

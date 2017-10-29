@@ -25,7 +25,7 @@ export class RegisterPage {
 
   doSignup() {
     this.showLoader();
-    this.authService.register(this.regData).then((result) => {
+    this.authService.register(this.regData).subscribe((result) => {
       this.loading.dismiss();
       this.navCtrl.pop();
     }, (err) => {

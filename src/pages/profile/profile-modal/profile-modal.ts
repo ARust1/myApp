@@ -36,10 +36,10 @@ export class ProfileModalPage {
   }
 
   updateUser() {
-    this.userData.setEmail(this.newUserData.email);
-    this.userData.setPrename(this.newUserData.prename);
-    this.userData.setSurname(this.newUserData.surname);
-    this.userService.updateUser(this.userData).then( (result) => {
+    // this.userData.setEmail(this.newUserData.email);
+    // this.userData.setPrename(this.newUserData.prename);
+    // this.userData.setSurname(this.newUserData.surname);
+    this.userService.updateUser(this.userData).subscribe( (result) => {
       this.dismiss()
     }, (err) => {
       this.presentToast(err);

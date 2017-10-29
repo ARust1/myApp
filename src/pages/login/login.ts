@@ -4,6 +4,7 @@ import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import { RegisterPage } from '../register/register';
 import { TabsPage } from '../tabs/tabs';
 import { User } from "../../models/user-model";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @IonicPage()
 @Component({
@@ -15,28 +16,36 @@ export class LoginPage {
   /*
    * Class Variables
    */
-  private userData: User = new User();
+  private userData: User;
+  private token: string;
   private loading: any;
   private loginData = { email:'', password:'' };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              public authService: AuthServiceProvider, public loadingCtrl: LoadingController,
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public authService: AuthServiceProvider,
+              public userService: UserServiceProvider,
+              public loadingCtrl: LoadingController,
               private toastCtrl: ToastController) {
   }
 
   doLogin() {
     this.showLoader();
-    this.authService.login(this.loginData).then((result:any) => {
+    this.authService.login(this.loginData).subscribe((result:any) => {
       this.loading.dismiss();
 
-      this.setLocalStorageItems(result.token,
-        this.loginData.email,
-        this.loginData.password);
-
-      this.setUserData(result);
-
-      this.navCtrl.setRoot(TabsPage, {
-        user: this.userData
+      let res = JSON.parse(result._body);
+      this.token = res.token;
+      window.localStorage.setItem('token', this.token);
+      this.userService.getUserData(this.token).subscribe( (res: any) => {
+        let data = JSON.parse(res._body)[0];
+        this.userData = data;
+        this.navCtrl.setRoot(TabsPage, {
+          user: this.userData
+        });
+      }, (err) => {
+        this.loading.dismiss();
+        this.presentToast(err);
       });
     }, (err) => {
       this.loading.dismiss();
@@ -44,10 +53,8 @@ export class LoginPage {
     });
   }
 
-  setLocalStorageItems(token, email, password) {
-    window.localStorage.setItem('token', token);
-    window.localStorage.setItem('email', email);
-    window.localStorage.setItem('password', password);
+  setUserData(data) {
+    this.userData = data;
   }
 
   register() {
@@ -56,14 +63,6 @@ export class LoginPage {
 
   goBack() {
     this.navCtrl.pop();
-  }
-
-  setUserData(result) {
-    this.userData.setUuid(result.data.uuid);
-    this.userData.setPrename(result.data.prename);
-    this.userData.setSurname(result.data.surname);
-    this.userData.setEmail(result.data.email);
-    this.userData.setPassword(result.data.password);
   }
 
   showLoader(){

@@ -2,11 +2,14 @@ var db = require('../connection');
 
 var Auth = {
 
-  login: function(email, password, callback) {
-    return db.query("SELECT * FROM user WHERE email=? and password=?;", [email, password], callback);
+  login: function(email, callback) {
+    return db.query("SELECT uuid, password FROM user WHERE email = ?;", [email], callback);
   },
-  register: function(email, password, team, callback) {
-    return db.query("INSERT INTO user (email, password, team) VALUES(?, ?, ?);", [email, password, team], callback);
+  setToken: function(uuid, token, callback) {
+    return db.query("UPDATE user SET token = ? WHERE uuid = ?;", [token, uuid], callback);
+  },
+  register: function(email, password, callback) {
+    return db.query("INSERT INTO user (email, password) VALUES(?, ?);", [email, password], callback);
   }
 };
 
