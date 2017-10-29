@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 28, 2017 at 08:39 AM
+-- Generation Time: Oct 29, 2017 at 12:25 PM
 -- Server version: 5.7.20-0ubuntu0.17.04.1
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -100,15 +100,18 @@ CREATE TABLE `user` (
   `team_id` varchar(255) DEFAULT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   `back_number` int(11) DEFAULT NULL,
-  `position` varchar(255) DEFAULT NULL
+  `position` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`) VALUES
-('baddeec4-ba60-11e7-8c62-080027c12564', 'a', 'a', 'Alexander', 'Frust', NULL, 0, NULL, NULL);
+INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`) VALUES
+('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, NULL),
+('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkyOTQyNTV9.nNxP_eTweBFmuOS5L4TaZQ1GyzqLWrV2qQ0h3ZKxGj0'),
+('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', NULL, NULL, NULL, 0, NULL, NULL, NULL);
 
 --
 -- Triggers `user`
