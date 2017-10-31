@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 29, 2017 at 12:25 PM
+-- Generation Time: Oct 31, 2017 at 10:22 PM
 -- Server version: 5.7.20-0ubuntu0.17.04.1
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -78,6 +78,13 @@ CREATE TABLE `team` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `team`
+--
+
+INSERT INTO `team` (`uuid`, `name`, `owner_id`, `balance`) VALUES
+('c51dcd7b-be45-11e7-9556-080027c12564', 'Bottroper Shitheads', '5b7fa85e-bca9-11e7-bff5-080027c12564', 0);
+
+--
 -- Triggers `team`
 --
 DELIMITER $$
@@ -98,7 +105,7 @@ CREATE TABLE `user` (
   `prename` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
   `team_id` varchar(255) DEFAULT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `admin` tinyint(1) DEFAULT '0',
   `back_number` int(11) DEFAULT NULL,
   `position` varchar(255) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL
@@ -109,9 +116,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`) VALUES
-('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, NULL),
-('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkyOTQyNTV9.nNxP_eTweBFmuOS5L4TaZQ1GyzqLWrV2qQ0h3ZKxGj0'),
-('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', NULL, NULL, NULL, 0, NULL, NULL, NULL);
+('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0MzF9.jOFRsVpmXJHv6F6Z-9aSrTLWxzXs4X57lic5BR6QM04'),
+('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', 'c51dcd7b-be45-11e7-9556-080027c12564', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk0ODQ3Nzl9.zpYmzd7ryRXLUcbN_llHUvGsRhNZnX521V3d3asV2sU'),
+('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0Mzh9.Pf0hAJFU3yFP4yBqXfqQEd05UCfROVrNbeW23UWuZyw');
 
 --
 -- Triggers `user`
@@ -145,6 +152,7 @@ ALTER TABLE `penalties`
 --
 ALTER TABLE `team`
   ADD PRIMARY KEY (`uuid`),
+  ADD UNIQUE KEY `name` (`name`),
   ADD KEY `owner_id` (`owner_id`);
 
 --
