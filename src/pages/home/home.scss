@@ -1,7 +1,39 @@
 page-home {
   .scroll-content {
-    padding: 60px 16px;
+    padding-top: 50%;
+  }
+  .logo-container {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    color: $logo-grey;
   }
   ion-content {
+    font-weight: 700;
+    img {
+      width: 100px;
+      height:auto;
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  }
+  ion-footer {
+    color: $font-grey !important;
+    border-top: 0.5px solid $logo-grey !important;
+    .register {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 300;
+      span {
+        margin-left: 2px;
+        font-weight: 400;
+      }
+    }
   }
 }

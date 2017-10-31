@@ -5,18 +5,20 @@
 </ion-header>
 
 <ion-content padding>
-  <form (submit)="doLogin()">
+  <form>
     <ion-item>
       <ion-input [(ngModel)]="loginData.email" name="email" type="text" placeholder="Email" ></ion-input>
     </ion-item>
     <ion-item>
       <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
-    <button class="button-1" type="submit">
+    <div class="button" (click)="doLogin()">
       Login
-    </button>
-    <div class="click-text" clear (click)="register()">
-      Keinen Account? <strong>Hier registrieren!</strong>
     </div>
   </form>
 </ion-content>
+<ion-footer padding>
+  <div class="register" (click)="goToRegister()">
+    Du hast kein Konto? <span>Registriere dich.</span>
+  </div>
+</ion-footer>

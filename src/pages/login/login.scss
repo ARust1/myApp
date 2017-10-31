@@ -1,3 +1,20 @@
 page-login {
-
+  .scroll-content {
+    padding-top: 40% !important;
+  }
+  ion-footer {
+    color: $font-grey !important;
+    border-top: 0.5px solid $logo-grey !important;
+    .register {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 300;
+      span {
+        margin-left: 2px;
+        font-weight: 400;
+      }
+    }
+  }
 }

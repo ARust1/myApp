@@ -35,7 +35,6 @@ export class WalletPage {
   presentLoadingDefault() {
     const loading = this.loadingCtrl.create({
       spinner: 'crescent',
-      content: 'Please wait...',
       showBackdrop: false
     });
 

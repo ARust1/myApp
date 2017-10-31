@@ -11,11 +11,17 @@
 // Tab Icons
 // --------------------------------------------------
 
+.tab-button[aria-selected="true"] {
+  .tab-button-text {
+    color: $font-grey;
+  }
+}
+
 .tab-button-text {
   text-transform: uppercase;
-  font-weight:400;
+  font-weight:700;
   letter-spacing:0.4px;
-  color: $default-color;
+  color: $logo-grey;
   font-size: 9px;
 }
 

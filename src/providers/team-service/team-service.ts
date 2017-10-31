@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
-import {User} from "../../models/user-model";
-
-
 
 @Injectable()
 export class TeamServiceProvider {
