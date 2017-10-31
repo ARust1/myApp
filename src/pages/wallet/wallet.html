@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="isLoggedIn">
   <ion-navbar>
     <ion-title>
       Wallet
@@ -7,5 +7,22 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="!isLoggedIn">
+  </div>
+  <div *ngIf="isLoggedIn">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+      <ion-row *ngIf="teamData">
+        <ion-col>
+          {{teamData.balance}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>
+
+
+

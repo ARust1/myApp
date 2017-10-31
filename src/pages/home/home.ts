@@ -20,10 +20,6 @@ export class HomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-  }
-
   goToLogin() {
     this.navCtrl.push(LoginPage);
   }

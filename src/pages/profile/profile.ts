@@ -1,25 +1,32 @@
 import { Component } from '@angular/core';
 import {
-  ActionSheetController, AlertController, App, LoadingController, ModalController, NavController, NavParams,
+  ActionSheetController, AlertController, App, LoadingController, ModalController, NavParams,
   ToastController
 } from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
 import  { HomePage } from "../home/home";
 import { User } from "../../models/user-model";
 import {ProfileModalPage} from "./profile-modal/profile-modal";
+import {TeamServiceProvider} from "../../providers/team-service/team-service";
+import {Team} from "../../models/team-model";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'
 })
 export class ProfilePage {
-  loading: any;
-  isLoggedIn: boolean = false;
-  userData: User = this.navParams.data;
 
-  constructor(public navCtrl: NavController,
-              public app: App,
+  private loading: any;
+  private isLoggedIn: boolean = false;
+  private userData: User;
+  private teamData: Team;
+  private clicked: boolean = false;
+
+  constructor(public app: App,
               public authService: AuthServiceProvider,
+              public teamService: TeamServiceProvider,
+              public userService: UserServiceProvider,
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
@@ -30,7 +37,38 @@ export class ProfilePage {
     if(window.localStorage.getItem("token")) {
       this.isLoggedIn = true;
     }
-    console.log(this.userData);
+    this.userData = this.navParams.data;
+
+    if(!this.userData.team_id) {
+      this.teamData = new Team();
+    } else {
+      this.getTeamData();
+    }
+  }
+
+  toggleClick() {
+    this.clicked = !this.clicked;
+  }
+
+  getTeamData(): any {
+    this.teamService.getTeamById(this.userData.team_id).subscribe( (result: any) => {
+      this.teamData = result;
+    }, (err: any) => {
+      this.presentToast(err);
+    });
+  }
+
+  createTeam() {
+    this.teamService.createTeam(this.userData.uuid, this.teamData.name).subscribe( (result: any) => {
+      this.userData.team_id = result.uuid;
+      this.userData.admin = true;
+      this.userService.updateUser(this.userData).subscribe( (result:any) => {
+      }, (err: any) => {
+        this.presentToast(err);
+      })
+    }, (error: any) => {
+      this.presentToast(error);
+    })
   }
 
   logout() {
@@ -93,12 +131,6 @@ export class ProfilePage {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Profil bearbeiten',
-          handler: () => {
-            this.presentProfileModal();
-          }
-        },
-        {
           text: 'Abmelden',
           handler: () => {
             this.logoutConfirm();
@@ -123,5 +155,14 @@ export class ProfilePage {
       console.log(data);
     });
     profileModal.present();
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 }

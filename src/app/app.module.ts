@@ -19,6 +19,7 @@ import {PenaltiesPage} from "../pages/penalties/penalties";
 import {DebtPage} from "../pages/debt/debt";
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
+import { TeamServiceProvider } from '../providers/team-service/team-service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    UserServiceProvider
+    UserServiceProvider,
+    TeamServiceProvider
   ]
 })
 export class AppModule {}

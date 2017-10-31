@@ -20,6 +20,8 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
+$refresher-border-color: transparent;
+$refresher-icon-font-size: 18px;
 
 
 
@@ -47,7 +49,7 @@ $colors: (
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+$loading-ios-background: transparent;
 
 
 

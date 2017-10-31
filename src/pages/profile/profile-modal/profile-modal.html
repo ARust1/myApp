@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons start>
+      <button (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Profil bearbeiten</ion-title>
     <ion-buttons end>
       <button type="submit" (click)="updateUser()">
@@ -21,18 +26,18 @@
   <ion-row>
     <form>
       <ion-item>
-        <ion-icon name="mail" item-start=""></ion-icon>
-        <ion-input [(ngModel)]="newUserData.email" name="email" type="email" placeholder="Email"></ion-input>
+        <ion-icon name="mail" item-start></ion-icon>
+        <ion-input [(ngModel)]="userData.email" name="email" type="email" placeholder="Email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-icon name="person" item-start=""></ion-icon>
-        <ion-input [(ngModel)]="newUserData.prename" name="prename" type="text" placeholder="Vorname"></ion-input>
-        <ion-input [(ngModel)]="newUserData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
-
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-input [(ngModel)]="userData.prename" name="prename" type="text" placeholder="Vorname"></ion-input>
+        <ion-input [(ngModel)]="userData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
       </ion-item>
-      <!--<ion-item>-->
-        <!--<ion-input [(ngModel)]="newUserData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>-->
-      <!--</ion-item>-->
+      <ion-item>
+        <ion-icon name="shirt" item-start=""></ion-icon>
+        <ion-input [(ngModel)]="userData.back_number" name="back_number" type="text" placeholder="Rückennummer"></ion-input>
+      </ion-item>
     </form>
   </ion-row>
 </ion-content>

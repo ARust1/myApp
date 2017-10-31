@@ -17,7 +17,6 @@ export class LoginPage {
    * Class Variables
    */
   private userData: User;
-  private token: string;
   private loading: any;
   private loginData = { email:'', password:'' };
 
@@ -30,31 +29,25 @@ export class LoginPage {
   }
 
   doLogin() {
-    this.showLoader();
-    this.authService.login(this.loginData).subscribe((result:any) => {
-      this.loading.dismiss();
+    //this.showLoader();
+    this.authService.login(this.loginData).subscribe((result: any) => {
+      let token = result.token;
+      window.localStorage.setItem('token', token);
 
-      let res = JSON.parse(result._body);
-      this.token = res.token;
-      window.localStorage.setItem('token', this.token);
-      this.userService.getUserData(this.token).subscribe( (res: any) => {
-        let data = JSON.parse(res._body)[0];
-        this.userData = data;
+      this.userService.getUserData(token).subscribe( (res: any) => {
+        this.userData = res;
         this.navCtrl.setRoot(TabsPage, {
           user: this.userData
         });
+        //this.loading.dismiss();
       }, (err) => {
-        this.loading.dismiss();
+        //this.loading.dismiss();
         this.presentToast(err);
       });
     }, (err) => {
-      this.loading.dismiss();
+      //this.loading.dismiss();
       this.presentToast(err);
     });
-  }
-
-  setUserData(data) {
-    this.userData = data;
   }
 
   register() {

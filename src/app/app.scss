@@ -13,7 +13,10 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
+@import url("http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucia Grande", sans-serif !important;
+}
 
 // Remove annoying scrollbar in browser
 // --------------------------------------------------
@@ -73,9 +76,9 @@ button {
 
 .button {
   background: #ef5350;
-  background: -moz-linear-gradient(45deg, #ef5350 0%, #e91e63 100%);
-  background: -webkit-linear-gradient(45deg, #ef5350 0%,#e91e63 100%);
-  background: linear-gradient(45deg, #ef5350 0%,#e91e63 100%);
+  background: -moz-linear-gradient(45deg, #FF55B8 0%, #FF8787 100%);
+  background: -webkit-linear-gradient(45deg, #FF55B8 0%, #FF8787 100%);
+  background: linear-gradient(45deg, #FF55B8 0%, #FF8787 100%);
   font-size:13px;
   height: 0px;
   padding: 18px 15px !important;
@@ -88,9 +91,9 @@ button {
   text-align: center;
   padding: 12px;
   background: #ef5350;
-  background: -moz-linear-gradient(45deg, #ef5350 0%, #e91e63 100%);
-  background: -webkit-linear-gradient(45deg, #ef5350 0%,#e91e63 100%);
-  background: linear-gradient(45deg, #ef5350 0%,#e91e63 100%);
+  background: -moz-linear-gradient(45deg, #FF55B8 0%, #FF8787 100%);
+  background: -webkit-linear-gradient(45deg, #FF55B8 0%, #FF8787 100%);
+  background: linear-gradient(45deg, #FF55B8 0%, #FF8787 100%);
   color: #ffffff;
   width: 80%;
   border-radius: 4px;
@@ -104,8 +107,8 @@ button {
   text-align: center;
   padding: 12px;
   background: #fff;
-  border: 1px solid #e91e63;
-  color: #e91e63;
+  border: 1px solid #FF8787;
+  color: #FF8787;
   width: 80%;
   border-radius: 4px;
   //box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);

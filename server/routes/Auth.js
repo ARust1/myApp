@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Auth = require('../models/Auth');
-var User = require('../models/User');
 var bcrypt = require('bcrypt');
+var Response2JSON = require('../Response2JSON');
 
 var jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -14,8 +14,7 @@ router.post('/auth', function(req, res, next){
 
   Auth.login(email, function(err, result){
     var isEmpty = Object.keys(result).length === 0;
-    var json = JSONFY(result);
-    console.log(json[0].uuid);
+    var json = Response2JSON.JSONFY(result);
     if(err) res.json(err);
     if(isEmpty) {
       res.status(404).json(
@@ -71,9 +70,6 @@ router.put('/register', function(req, res) {
       });
     });
   });
-
-
-
 });
 
 router.post('/logout', function(req, res) {
@@ -82,11 +78,6 @@ router.post('/logout', function(req, res) {
     message: 'Logged out'
   })
 });
-
-function JSONFY(result) {
-  var string = JSON.stringify(result);
-  return JSON.parse(string);
-}
 
 module.exports = router;
 

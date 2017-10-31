@@ -1,7 +1,7 @@
 <ion-tabs>
-  <ion-tab [root]="tab1Root" class="tabs-icon" tabTitle="Kasse" tabIcon="wallet"></ion-tab>
-  <ion-tab [root]="tab2Root" class="tabs-icon" tabTitle="Ausflüge" tabIcon="events"></ion-tab>
-  <ion-tab [root]="tab3Root" class="tabs-icon" tabTitle="Strafen" tabIcon="penalties"></ion-tab>
-  <ion-tab [root]="tab4Root" class="tabs-icon" tabTitle="Schulden" tabIcon="ios-list-box"></ion-tab>
+  <ion-tab [root]="tab1Root" [rootParams]="userData" class="tabs-icon" tabTitle="Kasse" tabIcon="wallet"></ion-tab>
+  <ion-tab [root]="tab2Root" [rootParams]="userData" class="tabs-icon" tabTitle="Ausflüge" tabIcon="events"></ion-tab>
+  <ion-tab [root]="tab3Root" [rootParams]="userData" class="tabs-icon" tabTitle="Strafen" tabIcon="penalties"></ion-tab>
+  <ion-tab [root]="tab4Root" [rootParams]="userData" class="tabs-icon" tabTitle="Schulden" tabIcon="ios-list-box"></ion-tab>
   <ion-tab [root]="tab5Root" [rootParams]="userData" class="tabs-icon" tabTitle="Profil" tabIcon="profile"></ion-tab>
 </ion-tabs>

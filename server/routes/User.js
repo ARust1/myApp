@@ -1,25 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var Response2JSON = require('../Response2JSON');
 
 router.get('/:id?',function(req, res, next) {
-
   if(req.params.id){
     User.getUserById(req.params.id,function(err,rows){
+      var json = Response2JSON.JSONFY(rows);
       if(err) return res.json(err);
-      res.json(rows);
+      res.json(json[0]);
 
     });
   }  else {
     if(req.query.token) {
       User.getUserByToken(req.query.token, function (err, rows) {
+        var json = Response2JSON.JSONFY(rows);
         if (err) return res.json(err);
-        res.json(rows);
+        res.json(json[0]);
       });
     } else {
       User.getAllUser(function(err,rows){
+        var json = Response2JSON.JSONFY(rows);
         if(err) return res.json(err);
-        res.json(rows);
+        res.json(json[0]);
       });
     }
   }
@@ -52,9 +55,10 @@ router.delete('/:id',function(req,res,next){
 
   });
 });*/
+
 router.put('/:id',function(req,res,next){
 
-  User.updateUser(req.params.id,req.body,function(err,rows){
+  User.updateUser(req.params.id,req.body,function(err, rows){
     if(err) return res.json(err);
     res.json(rows);
   });

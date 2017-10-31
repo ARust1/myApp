@@ -15,7 +15,7 @@ import {User} from "../../models/user-model";
 })
 export class TabsPage {
 
-  userData: User;
+  private userData: User;
   tab1Root = WalletPage;
   tab2Root = EventsPage;
   tab3Root = PenaltiesPage;
@@ -26,11 +26,6 @@ export class TabsPage {
     if(!window.localStorage.getItem("token")) {
       navCtrl.setRoot(HomePage);
     }
-
     this.userData = this.navParams.get('user');
-    console.log(this.userData);
-  }
-  ionViewDidLoad() {
-    // Put here the code you want to execute
   }
 }

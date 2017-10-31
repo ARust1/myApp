@@ -17,34 +17,16 @@ export class AuthServiceProvider {
   constructor(public http: Http) {}
 
   login(credentials): Observable<any> {
-    return this.http.post(apiUrl+'auth', credentials, options);
+    return this.http.post(apiUrl+'auth', credentials, options)
+      .map((res: any) =>
+        res.json(),
+        (err: any) => Observable.throw(err.json())
+      );
   }
 
   register(data): Observable<any> {
     return this.http.put(apiUrl+'register', JSON.stringify(data), options);
   }
-  // login(credentials) {
-  //   return new Promise((resolve, reject) => {
-  //     this.http.post(apiUrl+'auth', credentials, options)
-  //       .subscribe(res => {
-  //         resolve(res.json());
-  //       }, (err) => {
-  //         reject(err);
-  //       });
-  //   });
-  // }
-
-  // register(data) {
-  //   return new Promise((resolve, reject) => {
-  //
-  //     this.http.put(apiUrl+'register', JSON.stringify(data), options)
-  //       .subscribe(res => {
-  //         resolve(res.json());
-  //       }, (err) => {
-  //         reject(err);
-  //       });
-  //   });
-  // }
 
   logout(){
     return new Promise((resolve, reject) => {

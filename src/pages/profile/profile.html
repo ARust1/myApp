@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Profil</ion-title>
+    <!--<ion-title>Profil</ion-title>-->
     <ion-buttons end>
       <button (click)="presentActionSheet()">
         <ion-icon name="more"></ion-icon>
@@ -10,25 +10,57 @@
 </ion-header>
 
 <ion-content padding >
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="member-profile">
+    <h6 style="text-align: center;">Profil</h6>
+    <hr>
     <ion-row>
       <ion-col col-3 class="member-profile-pic">
         <img src="../../assets/imgs/default-no-profile-pic.jpg">
       </ion-col>
-      <ion-col col-6 class="member-profile-name">
+      <ion-col col-7 class="member-profile-name">
         <h5>{{userData.prename}} {{userData.surname}}</h5>
         <h6 class="member-profile-position">Sturm</h6>
       </ion-col>
-      <ion-col col-3 class="member-profile-trickot">
+      <ion-col col-2 *ngIf="userData.back_number" class="member-profile-trickot">
         <img src="../../assets/imgs/trickot.svg">
-        <span class="trickot-number">9</span>
+        <span class="trickot-number">{{userData.back_number}}</span>
       </ion-col>
+    </ion-row>
+    <ion-row style="justify-content: center;">
+      <button ion-button (click)="presentProfileModal()">Profil bearbeiten</button>
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+  <ion-grid *ngIf="!userData.team_id">
+    <ion-row class="create-team">
+      <button ion-button (click)="toggleClick()">Team erstellen</button>
+    </ion-row>
+    <ion-row *ngIf="clicked">
+      <form>
+        <ion-item>
+          <ion-icon name="people" item-start></ion-icon>
+          <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Teamname"></ion-input>
+          <ion-icon name="add" item-end (click)="createTeam()"></ion-icon>
+        </ion-item>
+      </form>
+    </ion-row>
+  </ion-grid>
+  <ion-grid padding class="team-profile" *ngIf="userData.team_id && teamData">
+    <h6 style="text-align: center;">Team</h6>
+    <hr>
     <ion-row>
-
+      <ion-col class="team-pic" col-3>
+        <img src="../../assets/imgs/team_logo.png">
+      </ion-col>
+      <ion-col padding col-6>
+        {{teamData.name}}
+      </ion-col>
+    </ion-row>
+    <ion-row style="justify-content: center;">
+      <button ion-button>Leute einladen</button>
     </ion-row>
   </ion-grid>
 </ion-content>

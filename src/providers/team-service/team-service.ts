@@ -5,12 +5,13 @@ import {Observable} from "rxjs/Observable";
 import {User} from "../../models/user-model";
 
 
-@Injectable()
-export class UserServiceProvider {
 
-  private apiUrl = 'http://localhost:3000/api/v1/';
-  private headers: Headers;
-  private options : RequestOptions;
+@Injectable()
+export class TeamServiceProvider {
+
+  apiUrl = 'http://localhost:3000/api/v1/';
+  headers: Headers;
+  options : RequestOptions;
 
   constructor(public http: Http) {
     this.headers = new Headers();
@@ -22,17 +23,21 @@ export class UserServiceProvider {
     });
   }
 
-  getUserData(token: string): Observable<any> {
-    return this.http.get(this.apiUrl + `user?token=${token}`, this.options)
+  getTeamById(uuid: string): Observable<any> {
+    return this.http.get(this.apiUrl + `team/${uuid}`, this.options)
       .map((res: any) =>
-        res.json(),
-        (err: any) => Observable.throw(err.json())
+        res.json()
       );
   }
 
-  updateUser(userData: User): Observable<any> {
-    return this.http.put(this.apiUrl + `user/${userData.uuid}` , userData, this.options);
+  createTeam(uuid:string, name:string): Observable<any> {
+    let data = {
+      owner_id : uuid,
+      name : name
+    };
+    return this.http.post(this.apiUrl + 'team', data, this.options)
+      .map((res: any) =>
+        res.json()
+      );
   }
-
-
 }

@@ -17,18 +17,14 @@ import {UserServiceProvider} from "../../../providers/user-service/user-service"
 })
 export class ProfileModalPage {
 
-  public userData : User = this.navParams.get('data');
-  public newUserData = {
-    email : this.userData.email,
-    surname : this.userData.surname,
-    prename : this.userData.prename
-  };
+  private userData : User;
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public userService: UserServiceProvider) {
+    this.userData = this.navParams.get('data');
   }
 
   dismiss() {
@@ -36,9 +32,6 @@ export class ProfileModalPage {
   }
 
   updateUser() {
-    // this.userData.setEmail(this.newUserData.email);
-    // this.userData.setPrename(this.newUserData.prename);
-    // this.userData.setSurname(this.newUserData.surname);
     this.userService.updateUser(this.userData).subscribe( (result) => {
       this.dismiss()
     }, (err) => {

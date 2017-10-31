@@ -1,0 +1,6 @@
+export class Team {
+  public uuid: string;
+  public name: string;
+  public owner_id: string;
+  public balance: number;
+}
