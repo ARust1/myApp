@@ -2,7 +2,7 @@ var db = require('../connection');
 
 var Auth = {
 
-  login: function(email, callback) {
+  login: function(email, password, callback) {
     return db.query("SELECT uuid, password FROM user WHERE email = ?;", [email], callback);
   },
   setToken: function(uuid, token, callback) {

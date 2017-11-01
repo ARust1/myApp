@@ -1,27 +1,39 @@
-<ion-header *ngIf="isLoggedIn">
-  <ion-navbar>
-    <ion-title>
-      Wallet
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
+  <ion-header *ngIf="isLoggedIn">
+    <div class="team-pic">
+      <div class="overlay">
+      </div>
+      <img src="../../assets/imgs/mannschaftsfoto.jpg">
+      <div class="team-logo">
+        <img src="../../assets/imgs/team_logo.jpg">
+      </div>
+    </div>
+  </ion-header>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="none">
+    </ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="!isLoggedIn">
   </div>
-  <div *ngIf="isLoggedIn">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+  <div class="wallet-content" *ngIf="isLoggedIn">
     <ion-grid>
       <ion-row *ngIf="teamData">
-        <ion-col>
-          {{teamData.balance}}
+        <span class="saldo">Saldo</span>
+        <ion-col class="team-balance" col-12>
+          € {{teamData.balance}}
+
+            <!--<div class="team-balance-options">
+
+              <span>Überweisung</span>
+            </div>-->
         </ion-col>
+      </ion-row>
+      <ion-row class="team-balance-options">
       </ion-row>
     </ion-grid>
   </div>
-
 </ion-content>
 
 

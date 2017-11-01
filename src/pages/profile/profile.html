@@ -29,9 +29,9 @@
         <span class="trickot-number">{{userData.back_number}}</span>
       </ion-col>
     </ion-row>
-    <ion-row style="justify-content: center;">
-      <button ion-button (click)="presentProfileModal()">Profil bearbeiten</button>
-    </ion-row>
+    <!--<ion-row style="justify-content: center;">-->
+      <!--<button ion-button (click)="presentProfileModal()">Profil bearbeiten</button>-->
+    <!--</ion-row>-->
   </ion-grid>
 
   <ion-grid *ngIf="!userData.team_id">
@@ -58,9 +58,6 @@
       <ion-col padding col-6>
         {{teamData.name}}
       </ion-col>
-    </ion-row>
-    <ion-row style="justify-content: center;">
-      <button ion-button>Leute einladen</button>
     </ion-row>
   </ion-grid>
 </ion-content>

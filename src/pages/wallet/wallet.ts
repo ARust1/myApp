@@ -67,8 +67,8 @@ export class WalletPage {
   }
 
   doRefresh(refresher) {
-    this.getTeamData();
     setTimeout(() => {
+      this.getTeamData();
       console.log('Async operation has ended');
       console.log(this.teamData);
       refresher.complete();

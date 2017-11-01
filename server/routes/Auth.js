@@ -12,7 +12,7 @@ router.post('/auth', function(req, res, next){
   var email = body.email,
     password = body.password;
 
-  Auth.login(email, function(err, result){
+  Auth.login(email, password, function(err, result){
     var isEmpty = Object.keys(result).length === 0;
     var json = Response2JSON.JSONFY(result);
     if(err) res.json(err);
@@ -22,7 +22,7 @@ router.post('/auth', function(req, res, next){
           success : false,
           message: "Authentication failed. User not found."
         });
-    } else if (!isEmpty) {
+    } else if (!isEmpty && password) {
       bcrypt.compare(password, json[0].password, function(err, response) {
         if(err) {
           res.status(500).json(
@@ -46,6 +46,12 @@ router.post('/auth', function(req, res, next){
 
         }
       });
+    } else {
+      res.status(500).json(
+        {
+          success : false,
+          message: "Authentication failed. No password given."
+        });
     }
 
   });

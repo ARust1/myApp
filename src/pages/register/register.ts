@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {LoginPage} from "../login/login";
 
 @IonicPage()
 @Component({
@@ -17,10 +11,13 @@ import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 export class RegisterPage {
 
   loading: any;
+  lastPageLogin: boolean;
   regData = { email:'', password:'' };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider,
               public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+
+    this.lastPageLogin = this.navCtrl.last().component == LoginPage;
   }
 
   doSignup() {
@@ -35,7 +32,11 @@ export class RegisterPage {
   }
 
   goBack() {
-    this.navCtrl.pop();
+    if(this.lastPageLogin) {
+      this.navCtrl.popToRoot();
+    } else {
+      this.navCtrl.pop();
+    }
   }
 
   showLoader(){

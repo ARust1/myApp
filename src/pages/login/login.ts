@@ -50,7 +50,7 @@ export class LoginPage {
     });
   }
 
-  register() {
+  goToRegister() {
     this.navCtrl.push(RegisterPage);
   }
 

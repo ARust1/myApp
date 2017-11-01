@@ -131,6 +131,12 @@ export class ProfilePage {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
+          text: 'Profil bearbeiten',
+          handler: () => {
+            this.presentProfileModal();
+          }
+        },
+        {
           text: 'Abmelden',
           handler: () => {
             this.logoutConfirm();

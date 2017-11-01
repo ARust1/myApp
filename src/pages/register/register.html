@@ -5,15 +5,15 @@
 </ion-header>
 
 <ion-content padding>
-  <form (submit)="doSignup()">
+  <form>
     <ion-item>
       <ion-input [(ngModel)]="regData.email" name="email" type="text" placeholder="Email" ></ion-input>
     </ion-item>
     <ion-item>
       <ion-input [(ngModel)]="regData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
-    <button class="button" type="submit">
+    <div class="button"  (click)="doSignup()">
       Registrieren
-    </button>
+    </div>
   </form>
 </ion-content>
