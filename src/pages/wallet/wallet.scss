@@ -46,6 +46,18 @@ page-wallet {
   .scroll-content {
   }
   ion-content {
+    .team-balance-options {
+      position: absolute;
+      top: 220px;
+      right: 0;
+      padding: 0 16px;
+      button {
+        background: transparent;
+      }
+      ion-icon {
+        font-size: 1.7em;
+      }
+    }
     .wallet-content {
       margin-top: 260px;
     }
@@ -67,24 +79,7 @@ page-wallet {
             font-weight: 700;
             letter-spacing: -2px;
 
-            .team-balance-options {
-              display: flex;
-              justify-content: center;
-              flex-direction: column;
-              align-items: center;
-              color: $light-blue;
-              ion-icon {
-                font-size: 1.1em;
-              }
-              span {
-                font-size: 10px;
-                text-transform: uppercase;
-              }
-              button {
-                color: $light-blue !important;
-                width: 30% !important;
-              }
-            }
+
           }
         }
       }

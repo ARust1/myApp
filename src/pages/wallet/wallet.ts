@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {App, DateTime, LoadingController, NavParams, ToastController} from "ionic-angular";
+import {ActionSheetController, App, DateTime, LoadingController, NavParams, ToastController} from "ionic-angular";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
 
@@ -18,7 +18,8 @@ export class WalletPage {
               public navParams: NavParams,
               public teamService: TeamServiceProvider,
               public toastCtrl: ToastController,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              private actionSheetCtrl: ActionSheetController) {
     // if(!this.isLoggedIn) {
     //   this.presentLoadingDefault();
     // }
@@ -42,6 +43,28 @@ export class WalletPage {
     }, (err: any) => {
       this.presentToast(err);
     });
+  }
+
+  presentActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Kontos verwalten',
+          handler: () => {
+            //this.presentProfileModal();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
 
   presentLoadingDefault() {

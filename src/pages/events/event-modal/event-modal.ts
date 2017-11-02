@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
 import {EventServiceProvider} from "../../../providers/event-service/event-service";
+import {CalendarModal, CalendarModalOptions, CalendarResult} from "ion2-calendar";
 
 @IonicPage()
 @Component({
@@ -14,16 +15,33 @@ export class EventModalPage {
   private eventData: Event = new Event();
   private eventArr: Event[];
   private userData: User;
+  private date: string;
+  private type: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public eventService: EventServiceProvider) {
+              public eventService: EventServiceProvider,
+              private modalCtrl: ModalController) {
 
   }
 
   ionViewDidLoad() {
     this.userData = this.navParams.get('userData');
     this.eventArr = this.navParams.get('events');
+  }
+
+  openCalendar() {
+    let options: CalendarModalOptions = {
+      title: 'Anfangsdatum'
+    };
+    let calendar = this.modalCtrl.create(CalendarModal, {
+      options: options
+    });
+    calendar.present();
+
+    calendar.onDidDismiss((date: CalendarResult, type:string) => {
+      console.log(date);
+    })
   }
 
   createEvent() {

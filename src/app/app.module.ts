@@ -23,6 +23,7 @@ import { TeamServiceProvider } from '../providers/team-service/team-service';
 import {EventModalPage} from "../pages/events/event-modal/event-modal";
 import { EventServiceProvider } from '../providers/event-service/event-service';
 import {EventDetailPage} from "../pages/events/event-detail/event-detail";
+import {CalendarModule} from "ion2-calendar";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {EventDetailPage} from "../pages/events/event-detail/event-detail";
   imports: [
     BrowserModule,
     HttpModule,
+    CalendarModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -2,12 +2,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-
+      Ausflüge
     </ion-title>
     <ion-buttons end>
       <button (click)="goToAddEvent()">
-        <!--<ion-icon name="add"></ion-icon>-->
-        hinzufügen
+        <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -22,8 +21,16 @@
   <ion-grid>
     <ion-list *ngIf="eventArr">
       <ion-item (click)="goToDetail(event)"  *ngFor="let event of eventArr" detail-push>
-        <div class="item-h">{{event.name}}</div>
-        <div class="item-sub"><span>Ort:</span> {{event.location}}</div>
+        <ion-row></ion-row>
+        <ion-row>
+          <ion-col class="event-sum" col-3>
+            € {{event.sum}}
+          </ion-col>
+          <ion-col class="event-info" col-9>
+            <div class="item-h">{{event.name}}</div>
+            <div class="item-sub">{{event.location}}</div>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </ion-list>
   </ion-grid>

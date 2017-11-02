@@ -1,3 +1,16 @@
 page-event-modal {
 
+  ion-calendar-modal {
+    ion-header {
+      button {
+        color: #000 !important;
+      }
+    }
+    .week-title.primary {
+      background-color: #fff !important;
+    }
+    ion-calendar-month .primary .days .on-selected {
+      background-color: #ef5350 !important;
+    }
+  }
 }

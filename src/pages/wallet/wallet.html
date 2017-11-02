@@ -17,10 +17,15 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="wallet-content" *ngIf="teamData">
+    <ion-row class="team-balance-options">
+      <button (click)="presentActionSheet()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-row>
     <ion-grid *ngIf="teamData">
       <ion-row >
         <span class="saldo">Team-Saldo</span>
-        <ion-col padding class="team-balance" col-12>
+        <ion-col padding class="team-balance" col-10>
           € {{teamData.balance}}
 
             <!--<div class="team-balance-options">
@@ -39,11 +44,6 @@
             <span>Überweisung</span>
           </div>-->
         </ion-col>
-      </ion-row>
-      <ion-row padding class="team-balance-options">
-        <div class="button">
-          Einzahlen
-        </div>
       </ion-row>
     </ion-grid>
   </div>

@@ -63,8 +63,14 @@ ion-icon[name="arrow-back"] {
   font-weight: 300;
 }
 
-button {
-  background-color: transparent !important;
+ion-header {
+  button {
+    background-color: transparent !important;
+  }
+}
+
+.toolbar-title {
+  font-weight: 300 !important;
 }
 
 .button {
