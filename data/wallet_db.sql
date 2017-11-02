@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 31, 2017 at 10:22 PM
+-- Generation Time: Nov 02, 2017 at 01:27 AM
 -- Server version: 5.7.20-0ubuntu0.17.04.1
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -82,7 +82,7 @@ CREATE TABLE `team` (
 --
 
 INSERT INTO `team` (`uuid`, `name`, `owner_id`, `balance`) VALUES
-('c51dcd7b-be45-11e7-9556-080027c12564', 'Bottroper Shitheads', '5b7fa85e-bca9-11e7-bff5-080027c12564', 0);
+('c51dcd7b-be45-11e7-9556-080027c12564', 'Bottroper Shitheads', '5b7fa85e-bca9-11e7-bff5-080027c12564', 1678.89);
 
 --
 -- Triggers `team`
@@ -117,7 +117,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`) VALUES
 ('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0MzF9.jOFRsVpmXJHv6F6Z-9aSrTLWxzXs4X57lic5BR6QM04'),
-('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', 'c51dcd7b-be45-11e7-9556-080027c12564', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk0ODQ3Nzl9.zpYmzd7ryRXLUcbN_llHUvGsRhNZnX521V3d3asV2sU'),
+('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', 'c51dcd7b-be45-11e7-9556-080027c12564', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk1ODIzMzV9.wB08QnKddqMpQVB-VNYlr5qIt2dM16FDjm-eaKHKDnE'),
 ('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0Mzh9.Pf0hAJFU3yFP4yBqXfqQEd05UCfROVrNbeW23UWuZyw');
 
 --
