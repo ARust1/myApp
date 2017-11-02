@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Ausflug hinzufügen</ion-title>
+    <ion-buttons end>
+      <button>fertig</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <form>
+    <ion-item>
+      <ion-input [(ngModel)]="eventData.name" name="name" type="text" placeholder="Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="eventData.location" name="location" type="text" placeholder="Ort"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="eventData.sum" name="sum" type="number" placeholder="Preis"></ion-input>
+    </ion-item>
+  </form>
+</ion-content>

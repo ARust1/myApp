@@ -39,6 +39,7 @@ export class WalletPage {
     });
 
     loading.present();
+    console.log(this.navParams.data);
     this.userData = this.navParams.data;
     this.getTeamData();
 

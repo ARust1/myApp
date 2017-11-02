@@ -20,6 +20,7 @@ import {DebtPage} from "../pages/debt/debt";
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
 import { TeamServiceProvider } from '../providers/team-service/team-service';
+import {EventModalPage} from "../pages/events/event-modal/event-modal";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TeamServiceProvider } from '../providers/team-service/team-service';
     TabsPage,
     LoginPage,
     RegisterPage,
-    ProfileModalPage
+    ProfileModalPage,
+    EventModalPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { TeamServiceProvider } from '../providers/team-service/team-service';
     TabsPage,
     LoginPage,
     RegisterPage,
-    ProfileModalPage
+    ProfileModalPage,
+    EventModalPage
   ],
   providers: [
     StatusBar,
