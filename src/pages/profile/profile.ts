@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  ActionSheetController, AlertController, App, LoadingController, ModalController, NavParams,
+  ActionSheetController, AlertController, App, LoadingController, ModalController, NavController, NavParams,
   ToastController
 } from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
@@ -30,6 +30,7 @@ export class ProfilePage {
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
+              private navCtrl: NavController,
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
               public modalCtrl: ModalController) {
@@ -54,7 +55,7 @@ export class ProfilePage {
     this.teamService.getTeamById(this.userData.team_id).subscribe( (result: any) => {
       this.teamData = result;
     }, (err: any) => {
-      this.presentToast(err);
+      this.presentToast("Oops. Da ist was schief gelaufen");
     });
   }
 
@@ -64,10 +65,10 @@ export class ProfilePage {
       this.userData.admin = true;
       this.userService.updateUser(this.userData).subscribe( (result:any) => {
       }, (err: any) => {
-        this.presentToast(err);
+        this.presentToast("Oops. Da ist was schief gelaufen");
       })
     }, (error: any) => {
-      this.presentToast(error);
+      this.presentToast("Oops. Da ist was schief gelaufen");
     })
   }
 
@@ -80,7 +81,7 @@ export class ProfilePage {
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Ausloggen...'
     });
 
     this.loading.present();
@@ -133,7 +134,8 @@ export class ProfilePage {
         {
           text: 'Profil bearbeiten',
           handler: () => {
-            this.presentProfileModal();
+            //this.presentProfileModal();
+            this.goToEditProfile();
           }
         },
         {
@@ -155,8 +157,16 @@ export class ProfilePage {
     actionSheet.present();
   }
 
+  goToEditProfile() {
+    this.navCtrl.push(ProfileModalPage, {
+      data : this.userData
+    });
+  }
+
   presentProfileModal() {
-    let profileModal = this.modalCtrl.create(ProfileModalPage, {data : this.userData});
+    let profileModal = this.modalCtrl.create(ProfileModalPage, {
+      data : this.userData
+    });
     profileModal.onDidDismiss(data => {
       console.log(data);
     });

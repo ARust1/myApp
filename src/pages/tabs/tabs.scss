@@ -4,8 +4,6 @@
 .tabbar {
   padding: 2px 0;
   background-color: #ffffff !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  border-top: none;
 }
 
 // Tab Icons
@@ -13,16 +11,16 @@
 
 .tab-button[aria-selected="true"] {
   .tab-button-text {
-    color: $font-grey;
+    color: $font-grey !important;
   }
 }
 
 .tab-button-text {
-  text-transform: uppercase;
-  font-weight:700;
-  letter-spacing:0.4px;
-  color: $logo-grey;
-  font-size: 9px;
+  text-transform: uppercase !important;
+  font-weight:700 !important;
+  letter-spacing:0.4px !important;
+  color: $logo-grey !important;
+  font-size: 9px !important;
 }
 
 .tab-button {

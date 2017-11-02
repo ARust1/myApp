@@ -29,17 +29,16 @@ export class LoginPage {
   }
 
   doLogin() {
-    //this.showLoader();
+
     this.authService.login(this.loginData).subscribe((result: any) => {
       let token = result.token;
       window.localStorage.setItem('token', token);
 
       this.userService.getUserData(token).subscribe( (res: any) => {
         this.userData = res;
-        this.navCtrl.setRoot(TabsPage, {
-          user: this.userData
-        });
-        //this.loading.dismiss();
+        this.showLoader();
+
+
       }, (err) => {
         //this.loading.dismiss();
         this.presentToast(err);
@@ -60,10 +59,16 @@ export class LoginPage {
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Authentifizieren...'
     });
 
     this.loading.present();
+    setTimeout(() => {
+      this.loading.dismiss();
+      this.navCtrl.setRoot(TabsPage, {
+        user: this.userData
+      });
+    }, 2000);
   }
 
   presentToast(msg) {

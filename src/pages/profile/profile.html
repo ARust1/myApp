@@ -14,8 +14,6 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid class="member-profile">
-    <h6 style="text-align: center;">Profil</h6>
-    <hr>
     <ion-row>
       <ion-col col-3 class="member-profile-pic">
         <img src="../../assets/imgs/default-no-profile-pic.jpg">
@@ -49,14 +47,13 @@
     </ion-row>
   </ion-grid>
   <ion-grid padding class="team-profile" *ngIf="userData.team_id && teamData">
-    <h6 style="text-align: center;">Team</h6>
     <hr>
     <ion-row>
       <ion-col class="team-pic" col-3>
-        <img src="../../assets/imgs/team_logo.png">
+        <img src="../../assets/imgs/team_logo.jpg">
       </ion-col>
-      <ion-col padding col-6>
-        {{teamData.name}}
+      <ion-col col-7>
+        <h5>{{teamData.name}}</h5>
       </ion-col>
     </ion-row>
   </ion-grid>

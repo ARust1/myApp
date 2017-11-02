@@ -22,6 +22,7 @@ import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
 import { TeamServiceProvider } from '../providers/team-service/team-service';
 import {EventModalPage} from "../pages/events/event-modal/event-modal";
 import { EventServiceProvider } from '../providers/event-service/event-service';
+import {EventDetailPage} from "../pages/events/event-detail/event-detail";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EventServiceProvider } from '../providers/event-service/event-service';
     LoginPage,
     RegisterPage,
     ProfileModalPage,
-    EventModalPage
+    EventModalPage,
+    EventDetailPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { EventServiceProvider } from '../providers/event-service/event-service';
     LoginPage,
     RegisterPage,
     ProfileModalPage,
-    EventModalPage
+    EventModalPage,
+    EventDetailPage
   ],
   providers: [
     StatusBar,

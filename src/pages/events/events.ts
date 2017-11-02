@@ -4,6 +4,7 @@ import {User} from "../../models/user-model";
 import {EventModalPage} from "./event-modal/event-modal";
 import {EventServiceProvider} from "../../providers/event-service/event-service";
 import {Event} from "../../models/event-model";
+import {EventDetailPage} from "./event-detail/event-detail";
 
 @Component({
   selector: 'page-events',
@@ -12,7 +13,7 @@ import {Event} from "../../models/event-model";
 export class EventsPage {
 
   private userData: User;
-  private eventArr: Event[];
+  private eventArr: Event[] = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -21,12 +22,17 @@ export class EventsPage {
 
 
     this.userData = this.navParams.data;
-    this.getEvents(this.userData.team_id);
-
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log(this.eventArr);
+  }
+  ionViewDidLoad() {
+    this.getEvents(this.userData.team_id);
+  }
+
+  goToDetail(event) {
+    this.navCtrl.push(EventDetailPage, event);
   }
 
   getEvents(team_id: string): any {
@@ -37,13 +43,28 @@ export class EventsPage {
     });
   }
 
+  goToAddEvent() {
+    this.navCtrl.push(EventModalPage, {
+      userData : this.userData,
+      events : this.eventArr
+    })
+  }
+
   presentEventModal() {
     let profileModal = this.modalCtrl.create(EventModalPage, {
-      userData : this.userData
-    });
-    profileModal.onDidDismiss(data => {
-      console.log(data);
+      userData : this.userData,
+      events : this.eventArr
     });
     profileModal.present();
+  }
+
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.getEvents(this.userData.team_id);
+
+      console.log('Async operation has ended');
+      console.log(this.eventArr);
+      refresher.complete();
+    }, 2000);
   }
 }

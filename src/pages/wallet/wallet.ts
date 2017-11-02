@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {App, LoadingController, NavParams, ToastController} from "ionic-angular";
+import {App, DateTime, LoadingController, NavParams, ToastController} from "ionic-angular";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
 
@@ -19,11 +19,21 @@ export class WalletPage {
               public teamService: TeamServiceProvider,
               public toastCtrl: ToastController,
               public loadingCtrl: LoadingController) {
-    if(!this.isLoggedIn) {
-      this.presentLoadingDefault();
-    }
+    // if(!this.isLoggedIn) {
+    //   this.presentLoadingDefault();
+    // }
 
-    console.log(this.navParams.data);
+    if(window.localStorage.getItem("token")) {
+      this.isLoggedIn = true;
+    }
+    this.userData = this.navParams.data;
+    this.userData.balance = 12.39;
+  }
+
+  ionViewWillEnter() {
+  }
+  ionViewDidLoad() {
+    this.getTeamData();
   }
 
   getTeamData(): any {

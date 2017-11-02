@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/catch';
 import {Event} from "../../models/event-model";
 
 @Injectable()
@@ -29,6 +30,7 @@ export class EventServiceProvider {
   }
 
   createEvent(event: Event): Observable<any> {
+    console.log(event);
     return this.http.post(this.apiUrl + 'event', event, this.options)
       .map((res: any) =>
         res.json()

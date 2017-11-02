@@ -4,19 +4,26 @@
     <ion-title>
 
     </ion-title>
+    <ion-buttons end>
+      <button (click)="goToAddEvent()">
+        <!--<ion-icon name="add"></ion-icon>-->
+        hinzufügen
+      </button>
+    </ion-buttons>
   </ion-navbar>
-  <ion-buttons end>
-    <button (click)="presentEventModal()">
-      hinzufügen
-    </button>
-  </ion-buttons>
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="none">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
-    <ion-list>
-      <ion-item>
-
+    <ion-list *ngIf="eventArr">
+      <ion-item (click)="goToDetail(event)"  *ngFor="let event of eventArr" detail-push>
+        <div class="item-h">{{event.name}}</div>
+        <div class="item-sub"><span>Ort:</span> {{event.location}}</div>
       </ion-item>
     </ion-list>
   </ion-grid>

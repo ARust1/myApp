@@ -1,3 +1,31 @@
 page-contact {
+  ion-header {
+    ion-navbar {
 
+    }
+  }
+
+  ion-content {
+    ion-refresher {
+
+    }
+
+    ion-grid {
+      ion-list {
+        ion-item {
+          font-weight: 400;
+          .item-h {
+
+          }
+
+          .item-sub {
+            span {
+              color: $logo-grey;
+            }
+            font-size: 11px !important;
+          }
+        }
+      }
+    }
+  }
 }

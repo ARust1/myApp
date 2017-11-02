@@ -2,7 +2,7 @@ page-profile {
   ion-header {
     ion-icon[name="more"] {
       font-size: 1.6em;
-      transform: rotate(-90deg);
+      //transform: rotate(-90deg);
     }
   }
 
@@ -20,7 +20,6 @@ page-profile {
     }
     ion-grid {
       &.member-profile {
-        margin-bottom: 40px;
       }
       &.team-profile {
         padding: 0 !important;

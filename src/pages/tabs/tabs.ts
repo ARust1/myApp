@@ -18,7 +18,6 @@ import {Team} from "../../models/team-model";
 export class TabsPage {
 
   private userData: User;
-  private teamData: Team;
   tab1Root = WalletPage;
   tab2Root = EventsPage;
   tab3Root = PenaltiesPage;

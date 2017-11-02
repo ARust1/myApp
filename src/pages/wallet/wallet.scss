@@ -4,6 +4,15 @@ page-wallet {
       position: relative;
       height: 210px;
       .overlay {
+        h4 {
+          font-weight: 300;
+          color: #fff;
+          width: 100%;
+          text-align: center;
+          position: absolute;
+          top: 95px;
+          font-size: 3rem;
+        }
         position: absolute;
         top: 0;
         left: 0;
@@ -41,6 +50,9 @@ page-wallet {
       margin-top: 260px;
     }
     ion-grid {
+      h4 {
+        margin-top: 0 !important;
+      }
       ion-row {
         justify-content: center;
         .saldo {
