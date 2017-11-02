@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 02, 2017 at 01:27 AM
+-- Generation Time: Nov 02, 2017 at 12:22 PM
 -- Server version: 5.7.20-0ubuntu0.17.04.1
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -35,12 +35,12 @@ CREATE TABLE `events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Triggers `events`
+-- Dumping data for table `events`
 --
-DELIMITER $$
-CREATE TRIGGER `before_insert_event` BEFORE INSERT ON `events` FOR EACH ROW SET new.uuid = uuid()
-$$
-DELIMITER ;
+
+INSERT INTO `events` (`uuid`, `name`, `location`, `sum`, `team_id`) VALUES
+('c5970dae-ab9d-4787-8d52-a2f7b7c32d91', 'bla Event', 'Bottrop', 250, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
+('cc82c0e4-6d0c-47d3-a2af-084f12f923bd', 'Nice Event', 'Bottrop', 250, '10a021b3-c466-4ef8-abaa-066c57e16fae');
 
 -- --------------------------------------------------------
 
@@ -82,15 +82,7 @@ CREATE TABLE `team` (
 --
 
 INSERT INTO `team` (`uuid`, `name`, `owner_id`, `balance`) VALUES
-('c51dcd7b-be45-11e7-9556-080027c12564', 'Bottroper Shitheads', '5b7fa85e-bca9-11e7-bff5-080027c12564', 1678.89);
-
---
--- Triggers `team`
---
-DELIMITER $$
-CREATE TRIGGER `before_insert_team` BEFORE INSERT ON `team` FOR EACH ROW SET new.uuid = uuid()
-$$
-DELIMITER ;
+('10a021b3-c466-4ef8-abaa-066c57e16fae', 'dsasd', '5b7fa85e-bca9-11e7-bff5-080027c12564', 0);
 
 -- --------------------------------------------------------
 
@@ -117,7 +109,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`) VALUES
 ('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0MzF9.jOFRsVpmXJHv6F6Z-9aSrTLWxzXs4X57lic5BR6QM04'),
-('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', 'c51dcd7b-be45-11e7-9556-080027c12564', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk1ODIzMzV9.wB08QnKddqMpQVB-VNYlr5qIt2dM16FDjm-eaKHKDnE'),
+('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk2MjE2MTN9.Mu5sd7Q4caN3dB6m52X3joRz08bP-vhNKqaQBFpWM7Y'),
 ('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0Mzh9.Pf0hAJFU3yFP4yBqXfqQEd05UCfROVrNbeW23UWuZyw');
 
 --
