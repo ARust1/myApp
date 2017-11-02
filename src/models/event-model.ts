@@ -3,4 +3,5 @@ export class Event {
   public name: string;
   public location: string;
   public sum: number;
+  public team_id: string;
 }

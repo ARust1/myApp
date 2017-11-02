@@ -1,20 +1,19 @@
 var express = require('express');
 var router = express.Router();
-var Team = require('../models/Team');
-var User = require('../models/User');
+var Event = require('../models/Event');
 var Response2JSON = require('../Response2JSON');
 var uid = require('uuid/v4');
 
 router.get('/:id?',function(req, res, next) {
   if(req.params.id){
-    Team.getTeamById(req.params.id,function(err,rows){
+    Event.getEventsByTeamId(req.params.id,function(err,rows){
       var json = Response2JSON.JSONFY(rows);
       if(err) return res.json(err);
-      res.json(json[0]);
+      res.json(json);
 
     });
   } else {
-    Team.getAllTeams(function(err,rows){
+    Event.getAllEvents(function(err,rows){
       var json = Response2JSON.JSONFY(rows);
       if(err) return res.json(err);
       res.json(json[0]);
@@ -23,10 +22,11 @@ router.get('/:id?',function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var name = req.body.name,
-    owner_id = req.body.owner_id;
+  var event = req.body;
+  console.log(event);
   var uuid = uid();
-  Team.createTeam(uuid, owner_id, name, function(err, results) {
+
+  Event.createEvent(uuid, event, function(err, results) {
     if(err) return res.json(err);
     if(results.length !== 0) {
       res.json(results[0]);

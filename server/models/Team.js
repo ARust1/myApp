@@ -1,10 +1,10 @@
 var db = require('../connection');
 
 var Team = {
-  createTeam: function (owner_id, name, callback) {
-    db.query("INSERT INTO team (name, owner_id) VALUES (?, ?);",
-      [name, owner_id], callback);
-    db.query("SELECT uuid FROM team WHERE owner_id = ?;", [owner_id], callback);
+  createTeam: function (uuid, owner_id, name, callback) {
+    db.query("INSERT INTO team (uuid, name, owner_id) VALUES (?, ?, ?);",
+      [uuid, name, owner_id], callback);
+    db.query("SELECT * FROM team WHERE uuid = ?;", [uuid], callback);
   },
   getAllTeams: function(callback) {
     return db.query("SELECT * FROM team", callback);

@@ -21,6 +21,7 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
 import { TeamServiceProvider } from '../providers/team-service/team-service';
 import {EventModalPage} from "../pages/events/event-modal/event-modal";
+import { EventServiceProvider } from '../providers/event-service/event-service';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {EventModalPage} from "../pages/events/event-modal/event-modal";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     UserServiceProvider,
-    TeamServiceProvider
+    TeamServiceProvider,
+    EventServiceProvider
   ]
 })
 export class AppModule {}

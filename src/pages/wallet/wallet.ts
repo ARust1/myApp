@@ -22,6 +22,8 @@ export class WalletPage {
     if(!this.isLoggedIn) {
       this.presentLoadingDefault();
     }
+
+    console.log(this.navParams.data);
   }
 
   getTeamData(): any {
@@ -39,7 +41,6 @@ export class WalletPage {
     });
 
     loading.present();
-    console.log(this.navParams.data);
     this.userData = this.navParams.data;
     this.getTeamData();
 

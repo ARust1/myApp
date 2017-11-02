@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../models/user-model";
 import {EventModalPage} from "./event-modal/event-modal";
+import {EventServiceProvider} from "../../providers/event-service/event-service";
+import {Event} from "../../models/event-model";
 
 @Component({
   selector: 'page-events',
@@ -10,12 +12,29 @@ import {EventModalPage} from "./event-modal/event-modal";
 export class EventsPage {
 
   private userData: User;
+  private eventArr: Event[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              private eventService: EventServiceProvider) {
+
 
     this.userData = this.navParams.data;
+    this.getEvents(this.userData.team_id);
+
+  }
+
+  ionViewDidLoad() {
+    console.log(this.eventArr);
+  }
+
+  getEvents(team_id: string): any {
+    this.eventService.getEventsByTeamId(team_id).subscribe((result: Event[]) => {
+      this.eventArr = result;
+    }, (err: any) => {
+      console.log(err);
+    });
   }
 
   presentEventModal() {
