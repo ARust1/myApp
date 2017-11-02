@@ -11,6 +11,11 @@ var User = {
       "email, prename, surname, team_id, admin, back_number, position " +
       "FROM user where uuid = ?",[id],callback);
   },
+  getUserByTeamId:function(team_id, callback){
+    return db.query("SELECT uuid," +
+      "email, prename, surname, admin, back_number, position " +
+      "FROM user where team_id = ?",[team_id],callback);
+  },
   getUserByToken: function(token, callback) {
     return db.query('SELECT uuid, ' +
       'email, prename, surname, team_id, admin, back_number, position ' +

@@ -139,6 +139,11 @@ export class ProfilePage {
           }
         },
         {
+          text: 'Konten verwalten',
+          handler: () => {
+          }
+        },
+        {
           text: 'Abmelden',
           handler: () => {
             this.logoutConfirm();

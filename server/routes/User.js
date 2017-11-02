@@ -11,22 +11,29 @@ router.get('/:id?',function(req, res, next) {
       res.json(json[0]);
 
     });
-  }  else {
+  } else {
     if(req.query.token) {
       User.getUserByToken(req.query.token, function (err, rows) {
         var json = Response2JSON.JSONFY(rows);
         if (err) return res.json(err);
         res.json(json[0]);
       });
+    } else if(req.query.team_id) {
+      User.getUserByTeamId(req.query.team_id, function (err, rows) {
+        var json = Response2JSON.JSONFY(rows);
+        if (err) return res.json(err);
+        res.json(json);
+      });
     } else {
       User.getAllUser(function(err,rows){
         var json = Response2JSON.JSONFY(rows);
         if(err) return res.json(err);
-        res.json(json[0]);
+        res.json(json);
       });
     }
   }
 });
+
 
 /*router.post('/',function(req,res,next){
 

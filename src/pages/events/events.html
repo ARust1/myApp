@@ -20,15 +20,20 @@
   </ion-refresher>
   <ion-grid>
     <ion-list *ngIf="eventArr">
-      <ion-item (click)="goToDetail(event)"  *ngFor="let event of eventArr" detail-push>
+      <ion-item (click)="goToDetail(event)"  *ngFor="let event of eventArr">
         <ion-row></ion-row>
         <ion-row>
-          <ion-col class="event-sum" col-3>
-            € {{event.sum}}
+          <ion-col class="event-date" col-3>
+            <div>12.11.2017</div>
+            <div class="from-to"><img src="../../assets/icon/from_to.svg"></div>
+            <div>14.11.2017</div>
           </ion-col>
-          <ion-col class="event-info" col-9>
+          <ion-col class="event-info" col-6>
             <div class="item-h">{{event.name}}</div>
             <div class="item-sub">{{event.location}}</div>
+          </ion-col>
+          <ion-col class="event-sum" col-3>
+            € {{event.sum}}
           </ion-col>
         </ion-row>
       </ion-item>

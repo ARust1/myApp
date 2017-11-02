@@ -37,16 +37,36 @@ page-events {
           .item-inner {
             border: none !important;
           }
+          .event-date {
+            font-weight: 300;
+            font-size: 11px;
+            div {
+              text-align: center;
+            }
+            .from-to {
+              padding: 3px 0;
+              display: flex;
+              img {
+                margin: 0 auto;
+                height:30px;
+              }
+            }
+          }
           .event-sum {
+            text-align: center;
             font-size: 21px;
+            font-weight: 400;
+            align-self: center;
           }
           .event-info {
-
+            align-self: center;
+            justify-content: center;
           }
           .item-h {
-
+            text-align: center;
           }
           .item-sub {
+            text-align: center;
             font-size: 12px !important;
             font-weight:300;
             color: $font-light-grey;

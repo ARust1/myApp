@@ -1,4 +1,11 @@
 page-wallet {
+  .line {
+    margin: 0 6px;
+    flex-grow: 1;
+    height:1px;
+    background-color: #dadada;
+    align-self: center;
+  }
   ion-header {
     .team-pic {
       position: relative;
@@ -67,8 +74,15 @@ page-wallet {
       }
       ion-row {
         justify-content: center;
-        .saldo {
+        .saldo,
+        .team-h {
+          flex-grow: 0;
           color: $logo-grey;
+        }
+        .team-member {
+          display: flex;
+          flex-direction: row;
+
         }
         ion-col {
           &.team-balance {

@@ -30,6 +30,14 @@ export class UserServiceProvider {
       );
   }
 
+  getUserByTeamId(team_id: string): Observable<any> {
+    return this.http.get(this.apiUrl + `user?team_id=${team_id}`, this.options)
+      .map((res: any) =>
+        res.json(),
+        (err: any) => Observable.throw(err.json())
+      );
+  }
+
   updateUser(userData: User): Observable<any> {
     return this.http.put(this.apiUrl + `user/${userData.uuid}` , userData, this.options);
   }

@@ -3,6 +3,7 @@ import {User} from "../../models/user-model";
 import {ActionSheetController, App, DateTime, LoadingController, NavParams, ToastController} from "ionic-angular";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @Component({
   selector: 'page-wallet',
@@ -12,11 +13,13 @@ export class WalletPage {
 
   private userData: User;
   private teamData: Team;
+  private teamUser: User[];
   private isLoggedIn: boolean = false;
 
   constructor(public app: App,
               public navParams: NavParams,
               public teamService: TeamServiceProvider,
+              public userService: UserServiceProvider,
               public toastCtrl: ToastController,
               public loadingCtrl: LoadingController,
               private actionSheetCtrl: ActionSheetController) {
@@ -35,21 +38,31 @@ export class WalletPage {
   }
   ionViewDidLoad() {
     this.getTeamData();
+    this.getUserByTeamId(this.userData.team_id);
   }
 
   getTeamData(): any {
     this.teamService.getTeamById(this.userData.team_id).subscribe( (result) => {
       this.teamData = result;
+      console.log(this.teamUser);
     }, (err: any) => {
       this.presentToast(err);
     });
+  }
+
+  getUserByTeamId(team_id: string): any {
+    this.userService.getUserByTeamId(team_id).subscribe((result: any) => {
+      this.teamUser = result;
+    }, (err: any) => {
+      console.log(err)
+    })
   }
 
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Kontos verwalten',
+          text: 'Leute einladen',
           handler: () => {
             //this.presentProfileModal();
           }

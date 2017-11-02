@@ -6,6 +6,8 @@ import {EventServiceProvider} from "../../providers/event-service/event-service"
 import {Event} from "../../models/event-model";
 import {EventDetailPage} from "./event-detail/event-detail";
 
+import * as $ from 'jquery';
+
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html'
