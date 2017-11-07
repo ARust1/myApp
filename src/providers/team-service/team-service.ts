@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class TeamServiceProvider {
@@ -15,6 +16,7 @@ export class TeamServiceProvider {
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
 
+    console.log(window.localStorage.getItem('token'));
     this.options = new RequestOptions({
       headers: this.headers
     });
@@ -33,6 +35,13 @@ export class TeamServiceProvider {
       name : name
     };
     return this.http.post(this.apiUrl + 'team', data, this.options)
+      .map((res: any) =>
+        res.json()
+      );
+  }
+
+  getInviteToken(team_id: string) {
+    return this.http.put(this.apiUrl + `team/${team_id}/invite_token`, null, this.options)
       .map((res: any) =>
         res.json()
       );

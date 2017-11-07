@@ -2,7 +2,7 @@
   <ion-navbar>
     <!--<ion-title>Profil</ion-title>-->
     <ion-buttons end>
-      <button (click)="presentActionSheet()">
+      <button (click)="presentActionSheet($event)">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -35,6 +35,7 @@
   <ion-grid *ngIf="!userData.team_id">
     <ion-row class="create-team">
       <button ion-button (click)="toggleClick()">Team erstellen</button>
+      <button ion-button>Team beitreten</button>
     </ion-row>
     <ion-row *ngIf="clicked">
       <form>

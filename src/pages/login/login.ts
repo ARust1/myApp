@@ -5,6 +5,7 @@ import { RegisterPage } from '../register/register';
 import { TabsPage } from '../tabs/tabs';
 import { User } from "../../models/user-model";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {SetupAccountPage} from "../setup-account/setup-account";
 
 @IonicPage()
 @Component({
@@ -65,9 +66,16 @@ export class LoginPage {
     this.loading.present();
     setTimeout(() => {
       this.loading.dismiss();
-      this.navCtrl.setRoot(TabsPage, {
-        user: this.userData
-      });
+      if(!this.userData.team_id) {
+        this.navCtrl.setRoot(SetupAccountPage, {
+          user: this.userData
+        });
+      } else {
+        this.navCtrl.setRoot(TabsPage, {
+          user: this.userData
+        });
+      }
+
     }, 2000);
   }
 

@@ -83,3 +83,20 @@ ion-header {
   border-radius: 4px;
   margin-bottom: 15px;
 }
+
+ion-popover {
+  display: flex !important;
+  justify-content: center !important;
+
+  .popover-arrow {
+    display: none !important;
+  }
+  .popover-content {
+    width: 300px !important;
+    top: auto !important;
+    left: auto !important;
+    position: relative;
+    align-self: center;
+    transform-origin: center center 0px !important;
+  }
+}

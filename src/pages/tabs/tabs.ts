@@ -6,10 +6,9 @@ import { EventsPage } from '../events/events';
 import { WalletPage } from '../wallet/wallet';
 import { HomePage } from "../home/home";
 import {PenaltiesPage} from "../penalties/penalties";
-import {DebtPage} from "../debt/debt";
+import {TeamPage} from "../team/team";
 import {User} from "../../models/user-model";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
-import {Team} from "../../models/team-model";
 
 @Component({
   selector: 'page-tabs',
@@ -21,7 +20,7 @@ export class TabsPage {
   tab1Root = WalletPage;
   tab2Root = EventsPage;
   tab3Root = PenaltiesPage;
-  tab4Root = DebtPage;
+  tab4Root = TeamPage;
   tab5Root = ProfilePage;
 
   constructor(public navCtrl: NavController,

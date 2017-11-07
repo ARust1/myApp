@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {ActionSheetController, App, DateTime, LoadingController, NavParams, ToastController} from "ionic-angular";
+import {ActionSheetController, App, LoadingController, NavParams, ToastController} from "ionic-angular";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
 import {UserServiceProvider} from "../../providers/user-service/user-service";

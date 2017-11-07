@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
   ActionSheetController, AlertController, App, LoadingController, ModalController, NavController, NavParams,
+  PopoverController,
   ToastController
 } from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
@@ -10,6 +11,7 @@ import {ProfileModalPage} from "./profile-modal/profile-modal";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {InviteLinkPopoverPage} from "./invite-link-popover/invite-link-popover";
 
 @Component({
   selector: 'page-profile',
@@ -33,7 +35,8 @@ export class ProfilePage {
               private navCtrl: NavController,
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              public popoverCtrl: PopoverController) {
 
     if(window.localStorage.getItem("token")) {
       this.isLoggedIn = true;
@@ -69,6 +72,14 @@ export class ProfilePage {
       })
     }, (error: any) => {
       this.presentToast("Oops. Da ist was schief gelaufen");
+    })
+  }
+
+  getInviteToken() {
+    this.teamService.getInviteToken(this.teamData.uuid).subscribe((result: any) => {
+      this.teamData.invite_token = result;
+    }, (err: any) => {
+      console.log(err);
     })
   }
 
@@ -128,7 +139,7 @@ export class ProfilePage {
     toast.present();
   }
 
-  presentActionSheet() {
+  presentActionSheet($event) {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
@@ -136,6 +147,13 @@ export class ProfilePage {
           handler: () => {
             //this.presentProfileModal();
             this.goToEditProfile();
+          }
+        },
+        {
+          text: 'Leute einladen',
+          handler: () => {
+            this.getInviteToken();
+            this.presentPopover($event);
           }
         },
         {
@@ -168,14 +186,11 @@ export class ProfilePage {
     });
   }
 
-  presentProfileModal() {
-    let profileModal = this.modalCtrl.create(ProfileModalPage, {
-      data : this.userData
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(InviteLinkPopoverPage, this.teamData);
+    popover.present({
+      ev: event
     });
-    profileModal.onDidDismiss(data => {
-      console.log(data);
-    });
-    profileModal.present();
   }
 
   doRefresh(refresher) {

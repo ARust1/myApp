@@ -1,0 +1,29 @@
+page-invite-link-popover {
+  font-weight: 300;
+  ion-header {
+    display: none;
+  }
+  ion-content {
+    text-align: center;
+    .h {
+      font-size: 15px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+    .sub {
+      font-size: 13px;
+      color: $font-light-grey;
+      margin-bottom: 15px;
+    }
+    .inviteToken {
+      span.token {
+      }
+      button {
+        margin-left: 10px;
+        padding: 0px 9px !important;
+        font-size: 12px !important;
+      }
+    }
+  }
+
+}

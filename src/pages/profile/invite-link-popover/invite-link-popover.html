@@ -1,0 +1,10 @@
+<ion-content padding>
+  <div class="h">Leute zu deinem Team einladen</div>
+  <div class="sub">Teile dieses Token, damit Leute eine Anfrage an dein Team stellen können</div>
+
+  <div class="inviteToken">
+    <span class="token">{{teamData.invite_token}}</span>
+    <button ion-button (click)="copyTokenToClipboard()">Kopieren</button>
+  </div>
+
+</ion-content>

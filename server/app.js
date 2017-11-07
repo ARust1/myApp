@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var Invite = require('./routes/Invite');
 var Event = require('./routes/Event');
 var Team = require('./routes/Team');
 var User = require('./routes/User');
@@ -39,6 +40,7 @@ app.use(apiUrl + '/', Auth);
 app.use(apiUrl + '/user', User);
 app.use(apiUrl + '/team', Team);
 app.use(apiUrl + '/event', Event);
+app.use(apiUrl + '/invite', Invite);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
