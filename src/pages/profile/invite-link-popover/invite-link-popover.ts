@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import { Team } from "../../../models/team-model";
 import {Clipboard} from "@ionic-native/clipboard";
 
@@ -21,7 +21,8 @@ export class InviteLinkPopoverPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private clipboard: Clipboard) {
+              private clipboard: Clipboard,
+              private viewCtrl: ViewController) {
     this.teamData = this.navParams.data;
   }
 
@@ -31,5 +32,6 @@ export class InviteLinkPopoverPage {
 
   copyTokenToClipboard() {
     this.clipboard.copy(this.teamData.invite_token);
+    //this.viewCtrl.dismiss();
   }
 }

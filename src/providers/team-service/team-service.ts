@@ -41,7 +41,10 @@ export class TeamServiceProvider {
   }
 
   getInviteToken(team_id: string) {
-    return this.http.put(this.apiUrl + `team/${team_id}/invite_token`, null, this.options)
+    var data = {
+      team_id: team_id
+    };
+    return this.http.put(this.apiUrl + `team/invite_token`, data, this.options)
       .map((res: any) =>
         res.json()
       );

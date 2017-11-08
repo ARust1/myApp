@@ -13,6 +13,12 @@ router.get('/:id?',function(req, res, next) {
       res.json(json[0]);
 
     });
+  } else if (req.param.invite_token) {
+    Team.getTeamByInviteToken(req.param.invite_token, function(err, rows) {
+      var json = Response2JSON.JSONFY(rows);
+      if(err) return res.json(err);
+      res.json(json[0]);
+    });
   } else {
     Team.getAllTeams(function(err,rows){
       var json = Response2JSON.JSONFY(rows);
@@ -34,8 +40,8 @@ router.post('/', function(req, res, next) {
   });
 });
 
-router.put('/:team_id/invite_token', function(req, res, next) {
-    var team_id = req.param.team_id;
+router.put('/invite_token', function(req, res, next) {
+    var team_id = req.body.team_id;
     var invite_token = generateInviteToken();
     Team.setInviteToken(invite_token, team_id, function(err, result) {
       if(err) return res.json(err);
@@ -47,7 +53,7 @@ function generateInviteToken() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-  for (var i = 0; i < 4; i++)
+  for (var i = 0; i < 5; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;

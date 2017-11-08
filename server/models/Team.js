@@ -12,8 +12,11 @@ var Team = {
   getTeamById:function(uuid, callback){
     return db.query("SELECT * FROM team where uuid = ?",[uuid],callback);
   },
-  setInviteToken: function(invite_token, team_id, callback) {
-    return db.query("UPDATE team SET invite_token = ? WHERE uuid = ?;", [invite_token, team_id], callback);
+  setInviteToken: function(invite_token, uuid, callback) {
+    return db.query("UPDATE team SET invite_token = ? WHERE uuid = ?", [invite_token, uuid], callback);
+  },
+  getTeamByInviteToken: function(invite_token, callback) {
+    return db.query("SELECT uuid FROM team WHERE invite_token = ?", [invite_token], callback);
   }
 };
 
