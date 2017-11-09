@@ -12,6 +12,8 @@ import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
 import {InviteLinkPopoverPage} from "./invite-link-popover/invite-link-popover";
+import {InviteServiceProvider} from "../../providers/invite-service/invite-service";
+import {TeamRequestPage} from "./team-request/team-request";
 
 @Component({
   selector: 'page-profile',
@@ -23,12 +25,14 @@ export class ProfilePage {
   private isLoggedIn: boolean = false;
   private userData: User;
   private teamData: Team;
+  private inviteRequests: User[];
   private clicked: boolean = false;
 
   constructor(public app: App,
               public authService: AuthServiceProvider,
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
+              public inviteService: InviteServiceProvider,
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
@@ -50,6 +54,13 @@ export class ProfilePage {
     }
   }
 
+  ionViewDidLoad() {
+    if(this.userData.team_id) {
+      this.getInviteRequests();
+      console.log(this.inviteRequests);
+    }
+  }
+
   toggleClick() {
     this.clicked = !this.clicked;
   }
@@ -67,6 +78,7 @@ export class ProfilePage {
       this.userData.team_id = result.uuid;
       this.userData.admin = true;
       this.userService.updateUser(this.userData).subscribe( (result:any) => {
+
       }, (err: any) => {
         this.presentToast("Oops. Da ist was schief gelaufen");
       })
@@ -80,6 +92,15 @@ export class ProfilePage {
       this.teamData.invite_token = result;
     }, (err: any) => {
       console.log(err);
+    })
+  }
+
+  getInviteRequests() {
+    this.inviteService.getTeamRequests(this.userData.team_id).subscribe((result: any) => {
+      console.log(result);
+      this.inviteRequests = result;
+    }, (error: any) => {
+      console.log(error);
     })
   }
 
@@ -183,6 +204,14 @@ export class ProfilePage {
   goToEditProfile() {
     this.navCtrl.push(ProfileModalPage, {
       data : this.userData
+    });
+  }
+
+  gToInviteRequests() {
+    this.navCtrl.push(TeamRequestPage, {
+      userData: this.userData,
+      teamData: this.teamData,
+      inviteRequests: this.inviteRequests
     });
   }
 

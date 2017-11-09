@@ -13,18 +13,20 @@ router.get('/:id?',function(req, res, next) {
       res.json(json[0]);
 
     });
-  } else if (req.param.invite_token) {
-    Team.getTeamByInviteToken(req.param.invite_token, function(err, rows) {
-      var json = Response2JSON.JSONFY(rows);
-      if(err) return res.json(err);
-      res.json(json[0]);
-    });
   } else {
-    Team.getAllTeams(function(err,rows){
-      var json = Response2JSON.JSONFY(rows);
-      if(err) return res.json(err);
-      res.json(json);
-    });
+    if (req.query.invite_token) {
+      Team.getTeamByInviteToken(req.query.invite_token, function(err, rows) {
+        var json = Response2JSON.JSONFY(rows);
+        if(err) return res.json(err);
+        res.json(json[0]);
+      });
+    } else {
+      Team.getAllTeams(function(err,rows){
+        var json = Response2JSON.JSONFY(rows);
+        if(err) return res.json(err);
+        res.json(json);
+      });
+    }
   }
 });
 

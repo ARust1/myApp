@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {User} from "../../../models/user-model";
+import {Team} from "../../../models/team-model";
 
 /**
  * Generated class for the TeamRequestPage page.
@@ -15,11 +17,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TeamRequestPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private userData: User;
+  private teamData: Team;
+  private inviteRequests: User[];
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams) {
+    this.userData = this.navParams.data.userData;
+    this.teamData = this.navParams.data.teamData;
+    this.inviteRequests = this.navParams.data.inviteRequests;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamRequestPage');
+    console.log(this.userData);
+    console.log(this.teamData);
+    console.log(this.inviteRequests);
   }
 
 }

@@ -16,7 +16,6 @@ export class TeamServiceProvider {
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
 
-    console.log(window.localStorage.getItem('token'));
     this.options = new RequestOptions({
       headers: this.headers
     });
@@ -24,6 +23,13 @@ export class TeamServiceProvider {
 
   getTeamById(uuid: string): Observable<any> {
     return this.http.get(this.apiUrl + `team/${uuid}`, this.options)
+      .map((res: any) =>
+        res.json()
+      );
+  }
+
+  getTeamByInviteToken(invite_token: string): Observable<any> {
+    return this.http.get(this.apiUrl + `team?invite_token=${invite_token}`, this.options)
       .map((res: any) =>
         res.json()
       );

@@ -20,13 +20,21 @@
   <ion-slides>
     <ion-slide>
       <h1>Team erstellen</h1>
-
+      <form>
+        <ion-item>
+          <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Teamname"></ion-input>
+        </ion-item>
+        <button ion-button (click)="createTeam()">Erstellen</button>
+      </form>
     </ion-slide>
     <ion-slide>
       <h1>Team beitreten</h1>
-
-
-
+      <form>
+        <ion-item>
+          <ion-input [(ngModel)]="invite_token" name="name" type="text" placeholder="Einladungs Token"></ion-input>
+        </ion-item>
+        <button ion-button (click)="sendTeamRequest()">Anfrage senden</button>
+      </form>
     </ion-slide>
   </ion-slides>
 

@@ -29,6 +29,7 @@ import {CalendarModule} from "ion2-calendar";
 import {TeamRequestPage} from "../pages/profile/team-request/team-request";
 import {SetupAccountPage} from "../pages/setup-account/setup-account";
 import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite-link-popover";
+import { InviteServiceProvider } from '../providers/invite-service/invite-service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite
     AuthServiceProvider,
     UserServiceProvider,
     TeamServiceProvider,
-    EventServiceProvider
+    EventServiceProvider,
+    InviteServiceProvider
   ]
 })
 export class AppModule {}
