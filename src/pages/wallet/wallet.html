@@ -34,7 +34,7 @@
             </div>-->
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="userData">
+      <ion-row *ngIf="userData && userData.balance">
         <span class="saldo">Mein Guthaben</span>
         <ion-col padding class="team-balance" col-12>
           € {{userData.balance}}
@@ -45,14 +45,20 @@
           </div>-->
         </ion-col>
       </ion-row>
-      <!--<ion-row class="team-member">
-        <div class="line"></div>
+      <ion-row class="team-member" *ngIf="teamUser">
+        <!--<div class="line"></div>-->
         <div class="team-h">Mitglieder</div>
-        <div class="line"></div>
+        <!--<div class="line"></div>-->
       </ion-row>
-      <ion-row>
-        <ion-icon name="search"></ion-icon>
-      </ion-row>-->
+      <ion-row class="team-member-list" *ngIf="teamUser">
+        <ion-col col-3 *ngFor="let user of teamUser">
+          <div>
+            <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg">
+          </div>
+          <div>{{user.prename}}</div>
+          <div>{{user.surname}}</div>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   </div>
 

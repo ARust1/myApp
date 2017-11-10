@@ -28,7 +28,7 @@ export class TeamServiceProvider {
   }
 
   getTeamByInviteToken(invite_token: string): Observable<any> {
-    return this.http.get(this.apiUrl + `team?invite_token=${invite_token}`, this.options)
+    return this.http.get(this.credentials.getApiUrl() + `team?invite_token=${invite_token}`, this.options)
       .map((res: any) =>
         res.json()
       );
@@ -46,7 +46,7 @@ export class TeamServiceProvider {
   }
 
   getInviteToken(team_id: string) {
-    var data = {
+    let data = {
       team_id: team_id
     };
     return this.http.put(this.credentials.getApiUrl() + `team/invite_token`, data, this.options)

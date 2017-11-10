@@ -35,16 +35,18 @@ export class WalletPage {
   }
 
   ionViewWillEnter() {
-  }
-  ionViewDidLoad() {
+    this.getUserData();
     this.getTeamData();
     this.getUserByTeamId(this.userData.team_id);
+  }
+
+  ionViewDidLoad() {
+    this.getUserData();
   }
 
   getTeamData(): any {
     this.teamService.getTeamById(this.userData.team_id).subscribe( (result) => {
       this.teamData = result;
-      console.log(this.teamUser);
     }, (err: any) => {
       this.presentToast(err);
     });
@@ -55,6 +57,14 @@ export class WalletPage {
       this.teamUser = result;
     }, (err: any) => {
       console.log(err)
+    })
+  }
+
+  getUserData() {
+    this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
+      this.userData = result;
+    }, (error: any) => {
+      console.log(error);
     })
   }
 
@@ -117,8 +127,8 @@ export class WalletPage {
   doRefresh(refresher) {
     setTimeout(() => {
       this.getTeamData();
-      console.log('Async operation has ended');
-      console.log(this.teamData);
+      this.getUserByTeamId(this.userData.team_id);
+      this.getUserData();
       refresher.complete();
     }, 2000);
   }

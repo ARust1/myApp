@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {LoginPage} from "../login/login";
 import {RegisterPage} from "../register/register";
-import {WalletPage} from "../wallet/wallet";
+import {TabsPage} from "../tabs/tabs";
 
 /**
  * Generated class for the HomePage page.
@@ -19,9 +19,9 @@ import {WalletPage} from "../wallet/wallet";
 export class HomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // if(window.localStorage.getItem("token")) {
-    //   this.navCtrl.setRoot(WalletPage);
-    // }
+    /*if(window.localStorage.getItem("token")) {
+      this.navCtrl.setRoot(TabsPage);
+    }*/
   }
 
   goToLogin() {

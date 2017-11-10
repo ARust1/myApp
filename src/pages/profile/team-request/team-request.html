@@ -18,7 +18,7 @@
     <ion-list>
       <ion-item *ngFor="let request of inviteRequests">
         {{request.prename}} {{request.surname}}
-        <button ion-button item-end>Hinzufügen</button>
+        <button ion-button item-end (click)="acceptRequest(request)">Hinzufügen</button>
       </ion-item>
     </ion-list>
   </ion-grid>

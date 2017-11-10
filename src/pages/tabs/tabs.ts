@@ -9,6 +9,8 @@ import {PenaltiesPage} from "../penalties/penalties";
 import {TeamPage} from "../team/team";
 import {User} from "../../models/user-model";
 import {TeamServiceProvider} from "../../providers/team-service/team-service";
+import {InviteServiceProvider} from "../../providers/invite-service/invite-service";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @Component({
   selector: 'page-tabs',
@@ -25,12 +27,31 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public teamService: TeamServiceProvider,
+              public userService: UserServiceProvider,
               public toastCtrl: ToastController) {
+
     if(!window.localStorage.getItem("token")) {
       navCtrl.setRoot(HomePage);
     }
     this.userData = this.navParams.get('user');
+  }
+
+  ionViewWillEnter() {
+    if(!this.userData) {
+      this.getUserData();
+    }
+  }
+
+  ionViewDidLoad() {
+
+  }
+
+  getUserData() {
+    this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
+      this.userData = result;
+    }, (error: any) => {
+      console.log(error);
+    })
   }
 
   presentToast(msg) {

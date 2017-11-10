@@ -4,7 +4,7 @@
     <ion-title>
       Ausflüge
     </ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="userData.admin">
       <button (click)="goToAddEvent()">
         <ion-icon name="add"></ion-icon>
       </button>

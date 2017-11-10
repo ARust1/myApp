@@ -12,10 +12,11 @@ router.get('/:team_id?',function(req, res, next) {
     });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/request', function(req, res, next) {
   var team_id = req.body.team_id,
     user_id = req.body.user_id;
   var uuid = uid();
+
   Invite.sendInvite(uuid,team_id, user_id, function(err, results) {
     if(err) return res.status(500).json(err);
     if(results.length !== 0) {
@@ -23,5 +24,24 @@ router.post('/', function(req, res, next) {
     }
   });
 });
+
+router.put('/accept', function (req, res, next) {
+  var team_id = req.body.team_id,
+    user_id = req.body.user_id;
+
+  Invite.acceptInvite(user_id, team_id, function(err, rows) {
+    if(err) return res.status(500).json(err);
+    res.status(200).json(rows);
+  });
+});
+
+router.delete('/:user_id?', function(req, res, next) {
+
+  Invite.deleteInvite(req.params.user_id, function(err, rows) {
+    if(err) return res.status(500).json(err);
+    res.status(200).json(rows);
+  });
+});
+
 
 module.exports = router;

@@ -25,9 +25,6 @@ export class EventsPage {
   }
 
   ionViewWillEnter() {
-    console.log(this.eventArr);
-  }
-  ionViewDidLoad() {
     this.getEvents(this.userData.team_id);
   }
 
