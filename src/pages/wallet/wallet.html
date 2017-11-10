@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-header *ngIf="teamData">
+  <ion-header *ngIf="userData && teamData">
     <div class="team-pic">
       <div class="overlay">
         <h4>{{teamData.name}}</h4>
@@ -16,7 +16,7 @@
       pullingIcon="none">
     </ion-refresher-content>
   </ion-refresher>
-  <div class="wallet-content" *ngIf="teamData">
+  <div class="wallet-content" *ngIf="userData && teamData">
     <ion-row class="team-balance-options">
       <button (click)="presentActionSheet()">
         <ion-icon name="more"></ion-icon>

@@ -34,6 +34,7 @@ export class LoginPage {
     this.authService.login(this.loginData).subscribe((result: any) => {
       let token = result.token;
       window.localStorage.setItem('token', token);
+      window.localStorage.setItem('loggedIn', "true");
 
       this.userService.getUserData(token).subscribe( (res: any) => {
         this.userData = res;

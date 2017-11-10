@@ -135,6 +135,7 @@ export class ProfilePage {
           text: 'Abmelden',
           handler: () => {
               this.logout();
+              window.localStorage.removeItem("loggedIn");
               this.showLoader();
               this.app.getRootNav().setRoot(HomePage);
               this.loading.dismiss();

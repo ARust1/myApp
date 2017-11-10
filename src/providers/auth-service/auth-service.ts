@@ -34,11 +34,9 @@ export class AuthServiceProvider {
 
   logout(){
     return new Promise((resolve, reject) => {
-      //this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
 
       this.http.post(this.credentials.getApiUrl() + 'logout', {}, this.options)
         .subscribe(res => {
-          window.localStorage.clear();
         }, (err) => {
           reject(err);
         });

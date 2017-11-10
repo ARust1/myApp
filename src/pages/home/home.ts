@@ -19,9 +19,9 @@ import {TabsPage} from "../tabs/tabs";
 export class HomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    /*if(window.localStorage.getItem("token")) {
+    if(window.localStorage.getItem("loggedIn")) {
       this.navCtrl.setRoot(TabsPage);
-    }*/
+    }
   }
 
   goToLogin() {

@@ -23,6 +23,13 @@ export class UserServiceProvider {
   }
 
   getUserData(token: string): Observable<any> {
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Authorization', 'Bearer ' + token);
+
+    this.options = new RequestOptions({
+      headers: this.headers
+    });
     return this.http.get(this.credentials.getApiUrl() + `user?token=${token}`, this.options)
       .map((res: any) =>
         res.json(),

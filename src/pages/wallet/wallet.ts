@@ -23,32 +23,48 @@ export class WalletPage {
               public toastCtrl: ToastController,
               public loadingCtrl: LoadingController,
               private actionSheetCtrl: ActionSheetController) {
-    // if(!this.isLoggedIn) {
-    //   this.presentLoadingDefault();
-    // }
 
     if(window.localStorage.getItem("token")) {
       this.isLoggedIn = true;
     }
     this.userData = this.navParams.data;
-    this.userData.balance = 12.39;
+
+  }
+  ngOnInit() {
+    if(Object.keys(this.userData).length == 0) {
+      this.getAllData();
+    } else {
+      this.getTeamData(this.userData.team_id);
+      this.getUserByTeamId(this.userData.team_id);
+    }
   }
 
-  ionViewWillEnter() {
-    this.getUserData();
-    this.getTeamData();
-    this.getUserByTeamId(this.userData.team_id);
+  getAllData() {
+    this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
+      this.userData = result;
+      this.teamService.getTeamById(result.team_id).subscribe( (result) => {
+        this.teamData = result;
+        this.userService.getUserByTeamId(result.uuid).subscribe((result: any) => {
+          this.teamUser = result;
+        }, (err: any) => {
+          console.log(err)
+        })
+      }, (err: any) => {
+        this.presentToast(err);
+      }, () => {
+      });
+    }, (error: any) => {
+      console.log(error);
+    }, () => {
+    })
   }
 
-  ionViewDidLoad() {
-    this.getUserData();
-  }
-
-  getTeamData(): any {
-    this.teamService.getTeamById(this.userData.team_id).subscribe( (result) => {
+  getTeamData(team_id: string): any {
+    this.teamService.getTeamById(team_id).subscribe( (result) => {
       this.teamData = result;
     }, (err: any) => {
       this.presentToast(err);
+    }, () => {
     });
   }
 
@@ -60,11 +76,12 @@ export class WalletPage {
     })
   }
 
-  getUserData() {
+  getUserData(): any {
     this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
       this.userData = result;
     }, (error: any) => {
       console.log(error);
+    }, () => {
     })
   }
 
@@ -90,25 +107,6 @@ export class WalletPage {
     actionSheet.present();
   }
 
-  presentLoadingDefault() {
-    const loading = this.loadingCtrl.create({
-      spinner: 'crescent',
-      showBackdrop: false
-    });
-
-    loading.present();
-    this.userData = this.navParams.data;
-    this.getTeamData();
-
-    setTimeout(() => {
-      if(window.localStorage.getItem("token")) {
-        this.isLoggedIn = true;
-      }
-      console.log(this.teamData);
-      loading.dismiss();
-    }, 2000);
-  }
-
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
@@ -126,7 +124,7 @@ export class WalletPage {
 
   doRefresh(refresher) {
     setTimeout(() => {
-      this.getTeamData();
+      this.getTeamData(this.userData.team_id);
       this.getUserByTeamId(this.userData.team_id);
       this.getUserData();
       refresher.complete();
