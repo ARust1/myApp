@@ -33,7 +33,7 @@ export class ProfileModalPage {
 
   updateUser() {
     this.userService.updateUser(this.userData).subscribe( (result) => {
-      this.dismiss()
+      this.dismiss();
     }, (err) => {
       this.presentToast(err);
     })

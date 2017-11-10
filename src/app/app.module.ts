@@ -30,6 +30,7 @@ import {TeamRequestPage} from "../pages/profile/team-request/team-request";
 import {SetupAccountPage} from "../pages/setup-account/setup-account";
 import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite-link-popover";
 import {Credentials} from "../providers/credentials";
+import { InviteServiceProvider } from '../providers/invite-service/invite-service';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {Credentials} from "../providers/credentials";
     AuthServiceProvider,
     UserServiceProvider,
     TeamServiceProvider,
-    EventServiceProvider
+    EventServiceProvider,
+    InviteServiceProvider
   ]
 })
 export class AppModule {}

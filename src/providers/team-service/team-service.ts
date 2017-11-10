@@ -27,6 +27,13 @@ export class TeamServiceProvider {
       );
   }
 
+  getTeamByInviteToken(invite_token: string): Observable<any> {
+    return this.http.get(this.apiUrl + `team?invite_token=${invite_token}`, this.options)
+      .map((res: any) =>
+        res.json()
+      );
+  }
+
   createTeam(uuid:string, name:string): Observable<any> {
     let data = {
       owner_id : uuid,

@@ -57,5 +57,8 @@
         <h5>{{teamData.name}}</h5>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="inviteRequests && inviteRequests.length > 0">
+      <div (click)="gToInviteRequests()">neue Team Anfragen ></div>
+    </ion-row>
   </ion-grid>
 </ion-content>
