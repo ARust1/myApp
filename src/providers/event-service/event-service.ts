@@ -4,15 +4,15 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import {Event} from "../../models/event-model";
+import {Credentials} from "../credentials";
 
 @Injectable()
 export class EventServiceProvider {
 
-  apiUrl = 'http://localhost:3000/api/v1/';
   headers: Headers;
   options : RequestOptions;
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public credentials: Credentials) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
@@ -23,7 +23,7 @@ export class EventServiceProvider {
   }
 
   getEventsByTeamId(team_id: string): Observable<Event[]> {
-    return this.http.get(this.apiUrl + `event/${team_id}`, this.options)
+    return this.http.get(this.credentials.getApiUrl() + `event/${team_id}`, this.options)
       .map((res: any) =>
         res.json()
       );
@@ -31,7 +31,7 @@ export class EventServiceProvider {
 
   createEvent(event: Event): Observable<any> {
     console.log(event);
-    return this.http.post(this.apiUrl + 'event', event, this.options)
+    return this.http.post(this.credentials.getApiUrl() + 'event', event, this.options)
       .map((res: any) =>
         res.json()
       );

@@ -29,6 +29,7 @@ import {CalendarModule} from "ion2-calendar";
 import {TeamRequestPage} from "../pages/profile/team-request/team-request";
 import {SetupAccountPage} from "../pages/setup-account/setup-account";
 import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite-link-popover";
+import {Credentials} from "../providers/credentials";
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite
     SplashScreen,
     Clipboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Credentials,
     AuthServiceProvider,
     UserServiceProvider,
     TeamServiceProvider,

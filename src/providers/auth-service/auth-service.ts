@@ -2,22 +2,26 @@ import { Injectable } from '@angular/core';
 import {Headers, Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
-
-let apiUrl = 'http://localhost:3000/api/v1/';
-let headers = new Headers();
-headers.append('Content-Type', 'application/json');
-
-let options = new RequestOptions({
-  headers: headers
-});
+import {Credentials} from "../credentials";
 
 @Injectable()
 export class AuthServiceProvider {
 
-  constructor(public http: Http) {}
+  headers: Headers;
+  options : RequestOptions;
+
+  constructor(public http: Http, public credentials: Credentials) {
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
+
+    this.options = new RequestOptions({
+      headers: this.headers
+    });
+  }
 
   login(credentials): Observable<any> {
-    return this.http.post(apiUrl+'auth', credentials, options)
+    return this.http.post(this.credentials.getApiUrl() + 'auth', credentials, this.options)
       .map((res: any) =>
         res.json(),
         (err: any) => Observable.throw(err.json())
@@ -25,14 +29,14 @@ export class AuthServiceProvider {
   }
 
   register(data): Observable<any> {
-    return this.http.put(apiUrl+'register', JSON.stringify(data), options);
+    return this.http.put(this.credentials.getApiUrl() + 'register', JSON.stringify(data), this.options);
   }
 
   logout(){
     return new Promise((resolve, reject) => {
-      headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
+      //this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
 
-      this.http.post(apiUrl+'logout', {}, options)
+      this.http.post(this.credentials.getApiUrl() + 'logout', {}, this.options)
         .subscribe(res => {
           window.localStorage.clear();
         }, (err) => {

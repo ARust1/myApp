@@ -3,27 +3,25 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/filter';
+import {Credentials} from "../credentials";
 
 @Injectable()
 export class TeamServiceProvider {
 
-  apiUrl = 'http://localhost:3000/api/v1/';
   headers: Headers;
   options : RequestOptions;
-
-  constructor(public http: Http) {
+  constructor(public http: Http, private credentials: Credentials) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
 
-    console.log(window.localStorage.getItem('token'));
     this.options = new RequestOptions({
       headers: this.headers
     });
   }
 
   getTeamById(uuid: string): Observable<any> {
-    return this.http.get(this.apiUrl + `team/${uuid}`, this.options)
+    return this.http.get(this.credentials.getApiUrl() + `team/${uuid}`, this.options)
       .map((res: any) =>
         res.json()
       );
@@ -34,7 +32,7 @@ export class TeamServiceProvider {
       owner_id : uuid,
       name : name
     };
-    return this.http.post(this.apiUrl + 'team', data, this.options)
+    return this.http.post(this.credentials.getApiUrl() + 'team', data, this.options)
       .map((res: any) =>
         res.json()
       );
@@ -44,7 +42,7 @@ export class TeamServiceProvider {
     var data = {
       team_id: team_id
     };
-    return this.http.put(this.apiUrl + `team/invite_token`, data, this.options)
+    return this.http.put(this.credentials.getApiUrl() + `team/invite_token`, data, this.options)
       .map((res: any) =>
         res.json()
       );
