@@ -1,4 +1,7 @@
-<ion-content>
+<ion-content *ngIf="loggedIn">
+</ion-content>
+
+<ion-content *ngIf="!loggedIn">
   <ion-grid>
     <ion-row class="logo-container">
       <img src="../../assets/icon/manschaftskasse.svg">

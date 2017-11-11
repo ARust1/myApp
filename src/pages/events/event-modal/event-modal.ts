@@ -3,7 +3,7 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
 import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
 import {EventServiceProvider} from "../../../providers/event-service/event-service";
-import {CalendarModal, CalendarModalOptions, CalendarResult} from "ion2-calendar";
+import { DatePicker } from '@ionic-native/date-picker';
 
 @IonicPage()
 @Component({
@@ -21,7 +21,7 @@ export class EventModalPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventService: EventServiceProvider,
-              private modalCtrl: ModalController) {
+              private datePicker: DatePicker) {
 
   }
 
@@ -43,5 +43,16 @@ export class EventModalPage {
 
   dismiss() {
     this.navCtrl.pop(this.eventArr);
+  }
+
+  setStartDate() {
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+    }).then(
+      date => console.log('Got date: ', date),
+      err => console.log('Error occurred while getting date: ', err)
+    );
   }
 }

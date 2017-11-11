@@ -9,6 +9,7 @@ import { WalletPage } from '../pages/wallet/wallet';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { Clipboard } from '@ionic-native/clipboard';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -80,6 +81,7 @@ import { InviteServiceProvider } from '../providers/invite-service/invite-servic
     StatusBar,
     SplashScreen,
     Clipboard,
+    DatePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Credentials,
     AuthServiceProvider,
