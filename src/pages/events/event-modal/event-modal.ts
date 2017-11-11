@@ -12,7 +12,7 @@ import {CalendarModal, CalendarModalOptions, CalendarResult} from "ion2-calendar
 })
 export class EventModalPage {
 
-  private eventData: Event = new Event();
+  private eventData: Event;
   private eventArr: Event[];
   private userData: User;
   private date: string;
@@ -25,29 +25,16 @@ export class EventModalPage {
 
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
+    this.eventData = new Event();
     this.userData = this.navParams.get('userData');
     this.eventArr = this.navParams.get('events');
-  }
-
-  openCalendar() {
-    let options: CalendarModalOptions = {
-      title: 'Anfangsdatum'
-    };
-    let calendar = this.modalCtrl.create(CalendarModal, {
-      options: options
-    });
-    calendar.present();
-
-    calendar.onDidDismiss((date: CalendarResult, type:string) => {
-      console.log(date);
-    })
   }
 
   createEvent() {
     this.eventData.team_id = this.userData.team_id;
     this.eventService.createEvent(this.eventData).subscribe((result: any) => {
-      this.eventArr.push(result);
+      this.eventArr.push(this.eventData);
       this.dismiss();
     }, (err:any) => {
       console.log(err);

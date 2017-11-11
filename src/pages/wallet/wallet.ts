@@ -21,7 +21,6 @@ export class WalletPage {
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
               public toastCtrl: ToastController,
-              public loadingCtrl: LoadingController,
               private actionSheetCtrl: ActionSheetController) {
 
     if(window.localStorage.getItem("token")) {

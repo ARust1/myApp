@@ -23,14 +23,12 @@ router.get('/:id?',function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var event = req.body;
-  console.log(event);
   var uuid = uid();
 
   Event.createEvent(uuid, event, function(err, results) {
+    console.log(results);
     if(err) return res.json(err);
-    if(results.length !== 0) {
-      res.json(results[0]);
-    }
+    res.json(results[0]);
   });
 });
 

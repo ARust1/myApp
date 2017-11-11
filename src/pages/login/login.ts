@@ -30,7 +30,7 @@ export class LoginPage {
   }
 
   doLogin() {
-
+    this.showLoader();
     this.authService.login(this.loginData).subscribe((result: any) => {
       let token = result.token;
       window.localStorage.setItem('token', token);
@@ -38,7 +38,7 @@ export class LoginPage {
 
       this.userService.getUserData(token).subscribe( (res: any) => {
         this.userData = res;
-        this.showLoader();
+
 
 
       }, (err) => {

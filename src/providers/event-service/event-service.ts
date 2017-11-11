@@ -29,12 +29,8 @@ export class EventServiceProvider {
       );
   }
 
-  createEvent(event: Event): Observable<any> {
-    console.log(event);
-    return this.http.post(this.credentials.getApiUrl() + 'event', event, this.options)
-      .map((res: any) =>
-        res.json()
-      );
+  createEvent(event): Observable<any> {
+    return this.http.post(this.credentials.getApiUrl() + 'event', JSON.stringify(event), this.options);
   }
 
 }
