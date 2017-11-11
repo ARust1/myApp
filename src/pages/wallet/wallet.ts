@@ -38,6 +38,10 @@ export class WalletPage {
     }
   }
 
+  ionViewWillEnter() {
+    this.getUserByTeamId(this.userData.team_id);
+  }
+
   getAllData() {
     this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
       this.userData = result;
@@ -78,6 +82,7 @@ export class WalletPage {
   getUserData(): any {
     this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
       this.userData = result;
+      console.log(result);
     }, (error: any) => {
       console.log(error);
     }, () => {
