@@ -13,7 +13,6 @@ $app-direction: ltr;
 
 @import "ionic.globals";
 
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -94,3 +93,11 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+// ion2-calendar
+// --------------------------------------------------
+
+@import "../../ion2-calendar/dist/components/calendar-week.component";
+@import "../../ion2-calendar/dist/components/calendar.component";
+@import "../../ion2-calendar/dist/components/month.component";
+@import "../../ion2-calendar/dist/components/calendar.modal";

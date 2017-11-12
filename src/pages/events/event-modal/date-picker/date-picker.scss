@@ -1,0 +1,11 @@
+page-date-picker {
+  ion-icon[name="close"] {
+    font-size: 1.8em !important;
+  }
+  ion-calendar {
+    .button {
+      background-color: transparent !important;
+      border: none !important;
+    }
+  }
+}

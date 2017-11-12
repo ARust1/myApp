@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
 import {EventServiceProvider} from "../../../providers/event-service/event-service";
-import { DatePicker } from '@ionic-native/date-picker';
+import {DatePickerPage} from "./date-picker/date-picker";
 
 @IonicPage()
 @Component({
   selector: 'page-event-modal',
-  templateUrl: 'event-modal.html',
+  templateUrl: 'event-modal.html'
 })
 export class EventModalPage {
 
@@ -21,7 +21,8 @@ export class EventModalPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventService: EventServiceProvider,
-              private datePicker: DatePicker) {
+              public popoverCtrl: PopoverController,
+              public viewCtrl: ViewController) {
 
   }
 
@@ -31,7 +32,7 @@ export class EventModalPage {
     this.eventArr = this.navParams.get('events');
   }
 
-  createEvent() {
+  createEvent(): any {
     this.eventData.team_id = this.userData.team_id;
     this.eventService.createEvent(this.eventData).subscribe((result: any) => {
       this.eventArr.push(this.eventData);
@@ -45,14 +46,11 @@ export class EventModalPage {
     this.navCtrl.pop(this.eventArr);
   }
 
-  setStartDate() {
-    this.datePicker.show({
-      date: new Date(),
-      mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
-    }).then(
-      date => console.log('Got date: ', date),
-      err => console.log('Error occurred while getting date: ', err)
-    );
+  openCalendar(event) {
+    let popover = this.popoverCtrl.create(DatePickerPage);
+    popover.present({
+      ev: event
+    });
   }
+
 }

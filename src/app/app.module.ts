@@ -9,7 +9,7 @@ import { WalletPage } from '../pages/wallet/wallet';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { Clipboard } from '@ionic-native/clipboard';
-import { DatePicker } from '@ionic-native/date-picker';
+import { CalendarModule } from "ion2-calendar";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,12 +26,12 @@ import { TeamServiceProvider } from '../providers/team-service/team-service';
 import {EventModalPage} from "../pages/events/event-modal/event-modal";
 import { EventServiceProvider } from '../providers/event-service/event-service';
 import {EventDetailPage} from "../pages/events/event-detail/event-detail";
-import {CalendarModule} from "ion2-calendar";
 import {TeamRequestPage} from "../pages/profile/team-request/team-request";
 import {SetupAccountPage} from "../pages/setup-account/setup-account";
 import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite-link-popover";
 import {Credentials} from "../providers/credentials";
 import { InviteServiceProvider } from '../providers/invite-service/invite-service';
+import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
 
 @NgModule({
   declarations: [
@@ -50,7 +50,8 @@ import { InviteServiceProvider } from '../providers/invite-service/invite-servic
     TeamRequestPage,
     InviteLinkPopoverPage,
     EventModalPage,
-    EventDetailPage
+    EventDetailPage,
+    DatePickerPage
   ],
   imports: [
     BrowserModule,
@@ -75,13 +76,13 @@ import { InviteServiceProvider } from '../providers/invite-service/invite-servic
     TeamRequestPage,
     InviteLinkPopoverPage,
     EventModalPage,
-    EventDetailPage
+    EventDetailPage,
+    DatePickerPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Clipboard,
-    DatePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Credentials,
     AuthServiceProvider,

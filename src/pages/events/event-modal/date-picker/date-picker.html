@@ -1,0 +1,23 @@
+<ion-header padding-left padding-right>
+  <ion-navbar>
+    <ion-buttons start>
+      <button><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button>fertig</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="margin-top: 44px;">
+  <ion-grid>
+    <ion-row>
+      <ion-calendar [(ngModel)]="dateRange"
+                    [options]="optionsRange"
+                    [type]="type"
+                    [format]="'YYYY-MM-DD'">
+      </ion-calendar>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
