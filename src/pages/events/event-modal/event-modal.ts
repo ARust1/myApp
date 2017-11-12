@@ -4,6 +4,8 @@ import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
 import {EventServiceProvider} from "../../../providers/event-service/event-service";
 import {DatePickerPage} from "./date-picker/date-picker";
+import * as moment from "moment";
+import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 
 @IonicPage()
 @Component({
@@ -15,21 +17,26 @@ export class EventModalPage {
   private eventData: Event;
   private eventArr: Event[];
   private userData: User;
-  private date: string;
-  private type: string;
+  private inviteList: User[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventService: EventServiceProvider,
-              public popoverCtrl: PopoverController,
-              public viewCtrl: ViewController) {
-
+              public popoverCtrl: PopoverController) {
+    this.inviteList = [];
   }
 
   ngOnInit() {
     this.eventData = new Event();
     this.userData = this.navParams.get('userData');
     this.eventArr = this.navParams.get('events');
+  }
+
+  ionViewWillEnter() {
+    if(this.navCtrl.last().component == EventInviteListPage) {
+      this.inviteList = this.navParams.data.inviteList;
+      console.log(this.inviteList);
+    }
   }
 
   createEvent(): any {
@@ -46,11 +53,33 @@ export class EventModalPage {
     this.navCtrl.pop(this.eventArr);
   }
 
-  openCalendar(event) {
-    let popover = this.popoverCtrl.create(DatePickerPage);
-    popover.present({
-      ev: event
-    });
+  startDate() {
+    let popover = this.popoverCtrl.create(DatePickerPage, this.eventData.startDate);
+    popover.present();
+
+    popover.onDidDismiss(date => {
+      if(date) {
+        this.eventData.startDate = date.format('L');
+      }
+    })
   }
 
+  endDate() {
+    let popover = this.popoverCtrl.create(DatePickerPage, this.eventData.endDate);
+    popover.present();
+
+    popover.onDidDismiss(date => {
+      if(date) {
+        this.eventData.endDate = date.format('L');
+      }
+    })
+  }
+
+  goToInviteList() {
+    this.navCtrl.push(EventInviteListPage, {
+      team_id: this.userData.team_id,
+      inviteList: this.inviteList
+    });
+
+  }
 }

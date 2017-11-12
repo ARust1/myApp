@@ -32,6 +32,7 @@ import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite
 import {Credentials} from "../providers/credentials";
 import { InviteServiceProvider } from '../providers/invite-service/invite-service';
 import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
+import {EventInviteListPage} from "../pages/events/event-invite-list/event-invite-list";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picke
     InviteLinkPopoverPage,
     EventModalPage,
     EventDetailPage,
-    DatePickerPage
+    DatePickerPage,
+    EventInviteListPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picke
     InviteLinkPopoverPage,
     EventModalPage,
     EventDetailPage,
-    DatePickerPage
+    DatePickerPage,
+    EventInviteListPage
   ],
   providers: [
     StatusBar,

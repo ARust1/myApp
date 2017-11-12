@@ -1,11 +1,5 @@
 <ion-header>
   <ion-navbar>
-    <!--<ion-buttons start>-->
-      <!--<button (click)="dismiss()">-->
-        <!--<ion-icon name="arrow-back"></ion-icon>-->
-      <!--</button>-->
-    <!--</ion-buttons>-->
-    <ion-title>Ausflug hinzufügen</ion-title>
     <ion-buttons end>
       <button (click)="createEvent()">fertig</button>
     </ion-buttons>
@@ -14,17 +8,46 @@
 
 
 
-<ion-content padding>
+<ion-content padding-top>
   <form>
-    <ion-item>
+    <ion-list class="event-list">
+    <ion-list-header>
+      Ausflug
+    </ion-list-header>
+    <ion-item class="event-name">
+      <ion-label>
+        <ion-icon name="ios-pricetag-outline" item-start></ion-icon>
+      </ion-label>
       <ion-input [(ngModel)]="eventData.name" name="name" type="text" placeholder="Name"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item class="event-location">
+      <ion-label>
+        <ion-icon name="ios-pin-outline" item-start></ion-icon>
+      </ion-label>
       <ion-input [(ngModel)]="eventData.location" name="location" type="text" placeholder="Ort"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item class="event-sum">
+      <ion-label>
+        <ion-icon name="ios-cash-outline" item-start></ion-icon>
+      </ion-label>
       <ion-input [(ngModel)]="eventData.sum" name="sum" type="number" placeholder="Preis"></ion-input>
     </ion-item>
-    <button ion-button (click)="openCalendar(event)">Anfang</button>
+    <ion-item class="event-date">
+      <ion-label>
+        <ion-icon name="ios-calendar-outline" item-start></ion-icon>
+      </ion-label>
+      <ion-input [(ngModel)]="eventData.startDate" [ngModelOptions]="{standalone: true}" (click)="startDate()" placeholder="Anfang"></ion-input>
+      <ion-input [(ngModel)]="eventData.endDate" [ngModelOptions]="{standalone: true}" (click)="endDate()" placeholder="Ende"></ion-input>
+    </ion-item>
+    </ion-list>
+    <ion-list class="invite-list">
+      <ion-list-header (click)="goToInviteList()">
+        Leute
+        <div item-end><ion-icon name="add"></ion-icon></div>
+      </ion-list-header>
+      <ion-item *ngFor="let user of inviteList">
+        {{user.prename}} {{user.surname}}
+      </ion-item>
+    </ion-list>
   </form>
 </ion-content>

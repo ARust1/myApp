@@ -1,5 +1,34 @@
 page-event-modal {
+  ion-list {
+    border-top: 0.55px solid #c8c7cc !important;
+    ion-list-header {
+      //background-color: #EFEEF4 !important;
+    }
+    width: 100%;
 
+    ion-icon[name="add"] {
+      font-size: 2.5em;
+    }
+    &.event-list {
+      margin: -1px 0 10px !important;
+    }
+    &.invite-list {
+      border-top: none !important;
+    }
+  }
+  ion-item {
+    //border-bottom: 0.55px solid #c8c7cc !important;
+
+    &.event-date {
+      ion-input:nth-child(1) {
+        border-right: 0.55px solid #c8c7cc !important;
+      }
+    }
+
+    .item-inner {
+      //border: none !important;
+    }
+  }
   ion-calendar-modal {
     .toolbar {
       color: #000000 !important;
