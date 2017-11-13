@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 09, 2017 at 02:24 PM
+-- Generation Time: Nov 14, 2017 at 12:52 AM
 -- Server version: 5.7.20-0ubuntu0.17.04.1
 -- PHP Version: 7.0.22-0ubuntu0.17.04.1
 
@@ -41,11 +41,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`uuid`, `name`, `startDate`, `endDate`, `location`, `sum`, `team_id`) VALUES
-('01187259-6d36-4cde-a90d-8c3b03d4af6a', 'fddf', NULL, NULL, 'fdsdf', 34, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('095b5734-cfd9-4764-8292-890017a33855', '1 nices Event', NULL, NULL, 'Gelsenkirchen', 23, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('11c8d332-fd0d-4e46-ba0e-b6a1c32086ca', 'hehejobaf', NULL, NULL, 'bla', 23, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('5776b2e5-7227-493b-a3a6-c847e4f5aeba', 'fdsfsd', NULL, NULL, 'dsffs', 23, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('bf10cce1-e44c-4e5c-8ae6-11ecc46915e0', 'hehejo', NULL, NULL, 'Flingern', 25, '10a021b3-c466-4ef8-abaa-066c57e16fae');
+('1c68a322-3872-4d79-8b78-1fadc44aafa0', 'fdfd', NULL, NULL, 'df', 34, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
+('c4946210-2c10-4f83-82d4-4832106e189e', 'ggg', NULL, NULL, 'ggg', 23, '10a021b3-c466-4ef8-abaa-066c57e16fae');
 
 -- --------------------------------------------------------
 
@@ -59,13 +56,6 @@ CREATE TABLE `invites` (
   `user_id` char(36) NOT NULL,
   `timestamp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `invites`
---
-
-INSERT INTO `invites` (`uuid`, `team_id`, `user_id`, `timestamp`) VALUES
-('b92bbfbd-d3a4-46ef-9105-2c137930372c', '10a021b3-c466-4ef8-abaa-066c57e16fae', 'fe13d609-bcb7-11e7-8dd7-080027c12564', NULL);
 
 -- --------------------------------------------------------
 
@@ -136,9 +126,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`, `balance`) VALUES
 ('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0MzF9.jOFRsVpmXJHv6F6Z-9aSrTLWxzXs4X57lic5BR6QM04', 0),
-('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rustee', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTAyMzMyNjV9.OxWhtg_VekrHSdu26drGU4qSSMQj_XsyOn90URycIj4', 0),
+('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTA0OTEwNDB9.YcSEl4wXg_YgKpKNE_fUbnspSYzMwpHb8k4U5hWic4Y', 0),
 ('f819dff0-c01d-11e7-8758-080027c12564', 'frank', '$2a$10$W0haIbWOnT8fa9d14jOeGekb1aHXvsoq5o05f3jgA4Ag7CVma/2rO', 'Frank', 'Rust', NULL, 0, 9, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk2NjIwNjZ9.aZYhZh_8BWpVC7Ig-jTVKIDpj-iEZ-us__YC39UjJbY', 0),
-('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', 'Björn', 'Soika', NULL, 1, 5, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTAyMjg2NTN9.jX38xxxal1Loy8VKCmF7xEuqag9GJZjwhTyx4lmf9Vg', 0);
+('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', 'Björn', 'Soika', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 5, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTAzMjY5Mzd9.UJ9ufZ6eSVZ1bCMVgDGXcr7AYadaDfC2p2ap3eXqZ2I', 0);
 
 --
 -- Triggers `user`
