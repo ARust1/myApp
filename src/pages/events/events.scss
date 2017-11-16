@@ -1,21 +1,54 @@
 page-events {
   ion-header {
+    margin-top: 30px !important;
+    ion-title {
+      padding-left: 0 !important;
+      &.title-h {
+        .toolbar-title {
+          font-size: 15px !important;
+          font-weight: 400 !important;
+          color: #488aff;
+        }
+      }
+      .toolbar-title {
+        text-align: left;
+        padding-left: 20px;
+        font-size: 32px;
+        font-weight: 700 !important;
+      }
+    }
     ion-navbar {
       .toolbar-background {
         background-color: transparent !important;
       }
-      ion-icon {
-        font-size: 2.3em !important;
+      ion-buttons {
+        display: flex;
       }
+      ion-icon {
+        &[name="add"] {
+          font-size: 2.5em !important;
+          margin-left: 5px;
+        }
+
+        &[name="ios-search-outline"] {
+          font-size: 1.9em !important;
+        }
+      }
+    }
+    ion-toolbar.title-sub {
+      min-height:26px !important;
+      padding: 0 !important;
     }
   }
 
   .scroll-content {
     background-color: transparent !important;
+    margin-top: 135px !important;
   }
 
   ion-content {
     //background: linear-gradient(rgba(240, 98, 146, 0.49), rgba(239, 83, 80, 0.49));
+
     ion-refresher {
 
     }
@@ -23,13 +56,27 @@ page-events {
     ion-grid {
       //padding-top: 10px !important;
       ion-list {
+        padding: 0 16px;
         font-weight: 400;
         ion-item,
         .item-md {
-          -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
-          -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
-          box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
-          margin-bottom: 5px !important;
+          .backdrop {
+            position: absolute;
+            top:0;
+            left:0;
+            right: 0;
+            bottom: 0;
+            border-radius: 7px;
+            opacity: 1;
+            background-color: #49a6fd;
+          }
+          background-color: transparent !important;
+          color: #ffffff !important;
+          -webkit-box-shadow: 0px 16px 166px -70px rgba(0,0,0,0.77);
+          -moz-box-shadow: 0px 16px 166px -70px rgba(0,0,0,0.77);
+          box-shadow: 0px 16px 166px -70px rgba(0,0,0,0.77);
+
+          margin-bottom: 10px !important;
           border: none !important;
           height: 100px;
           -webkit-border-radius: 7px;
@@ -70,7 +117,7 @@ page-events {
             text-align: center;
             font-size: 12px !important;
             font-weight:300;
-            color: $font-light-grey;
+            color: #fff;
           }
         }
       }

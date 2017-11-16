@@ -22,7 +22,8 @@ export class EventModalPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventService: EventServiceProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              public modalCtrl: ModalController) {
     this.inviteList = [];
   }
 
@@ -34,6 +35,7 @@ export class EventModalPage {
 
   ionViewWillEnter() {
     if(this.navCtrl.last().component == EventInviteListPage) {
+
       this.inviteList = this.navParams.data.inviteList;
       console.log(this.inviteList);
     }
@@ -76,10 +78,21 @@ export class EventModalPage {
   }
 
   goToInviteList() {
-    this.navCtrl.push(EventInviteListPage, {
+    // this.navCtrl.push(EventInviteListPage, {
+    //   team_id: this.userData.team_id,
+    //   inviteList: this.inviteList
+    // });
+
+    let modal = this.modalCtrl.create(EventInviteListPage, {
       team_id: this.userData.team_id,
       inviteList: this.inviteList
     });
+    modal.present();
+    modal.onDidDismiss((data: any) => {
+      if(data) {
+        this.inviteList = data;
+      }
+    })
 
   }
 }

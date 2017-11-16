@@ -17,6 +17,8 @@
 // automatically applied to the <body> element in the app.
 body {
   -webkit-font-smoothing: antialiased;
+  //font-family: "Open Sans" !important;
+  font-weight: 400 !important;
 }
 
 
@@ -95,3 +97,4 @@ ion-popover {
     transform-origin: center center 0px !important;
   }
 }
+

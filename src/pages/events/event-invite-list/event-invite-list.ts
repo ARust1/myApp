@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {User} from "../../../models/user-model";
 import {UserServiceProvider} from "../../../providers/user-service/user-service";
-import {EventModalPage} from "../event-modal/event-modal";
+import * as _ from 'lodash';
 
 /**
  * Generated class for the EventInviteListPage page.
@@ -37,7 +37,8 @@ export class EventInviteListPage {
 
   getUserList() {
     this.userService.getUserByTeamId(this.team_id).subscribe((result: any) => {
-      this.userList = result;
+      let filteredArray = _.differenceBy(result, this.inviteList, 'uuid');
+      this.userList = filteredArray;
     }, (err: any) => {
       console.log(err);
     })
@@ -66,8 +67,18 @@ export class EventInviteListPage {
     this.inviteList.push(user);
   }
 
+  contains(comp, array) {
+    let contains: boolean = false;
+    for(let i = 0; i < array.length && !contains; i++) {
+      contains = array[i].uuid === comp.uuid;
+    }
+    return contains;
+  }
+
   saveInviteList() {
     console.log(this.inviteList);
-    this.navCtrl.pop();
+    //this.navCtrl.pop();
+    this.viewCtrl.dismiss(this.inviteList);
   }
+
 }

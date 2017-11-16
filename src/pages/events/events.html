@@ -1,15 +1,19 @@
 
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ausflüge
-    </ion-title>
+  <ion-navbar padding-right>
+    <ion-title class="title-h">Ausflüge</ion-title>
     <ion-buttons end *ngIf="userData.admin">
+      <button>
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
       <button (click)="goToAddEvent()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar class="title-sub">
+    <ion-title>Liste</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -21,6 +25,7 @@
   <ion-grid>
     <ion-list *ngIf="eventArr">
       <ion-item (click)="goToDetail(event)"  *ngFor="let event of eventArr">
+        <div class="backdrop"></div>
         <ion-row></ion-row>
         <ion-row>
           <ion-col class="event-date" col-3>

@@ -16,11 +16,12 @@
 }
 
 .tab-button-text {
-  text-transform: uppercase !important;
-  font-weight:700 !important;
+  text-transform: capitalize !important;
+  font-weight:400 !important;
   letter-spacing:0.4px !important;
   color: $logo-grey !important;
-  font-size: 9px !important;
+  font-size: 11px !important;
+  margin-top: -2px !important;
 }
 
 .tab-button {
@@ -29,8 +30,8 @@
 
 .tab-button-icon:before {
   display: block;
-  width: 23px;
-  height:23px;
+  width: 22px;
+  height:22px;
   margin: auto;
 }
 
