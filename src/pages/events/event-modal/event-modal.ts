@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
+import {
+  IonicPage, ModalController, NavController, NavParams, PopoverController, ToastController,
+  ViewController
+} from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
 import {EventServiceProvider} from "../../../providers/event-service/event-service";
@@ -45,10 +48,21 @@ export class EventModalPage {
     this.eventData.team_id = this.userData.team_id;
     this.eventService.createEvent(this.eventData).subscribe((result: any) => {
       this.eventArr.push(this.eventData);
+      this.persistInviteList(result);
       this.dismiss();
     }, (err:any) => {
       console.log(err);
+    }, () => {
     })
+  }
+
+  persistInviteList(event_id) {
+    for(let invite of this.inviteList) {
+      this.eventService.addEventInvite(invite.uuid, event_id).subscribe((result: any) => {
+      }, (err: any) => {
+        console.log(err);
+      })
+    }
   }
 
   dismiss() {
@@ -78,10 +92,6 @@ export class EventModalPage {
   }
 
   goToInviteList() {
-    // this.navCtrl.push(EventInviteListPage, {
-    //   team_id: this.userData.team_id,
-    //   inviteList: this.inviteList
-    // });
 
     let modal = this.modalCtrl.create(EventInviteListPage, {
       team_id: this.userData.team_id,
@@ -95,4 +105,5 @@ export class EventModalPage {
     })
 
   }
+
 }

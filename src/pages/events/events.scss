@@ -59,7 +59,11 @@ page-events {
         padding: 0 16px;
         font-weight: 400;
         ion-item,
-        .item-md {
+        .item-md,
+        .item-ios {
+          -webkit-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+          -moz-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+          box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
           .backdrop {
             position: absolute;
             top:0;
@@ -72,9 +76,6 @@ page-events {
           }
           background-color: transparent !important;
           color: #ffffff !important;
-          -webkit-box-shadow: 0px 16px 166px -70px rgba(0,0,0,0.77);
-          -moz-box-shadow: 0px 16px 166px -70px rgba(0,0,0,0.77);
-          box-shadow: 0px 16px 166px -70px rgba(0,0,0,0.77);
 
           margin-bottom: 10px !important;
           border: none !important;

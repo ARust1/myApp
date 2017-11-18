@@ -7,12 +7,35 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="eventData">{{eventData.name}}</ion-title>
-  </ion-navbar>
 
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment>
+      <ion-segment-button (onChange)="page = 'detail'" value="detail" checked>
+        Ausflug
+      </ion-segment-button>
+      <ion-segment-button (onChange)="page = 'inviteList'" value="inviteList">
+        Teilnehmer
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
+  <ion-grid *ngIf="page === 'detail'">
+    <div *ngIf="eventData">{{eventData.name}}</div>
+
+  </ion-grid>
+
+  <ion-grid *ngIf="page === 'inviteList'">
+    <ion-list *ngIf="inviteList">
+      <ion-item *ngFor="let invite of inviteList">
+        {{invite.prename}} {{invite.surname}}
+      </ion-item>
+    </ion-list>
+
+  </ion-grid>
+
 
 </ion-content>

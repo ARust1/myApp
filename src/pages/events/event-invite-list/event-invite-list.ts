@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
 import {User} from "../../../models/user-model";
 import {UserServiceProvider} from "../../../providers/user-service/user-service";
 import * as _ from 'lodash';
+import {EventServiceProvider} from "../../../providers/event-service/event-service";
 
 /**
  * Generated class for the EventInviteListPage page.
@@ -26,6 +27,7 @@ export class EventInviteListPage {
               public navParams: NavParams,
               private userService: UserServiceProvider,
               private viewCtrl: ViewController) {
+
     this.inviteList = this.navParams.data.inviteList;
     this.team_id = this.navParams.data.team_id;
   }
@@ -75,9 +77,11 @@ export class EventInviteListPage {
     return contains;
   }
 
+
   saveInviteList() {
     console.log(this.inviteList);
     //this.navCtrl.pop();
+
     this.viewCtrl.dismiss(this.inviteList);
   }
 
