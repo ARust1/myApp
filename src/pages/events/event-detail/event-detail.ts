@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {EventServiceProvider} from "../../../providers/event-service/event-service";
 import {Event} from "../../../models/event-model";
+import {EventModalPage} from "../event-modal/event-modal";
+import {User} from "../../../models/user-model";
 
 
 @IonicPage()
@@ -12,13 +14,16 @@ import {Event} from "../../../models/event-model";
 export class EventDetailPage {
 
   private eventData: Event;
+  private userData: User;
   private inviteList;
-  private page: any;
+  private page: any = 'detail';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventService: EventServiceProvider) {
-    this.eventData = this.navParams.data;
+    this.eventData = this.navParams.get('eventData');
+    console.log(this.eventData);
+    this.userData = this.navParams.get('userData');
   }
 
   ionViewDidLoad() {
@@ -30,6 +35,15 @@ export class EventDetailPage {
       this.inviteList = result;
     }, (err: any) => {
       console.log(err);
+    })
+  }
+
+  updateEvent(event) {
+    console.log(this.eventData);
+    this.navCtrl.push(EventModalPage, {
+      userData: this.userData,
+      eventData: this.eventData,
+      inviteList: this.inviteList
     })
   }
 }

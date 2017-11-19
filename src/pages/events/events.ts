@@ -29,7 +29,11 @@ export class EventsPage {
   }
 
   goToDetail(event) {
-    this.navCtrl.push(EventDetailPage, event);
+    this.navCtrl.push(EventDetailPage, {
+      eventData: event,
+      userData : this.userData,
+      events : this.eventArr
+    });
   }
 
   getEvents(team_id: string): any {

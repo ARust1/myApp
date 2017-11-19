@@ -3,14 +3,6 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
 import {User} from "../../../models/user-model";
 import {UserServiceProvider} from "../../../providers/user-service/user-service";
 import * as _ from 'lodash';
-import {EventServiceProvider} from "../../../providers/event-service/event-service";
-
-/**
- * Generated class for the EventInviteListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -28,18 +20,23 @@ export class EventInviteListPage {
               private userService: UserServiceProvider,
               private viewCtrl: ViewController) {
 
-    this.inviteList = this.navParams.data.inviteList;
-    this.team_id = this.navParams.data.team_id;
+    this.inviteList = this.navParams.get('inviteList');
+    this.team_id = this.navParams.get('team_id');
+    console.log(this.inviteList);
   }
 
   ngOnInit() {
     this.getUserList();
   }
 
+  ionViewDidLoad() {
+    console.log(this.userList);
+  }
+
 
   getUserList() {
     this.userService.getUserByTeamId(this.team_id).subscribe((result: any) => {
-      let filteredArray = _.differenceBy(result, this.inviteList, 'uuid');
+      let filteredArray: User[] = _.differenceBy(result, this.inviteList, 'uuid');
       this.userList = filteredArray;
     }, (err: any) => {
       console.log(err);
@@ -68,15 +65,6 @@ export class EventInviteListPage {
     this.userList.splice(index, 1);
     this.inviteList.push(user);
   }
-
-  contains(comp, array) {
-    let contains: boolean = false;
-    for(let i = 0; i < array.length && !contains; i++) {
-      contains = array[i].uuid === comp.uuid;
-    }
-    return contains;
-  }
-
 
   saveInviteList() {
     console.log(this.inviteList);

@@ -9,6 +9,7 @@ import {EventServiceProvider} from "../../../providers/event-service/event-servi
 import {DatePickerPage} from "./date-picker/date-picker";
 import * as moment from "moment";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
+import {EventDetailPage} from "../event-detail/event-detail";
 
 @IonicPage()
 @Component({
@@ -27,19 +28,29 @@ export class EventModalPage {
               public eventService: EventServiceProvider,
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController) {
-    this.inviteList = [];
+
   }
 
   ngOnInit() {
-    this.eventData = new Event();
+    if(this.navParams.get('eventData')) {
+      this.eventData = this.navParams.get('eventData')
+    } else {
+      this.eventData = new Event();
+    }
+    if(this.navParams.get('inviteList')) {
+      this.inviteList = this.navParams.get('inviteList');
+    } else {
+      this.inviteList = [];
+    }
     this.userData = this.navParams.get('userData');
     this.eventArr = this.navParams.get('events');
   }
 
   ionViewWillEnter() {
-    if(this.navCtrl.last().component == EventInviteListPage) {
+    if(this.navCtrl.last().component == EventInviteListPage
+    || this.navCtrl.last().component == EventDetailPage) {
 
-      this.inviteList = this.navParams.data.inviteList;
+
       console.log(this.inviteList);
     }
   }
