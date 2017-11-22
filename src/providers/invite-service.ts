@@ -3,7 +3,7 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/filter';
-import {Credentials} from "../credentials";
+import {Credentials} from "./credentials";
 
 @Injectable()
 export class InviteServiceProvider {

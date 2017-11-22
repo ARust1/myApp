@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController, ViewController} from 'ionic-angular';
 import {User} from "../../../models/user-model";
-import {UserServiceProvider} from "../../../providers/user-service/user-service";
+import {UserServiceProvider} from "../../../providers/user-service";
 
 /**
  * Generated class for the ProfileModalPage page.

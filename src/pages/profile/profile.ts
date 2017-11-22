@@ -4,16 +4,16 @@ import {
   PopoverController,
   ToastController
 } from 'ionic-angular';
-import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
 import  { HomePage } from "../home/home";
 import { User } from "../../models/user-model";
 import {ProfileModalPage} from "./profile-modal/profile-modal";
-import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
-import {UserServiceProvider} from "../../providers/user-service/user-service";
 import {InviteLinkPopoverPage} from "./invite-link-popover/invite-link-popover";
-import {InviteServiceProvider} from "../../providers/invite-service/invite-service";
 import {TeamRequestPage} from "./team-request/team-request";
+import {AuthServiceProvider} from "../../providers/auth-service";
+import {UserServiceProvider} from "../../providers/user-service";
+import {TeamServiceProvider} from "../../providers/team-service";
+import {InviteServiceProvider} from "../../providers/invite-service";
 
 @Component({
   selector: 'page-profile',

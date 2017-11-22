@@ -1,12 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, Slides, ToastController} from 'ionic-angular';
-import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import 'rxjs/add/operator/debounceTime';
 import {Team} from "../../models/team-model";
 import {User} from "../../models/user-model";
-import {UserServiceProvider} from "../../providers/user-service/user-service";
 import {TabsPage} from "../tabs/tabs";
-import {InviteServiceProvider} from "../../providers/invite-service/invite-service";
+import {TeamServiceProvider} from "../../providers/team-service";
+import {UserServiceProvider} from "../../providers/user-service";
+import {InviteServiceProvider} from "../../providers/invite-service";
 
 @IonicPage()
 @Component({

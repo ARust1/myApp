@@ -3,13 +3,6 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
 import {CalendarComponentOptions} from "ion2-calendar";
 import * as moment from "moment";
 
-/**
- * Generated class for the DatePickerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-date-picker',

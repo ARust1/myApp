@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {EventServiceProvider} from "../../../providers/event-service/event-service";
 import {Event} from "../../../models/event-model";
 import {EventModalPage} from "../event-modal/event-modal";
 import {User} from "../../../models/user-model";
+import { Slides } from 'ionic-angular';
+import {EventServiceProvider} from "../../../providers/event-service";
 
 
 @IonicPage()
@@ -17,6 +18,8 @@ export class EventDetailPage {
   private userData: User;
   private inviteList;
   private page: any = 'detail';
+
+  @ViewChild(Slides) slides: Slides;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -38,9 +41,9 @@ export class EventDetailPage {
     })
   }
 
-  updateEvent(event) {
-    console.log(this.eventData);
+  updateEvent() {
     this.navCtrl.push(EventModalPage, {
+      flag: 'update',
       userData: this.userData,
       eventData: this.eventData,
       inviteList: this.inviteList

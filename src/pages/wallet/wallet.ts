@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
 import {ActionSheetController, App, LoadingController, NavParams, ToastController} from "ionic-angular";
-import {TeamServiceProvider} from "../../providers/team-service/team-service";
 import {Team} from "../../models/team-model";
-import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {Credentials} from "../../providers/credentials";
+import {TeamServiceProvider} from "../../providers/team-service";
+import {UserServiceProvider} from "../../providers/user-service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'page-wallet',
@@ -20,10 +22,11 @@ export class WalletPage {
               public navParams: NavParams,
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
+              private credentials: Credentials,
               public toastCtrl: ToastController,
               private actionSheetCtrl: ActionSheetController) {
 
-    if(window.localStorage.getItem("token")) {
+    if(this.credentials.getToken()) {
       this.isLoggedIn = true;
     }
     this.userData = this.navParams.data;
@@ -43,23 +46,31 @@ export class WalletPage {
   }
 
   getAllData() {
-    this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
-      this.userData = result;
-      this.teamService.getTeamById(result.team_id).subscribe( (result) => {
-        this.teamData = result;
-        this.userService.getUserByTeamId(result.uuid).subscribe((result: any) => {
-          this.teamUser = result;
-        }, (err: any) => {
-          console.log(err)
-        })
-      }, (err: any) => {
-        this.presentToast(err);
-      }, () => {
-      });
-    }, (error: any) => {
-      console.log(error);
+    let token = '';
+    this.credentials.getToken().subscribe((result: any) => {
+      token = result;
+    },(err: any) => {
+      console.log(err);
     }, () => {
-    })
+      this.userService.getUserData(token).subscribe((result: any) => {
+        this.userData = result;
+        this.teamService.getTeamById(result.team_id).subscribe( (result) => {
+          this.teamData = result;
+          this.userService.getUserByTeamId(result.uuid).subscribe((result: any) => {
+            this.teamUser = result;
+          }, (err: any) => {
+            console.log(err)
+          })
+        }, (err: any) => {
+          this.presentToast(err);
+        }, () => {
+        });
+      }, (error: any) => {
+        console.log(error);
+      }, () => {
+      })
+    });
+
   }
 
   getTeamData(team_id: string): any {
@@ -80,35 +91,19 @@ export class WalletPage {
   }
 
   getUserData(): any {
-    this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
-      this.userData = result;
-      console.log(result);
-    }, (error: any) => {
-      console.log(error);
-    }, () => {
-    })
-  }
-
-  presentActionSheet() {
-    const actionSheet = this.actionSheetCtrl.create({
-      buttons: [
-        {
-          text: 'Leute einladen',
-          handler: () => {
-            //this.presentProfileModal();
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
+    this.credentials.getToken().subscribe((result: any) => {
+      let token = result;
+      this.userService.getUserData(token).subscribe((result: any) => {
+        this.userData = result;
+        console.log(result);
+      }, (error: any) => {
+        console.log(error);
+      }, () => {
+      })
+    }, (err: any) => {
+      console.log(err)
     });
 
-    actionSheet.present();
   }
 
   presentToast(msg) {

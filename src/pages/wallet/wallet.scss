@@ -1,4 +1,7 @@
 page-wallet {
+  [padding] {
+    padding: 12px !important;
+  }
   .line {
     margin: 0 6px;
     flex-grow: 1;
@@ -17,7 +20,7 @@ page-wallet {
           width: 100%;
           text-align: center;
           position: absolute;
-          top: 95px;
+          top: 65px;
           font-size: 3rem;
         }
         position: absolute;
@@ -25,7 +28,12 @@ page-wallet {
         left: 0;
         bottom: 0;
         right: 0;
-        background: linear-gradient(rgba(240, 98, 146, 0.79), rgba(239, 83, 80, 1));
+        //background: linear-gradient(rgba(240, 98, 146, 0.79), rgba(239, 83, 80, 1));
+        
+        background: linear-gradient(rgba(73, 166, 253, 0.82), rgba(73, 166, 253, 1));
+        -webkit-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
+        -moz-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
+        box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
       }
     }
     .team-logo {
@@ -33,7 +41,7 @@ page-wallet {
       width: 104px;
       height: 104px;
       position: absolute;
-      bottom: -45px;
+      bottom: -18px;
       left: 50%;
       margin-left: -50px;
       img {
@@ -44,9 +52,9 @@ page-wallet {
         height: 104px;
         border-bottom-left-radius: 100%;
         border-bottom-right-radius: 100%;
-        //-webkit-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
-        //-moz-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
-        //box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
+        -webkit-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
+        -moz-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
+        box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
       }
     }
   }
@@ -55,8 +63,8 @@ page-wallet {
   ion-content {
     .team-balance-options {
       position: absolute;
-      top: 220px;
-      right: 0;
+      top: 24px;
+      right: 16px;
       padding: 0 16px;
       button {
         background: transparent;
@@ -66,9 +74,19 @@ page-wallet {
       }
     }
     .wallet-content {
-      margin-top: 260px;
+      top: 218px;
+      padding: 16px 16px 0;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      border-radius: 7px;
     }
     ion-grid {
+      height: 100%;
+      padding: 24px 5px 0 !important;
+      -webkit-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
+      -moz-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
+      box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
       h4 {
         margin-top: 0 !important;
       }
@@ -88,6 +106,7 @@ page-wallet {
         &.team-member-list {
           padding: 7px;
           justify-content: flex-start !important;
+          overflow-y: scroll;
 
           ion-col {
             -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {User} from "../../../models/user-model";
-import {UserServiceProvider} from "../../../providers/user-service/user-service";
 import * as _ from 'lodash';
+import {UserServiceProvider} from "../../../providers/user-service";
 
 @IonicPage()
 @Component({
@@ -22,24 +22,20 @@ export class EventInviteListPage {
 
     this.inviteList = this.navParams.get('inviteList');
     this.team_id = this.navParams.get('team_id');
-    console.log(this.inviteList);
   }
 
   ngOnInit() {
     this.getUserList();
   }
 
-  ionViewDidLoad() {
-    console.log(this.userList);
-  }
-
-
   getUserList() {
     this.userService.getUserByTeamId(this.team_id).subscribe((result: any) => {
-      let filteredArray: User[] = _.differenceBy(result, this.inviteList, 'uuid');
+      let filteredArray = _.differenceBy(result, this.inviteList, 'uuid');
       this.userList = filteredArray;
     }, (err: any) => {
       console.log(err);
+    }, () => {
+
     })
   }
 

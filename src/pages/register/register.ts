@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+ import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
-import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {LoginPage} from "../login/login";
+ import {AuthServiceProvider} from "../../providers/auth-service";
 
 @IonicPage()
 @Component({
@@ -14,8 +14,11 @@ export class RegisterPage {
   lastPageLogin: boolean;
   regData = { email:'', password:'' };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider,
-              public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public authService: AuthServiceProvider,
+              public loadingCtrl: LoadingController,
+              private toastCtrl: ToastController) {
 
     this.lastPageLogin = this.navCtrl.last().component == LoginPage;
   }

@@ -98,3 +98,15 @@ ion-popover {
   }
 }
 
+.shadow {
+  -webkit-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+  -moz-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+  box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+}
+
+.profile-pic {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  margin-bottom: 3px;
+}

@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
 import {
-  IonicPage, ModalController, NavController, NavParams, PopoverController, ToastController,
-  ViewController
+  IonicPage, ModalController, NavController, NavParams, PopoverController
 } from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
-import {EventServiceProvider} from "../../../providers/event-service/event-service";
 import {DatePickerPage} from "./date-picker/date-picker";
-import * as moment from "moment";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 import {EventDetailPage} from "../event-detail/event-detail";
+import {EventServiceProvider} from "../../../providers/event-service";
 
 @IonicPage()
 @Component({
@@ -22,6 +20,7 @@ export class EventModalPage {
   private eventArr: Event[];
   private userData: User;
   private inviteList: User[];
+  private update: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -33,7 +32,11 @@ export class EventModalPage {
 
   ngOnInit() {
     if(this.navParams.get('eventData')) {
-      this.eventData = this.navParams.get('eventData')
+      this.eventData = this.navParams.get('eventData');
+
+      if(this.navParams.get('flag') === 'update') {
+        this.update = 'update';
+      }
     } else {
       this.eventData = new Event();
     }
@@ -47,12 +50,6 @@ export class EventModalPage {
   }
 
   ionViewWillEnter() {
-    if(this.navCtrl.last().component == EventInviteListPage
-    || this.navCtrl.last().component == EventDetailPage) {
-
-
-      console.log(this.inviteList);
-    }
   }
 
   createEvent(): any {
@@ -81,23 +78,25 @@ export class EventModalPage {
   }
 
   startDate() {
-    let popover = this.popoverCtrl.create(DatePickerPage, this.eventData.startDate);
+    let popover = this.popoverCtrl.create(DatePickerPage);
     popover.present();
 
     popover.onDidDismiss(date => {
       if(date) {
         this.eventData.startDate = date.format('L');
+        console.log(this.eventData);
       }
     })
   }
 
   endDate() {
-    let popover = this.popoverCtrl.create(DatePickerPage, this.eventData.endDate);
+    let popover = this.popoverCtrl.create(DatePickerPage);
     popover.present();
 
     popover.onDidDismiss(date => {
       if(date) {
         this.eventData.endDate = date.format('L');
+        console.log(this.eventData);
       }
     })
   }
@@ -115,6 +114,12 @@ export class EventModalPage {
       }
     })
 
+  }
+
+  delete(user) {
+    console.log(user);
+    let index = this.inviteList.indexOf(user);
+    this.inviteList.splice(index, 1);
   }
 
 }

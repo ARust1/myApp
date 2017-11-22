@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, ToastController} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 
 import { ProfilePage } from '../profile/profile';
 import { EventsPage } from '../events/events';
@@ -8,9 +8,8 @@ import { HomePage } from "../home/home";
 import {PenaltiesPage} from "../penalties/penalties";
 import {TeamPage} from "../team/team";
 import {User} from "../../models/user-model";
-import {TeamServiceProvider} from "../../providers/team-service/team-service";
-import {InviteServiceProvider} from "../../providers/invite-service/invite-service";
-import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {Credentials} from "../../providers/credentials";
+import {UserServiceProvider} from "../../providers/user-service";
 
 @Component({
   selector: 'page-tabs',
@@ -28,12 +27,13 @@ export class TabsPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserServiceProvider,
-              public toastCtrl: ToastController) {
+              public credentials: Credentials) {
 
-    if(!window.localStorage.getItem("token")) {
+    if(!this.credentials.getToken()) {
       navCtrl.setRoot(HomePage);
     }
-    this.userData = this.navParams.get('user');
+    this.userData = this.navParams.data;
+
   }
 
   ionViewWillEnter() {
@@ -41,11 +41,6 @@ export class TabsPage {
       this.getUserData();
     }
   }
-
-  ionViewDidLoad() {
-
-  }
-
   getUserData() {
     this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
       this.userData = result;
@@ -54,18 +49,5 @@ export class TabsPage {
     })
   }
 
-  presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'bottom',
-      dismissOnPageChange: true
-    });
 
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
-  }
 }

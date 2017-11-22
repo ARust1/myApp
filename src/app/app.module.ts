@@ -10,29 +10,32 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { Clipboard } from '@ionic-native/clipboard';
 import { CalendarModule } from "ion2-calendar";
+import { IonicStorageModule } from '@ionic/storage';
+import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { LoginPage } from "../pages/login/login";
 import { RegisterPage } from "../pages/register/register";
 import { HttpModule } from "@angular/http";
 import { HomePage } from "../pages/home/home";
 import {PenaltiesPage} from "../pages/penalties/penalties";
 import {TeamPage} from "../pages/team/team";
-import { UserServiceProvider } from '../providers/user-service/user-service';
 import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
-import { TeamServiceProvider } from '../providers/team-service/team-service';
 import {EventModalPage} from "../pages/events/event-modal/event-modal";
-import { EventServiceProvider } from '../providers/event-service/event-service';
 import {EventDetailPage} from "../pages/events/event-detail/event-detail";
 import {TeamRequestPage} from "../pages/profile/team-request/team-request";
 import {SetupAccountPage} from "../pages/setup-account/setup-account";
 import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite-link-popover";
 import {Credentials} from "../providers/credentials";
-import { InviteServiceProvider } from '../providers/invite-service/invite-service';
-import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
 import {EventInviteListPage} from "../pages/events/event-invite-list/event-invite-list";
+import {AuthServiceProvider} from "../providers/auth-service";
+import {GenericProvider} from "../providers/generic";
+import {UserServiceProvider} from "../providers/user-service";
+import {TeamServiceProvider} from "../providers/team-service";
+import {EventServiceProvider} from "../providers/event-service";
+import {InviteServiceProvider} from "../providers/invite-service";
+import {FeedbackProvider} from "../providers/feedback";
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import {EventInviteListPage} from "../pages/events/event-invite-list/event-invit
     BrowserModule,
     HttpModule,
     CalendarModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -92,7 +96,9 @@ import {EventInviteListPage} from "../pages/events/event-invite-list/event-invit
     UserServiceProvider,
     TeamServiceProvider,
     EventServiceProvider,
-    InviteServiceProvider
+    InviteServiceProvider,
+    FeedbackProvider,
+    GenericProvider
   ]
 })
 export class AppModule {}

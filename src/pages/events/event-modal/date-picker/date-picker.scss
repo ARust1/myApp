@@ -1,4 +1,7 @@
 page-date-picker {
+  -webkit-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+  -moz-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+  box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
   ion-icon[name="close"] {
     font-size: 1.8em !important;
   }

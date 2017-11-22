@@ -1,8 +1,19 @@
 page-event-modal {
   ion-list {
-    border-top: 0.55px solid #c8c7cc !important;
+    .list-ios,
+    .item-block,
+    .item-inner {
+      border: none !important;
+    }
     ion-list-header {
       //background-color: #EFEEF4 !important;
+      border: none !important;
+      ion-label {
+        text-transform: capitalize;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -1px;
+      }
     }
     width: 100%;
 
@@ -18,7 +29,9 @@ page-event-modal {
   }
   ion-item {
     //border-bottom: 0.55px solid #c8c7cc !important;
-
+    ion-icon {
+      font-size: 1.6em !important;
+    }
     &.event-date {
       ion-input:nth-child(1) {
         border-right: 0.55px solid #c8c7cc !important;

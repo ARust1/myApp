@@ -1,7 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons end>
-      <button ion-button (click)="createEvent()">fertig</button>
+      <button *ngIf="!update" ion-button (click)="createEvent()">fertig</button>
+
+      <button *ngIf="update" ion-button>fertig</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -9,7 +11,7 @@
 
 
 <ion-content padding-top>
-  <form>
+  <form padding>
     <ion-list class="event-list">
     <ion-list-header>
       Ausflug
@@ -36,8 +38,8 @@
       <ion-label>
         <ion-icon name="ios-calendar-outline" item-start></ion-icon>
       </ion-label>
-      <ion-input [(ngModel)]="eventData.startDate" [ngModelOptions]="{standalone: true}" (click)="startDate()" placeholder="Anfang"></ion-input>
-      <ion-input [(ngModel)]="eventData.endDate" [ngModelOptions]="{standalone: true}" (click)="endDate()" placeholder="Ende"></ion-input>
+      <ion-input [(ngModel)]="eventData.startDate" name="startDate" (click)="startDate()" placeholder="Anfang"></ion-input>
+      <ion-input [(ngModel)]="eventData.endDate" name="endDate" (click)="endDate()" placeholder="Ende"></ion-input>
     </ion-item>
     </ion-list>
     <ion-list class="invite-list">
@@ -46,6 +48,7 @@
         <div item-end><ion-icon name="add"></ion-icon></div>
       </ion-list-header>
       <ion-item *ngFor="let user of inviteList">
+        <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
         {{user.prename}} {{user.surname}}
       </ion-item>
     </ion-list>

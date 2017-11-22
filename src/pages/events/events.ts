@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../models/user-model";
 import {EventModalPage} from "./event-modal/event-modal";
-import {EventServiceProvider} from "../../providers/event-service/event-service";
 import {Event} from "../../models/event-model";
 import {EventDetailPage} from "./event-detail/event-detail";
+import {EventServiceProvider} from "../../providers/event-service";
 
 @Component({
   selector: 'page-events',
@@ -37,7 +37,7 @@ export class EventsPage {
   }
 
   getEvents(team_id: string): any {
-    this.eventService.getEventsByTeamId(team_id).subscribe((result: Event[]) => {
+    this.eventService.getEventsByTeamId(team_id).subscribe((result: any) => {
       this.eventArr = result;
     }, (err: any) => {
       console.log(err);

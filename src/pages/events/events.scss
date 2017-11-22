@@ -113,6 +113,10 @@ page-events {
           .event-info {
             align-self: center;
             justify-content: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 140.5px;
           }
           .item-h {
             text-align: center;

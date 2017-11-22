@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {User} from "../../../models/user-model";
 import {Team} from "../../../models/team-model";
-import {InviteServiceProvider} from "../../../providers/invite-service/invite-service";
-
-/**
- * Generated class for the TeamRequestPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {InviteServiceProvider} from "../../../providers/invite-service";
 
 @IonicPage()
 @Component({
