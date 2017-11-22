@@ -22,7 +22,6 @@ import {InviteServiceProvider} from "../../providers/invite-service";
 export class ProfilePage {
 
   private loading: any;
-  private isLoggedIn: boolean = false;
   private userData: User;
   private teamData: Team;
   private inviteRequests: User[];
@@ -41,10 +40,6 @@ export class ProfilePage {
               public actionSheetCtrl: ActionSheetController,
               public modalCtrl: ModalController,
               public popoverCtrl: PopoverController) {
-
-    if(window.localStorage.getItem("token")) {
-      this.isLoggedIn = true;
-    }
     this.userData = this.navParams.data;
 
     if(!this.userData.team_id) {
@@ -105,7 +100,7 @@ export class ProfilePage {
   }
 
   logout() {
-    this.authService.logout().then((result) => {
+    this.authService.logout().subscribe((result) => {
     }, (err) => {
       this.presentToast(err);
     });

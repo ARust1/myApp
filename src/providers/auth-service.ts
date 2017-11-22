@@ -17,7 +17,6 @@ export class AuthServiceProvider extends GenericProvider<any>{
   }
 
   login(credentials): any {
-    console.log(this.buildUrl('/auth'));
     return this.postRequest(this.buildUrl('/auth'),
       credentials);
   }
@@ -30,21 +29,19 @@ export class AuthServiceProvider extends GenericProvider<any>{
   }*/
 
   register(data): Observable<any> {
+    return this.putRequest(this.buildUrl('/register'), data);
+  }
+
+  /*register(data): Observable<any> {
     return this.http.put(this.credentials.getApiUrl() + 'register',
       JSON.stringify(data),
      null);
-  }
+  }*/
 
-  logout(){
-    return new Promise((resolve, reject) => {
-
-      this.http.post(this.credentials.getApiUrl() + 'logout',
-        {},
-        null)
-        .subscribe(res => {
-        }, (err) => {
-          reject(err);
-        });
+  logout(): Observable<any>{
+    return this.postRequest(this.buildUrl('/logout'), {}).map( res => {
+      this.credentials.removeKey('token');
     });
+
   }
 }

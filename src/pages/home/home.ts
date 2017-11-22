@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {LoginPage} from "../login/login";
 import {RegisterPage} from "../register/register";
 import {TabsPage} from "../tabs/tabs";
+import {Credentials} from "../../providers/credentials";
 
 @IonicPage()
 @Component({
@@ -11,19 +12,27 @@ import {TabsPage} from "../tabs/tabs";
 })
 export class HomePage {
 
-  private loggedIn: boolean = false;
+  private loggedIn: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    if(window.localStorage.getItem("loggedIn")) {
-      this.loggedIn = true;
-    }
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private credentials: Credentials) {
+    this.credentials.getToken().subscribe(result => {
+      console.log(result);
+      if(!result) {
+        this.navCtrl.setRoot(TabsPage);
+      }
+    });
+
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
     if(this.loggedIn) {
-      this.navCtrl.setRoot(TabsPage);
+
     }
+    console.log(this.loggedIn);
   }
+
   goToLogin() {
     this.navCtrl.push(LoginPage);
   }

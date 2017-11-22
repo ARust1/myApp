@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 export class Credentials {
 
   private api = {
-    dev: 'http://localhost:3000/api/v1',
+    dev: 'http://192.168.0.73:3000/api/v1',
     prod: 'http://91.92.128.99:3000/api/v1'
   };
 
@@ -28,7 +28,8 @@ export class Credentials {
 
   public getToken() {
     return Observable.fromPromise(
-      this.storage.get(this.storageKeyToken));
+      this.storage.get(this.storageKeyToken)
+    );
   }
 
   public getUser(): any {
@@ -43,6 +44,12 @@ export class Credentials {
 
   public saveTokenToStorage(token: string) {
     this.storage.set(this.storageKeyToken, token);
+  }
+
+  public removeKey(key: string) {
+    return Observable.fromPromise(
+      this.storage.remove(key)
+    );
   }
 
   public buildOptions(token) {

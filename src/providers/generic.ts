@@ -9,7 +9,6 @@ import {Storage} from '@ionic/storage';
 export class GenericProvider<T> {
 
   modelName: string;
-  queryString: string;
   constructor(public http: Http,
               public storage: Storage,
               protected credentials: Credentials) {

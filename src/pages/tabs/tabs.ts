@@ -29,10 +29,13 @@ export class TabsPage {
               public userService: UserServiceProvider,
               public credentials: Credentials) {
 
-    if(!this.credentials.getToken()) {
-      navCtrl.setRoot(HomePage);
-    }
-    this.userData = this.navParams.data;
+    this.credentials.getToken().map(result => {
+      if(!result) {
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
+
+    this.userData = this.navParams.get('userData');
 
   }
 
@@ -41,12 +44,17 @@ export class TabsPage {
       this.getUserData();
     }
   }
-  getUserData() {
-    this.userService.getUserData(window.localStorage.getItem("token")).subscribe((result: any) => {
-      this.userData = result;
-    }, (error: any) => {
-      console.log(error);
-    })
+
+  getUserData(): any {
+    return this.credentials.getToken().subscribe((token: any) => {
+      this.userService.getUserData(token).subscribe((result: any) => {
+        console.log(result + "getData");
+        this.userData = result;
+      }, (error: any) => {
+        console.log(error);
+      })
+    });
+
   }
 
 

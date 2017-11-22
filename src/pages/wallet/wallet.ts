@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {ActionSheetController, App, LoadingController, NavParams, ToastController} from "ionic-angular";
+import {ActionSheetController, App, LoadingController, NavParams, ToastController, NavController} from "ionic-angular";
 import {Team} from "../../models/team-model";
 import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {Observable} from "rxjs";
+import {HomePage} from "../home/home";
 
 @Component({
   selector: 'page-wallet',
@@ -16,9 +17,10 @@ export class WalletPage {
   private userData: User;
   private teamData: Team;
   private teamUser: User[];
-  private isLoggedIn: boolean = false;
+  private loggedIn: boolean = true;
 
   constructor(public app: App,
+              public navCtrl: NavController,
               public navParams: NavParams,
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
@@ -26,9 +28,6 @@ export class WalletPage {
               public toastCtrl: ToastController,
               private actionSheetCtrl: ActionSheetController) {
 
-    if(this.credentials.getToken()) {
-      this.isLoggedIn = true;
-    }
     this.userData = this.navParams.data;
 
   }

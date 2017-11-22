@@ -22,9 +22,11 @@ export class EventsPage {
 
 
     this.userData = this.navParams.data;
+    console.log(this.navParams);
   }
 
-  ionViewWillEnter() {
+  ngOnInit() {
+    console.log(this.userData);
     this.getEvents(this.userData.team_id);
   }
 

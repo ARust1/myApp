@@ -4,42 +4,30 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import {Credentials} from "./credentials";
+import {GenericProvider} from "./generic";
+import {Storage} from "@ionic/storage";
 
 @Injectable()
-export class EventServiceProvider {
+export class EventServiceProvider extends GenericProvider<Event>{
 
   headers: Headers;
   options : RequestOptions;
 
-  constructor(public http: Http, public credentials: Credentials) {
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Authorization', 'Bearer ' + window.localStorage.getItem('token'));
+  constructor(public http: Http, public storage: Storage, public credentials: Credentials) {
+    super(http, storage, credentials);
 
-    this.options = new RequestOptions({
-      headers: this.headers
-    });
   }
 
   getEventsByTeamId(team_id: string): Observable<Event[]> {
-    return this.http.get(this.credentials.getApiUrl() + `event/${team_id}`, this.options)
-      .map((res: any) =>
-        res.json()
-      );
+    return this.getRequest(this.buildUrl('/event/'+team_id));
   }
 
-  createEvent(event): Observable<any> {
-    return this.http.post(this.credentials.getApiUrl() + 'event', JSON.stringify(event), this.options)
-      .map((res: any) =>
-        res.json()
-      );
+  createEvent(event): Observable<Event> {
+    return this.postRequest(this.buildUrl('/event'), event);
   }
 
-  getEventInvites(event_id: string): Observable<any> {
-    return this.http.get(this.credentials.getApiUrl() + `event/invites/${event_id}`, this.options)
-      .map((res: any) =>
-        res.json()
-      )
+  getEventInvites(event_id: string): Observable<Event> {
+    return this.getRequest(this.buildUrl('/event/invites/'+event_id));
   }
 
   addEventInvite(user_id, event_id): Observable<any> {
@@ -47,19 +35,13 @@ export class EventServiceProvider {
       user_id: user_id,
       event_id: event_id
     };
-    return this.http.post(this.credentials.getApiUrl() + 'event/invite', JSON.stringify(data), this.options)
-      .map((res: any) => {
-        res.json()
-      })
+    return this.postRequest(this.buildUrl('/event/invite'), JSON.stringify(data));
   }
 
   setEventParticipation(uuid, participation): Observable<any> {
     let data = {
       participation: participation
     };
-    return this.http.put(this.credentials.getApiUrl() + `event/invite/${uuid}`, JSON.stringify(data), this.options)
-      .map((res: any) => {
-        res.json()
-      })
+    return this.putRequest(this.buildUrl('/event/invite/'+uuid), JSON.stringify(data));
   }
 }

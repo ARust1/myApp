@@ -11,36 +11,21 @@ import {Storage} from "@ionic/storage";
 @Injectable()
 export class UserServiceProvider extends GenericProvider<User>{
 
-  private options: RequestOptions;
-
   constructor(public http: Http,
               public storage: Storage,
               public credentials: Credentials) {
     super(http, storage, credentials);
-    this.options = new RequestOptions({
-      headers: null
-    })
   }
 
-  getUserData(token: string): Observable<any> {
-    console.log(this.options);
-    return this.http.get(this.credentials.getApiUrl() + `/user?token=${token}`, this.options)
-      .do(this.logResponse)
-      .map(this.extractData)
-      .catch(this.catchError);
+  getUserData(token: string): Observable<User> {
+    return this.getRequest(this.buildUrl('/user?token='+token));
   }
 
-  getUserByTeamId(team_id: string): Observable<any> {
-    return this.http.get(this.credentials.getApiUrl() + `/user?team_id=${team_id}`, this.options)
-      .do(this.logResponse)
-      .map(this.extractData)
-      .catch(this.catchError);
+  getUserByTeamId(team_id: string): Observable<User> {
+    return this.getRequest(this.buildUrl('/user?team_id='+team_id));
   }
 
-  updateUser(userData: User): Observable<any> {
-    return this.http.put(this.credentials.getApiUrl() + `/user/${userData.uuid}` , userData, this.options)
-      .do(this.logResponse)
-      .map(this.extractData)
-      .catch(this.catchError);
+  updateUser(userData: User): Observable<User> {
+    return this.putRequest(this.buildUrl('/user'+userData.uuid), userData);
   }
 }

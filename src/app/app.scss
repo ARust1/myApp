@@ -37,6 +37,12 @@ form {
   align-items: center;
 }
 
+header,
+.header-md,
+.header-ios {
+  box-shadow: none !important;
+}
+
 // Toolbar
 // --------------------------------------------------
 
