@@ -14,6 +14,7 @@ import {AuthServiceProvider} from "../../providers/auth-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {InviteServiceProvider} from "../../providers/invite-service";
+import {Credentials} from "../../providers/credentials";
 
 @Component({
   selector: 'page-profile',
@@ -39,7 +40,8 @@ export class ProfilePage {
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
               public modalCtrl: ModalController,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              private credentials: Credentials) {
     this.userData = this.navParams.data;
 
     if(!this.userData.team_id) {
@@ -92,7 +94,6 @@ export class ProfilePage {
 
   getInviteRequests() {
     this.inviteService.getTeamRequests(this.userData.team_id).subscribe((result: any) => {
-      console.log(result);
       this.inviteRequests = result;
     }, (error: any) => {
       console.log(error);
@@ -130,7 +131,7 @@ export class ProfilePage {
           text: 'Abmelden',
           handler: () => {
               this.logout();
-              window.localStorage.removeItem("loggedIn");
+              this.credentials.removeKey('token');
               this.showLoader();
               this.app.getRootNav().setRoot(HomePage);
               this.loading.dismiss();

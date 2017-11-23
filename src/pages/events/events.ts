@@ -22,7 +22,6 @@ export class EventsPage {
 
 
     this.userData = this.navParams.data;
-    console.log(this.navParams);
   }
 
   ngOnInit() {
@@ -31,6 +30,7 @@ export class EventsPage {
   }
 
   goToDetail(event) {
+    console.log(event);
     this.navCtrl.push(EventDetailPage, {
       eventData: event,
       userData : this.userData,

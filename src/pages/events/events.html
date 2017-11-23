@@ -25,7 +25,7 @@
   </ion-refresher>
   <ion-grid>
     <ion-list *ngIf="eventArr">
-      <ion-item (click)="goToDetail(event)"  *ngFor="let event of eventArr">
+      <ion-item *ngFor="let event of eventArr" (tap)="goToDetail(event)" >
         <div class="backdrop"></div>
         <ion-row></ion-row>
         <ion-row>

@@ -19,8 +19,6 @@ export class EventDetailPage {
   private inviteList;
   private page: any = 'detail';
 
-  @ViewChild(Slides) slides: Slides;
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventService: EventServiceProvider) {
@@ -29,12 +27,14 @@ export class EventDetailPage {
     this.userData = this.navParams.get('userData');
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
     this.getInviteList(this.eventData.uuid);
   }
 
   getInviteList(event_id) {
+    console.log("gib invites");
     this.eventService.getEventInvites(event_id).subscribe((result: any) => {
+      console.log(result);
       this.inviteList = result;
     }, (err: any) => {
       console.log(err);

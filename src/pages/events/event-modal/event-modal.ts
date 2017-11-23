@@ -8,6 +8,7 @@ import {DatePickerPage} from "./date-picker/date-picker";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 import {EventDetailPage} from "../event-detail/event-detail";
 import {EventServiceProvider} from "../../../providers/event-service";
+import {Observable} from "rxjs";
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ export class EventModalPage {
   private eventArr: Event[];
   private userData: User;
   private inviteList: User[];
+  private deleteList: User[];
   private update: string;
 
   constructor(public navCtrl: NavController,
@@ -27,7 +29,7 @@ export class EventModalPage {
               public eventService: EventServiceProvider,
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController) {
-
+    this.deleteList = [];
   }
 
   ngOnInit() {
@@ -53,24 +55,27 @@ export class EventModalPage {
   }
 
   createEvent(): any {
+    let event_id: string = '';
     this.eventData.team_id = this.userData.team_id;
     this.eventService.createEvent(this.eventData).subscribe((result: any) => {
-      this.eventArr.push(this.eventData);
-      this.persistInviteList(result);
-      this.dismiss();
+      event_id = result;
     }, (err:any) => {
       console.log(err);
     }, () => {
+      this.eventData.uuid = event_id;
+      this.eventArr.push(this.eventData);
+      this.persistInviteList(event_id);
+      this.dismiss();
     })
   }
 
   persistInviteList(event_id) {
-    for(let invite of this.inviteList) {
+    this.inviteList.map(invite => {
       this.eventService.addEventInvite(invite.uuid, event_id).subscribe((result: any) => {
       }, (err: any) => {
         console.log(err);
-      })
-    }
+      });
+    });
   }
 
   dismiss() {
@@ -116,8 +121,13 @@ export class EventModalPage {
 
   }
 
+  addToDelete(user) {
+    this.deleteList.push(user);
+    console.log(this.deleteList);
+    this.delete(user);
+  }
+
   delete(user) {
-    console.log(user);
     let index = this.inviteList.indexOf(user);
     this.inviteList.splice(index, 1);
   }

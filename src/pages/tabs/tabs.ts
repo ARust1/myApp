@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, App} from 'ionic-angular';
 
 import { ProfilePage } from '../profile/profile';
 import { EventsPage } from '../events/events';
@@ -29,12 +29,6 @@ export class TabsPage {
               public userService: UserServiceProvider,
               public credentials: Credentials) {
 
-    this.credentials.getToken().map(result => {
-      if(!result) {
-        this.navCtrl.setRoot(HomePage);
-      }
-    });
-
     this.userData = this.navParams.get('userData');
 
   }
@@ -56,6 +50,4 @@ export class TabsPage {
     });
 
   }
-
-
 }

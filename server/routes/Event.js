@@ -54,7 +54,7 @@ router.post('/invite', function(req, res, next) {
 
   Event.addEventInvite(uuid, user_id, event_id, function(err, results) {
     if(err) return res.json(err);
-    res.json(results[0]);
+    res.status(200).json(results);
   });
 });
 

@@ -40,7 +40,6 @@ export class LoginPage {
       }, (err) => {
         console.log(err);
       }, () => {
-        console.log(this.userData);
         //this.loading.dismiss();
         this.goToApp();
       });
@@ -69,7 +68,6 @@ export class LoginPage {
       this.navCtrl.setRoot(SetupAccountPage);
     } else {
       this.navCtrl.setRoot(TabsPage, this.userData);
-      this.credentials.saveUserToStorage(this.userData);
     }
   }
 

@@ -7,6 +7,7 @@ import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {Observable} from "rxjs";
 import {HomePage} from "../home/home";
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
   selector: 'page-wallet',
@@ -17,7 +18,6 @@ export class WalletPage {
   private userData: User;
   private teamData: Team;
   private teamUser: User[];
-  private loggedIn: boolean = true;
 
   constructor(public app: App,
               public navCtrl: NavController,
@@ -25,15 +25,15 @@ export class WalletPage {
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
               private credentials: Credentials,
-              public toastCtrl: ToastController,
-              private actionSheetCtrl: ActionSheetController) {
+              public toastCtrl: ToastController) {
 
     this.userData = this.navParams.data;
+
 
   }
   ngOnInit() {
     if(Object.keys(this.userData).length == 0) {
-      this.getAllData();
+      this.getData();
     } else {
       this.getTeamData(this.userData.team_id);
       this.getUserByTeamId(this.userData.team_id);
@@ -44,32 +44,42 @@ export class WalletPage {
     this.getUserByTeamId(this.userData.team_id);
   }
 
-  getAllData() {
+  getData() {
     let token = '';
+    let userData: User;
+    let teamData: Team;
+    let teamUser: User[];
     this.credentials.getToken().subscribe((result: any) => {
       token = result;
-    },(err: any) => {
+    }, (err: any) => {
       console.log(err);
     }, () => {
       this.userService.getUserData(token).subscribe((result: any) => {
-        this.userData = result;
-        this.teamService.getTeamById(result.team_id).subscribe( (result) => {
-          this.teamData = result;
-          this.userService.getUserByTeamId(result.uuid).subscribe((result: any) => {
-            this.teamUser = result;
-          }, (err: any) => {
-            console.log(err)
-          })
+        userData = result;
+      }, (err: any) => {
+        console.log(err);
+      }, () => {
+        this.userData = userData;
+        this.teamService.getTeamById(userData.team_id).subscribe( (result) => {
+          teamData = result;
         }, (err: any) => {
           this.presentToast(err);
         }, () => {
-        });
-      }, (error: any) => {
-        console.log(error);
-      }, () => {
+          this.teamData = teamData;
+          this.userService.getUserByTeamId(teamData.uuid).subscribe((result: any) => {
+            teamUser = result;
+          }, (err: any) => {
+            console.log(err)
+          }, () => {
+            this.teamUser = teamUser;
+            console.log(token);
+            console.log(userData);
+            console.log(teamData);
+            console.log(teamUser);
+          })
+        })
       })
     });
-
   }
 
   getTeamData(team_id: string): any {
@@ -128,4 +138,5 @@ export class WalletPage {
       refresher.complete();
     }, 2000);
   }
+
 }

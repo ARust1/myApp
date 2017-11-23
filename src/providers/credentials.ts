@@ -29,7 +29,7 @@ export class Credentials {
   public getToken() {
     return Observable.fromPromise(
       this.storage.get(this.storageKeyToken)
-    );
+    ).share();
   }
 
   public getUser(): any {
@@ -38,12 +38,12 @@ export class Credentials {
     ).share();
   }
 
-  public saveUserToStorage(userData: any) {
-    this.storage.set(this.storageKeyUser, userData);
+  public saveUserIdToStorage(userData: any) {
+    this.storage.set(this.storageKeyUser, userData.uuid);
   }
 
-  public saveTokenToStorage(token: string) {
-    this.storage.set(this.storageKeyToken, token);
+  public saveTokenToStorage(uuid: string) {
+    this.storage.set(this.storageKeyToken, uuid);
   }
 
   public removeKey(key: string) {

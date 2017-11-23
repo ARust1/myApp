@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import {Credentials} from "./credentials";
 import {GenericProvider} from "./generic";
 import {Storage} from "@ionic/storage";
+import {EventInvite} from "../models/event-invite-model";
 
 @Injectable()
 export class EventServiceProvider extends GenericProvider<Event>{
@@ -18,7 +19,7 @@ export class EventServiceProvider extends GenericProvider<Event>{
 
   }
 
-  getEventsByTeamId(team_id: string): Observable<Event[]> {
+  getEventsByTeamId(team_id: string): Observable<any> {
     return this.getRequest(this.buildUrl('/event/'+team_id));
   }
 
@@ -35,13 +36,17 @@ export class EventServiceProvider extends GenericProvider<Event>{
       user_id: user_id,
       event_id: event_id
     };
-    return this.postRequest(this.buildUrl('/event/invite'), JSON.stringify(data));
+    return this.postRequest(this.buildUrl('/event/invite'), data);
+  }
+
+  deleteEventInvite(uuid: string): Observable<any> {
+    return this.deleteRequest(this.buildUrl('/event/invite/'+uuid));
   }
 
   setEventParticipation(uuid, participation): Observable<any> {
     let data = {
       participation: participation
     };
-    return this.putRequest(this.buildUrl('/event/invite/'+uuid), JSON.stringify(data));
+    return this.putRequest(this.buildUrl('/event/invite/'+uuid), data);
   }
 }

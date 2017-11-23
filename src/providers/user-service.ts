@@ -17,6 +17,10 @@ export class UserServiceProvider extends GenericProvider<User>{
     super(http, storage, credentials);
   }
 
+  getUserById(uuid: string): Observable<User> {
+    return this.getRequest(this.buildUrl('/user/'+uuid));
+  }
+
   getUserData(token: string): Observable<User> {
     return this.getRequest(this.buildUrl('/user?token='+token));
   }

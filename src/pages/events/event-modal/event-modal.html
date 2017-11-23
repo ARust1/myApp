@@ -50,6 +50,7 @@
       <ion-item *ngFor="let user of inviteList">
         <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
         {{user.prename}} {{user.surname}}
+        <ion-icon item-end name="ios-trash-outline" (tap)="addToDelete(user)"></ion-icon>
       </ion-item>
     </ion-list>
   </form>
