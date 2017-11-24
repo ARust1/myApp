@@ -1,10 +1,11 @@
+import {User} from "./user-model";
 /**
  * Created by jangoSPLASHER169 on 23.11.2017.
  */
 
-export class EventInvite {
-  public uuid: string;
-  public user_id: string;
-  public event_id: string;
-  public participation: number;
+export interface EventInvite {
+  e_uuid: string;
+  user: User;
+  event_id: string;
+  participation: number;
 }

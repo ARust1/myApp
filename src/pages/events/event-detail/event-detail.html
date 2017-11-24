@@ -30,7 +30,7 @@
       <ion-list *ngIf="inviteList">
         <ion-item *ngFor="let invite of inviteList">
           <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
-          {{invite.prename}} {{invite.surname}}
+          {{invite.user.prename}} {{invite.user.surname}}
           <div class="participation">
             noch nicht reagiert
           </div>

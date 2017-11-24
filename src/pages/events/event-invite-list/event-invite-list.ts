@@ -28,14 +28,13 @@ export class EventInviteListPage {
     this.getUserList();
   }
 
-  getUserList() {
+  getUserList(): any {
     this.userService.getUserByTeamId(this.team_id).subscribe((result: any) => {
       let filteredArray = _.differenceBy(result, this.inviteList, 'uuid');
       this.userList = filteredArray;
     }, (err: any) => {
       console.log(err);
     }, () => {
-
     })
   }
 
@@ -44,7 +43,7 @@ export class EventInviteListPage {
     if(val && val !== undefined && val !== '') {
       this.userList = this.userList.filter(user => {
         return user.prename.toLowerCase().indexOf(val.toLowerCase()) !== -1
-        || user.surname.toLowerCase().indexOf(val.toLowerCase()) !== -1;
+        ||  user.surname.toLowerCase().indexOf(val.toLowerCase()) !== -1;
       });
     } else {
       this.getUserList()

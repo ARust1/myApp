@@ -36,6 +36,7 @@ import {TeamServiceProvider} from "../providers/team-service";
 import {EventServiceProvider} from "../providers/event-service";
 import {InviteServiceProvider} from "../providers/invite-service";
 import {FeedbackProvider} from "../providers/feedback";
+import { EventInviteProvider } from '../providers/event-invite';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import {FeedbackProvider} from "../providers/feedback";
     EventServiceProvider,
     InviteServiceProvider,
     FeedbackProvider,
-    GenericProvider
+    GenericProvider,
+    EventInviteProvider
   ]
 })
 export class AppModule {}

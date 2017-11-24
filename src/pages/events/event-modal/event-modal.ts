@@ -6,9 +6,8 @@ import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
 import {DatePickerPage} from "./date-picker/date-picker";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
-import {EventDetailPage} from "../event-detail/event-detail";
 import {EventServiceProvider} from "../../../providers/event-service";
-import {Observable} from "rxjs";
+import {EventInviteProvider} from "../../../providers/event-invite";
 
 @IonicPage()
 @Component({
@@ -28,7 +27,8 @@ export class EventModalPage {
               public navParams: NavParams,
               public eventService: EventServiceProvider,
               public popoverCtrl: PopoverController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              public eventInviteService: EventInviteProvider) {
     this.deleteList = [];
   }
 
@@ -71,7 +71,7 @@ export class EventModalPage {
 
   persistInviteList(event_id) {
     this.inviteList.map(invite => {
-      this.eventService.addEventInvite(invite.uuid, event_id).subscribe((result: any) => {
+      this.eventInviteService.addEventInvite(invite.uuid, event_id).subscribe((result: any) => {
       }, (err: any) => {
         console.log(err);
       });
@@ -119,6 +119,30 @@ export class EventModalPage {
       }
     })
 
+  }
+
+  updateEvent() {
+    this.eventService.updateEvent(this.eventData).subscribe((result: any) => {
+      this.navCtrl.pop();
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      this.deleteList.forEach(user => {
+        this.eventInviteService.deleteEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
+        }, (err: any) => {
+          console.log(err);
+        });
+      });
+
+      // this.inviteList.forEach(user => {
+      //   console.log(user);
+      //   this.eventInviteService.addEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
+      //
+      //   }, (err: any) => {
+      //     console.log(err);
+      //   })
+      // })
+    })
   }
 
   addToDelete(user) {

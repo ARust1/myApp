@@ -3,7 +3,7 @@
     <ion-buttons end>
       <button *ngIf="!update" ion-button (click)="createEvent()">fertig</button>
 
-      <button *ngIf="update" ion-button>fertig</button>
+      <button *ngIf="update" ion-button (tap)="updateEvent()">fertig</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
