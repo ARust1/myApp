@@ -8,6 +8,7 @@ import {DatePickerPage} from "./date-picker/date-picker";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 import {EventServiceProvider} from "../../../providers/event-service";
 import {EventInviteProvider} from "../../../providers/event-invite";
+import * as _ from 'lodash';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class EventModalPage {
   private userData: User;
   private inviteList: User[];
   private deleteList: User[];
+  private updateList: User[];
   private update: string;
 
   constructor(public navCtrl: NavController,
@@ -115,7 +117,9 @@ export class EventModalPage {
     modal.present();
     modal.onDidDismiss((data: any) => {
       if(data) {
-        this.inviteList = data;
+        this.inviteList = data.inviteList;
+        this.updateList = data.updateList;
+        console.log(this.updateList);
       }
     })
 
@@ -133,15 +137,14 @@ export class EventModalPage {
           console.log(err);
         });
       });
+      this.updateList.forEach(user => {
+        console.log(user);
+        this.eventInviteService.addEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
 
-      // this.inviteList.forEach(user => {
-      //   console.log(user);
-      //   this.eventInviteService.addEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
-      //
-      //   }, (err: any) => {
-      //     console.log(err);
-      //   })
-      // })
+        }, (err: any) => {
+          console.log(err);
+        })
+      })
     })
   }
 

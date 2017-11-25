@@ -14,6 +14,7 @@ export class EventInviteListPage {
   private inviteList: User[];
   private team_id: string;
   private userList: User[];
+  private updateList: User[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -22,6 +23,7 @@ export class EventInviteListPage {
 
     this.inviteList = this.navParams.get('inviteList');
     this.team_id = this.navParams.get('team_id');
+    this.updateList = [];
   }
 
   ngOnInit() {
@@ -59,13 +61,17 @@ export class EventInviteListPage {
     let index = this.userList.indexOf(user);
     this.userList.splice(index, 1);
     this.inviteList.push(user);
+    this.updateList.push(user);
   }
 
   saveInviteList() {
     console.log(this.inviteList);
     //this.navCtrl.pop();
 
-    this.viewCtrl.dismiss(this.inviteList);
+    this.viewCtrl.dismiss({
+      inviteList: this.inviteList,
+      updateList: this.updateList
+    });
   }
 
 }
