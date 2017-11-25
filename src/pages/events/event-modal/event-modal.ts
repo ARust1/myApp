@@ -131,20 +131,25 @@ export class EventModalPage {
     }, (err: any) => {
       console.log(err);
     }, () => {
-      this.deleteList.forEach(user => {
-        this.eventInviteService.deleteEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
-        }, (err: any) => {
-          console.log(err);
+      if(this.deleteList) {
+        this.deleteList.forEach(user => {
+          this.eventInviteService.deleteEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
+          }, (err: any) => {
+            console.log(err);
+          });
         });
-      });
-      this.updateList.forEach(user => {
-        console.log(user);
-        this.eventInviteService.addEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
+      }
+      if(this.updateList) {
+        this.updateList.forEach(user => {
+          console.log(user);
+          this.eventInviteService.addEventInvite(user.uuid, this.eventData.uuid).subscribe((result: any) => {
 
-        }, (err: any) => {
-          console.log(err);
+          }, (err: any) => {
+            console.log(err);
+          })
         })
-      })
+      }
+
     })
   }
 
