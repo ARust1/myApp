@@ -8,7 +8,6 @@ import {DatePickerPage} from "./date-picker/date-picker";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 import {EventServiceProvider} from "../../../providers/event-service";
 import {EventInviteProvider} from "../../../providers/event-invite";
-import * as _ from 'lodash';
 
 @IonicPage()
 @Component({
@@ -163,5 +162,6 @@ export class EventModalPage {
     let index = this.inviteList.indexOf(user);
     this.inviteList.splice(index, 1);
   }
+
 
 }

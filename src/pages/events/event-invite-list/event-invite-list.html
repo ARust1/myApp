@@ -1,10 +1,14 @@
 <ion-header>
   <ion-navbar no-border-bottom>
+
     <ion-buttons end>
       <button (click)="saveInviteList()">fertig</button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar no-border-top>
+    <ion-buttons start>
+      <button (tap)="selectAll()">alle auswählen</button>
+    </ion-buttons>
   <ion-searchbar animated="true"
                  placeholder ="Suche"
     [showCancelButton]="shouldShowCancel"

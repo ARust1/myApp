@@ -12,6 +12,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { CalendarModule } from "ion2-calendar";
 import { IonicStorageModule } from '@ionic/storage';
 import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
+import { Stripe } from '@ionic-native/stripe';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,6 +39,17 @@ import {InviteServiceProvider} from "../providers/invite-service";
 import {FeedbackProvider} from "../providers/feedback";
 import { EventInviteProvider } from '../providers/event-invite';
 
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
+import {AccountPage} from "../pages/profile/account/account";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -57,13 +69,14 @@ import { EventInviteProvider } from '../providers/event-invite';
     EventModalPage,
     EventDetailPage,
     DatePickerPage,
-    EventInviteListPage
+    EventInviteListPage,
+    AccountPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     CalendarModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {tabsHideOnSubPages: true}),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -85,7 +98,8 @@ import { EventInviteProvider } from '../providers/event-invite';
     EventModalPage,
     EventDetailPage,
     DatePickerPage,
-    EventInviteListPage
+    EventInviteListPage,
+    AccountPage
   ],
   providers: [
     StatusBar,
@@ -100,7 +114,9 @@ import { EventInviteProvider } from '../providers/event-invite';
     InviteServiceProvider,
     FeedbackProvider,
     GenericProvider,
-    EventInviteProvider
+    EventInviteProvider,
+    GoogleMaps,
+    Stripe
   ]
 })
 export class AppModule {}

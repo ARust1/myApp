@@ -57,6 +57,16 @@ export class EventInviteListPage {
     this.getUserList();
   }
 
+  selectAll() {
+    this.userList.forEach(user => {
+      this.inviteList.push(user);
+    });
+    this.viewCtrl.dismiss({
+      inviteList: this.inviteList,
+      updateList: this.updateList
+    });
+  }
+
   addToInviteList(user) {
     let index = this.userList.indexOf(user);
     this.userList.splice(index, 1);

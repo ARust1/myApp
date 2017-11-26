@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
   ActionSheetController, AlertController, App, LoadingController, ModalController, NavController, NavParams,
   PopoverController,
-  ToastController
+  ToastController, ViewController
 } from 'ionic-angular';
 import  { HomePage } from "../home/home";
 import { User } from "../../models/user-model";
@@ -15,6 +15,7 @@ import {UserServiceProvider} from "../../providers/user-service";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {InviteServiceProvider} from "../../providers/invite-service";
 import {Credentials} from "../../providers/credentials";
+import {AccountPage} from "./account/account";
 
 @Component({
   selector: 'page-profile',
@@ -39,6 +40,7 @@ export class ProfilePage {
               private navCtrl: NavController,
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
+              public viewCtrl: ViewController,
               public modalCtrl: ModalController,
               public popoverCtrl: PopoverController,
               private credentials: Credentials) {
@@ -177,6 +179,7 @@ export class ProfilePage {
         {
           text: 'Konten verwalten',
           handler: () => {
+            this.goToAccount();
           }
         },
         {
@@ -196,6 +199,13 @@ export class ProfilePage {
     });
 
     actionSheet.present();
+  }
+
+  goToAccount() {
+
+    this.navCtrl.push(AccountPage, {
+      userData: this.userData
+    });
   }
 
   goToEditProfile() {

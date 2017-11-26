@@ -51,9 +51,12 @@ export class EventDetailPage {
 
   updateEvent() {
     let userList = [];
-    this.inviteList.forEach(item => {
-      userList.push(item.user);
-    });
+    if(this.inviteList) {
+      this.inviteList.forEach(item => {
+        userList.push(item.user);
+      });
+    }
+
     this.navCtrl.push(EventModalPage, {
       flag: 'update',
       userData: this.userData,

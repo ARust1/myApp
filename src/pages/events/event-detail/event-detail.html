@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons end>
+    <ion-buttons *ngIf="userData.admin" end>
       <button ion-button (click)="updateEvent()">bearbeiten</button>
     </ion-buttons>
   </ion-navbar>
@@ -20,10 +20,25 @@
 <ion-content padding>
 
     <ion-grid *ngIf="page === 'detail'">
-      <div class="">
-        <span>zugesagt 0/12</span><span>bezahlt 0/12</span>
-      </div>
-      <div *ngIf="eventData">{{eventData.name}}</div>
+      <ion-row>
+        <ion-col>
+          <span>zugesagt 0/12</span><span>bezahlt 0/12</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>{{eventData.name}}</ion-col>
+        <ion-col col-6>{{eventData.location}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>vom {{eventData.startDate}}</ion-col>
+        <ion-col col-6>bis {{eventData.endDate}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          € {{eventData.sum}}
+        </ion-col>
+      </ion-row>
+      <div></div>
 
     </ion-grid>
     <ion-grid *ngIf="page === 'inviteList'">
@@ -38,5 +53,6 @@
       </ion-list>
 
     </ion-grid>
+
 
 </ion-content>
