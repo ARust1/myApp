@@ -116,7 +116,7 @@ import {AccountPage} from "../pages/profile/account/account";
     GenericProvider,
     EventInviteProvider,
     GoogleMaps,
-    Stripe
+    Stripe,
   ]
 })
 export class AppModule {}

@@ -29,7 +29,7 @@ export class AuthServiceProvider extends GenericProvider<any>{
   }*/
 
   register(data): Observable<any> {
-    return this.putRequest(this.buildUrl('/register'), data);
+    return this.postRequest(this.buildUrl('/register'), data);
   }
 
   /*register(data): Observable<any> {

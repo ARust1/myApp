@@ -60,6 +60,7 @@ export class EventInviteListPage {
   selectAll() {
     this.userList.forEach(user => {
       this.inviteList.push(user);
+      this.updateList.push(user);
     });
     this.viewCtrl.dismiss({
       inviteList: this.inviteList,
