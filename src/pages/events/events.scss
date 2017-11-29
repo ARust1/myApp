@@ -1,15 +1,16 @@
 page-events {
   ion-header {
-    margin-top: 30px !important;
+    //margin-top: 30px !important;
     ion-title {
-      padding-left: 0 !important;
+      //padding-left: 0 !important;
       &.title-h {
         .toolbar-title {
-          font-size: 15px !important;
+          color: #2ad48a;
+          /*font-size: 15px !important;
           font-weight: 400 !important;
           color: #488aff;
           text-align: left;
-          padding-left: 16px !important;
+          padding-left: 16px !important;*/
         }
       }
     }
@@ -18,7 +19,7 @@ page-events {
         color:  #488aff !important;
       }
       .toolbar-background {
-        background-color: transparent !important;
+        //background-color: transparent !important;
       }
       ion-buttons {
         display: flex;
@@ -41,12 +42,9 @@ page-events {
       font-weight: 700 !important;
     }
   }
-  .fixed-content {
-    margin-top: 135px !important;
-  }
+
   .scroll-content {
-    background-color: transparent !important;
-    margin-top: 135px !important;
+    //background-color: #f8faf9 !important;
   }
 
   ion-content {
@@ -57,41 +55,39 @@ page-events {
     }
 
     ion-grid {
-      //padding-top: 10px !important;
+      padding-top: 20px !important;
       ion-list {
-        padding: 0 16px;
+        padding: 0 7px;
         font-weight: 400;
         ion-item,
         .item-md,
         .item-ios {
-          -webkit-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
-          -moz-box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
-          box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.26);
+          border-top: 2px solid #2ad48a !important;
+          padding-left: 0;
+          box-shadow: 2px 4px 16px -3px rgba(0,0,0,0.11);
           .backdrop {
             position: absolute;
             top:0;
             left:0;
             right: 0;
             bottom: 0;
-            border-radius: 7px;
+            //border-radius: 7px;
             opacity: 1;
-            background-color: #49a6fd;
+            //background-color: #49a6fd;
           }
-          background-color: transparent !important;
-          color: #ffffff !important;
+          background-color: #ffffff !important;
+          //color: #ffffff !important;
 
           margin-bottom: 10px !important;
-          border: none !important;
-          height: 100px;
-          -webkit-border-radius: 7px;
-          -moz-border-radius: 7px;
-          border-radius: 7px !important;
+          border-bottom: none !important;
+          border-radius: 2px !important;
           .item-inner {
             border: none !important;
           }
           .event-date {
             font-weight: 300;
             font-size: 11px;
+            border-right: 1px solid #DFDFDF;
             div {
               text-align: center;
             }
@@ -106,26 +102,25 @@ page-events {
           }
           .event-sum {
             text-align: center;
-            font-size: 21px;
+            font-size: 17px;
             font-weight: 400;
-            align-self: center;
+            //align-self: center;
           }
           .event-info {
-            align-self: center;
-            justify-content: center;
+            //align-self: center;
+            justify-content: flex-start;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 140.5px;
+            padding-left: 16px;
           }
           .item-h {
-            text-align: center;
           }
           .item-sub {
-            text-align: center;
             font-size: 12px !important;
             font-weight:300;
-            color: #fff;
+            color: #9C9C9C;
           }
         }
       }

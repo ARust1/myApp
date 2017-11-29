@@ -22,6 +22,7 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 $refresher-border-color: transparent;
 $refresher-icon-font-size: 18px;
+$item-ios-detail-push-color: #2ad48a;
 
 
 
@@ -46,7 +47,13 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  blue:       #567add,
+  green:      #2ad48a,
+  lightLightGrey: #F4F4F4,
+  lightGrey:  #DBDBDB,
+  midGrey:    #B5B6B6,
+  grey:       #4C4C4C
 );
 
 

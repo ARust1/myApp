@@ -1,0 +1,65 @@
+
+<ion-header>
+
+  <ion-navbar color="lightLightGrey">
+    <ion-title color="grey">Bezahlmöglichkeiten</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <h4>Zahlungsmethode</h4>
+    </ion-row>
+    <ion-row class="payment-tabs">
+      <ion-col col-3 (click)="paymentMethod = 'ec'">EC</ion-col>
+      <ion-col col-3 (click)="paymentMethod = 'credit'">Credit</ion-col>
+      <ion-col col-3 (click)="paymentMethod = 'paypal'">Paypal</ion-col>
+    </ion-row>
+
+    <ion-row class="ec" *ngIf="paymentMethod == 'ec'">
+      <h4>details</h4>
+      <form>
+        <ion-list>
+          <ion-item>
+            <ion-label color="lightGrey">Inhaber</ion-label>
+            <ion-input name="holder"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="lightGrey">IBAN</ion-label>
+            <ion-input name="iban"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="lightGrey">Bank</ion-label>
+            <ion-input name="bank"></ion-input>
+          </ion-item>
+        </ion-list>
+
+      </form>
+
+      <div class="btn-container">
+        <button ion-button color="blue">Speichern</button>
+      </div>
+    </ion-row>
+
+    <ion-row *ngIf="paymentMethod == 'credit'">
+      <h4>details</h4>
+      credit
+
+      <div class="btn-container">
+        <button ion-button color="blue">Speichern</button>
+      </div>
+    </ion-row>
+
+    <ion-row *ngIf="paymentMethod == 'paypal'">
+      <h4>details</h4>
+      paypal
+
+      <div class="btn-container">
+        <button ion-button color="blue">Speichern</button>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>

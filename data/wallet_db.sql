@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 23. Nov 2017 um 17:43
+-- Erstellungszeit: 29. Nov 2017 um 17:18
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 7.1.1
 
@@ -41,12 +41,9 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`uuid`, `name`, `startDate`, `endDate`, `location`, `sum`, `team_id`) VALUES
-('06d63b79-d56c-43b3-8392-cac77c355c45', 'Saufen', '23.11.2017', '24.11.2017', 'Heidelberg', 55, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('14122e7e-0cd2-421c-8d72-6c61bbe4c162', 'llll', '23.11.2017', '25.11.2017', 'lllll', 454, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('19e0c371-af67-4178-a944-76e3f0286488', 'hhh', '24.11.2017', '28.11.2017', 'hhh', 344, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('3cd0edf8-9603-47da-b01c-ac0485ec9d5d', 'njhjj', '24.11.2017', '25.11.2017', 'jjj', 455, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('6ed7123f-2fef-4039-8218-a696fa97742b', 'Nomma saufen', '23.11.2017', '25.11.2017', 'Heidelberg', 44343, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
-('ba01abc1-6e1d-4302-8b44-4b1b259d9b85', 'fff', '23.11.2017', '25.11.2017', 'fff', 333, '10a021b3-c466-4ef8-abaa-066c57e16fae');
+('5db699ac-87da-428c-a074-e0f445e8974a', 'Gggvg', '28.11.2017', '30.11.2017', 'Vgjhvgg', 300, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
+('6d984fc4-2304-4f80-9888-9d094b885431', 'Saufen', '26.11.2017', '30.11.2017', 'Heidelberg', 300, '10a021b3-c466-4ef8-abaa-066c57e16fae'),
+('fc339bec-cd8a-4c0b-8144-41ef39cd0981', 'fff', '26.11.2017', '28.11.2017', 'fff', 23, '10a021b3-c466-4ef8-abaa-066c57e16fae');
 
 -- --------------------------------------------------------
 
@@ -55,7 +52,7 @@ INSERT INTO `events` (`uuid`, `name`, `startDate`, `endDate`, `location`, `sum`,
 --
 
 CREATE TABLE `event_invite` (
-  `uuid` char(36) NOT NULL,
+  `e_uuid` char(36) NOT NULL,
   `user_id` char(36) NOT NULL,
   `event_id` char(36) NOT NULL,
   `participation` int(3) DEFAULT '0'
@@ -65,19 +62,16 @@ CREATE TABLE `event_invite` (
 -- Daten für Tabelle `event_invite`
 --
 
-INSERT INTO `event_invite` (`uuid`, `user_id`, `event_id`, `participation`) VALUES
-('00309285-2488-4b01-8410-760c0247b351', '5b7fa85e-bca9-11e7-bff5-080027c12564', '06d63b79-d56c-43b3-8392-cac77c355c45', 0),
-('0cdbe02f-b3b0-4273-8888-e401a686afb0', 'fe13d609-bcb7-11e7-8dd7-080027c12564', '19e0c371-af67-4178-a944-76e3f0286488', 0),
-('15eaa339-bffa-4304-aca6-a14a3f7814b0', 'f819dff0-c01d-11e7-8758-080027c12564', '6ed7123f-2fef-4039-8218-a696fa97742b', 0),
-('66ab3988-ec91-4122-83dc-841e788f5311', 'f819dff0-c01d-11e7-8758-080027c12564', '19e0c371-af67-4178-a944-76e3f0286488', 0),
-('893b28e7-0525-4ca6-b1aa-a7cecefd8e94', 'f819dff0-c01d-11e7-8758-080027c12564', '14122e7e-0cd2-421c-8d72-6c61bbe4c162', 0),
-('8cee0d27-8234-4631-a6d0-f7fc2ef608b0', '5b7fa85e-bca9-11e7-bff5-080027c12564', '6ed7123f-2fef-4039-8218-a696fa97742b', 0),
-('984bad03-9a06-4d69-9dfd-ede4888e412b', '5b7fa85e-bca9-11e7-bff5-080027c12564', '14122e7e-0cd2-421c-8d72-6c61bbe4c162', 0),
-('a168b3d8-a369-41fe-b3d2-8fb95070dea8', '5b7fa85e-bca9-11e7-bff5-080027c12564', 'ba01abc1-6e1d-4302-8b44-4b1b259d9b85', 0),
-('a1ad0c2d-b6a4-462c-b153-eb3384d0b950', '5b7fa85e-bca9-11e7-bff5-080027c12564', '3cd0edf8-9603-47da-b01c-ac0485ec9d5d', 0),
-('b31b19b2-7c06-426a-8e04-59579372b706', '5b7fa85e-bca9-11e7-bff5-080027c12564', '19e0c371-af67-4178-a944-76e3f0286488', 0),
-('bb4b4347-67cb-4f0b-b229-6be2a04cc4c4', 'f819dff0-c01d-11e7-8758-080027c12564', '06d63b79-d56c-43b3-8392-cac77c355c45', 0),
-('c95b5a5b-123b-45c1-9e14-f39697e94213', 'f819dff0-c01d-11e7-8758-080027c12564', 'ba01abc1-6e1d-4302-8b44-4b1b259d9b85', 0);
+INSERT INTO `event_invite` (`e_uuid`, `user_id`, `event_id`, `participation`) VALUES
+('078a61d9-5f8b-45ca-bf55-82e8a9604c7f', 'f819dff0-c01d-11e7-8758-080027c12564', '6d984fc4-2304-4f80-9888-9d094b885431', 0),
+('096b6a82-1223-45f7-8d40-7b8421bb7b89', '5b7fa85e-bca9-11e7-bff5-080027c12564', '6d984fc4-2304-4f80-9888-9d094b885431', 0),
+('15367203-cd23-4631-bd7a-f12dc24dcfec', '5b7fa85e-bca9-11e7-bff5-080027c12564', '5db699ac-87da-428c-a074-e0f445e8974a', 0),
+('2664f7f3-132b-47eb-a205-9cc01dea013a', 'fe13d609-bcb7-11e7-8dd7-080027c12564', '6d984fc4-2304-4f80-9888-9d094b885431', 0),
+('3cd061f7-88d7-4fd0-a3fd-c014883ff6f4', 'fe13d609-bcb7-11e7-8dd7-080027c12564', '5db699ac-87da-428c-a074-e0f445e8974a', 0),
+('6b3dff3b-f844-4559-8046-12e4f0108e10', 'fe13d609-bcb7-11e7-8dd7-080027c12564', 'fc339bec-cd8a-4c0b-8144-41ef39cd0981', 0),
+('7b5505c9-eb12-4b0d-89b0-4652112b846d', 'f819dff0-c01d-11e7-8758-080027c12564', 'fc339bec-cd8a-4c0b-8144-41ef39cd0981', 0),
+('7d9e461a-0616-4afb-b4ee-d1569bf85a4e', '5b7fa85e-bca9-11e7-bff5-080027c12564', 'fc339bec-cd8a-4c0b-8144-41ef39cd0981', 0),
+('7f9eaba9-c65a-4a91-8341-ef0181e3ab84', 'f819dff0-c01d-11e7-8758-080027c12564', '5db699ac-87da-428c-a074-e0f445e8974a', 0);
 
 -- --------------------------------------------------------
 
@@ -133,7 +127,7 @@ CREATE TABLE `team` (
 --
 
 INSERT INTO `team` (`uuid`, `name`, `owner_id`, `balance`, `invite_token`) VALUES
-('10a021b3-c466-4ef8-abaa-066c57e16fae', 'Cide Reaper', '5b7fa85e-bca9-11e7-bff5-080027c12564', 1454.42, 'MOPRu');
+('10a021b3-c466-4ef8-abaa-066c57e16fae', 'Cide Reaper', '5b7fa85e-bca9-11e7-bff5-080027c12564', 1454.42, 'kPZDJ');
 
 -- --------------------------------------------------------
 
@@ -152,18 +146,20 @@ CREATE TABLE `user` (
   `back_number` int(11) DEFAULT NULL,
   `position` varchar(255) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
-  `balance` double NOT NULL DEFAULT '0'
+  `balance` double NOT NULL DEFAULT '0',
+  `customerToken` char(36) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `user`
 --
 
-INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`, `balance`) VALUES
-('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0MzF9.jOFRsVpmXJHv6F6Z-9aSrTLWxzXs4X57lic5BR6QM04', 0),
-('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTE0NTE0NTV9.4LPfSGjgBkSIknCKR3Yl0wG2e-WJD1SHGJy1rBQ8hbk', 0),
-('f819dff0-c01d-11e7-8758-080027c12564', 'frank', '$2a$10$W0haIbWOnT8fa9d14jOeGekb1aHXvsoq5o05f3jgA4Ag7CVma/2rO', 'Frank', 'Rust', '10a021b3-c466-4ef8-abaa-066c57e16fae', 0, 9, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk2NjIwNjZ9.aZYhZh_8BWpVC7Ig-jTVKIDpj-iEZ-us__YC39UjJbY', 0),
-('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', 'Björn', 'Soika', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 5, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTAzMjY5Mzd9.UJ9ufZ6eSVZ1bCMVgDGXcr7AYadaDfC2p2ap3eXqZ2I', 0);
+INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `team_id`, `admin`, `back_number`, `position`, `token`, `balance`, `customerToken`) VALUES
+('0bfc6908-d3c3-11e7-8b8e-fcaa14968dfd', 'alex', '$2a$10$bH.5R3Bp0PuTMYJjlpDVhu1uIi8vEZhFQ4VwqLQ8w1uMy99FCdiOe', NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 'cus_BqcPIBDQxr2Qcz'),
+('2aed3803-bca8-11e7-bff5-080027c12564', 'c', '$2a$10$8NLcFyUFMnZNQQW5uqCshu215FBJVpXZx5xhL2MsiymCEJwd2PSOe', NULL, NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDkzOTk0MzF9.jOFRsVpmXJHv6F6Z-9aSrTLWxzXs4X57lic5BR6QM04', 0, NULL),
+('5b7fa85e-bca9-11e7-bff5-080027c12564', 'a', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTE5Njg1MDF9.7h56GFaWI20f2SkC3YRNte1iJR01NGD67v9GlJTifpk', 0, NULL),
+('f819dff0-c01d-11e7-8758-080027c12564', 'frank', '$2a$10$W0haIbWOnT8fa9d14jOeGekb1aHXvsoq5o05f3jgA4Ag7CVma/2rO', 'Frank', 'Rust', '10a021b3-c466-4ef8-abaa-066c57e16fae', 0, 9, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk2NjIwNjZ9.aZYhZh_8BWpVC7Ig-jTVKIDpj-iEZ-us__YC39UjJbY', 0, NULL),
+('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', 'Björn', 'Soika', '10a021b3-c466-4ef8-abaa-066c57e16fae', 0, 5, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTE2OTU1MjZ9.lF0XoSxvWtF5zPCpZl3sevmNGiWDZoex4aFvJbJPsZM', 0, NULL);
 
 --
 -- Trigger `user`
@@ -188,7 +184,7 @@ ALTER TABLE `events`
 -- Indizes für die Tabelle `event_invite`
 --
 ALTER TABLE `event_invite`
-  ADD PRIMARY KEY (`uuid`),
+  ADD PRIMARY KEY (`e_uuid`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `event_id` (`event_id`);
 

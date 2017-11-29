@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {PaymentListPage} from "./payment-list/payment-list";
 
 /**
  * Generated class for the AccountPage page.
@@ -24,5 +25,9 @@ export class AccountPage {
   }
 
   ngOnInit() {
+  }
+
+  goToPaymentList() {
+    this.navCtrl.push(PaymentListPage);
   }
 }

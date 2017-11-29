@@ -49,8 +49,22 @@ form {
 
 .toolbar-background {
   background-color: #ffffff;
-  border: none !important;
-  color: #000000;
+  border-bottom: 0.55px solid #e6ebf1 !important;
+  //color: #000000;
+}
+
+.toolbar-title {
+  color: #2ad48a !important;
+}
+
+.back-button {
+  color: #000000 !important;
+}
+
+ion-header {
+  button[ion-button] {
+    color: #000000 !important;
+  }
 }
 
 // Buttons
@@ -72,21 +86,10 @@ ion-header {
 }
 
 .toolbar-title {
-  font-weight: 300 !important;
+  font-weight: 700 !important;
 }
 
-.button {
-  font-weight: 400;
-  text-align: center;
-  padding: 9px 12px;
-  background: $light-blue;
-  //border: 0.5px solid $light-blue;
-  font-size:13px;
-  //color: #3897f0;
-  color: #ffffff;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
+
 
 ion-popover {
   display: flex !important;

@@ -49,6 +49,7 @@ import {
   Marker
 } from '@ionic-native/google-maps';
 import {AccountPage} from "../pages/profile/account/account";
+import {PaymentListPage} from "../pages/profile/account/payment-list/payment-list";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {AccountPage} from "../pages/profile/account/account";
     EventDetailPage,
     DatePickerPage,
     EventInviteListPage,
-    AccountPage
+    AccountPage,
+    PaymentListPage
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ import {AccountPage} from "../pages/profile/account/account";
     EventDetailPage,
     DatePickerPage,
     EventInviteListPage,
-    AccountPage
+    AccountPage,
+    PaymentListPage
   ],
   providers: [
     StatusBar,

@@ -6,13 +6,21 @@
       <button>
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button (click)="goToAddEvent()">
+      <button  (click)="goToAddEvent()">
         <ion-icon name="ios-add-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-  <div class="title-sub" padding-left>Liste
-  </div>
+  <!--<ion-toolbar>
+    <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+  </ion-toolbar>-->
+  <!--<div class="title-sub" padding-left>Liste
+  </div>-->
 
 
 </ion-header>
@@ -25,18 +33,20 @@
   </ion-refresher>
   <ion-grid>
     <ion-list *ngIf="eventArr">
-      <ion-item *ngFor="let event of eventArr" (tap)="goToDetail(event)" >
+      <ion-item *ngFor="let event of eventArr" (tap)="goToDetail(event)" detail-push>
         <div class="backdrop"></div>
         <ion-row></ion-row>
         <ion-row>
           <ion-col class="event-date" col-3>
             <div>{{event.startDate}}</div>
-            <div class="from-to"><img src="../../assets/icon/from_to.svg"></div>
+            <div class="from-to"><img src="../../assets/icon/from_to_1.svg"></div>
             <div>{{event.endDate}}</div>
           </ion-col>
           <ion-col class="event-info" col-6>
             <div class="item-h">{{event.name}}</div>
-            <div class="item-sub">{{event.location}}</div>
+            <div class="item-sub">
+              Ort: {{event.location}}
+            </div>
           </ion-col>
           <ion-col class="event-sum" col-3>
             € {{event.sum}}
