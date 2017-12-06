@@ -30,4 +30,8 @@ export class EventServiceProvider extends GenericProvider<Event>{
   updateEvent(event): Observable<Event> {
     return this.putRequest(this.buildUrl('/event/'+ event.uuid), event);
   }
+
+  getEventsByInvite(user_id, team_id): Observable<any> {
+    return this.getRequest(this.buildUrl('/event?user_id='+user_id+'&team_id='+team_id));
+  }
 }

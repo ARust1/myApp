@@ -3,6 +3,15 @@ var router = express.Router();
 var User = require('../models/User');
 var Payment = require('../models/Payment');
 var stripe = require('stripe')('sk_test_R2b21EnvL5TS0vI4bhkft3Kc');
+var gcConfig = {
+  sandbox: true,
+  appId: 'DUMMY_APP',
+  appSecret: 'INSERT_APP_SECRET_HERE',
+  token: 'sandbox_2UddXgkRFXWWA00nOTRy8yewuJFaj7aOUbzrOEbI',
+  merchantId: 'INSERT_MERCHANT_ID'
+};
+var gocardless = require('gocardless')(gcConfig);
+
 var Response2JSON = require('../Response2JSON');
 
 router.get('/:id?',function(req, res, next) {
@@ -180,13 +189,30 @@ router.post('/charge', function(req, res, next) {
   var amount = req.body.amount;
 
   stripe.charges.create({
-    amount,
+    amount: amount,
     currency: "usd",
     customer: customerToken
   }, function(err , charge) {
     if(err) return res.status(500).json(err);
     res.status(200).json(charge);
   });
+});
+
+router.post('/bankAccount/payout', function(req, res, next) {
+  var destination = req.body.destination;
+  var amount = req.body.amount;
+  var currency = req.body.currency;
+  stripe.payouts.create({
+    amount: amount,
+    currency: currency
+  }, function(err, payout) {
+    if(err) return res.status(500).json(err);
+    res.status(200).json(payout);
+  });
+});
+
+router.post('/gocardless/customer', function(req, res, next) {
+
 });
 
 module.exports = router;

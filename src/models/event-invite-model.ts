@@ -8,4 +8,5 @@ export interface EventInvite {
   user: User;
   event_id: string;
   participation: number;
+  paid: boolean;
 }

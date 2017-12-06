@@ -5,6 +5,7 @@ import {EventModalPage} from "./event-modal/event-modal";
 import {Event} from "../../models/event-model";
 import {EventDetailPage} from "./event-detail/event-detail";
 import {EventServiceProvider} from "../../providers/event-service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'page-events',
@@ -26,7 +27,12 @@ export class EventsPage {
 
   ngOnInit() {
     console.log(this.userData);
-    this.getEvents(this.userData.team_id);
+    if(this.userData.admin) {
+      this.getEvents(this.userData.team_id);
+    } else {
+      this.getEventsByInvite(this.userData.uuid, this.userData.team_id);
+    }
+
   }
 
   goToDetail(event) {
@@ -40,6 +46,15 @@ export class EventsPage {
 
   getEvents(team_id: string): any {
     this.eventService.getEventsByTeamId(team_id).subscribe((result: any) => {
+
+      this.eventArr = result;
+    }, (err: any) => {
+      console.log(err);
+    });
+  }
+
+  getEventsByInvite(user_id: string, team_id: string): any {
+    this.eventService.getEventsByInvite(user_id, team_id).subscribe((result: Event[]) => {
       this.eventArr = result;
     }, (err: any) => {
       console.log(err);

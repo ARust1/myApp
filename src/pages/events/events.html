@@ -11,16 +11,6 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <!--<ion-toolbar>
-    <ion-searchbar
-      [(ngModel)]="myInput"
-      [showCancelButton]="shouldShowCancel"
-      (ionInput)="onInput($event)"
-      (ionCancel)="onCancel($event)">
-    </ion-searchbar>
-  </ion-toolbar>-->
-  <!--<div class="title-sub" padding-left>Liste
-  </div>-->
 
 
 </ion-header>
@@ -34,23 +24,20 @@
   <ion-grid>
     <ion-list *ngIf="eventArr">
       <ion-item *ngFor="let event of eventArr" (tap)="goToDetail(event)" detail-push>
-        <div class="backdrop"></div>
-        <ion-row></ion-row>
         <ion-row>
-          <ion-col class="event-date" col-3>
-            <div>{{event.startDate}}</div>
-            <div class="from-to"><img src="../../assets/icon/from_to_1.svg"></div>
-            <div>{{event.endDate}}</div>
-          </ion-col>
           <ion-col class="event-info" col-6>
             <div class="item-h">{{event.name}}</div>
             <div class="item-sub">
               Ort: {{event.location}}
             </div>
           </ion-col>
-          <ion-col class="event-sum" col-3>
+          <ion-col class="event-sum" col-6>
             € {{event.sum}}
           </ion-col>
+        </ion-row>
+        <ion-row class="event-date">
+          <ion-icon name="ios-calendar-outline"></ion-icon>
+          <div class="date">{{event.startDate}}</div>
         </ion-row>
       </ion-item>
     </ion-list>

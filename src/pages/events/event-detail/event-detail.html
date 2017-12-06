@@ -2,11 +2,11 @@
 
   <ion-navbar>
     <ion-buttons *ngIf="userData.admin" end>
-      <button ion-button (click)="updateEvent()">bearbeiten</button>
+      <button ion-button (click)="updateEvent()">Bearbeiten</button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="page" color="green">
+    <ion-segment [(ngModel)]="page" color="blue">
       <ion-segment-button (ionSelect)="page = 'detail'" value="detail">
         Ausflug
       </ion-segment-button>
@@ -17,13 +17,45 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
     <ion-grid *ngIf="page === 'detail'">
-      <ion-row>
-        <ion-col>
-          <span>zugesagt 0/12</span><span>bezahlt 0/12</span>
-        </ion-col>
+      <ion-row *ngIf="inviteList">
+        <ion-list class="option-list">
+          <ion-item>
+            <ion-row>
+              <ion-col col-4>
+                <button *ngIf="inviteData.participation === 0 || inviteData.participation === 1"
+                        ion-button block outline (tap)="acceptInvite()">zusagen</button>
+                <button *ngIf="inviteData.participation === 2"
+                        ion-button block>zusagt</button>
+              </ion-col>
+              <ion-col col-4>
+                <button *ngIf="inviteData.participation === 0 || inviteData.participation === 2"
+                        ion-button block outline (tap)="declineInvite()">absagen</button>
+                <button *ngIf="inviteData.participation === 1"
+                        ion-button block>absagt</button>
+              </ion-col>
+              <ion-col col-4>
+                <button *ngIf="inviteData.paid === 0" ion-button block outline (tap)="payEvent()">bezahlen</button>
+                <button *ngIf="inviteData.paid === 1" ion-button block>bezahlt</button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+
+      <ion-row *ngIf="inviteList" class="event-statistic">
+          <span>
+            <i class="icon ion-checkmark"></i>
+            {{participationCount}}/{{inviteList.length}}
+          </span>
+        <span>nicht zugesagt {{declinedCount}}/{{inviteList.length}}</span>
+        <span>
+            <ion-icon name="eye-off"></ion-icon>
+            {{noReactionCount}}/{{inviteList.length}}
+          </span>
+        <span>bezahlt {{paidCount}}/{{inviteList.length}}</span>
       </ion-row>
       <ion-row>
         <ion-col col-6>{{eventData.name}}</ion-col>
@@ -38,17 +70,20 @@
           € {{eventData.sum}}
         </ion-col>
       </ion-row>
-      <div></div>
 
     </ion-grid>
     <ion-grid *ngIf="page === 'inviteList'">
       <ion-list *ngIf="inviteList">
-        <ion-item *ngFor="let invite of inviteList">
+        <ion-item *ngFor="let invite of inviteList" padding-left padding-right>
           <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
           {{invite.user.prename}} {{invite.user.surname}}
+
           <div class="participation">
-            noch nicht reagiert
+            <span *ngIf="invite.participation == 0">noch nicht reagiert</span>
+            <span *ngIf="invite.participation == 1">nimmt nicht teil</span>
+            <span *ngIf="invite.participation == 2">nimmt teil</span>
           </div>
+
         </ion-item>
       </ion-list>
 

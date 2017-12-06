@@ -15,8 +15,16 @@ var Event = {
   getEventsByTeamId:function(team_id, callback){
     return db.query("SELECT * FROM events where team_id = ?",[team_id],callback);
   },
+  getEventsByInvite: function(user_id, team_id, callback) {
+    return db.query("SELECT events.uuid, events.name, events.startDate, events.endDate, " +
+      "events.location, events.sum, events.team_id " +
+      "FROM events, event_invite WHERE events.uuid = event_invite.event_id " +
+      "AND team_id = ? " +
+      "AND event_invite.user_id = ?;"
+    , [team_id, user_id], callback);
+  },
   getEventInvites: function (event_id, callback) {
-    return db.query("SELECT event_invite.e_uuid, participation, user.uuid," +
+    return db.query("SELECT event_invite.e_uuid, participation, paid, user.uuid," +
       "user.email, user.prename, user.surname, user.team_id, user.admin, user.back_number, user.position " +
       "FROM user, event_invite " +
       "WHERE user.uuid = event_invite.user_id AND event_invite.event_id = ?;", [event_id], callback);
@@ -29,7 +37,7 @@ var Event = {
     return db.query("DELETE FROM event_invite WHERE user_id = ? and event_id = ?", [user_id, event_id], callback);
   },
   setEventParticipation: function(uuid, participation, callback) {
-    return db.query("UPDATE event_invite SET participation = ? WHERE uuid = ?;", [participation, uuid], callback);
+    return db.query("UPDATE event_invite SET participation = ? WHERE e_uuid = ?;", [participation, uuid], callback);
   }
 };
 

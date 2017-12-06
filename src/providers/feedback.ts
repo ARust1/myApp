@@ -15,7 +15,7 @@ export class FeedbackProvider {
   constructor(public toastCtrl: ToastController) {
   }
 
-  presentToast(msg) {
+  public presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,

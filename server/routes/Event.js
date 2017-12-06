@@ -13,13 +13,22 @@ var uid = require('uuid/v4');
 router.get('/:id?',function(req, res, next) {
   if(req.params.id){
     Event.getEventsByTeamId(req.params.id,function(err,rows){
+      console.log("getByTeamId");
       var json = Response2JSON.JSONFY(rows);
       if(err) return res.json(err);
       res.json(json);
 
     });
+  } else if (req.query.user_id && req.query.team_id) {
+    var user_id = req.query.user_id;
+    var team_id = req.query.team_id;
+    Event.getEventsByInvite(user_id, team_id, function(err, result) {
+      if(err) return res.status(500).json(err);
+      res.status(200).json(result);
+    })
   } else {
     Event.getAllEvents(function(err,rows){
+      console.log("Get Event Invites for a specific Event");
       var json = Response2JSON.JSONFY(rows);
       if(err) return res.json(err);
       res.json(json[0]);
@@ -59,19 +68,23 @@ router.put('/:id', function(req, res, next) {
  * Get Event Invites for a specific Event
  */
 router.get('/invites/:event_id', function(req, res, next) {
-  var event_id = req.params.event_id;
-  Event.getEventInvites(event_id, function(err, results) {
-    var json = Response2JSON.JSONFY(results);
 
-    var newData = [];
-    json.forEach(function(obj) {
-      var tmp = buildEventInviteEntity(obj);
-      newData.push(tmp);
-    });
+  if(req.params.event_id) {
+    var event_id = req.params.event_id;
+    Event.getEventInvites(event_id, function(err, results) {
+      var json = Response2JSON.JSONFY(results);
 
-    if(err) return res.json(err);
-    res.json(newData);
-  })
+      var newData = [];
+      json.forEach(function(obj) {
+        var tmp = buildEventInviteEntity(obj);
+        newData.push(tmp);
+      });
+
+      if(err) return res.json(err);
+      res.json(newData);
+    })
+  }
+
 });
 
 /**
@@ -96,7 +109,7 @@ router.put('/invite/:uuid', function(req, res, next) {
   var participation = req.body.participation;
   Event.setEventParticipation(uuid, participation, function(err, results) {
     if(err) return res.json(err);
-    res.json(results[0]);
+    res.json(results);
   });
 });
 
@@ -109,10 +122,16 @@ router.delete('/invite', function(req, res, next) {
   })
 });
 
+router.get('', function(req, res, next) {
+
+});
+
+
 function buildEventInviteEntity(obj) {
   var inviteData = {
     e_uuid : obj.e_uuid,
     participation: obj.participation,
+    paid: obj.paid,
     user : {
       uuid : obj.uuid,
       email: obj.email,

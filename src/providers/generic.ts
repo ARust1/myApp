@@ -71,7 +71,7 @@ export class GenericProvider<T> {
   }
 
   logResponse(res: Response) {
-    console.log(res);
+    //console.log(res);
   }
 
   extractData(res: Response) {
