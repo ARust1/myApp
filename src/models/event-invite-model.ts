@@ -9,4 +9,6 @@ export interface EventInvite {
   event_id: string;
   participation: number;
   paid: boolean;
+  paymentMethod: number;
+  datePayment: Date;
 }

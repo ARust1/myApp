@@ -24,7 +24,8 @@ var Event = {
     , [team_id, user_id], callback);
   },
   getEventInvites: function (event_id, callback) {
-    return db.query("SELECT event_invite.e_uuid, participation, paid, user.uuid," +
+    return db.query("SELECT event_invite.e_uuid, event_invite.participation, " +
+      "event_invite.paid, event_invite.payment_method, event_invite.date_of_payment, user.uuid," +
       "user.email, user.prename, user.surname, user.team_id, user.admin, user.back_number, user.position " +
       "FROM user, event_invite " +
       "WHERE user.uuid = event_invite.user_id AND event_invite.event_id = ?;", [event_id], callback);
@@ -38,6 +39,10 @@ var Event = {
   },
   setEventParticipation: function(uuid, participation, callback) {
     return db.query("UPDATE event_invite SET participation = ? WHERE e_uuid = ?;", [participation, uuid], callback);
+  },
+  setEventPayment: function(uuid, paymentMethod, dateOfPayment, callback) {
+    return db.query("UPDATE event_invite SET payment_method = ?, date_of_payment = ? WHERE e_uuid = ?;",
+    [paymentMethod, dateOfPayment, uuid], callback);
   }
 };
 

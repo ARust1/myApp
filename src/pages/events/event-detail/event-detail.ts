@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {EventModalPage} from "../event-modal/event-modal";
 import {User} from "../../../models/user-model";
@@ -8,6 +8,7 @@ import {EventServiceProvider} from "../../../providers/event-service";
 import {EventInviteProvider} from "../../../providers/event-invite";
 import {EventInvite} from "../../../models/event-invite-model";
 import {FeedbackProvider} from "../../../providers/feedback";
+import {PayPopoverPage} from "../../pay-popover/pay-popover";
 
 
 @IonicPage()
@@ -30,7 +31,8 @@ export class EventDetailPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public eventInviteService: EventInviteProvider,
-              public feedbackService: FeedbackProvider) {
+              public feedbackService: FeedbackProvider,
+              public popoverCtrl: PopoverController) {
 
     this.eventData = this.navParams.get('eventData');
     this.userData = this.navParams.get('userData');
@@ -85,7 +87,16 @@ export class EventDetailPage {
   }
 
   payEvent() {
+    let popover = this.popoverCtrl.create(PayPopoverPage, {
+      inviteData: this.inviteData
+    });
+    popover.present();
 
+    popover.onDidDismiss(data => {
+      if(data) {
+        console.log(data);
+      }
+    })
   }
 
   updateEvent() {

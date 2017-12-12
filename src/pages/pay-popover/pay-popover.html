@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar padding-right>
+    <ion-buttons end>
+      <button (click)="close()">
+        <ion-icon name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-grid padding>
+    <ion-row>
+      <ion-col (tap)="payCash()">
+          <ion-icon name="ios-cash-outline" ></ion-icon>
+          <div>Bar</div>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="ios-card-outline"></ion-icon>
+        <div>Kreditkarte</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="../../assets/icon/payment/iconmonstr-paypal-1.svg">
+        <div>Paypal</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

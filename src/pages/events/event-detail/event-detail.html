@@ -26,18 +26,18 @@
             <ion-row>
               <ion-col col-4>
                 <button *ngIf="inviteData.participation === 0 || inviteData.participation === 1"
-                        ion-button block outline (tap)="acceptInvite()">zusagen</button>
+                        ion-button block outline (click)="acceptInvite()">zusagen</button>
                 <button *ngIf="inviteData.participation === 2"
                         ion-button block>zusagt</button>
               </ion-col>
               <ion-col col-4>
                 <button *ngIf="inviteData.participation === 0 || inviteData.participation === 2"
-                        ion-button block outline (tap)="declineInvite()">absagen</button>
+                        ion-button block outline (click)="declineInvite()">absagen</button>
                 <button *ngIf="inviteData.participation === 1"
                         ion-button block>absagt</button>
               </ion-col>
               <ion-col col-4>
-                <button *ngIf="inviteData.paid === 0" ion-button block outline (tap)="payEvent()">bezahlen</button>
+                <button *ngIf="inviteData.paid === 0" ion-button block outline (click)="payEvent()">bezahlen</button>
                 <button *ngIf="inviteData.paid === 1" ion-button block>bezahlt</button>
               </ion-col>
             </ion-row>

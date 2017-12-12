@@ -50,6 +50,7 @@ import {
 } from '@ionic-native/google-maps';
 import {AccountPage} from "../pages/profile/account/account";
 import {PaymentListPage} from "../pages/profile/account/payment-list/payment-list";
+import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import {PaymentListPage} from "../pages/profile/account/payment-list/payment-lis
     DatePickerPage,
     EventInviteListPage,
     AccountPage,
-    PaymentListPage
+    PaymentListPage,
+    PayPopoverPage
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import {PaymentListPage} from "../pages/profile/account/payment-list/payment-lis
     DatePickerPage,
     EventInviteListPage,
     AccountPage,
-    PaymentListPage
+    PaymentListPage,
+    PayPopoverPage
   ],
   providers: [
     StatusBar,

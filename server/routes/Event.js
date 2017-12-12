@@ -3,6 +3,7 @@ var router = express.Router();
 var Event = require('../models/Event');
 var Response2JSON = require('../Response2JSON');
 var uid = require('uuid/v4');
+var moment = require('moment');
 
 // Events
 // --------------------------------------------------
@@ -122,8 +123,15 @@ router.delete('/invite', function(req, res, next) {
   })
 });
 
-router.get('', function(req, res, next) {
+router.put('/payment/:id', function(req, res, next) {
+  var date = new Date();
+  var uuid = req.params.id,
+    paymentMethod = req.body.payment_method;
 
+  Event.setEventPayment(uuid, paymentMethod, date, function(err, result) {
+    if(err) return res.json(err);
+    res.json(result);
+  });
 });
 
 
@@ -132,6 +140,8 @@ function buildEventInviteEntity(obj) {
     e_uuid : obj.e_uuid,
     participation: obj.participation,
     paid: obj.paid,
+    paymentMethod: obj.payment_method,
+    dateOfPayment: obj.date_of_payment,
     user : {
       uuid : obj.uuid,
       email: obj.email,

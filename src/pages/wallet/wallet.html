@@ -4,7 +4,6 @@
       <div class="overlay">
         <h4>{{teamData.name}}</h4>
       </div>
-      <img src="../../assets/imgs/mannschaftsfoto.jpg">
       <div class="team-logo">
         <img src="../../assets/imgs/team_logo.jpg">
       </div>
@@ -27,22 +26,12 @@
         <span class="saldo">Team-Saldo</span>
         <ion-col padding class="team-balance" col-10>
           € {{teamData.balance}}
-
-            <!--<div class="team-balance-options">
-
-              <span>Überweisung</span>
-            </div>-->
         </ion-col>
       </ion-row>
       <ion-row *ngIf="userData && userData.balance">
         <span class="saldo">Mein Guthaben</span>
         <ion-col padding class="team-balance" col-12>
           € {{userData.balance}}
-
-          <!--<div class="team-balance-options">
-
-            <span>Überweisung</span>
-          </div>-->
         </ion-col>
       </ion-row>
       <ion-row *ngIf="userData && !userData.balance">
