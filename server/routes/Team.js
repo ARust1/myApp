@@ -51,6 +51,17 @@ router.put('/invite_token', function(req, res, next) {
     })
 });
 
+router.put('/:id/balance', function(req, res, next) {
+  var uuid = req.params.id;
+  var amount = req.body.amount;
+  console.log(amount);
+
+  Team.updateTeamBalance(uuid, amount, function(err, result) {
+    if(err) return res.json(err);
+    res.json(result);
+  });
+});
+
 function generateInviteToken() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

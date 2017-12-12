@@ -17,6 +17,9 @@ var Team = {
   },
   getTeamByInviteToken: function(invite_token, callback) {
     return db.query("SELECT uuid FROM team WHERE invite_token = ?", [invite_token], callback);
+  },
+  updateTeamBalance: function(uuid, amount, callback) {
+    return db.query("UPDATE team SET balance = balance + ? WHERE uuid = ?;", [amount, uuid], callback);
   }
 };
 

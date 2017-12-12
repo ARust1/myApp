@@ -35,7 +35,4 @@ export class EventServiceProvider extends GenericProvider<Event>{
     return this.getRequest(this.buildUrl('/event?user_id='+user_id+'&team_id='+team_id));
   }
 
-  setEventPayment(e_uuid, paymentMethod): Observable<any> {
-    return this.putRequest(this.buildUrl('/event/payment/'+e_uuid), paymentMethod);
-  }
 }

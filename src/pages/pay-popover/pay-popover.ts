@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {FeedbackProvider} from "../../providers/feedback";
 import {EventServiceProvider} from "../../providers/event-service";
+import {EventInviteProvider} from "../../providers/event-invite";
 
 /**
  * Generated class for the PayPopoverPage page.
@@ -23,12 +24,11 @@ export class PayPopoverPage {
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public feedbackService: FeedbackProvider,
-              public eventService: EventServiceProvider) {
+              public eventInviteService: EventInviteProvider) {
     this.inviteData = this.navParams.get('inviteData');
   }
 
   ngOnInit() {
-    console.log(this.inviteData);
   }
 
   close() {
@@ -47,20 +47,15 @@ export class PayPopoverPage {
       text: 'Bar bezahlen',
       handler: () => {
         this.setCashPayment();
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss(this.inviteData);
       }
     }
   ];
 
   payCash() {
-    if(this.inviteData.paid == 0 || this.inviteData.paymentMethod == 0) {
       let title: string = "Zahlung";
       let message: string = "Sind Sie sicher, dass Sie den Ausflug bar bezahlen wollen?";
       this.feedbackService.presentConfirmAlert(this.payAlertButtons, title, message);
-    } else {
-      this.feedbackService.presentToast("Sie haben bereits eine Bezahlung angegeben");
-      this.viewCtrl.dismiss();
-    }
   }
 
   setCashPayment() {
@@ -68,8 +63,9 @@ export class PayPopoverPage {
       payment_method : 1
     };
 
-    this.eventService.setEventPayment(this.inviteData.e_uuid, data).subscribe((result: any) => {
+    this.eventInviteService.setEventPayment(this.inviteData.e_uuid, data).subscribe((result: any) => {
       this.feedbackService.presentToast("Sie bezahlen bar!");
+      this.inviteData.paymentMethod = 1;
     }, (err: any) => {
       console.log(err)
     })

@@ -11,10 +11,23 @@ page-event-detail {
      .item-block,
      .item-inner {
        //border-bottom: none !important;
+       .info {
+         margin-top: 5px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+       }
      }
      .participation {
        color: $font-light-grey;
-       font-size: 11px;
+       font-size: 13px;
+     }
+     .payment {
+       color: $font-light-grey;
+       font-size: 13px;
+       .payment-item {
+       }
+
      }
 
    }

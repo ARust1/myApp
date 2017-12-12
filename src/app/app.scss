@@ -110,7 +110,9 @@ ion-header {
   font-weight: 700 !important;
 }
 
-
+.md button {
+  text-transform: none;
+}
 
 ion-popover {
   display: flex !important;
@@ -136,8 +138,8 @@ ion-popover {
 }
 
 .profile-pic {
-  width: 48px;
-  height: 48px;
+  width: 55px;
+  height: 55px;
   border-radius: 100%;
   margin-bottom: 3px;
 }

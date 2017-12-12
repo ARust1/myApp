@@ -134,6 +134,15 @@ router.put('/payment/:id', function(req, res, next) {
   });
 });
 
+router.put('/acceptPayment/:id', function(req, res, next) {
+  var uuid = req.params.id;
+
+  Event.acceptPayment(uuid, function(err, result) {
+    if(err) return res.json(err);
+    res.json(result);
+  });
+});
+
 
 function buildEventInviteEntity(obj) {
   var inviteData = {

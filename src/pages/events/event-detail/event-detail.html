@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-buttons *ngIf="userData.admin" end>
-      <button ion-button (click)="updateEvent()">Bearbeiten</button>
+      <button ion-button (click)="updateEvent()">bearbeiten</button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar no-border-top>
@@ -28,17 +28,18 @@
                 <button *ngIf="inviteData.participation === 0 || inviteData.participation === 1"
                         ion-button block outline (click)="acceptInvite()">zusagen</button>
                 <button *ngIf="inviteData.participation === 2"
-                        ion-button block>zusagt</button>
+                        ion-button block>zugesagt</button>
               </ion-col>
               <ion-col col-4>
                 <button *ngIf="inviteData.participation === 0 || inviteData.participation === 2"
                         ion-button block outline (click)="declineInvite()">absagen</button>
                 <button *ngIf="inviteData.participation === 1"
-                        ion-button block>absagt</button>
+                        ion-button block>abgesagt</button>
               </ion-col>
               <ion-col col-4>
                 <button *ngIf="inviteData.paid === 0" ion-button block outline (click)="payEvent()">bezahlen</button>
                 <button *ngIf="inviteData.paid === 1" ion-button block>bezahlt</button>
+                <button *ngIf="inviteData.paid === 0 && inviteData.paymentMethod != 0">in Arbeit..</button>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -76,14 +77,24 @@
       <ion-list *ngIf="inviteList">
         <ion-item *ngFor="let invite of inviteList" padding-left padding-right>
           <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
-          {{invite.user.prename}} {{invite.user.surname}}
+          <span>{{invite.user.prename}} {{invite.user.surname}}</span>
+          <div class="info">
+            <div class="participation">
+              <span *ngIf="invite.participation == 0">noch nicht reagiert</span>
+              <span *ngIf="invite.participation == 1">nimmt nicht teil</span>
+              <span *ngIf="invite.participation == 2">nimmt teil</span>
+            </div>
 
-          <div class="participation">
-            <span *ngIf="invite.participation == 0">noch nicht reagiert</span>
-            <span *ngIf="invite.participation == 1">nimmt nicht teil</span>
-            <span *ngIf="invite.participation == 2">nimmt teil</span>
+            <div class="payment" *ngIf="invite.participation == 2">
+              <div class="payment-item" *ngIf="invite.paymentMethod == 0 && invite.participation != 1">
+                <span>hat noch nicht bezahlt</span>
+              </div>
+              <div class="payment-item" *ngIf="invite.paymentMethod == 1 && invite.participation != 1">
+                <button *ngIf="invite.paid == 0" ion-button outline (tap)="confirmPayment()">Barzahlung bestätigen</button>
+                <button *ngIf="invite.paid == 1" ion-button>bezahlt</button>
+              </div>
+            </div>
           </div>
-
         </ion-item>
       </ion-list>
 

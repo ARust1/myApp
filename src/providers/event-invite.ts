@@ -41,4 +41,11 @@ export class EventInviteProvider extends GenericProvider<EventInvite>{
     return this.putRequest(this.buildUrl('/event/invite/'+uuid), data);
   }
 
+  setEventPayment(e_uuid, paymentMethod): Observable<EventInvite> {
+    return this.putRequest(this.buildUrl('/event/payment/'+e_uuid), paymentMethod);
+  }
+
+  acceptEventPayment(e_uuid): Observable<EventInvite> {
+    return this.putRequest(this.buildUrl('/event/acceptPayment/'+e_uuid), {});
+  }
 }

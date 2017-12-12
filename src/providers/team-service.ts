@@ -39,4 +39,11 @@ export class TeamServiceProvider extends GenericProvider<Team>{
     };
     return this.putRequest(this.buildUrl('/team/invite_token'), data);
   }
+
+  updateTeamBalance(uuid, amount) {
+    let data = {
+      amount: amount
+    };
+    return this.putRequest(this.buildUrl('/team/'+uuid+'/balance'), data);
+  }
 }

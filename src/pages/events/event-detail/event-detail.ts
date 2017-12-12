@@ -9,6 +9,8 @@ import {EventInviteProvider} from "../../../providers/event-invite";
 import {EventInvite} from "../../../models/event-invite-model";
 import {FeedbackProvider} from "../../../providers/feedback";
 import {PayPopoverPage} from "../../pay-popover/pay-popover";
+import {TeamServiceProvider} from "../../../providers/team-service";
+import {Team} from "../../../models/team-model";
 
 
 @IonicPage()
@@ -20,6 +22,7 @@ export class EventDetailPage {
 
   private eventData: Event;
   private userData: User;
+  private teamData: Team;
   private inviteList: EventInvite[];
   private inviteData: any;
   private page: any = 'detail';
@@ -32,14 +35,14 @@ export class EventDetailPage {
               public navParams: NavParams,
               public eventInviteService: EventInviteProvider,
               public feedbackService: FeedbackProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              public teamService: TeamServiceProvider) {
 
     this.eventData = this.navParams.get('eventData');
     this.userData = this.navParams.get('userData');
   }
 
   ngOnInit() {
-
   }
 
   ionViewWillEnter() {
@@ -87,16 +90,60 @@ export class EventDetailPage {
   }
 
   payEvent() {
-    let popover = this.popoverCtrl.create(PayPopoverPage, {
-      inviteData: this.inviteData
-    });
-    popover.present();
+    if (this.inviteData.participation == 1) {
+      this.feedbackService.presentToast("Sie müssen dem Ausflug erst zusagen bevor Sie bezahlen können");
+    } else {
+      if(this.inviteData.paid != 0 || this.inviteData.paymentMethod != 0) {
+        this.feedbackService.presentToast("Sie haben bereits eine Bezahlung angegeben");
+      } else {
+        let popover = this.popoverCtrl.create(PayPopoverPage, {
+          inviteData: this.inviteData
+        });
+        popover.present();
 
-    popover.onDidDismiss(data => {
-      if(data) {
-        console.log(data);
+        popover.onDidDismiss(data => {
+          if(data) {
+            console.log(data);
+          }
+        })
       }
-    })
+    }
+  }
+
+  confirmPayment() {
+    let buttons = [
+      {
+        text: 'Abbrechen',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Bestätigen',
+        handler: () => {
+          this.acceptPayment();
+        }
+      }
+    ];
+    let message = "Sind Sie sicher, dass Sie die Bezahlung bestätigen wollen?";
+    let title = "Bezahlung bestätigen";
+    this.feedbackService.presentConfirmAlert(buttons, title, message);
+
+  }
+
+  acceptPayment() {
+    this.eventInviteService.acceptEventPayment(this.inviteData.e_uuid).subscribe((result: any) => {
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      this.teamService.updateTeamBalance(this.userData.team_id, this.eventData.sum).subscribe((result: any) => {
+        this.feedbackService.presentToast("Bezahlung akzeptiert. Es wurden " + this.eventData.sum + "€ in die Mannschaftskasse eingezahlt.");
+        this.inviteData.paid = 1;
+      }, (err: any) => {
+        console.log(err);
+      })
+    });
   }
 
   updateEvent() {

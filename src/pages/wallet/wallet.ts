@@ -38,6 +38,7 @@ export class WalletPage {
       this.getTeamData(this.userData.team_id);
       this.getUserByTeamId(this.userData.team_id);
     }
+
   }
 
   ionViewWillEnter() {
@@ -101,7 +102,7 @@ export class WalletPage {
 
   getUserData(): any {
     this.credentials.getToken().subscribe((result: any) => {
-      let token = result;
+      let token: string = result;
       this.userService.getUserData(token).subscribe((result: any) => {
         this.userData = result;
         console.log(result);
