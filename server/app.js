@@ -31,11 +31,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressJWT({
+/*app.use(expressJWT({
   secret: 'y&6GEQxQ+P=r)+Zyve2&,C>^ILaSBxUbQ|!:aVs|ffM@%@Tc5#i}&be/5sAg/Jux'
 }).unless({
   path: ['/api/v1/auth', '/api/v1/register', '/api/v1/logout']
-}));
+}));*/
 
 app.use(apiUrl + '/', Auth);
 app.use(apiUrl + '/user', User);

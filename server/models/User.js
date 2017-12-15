@@ -18,11 +18,8 @@ var User = {
   },
   getUserByToken: function(token, callback) {
     return db.query('SELECT uuid, ' +
-      'email, prename, surname, team_id, admin, back_number, position ' +
+      'email, prename, surname, team_id, admin, back_number, position, accountToken ' +
       'FROM user WHERE token = ?;', [token], callback);
-  },
-  deleteTask:function(id, callback){
-    return db.query("delete from task where Id = ?",[id],callback);
   },
   updateUser:function(uuid, User, callback){
     return db.query("UPDATE user " +

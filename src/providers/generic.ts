@@ -23,46 +23,39 @@ export class GenericProvider<T> {
   }
 
   getRequest(url): Observable<T> {
-    return this.credentials.getToken().flatMap(token => {
-      let options = this.credentials.buildOptions(token);
-      return this.http.get(url, options)
+    let token = this.credentials.getToken();
+    let options = this.credentials.buildOptions(token);
+    return this.http.get(url, options)
         .do(this.logResponse)
         .map(this.extractData)
         .catch(this.catchError);
-    });
-
   }
 
   postRequest(url, data): Observable<T> {
-    return this.credentials.getToken().flatMap(token => {
+    let token = this.credentials.getToken();
       let options = this.credentials.buildOptions(token);
-
-      console.log(options);
       return this.http.post(url, JSON.stringify(data) ,options)
         .do(this.logResponse)
         .map(this.extractData)
         .catch(this.catchError);
-    });
   }
 
   putRequest(url, data): Observable<T> {
-    return this.credentials.getToken().flatMap(token => {
+    let token = this.credentials.getToken();
       let options = this.credentials.buildOptions(token);
       return this.http.put(url, JSON.stringify(data) ,options)
         .do(this.logResponse)
         .map(this.extractData)
         .catch(this.catchError);
-    });
   }
 
   deleteRequest(url): Observable<T> {
-    return this.credentials.getToken().flatMap(token => {
+    let token = this.credentials.getToken();
       let options = this.credentials.buildOptions(token);
       return this.http.delete(url, options)
         .do(this.logResponse)
         .map(this.extractData)
         .catch(this.catchError);
-    });
   }
 
   catchError(error: Response | any) {

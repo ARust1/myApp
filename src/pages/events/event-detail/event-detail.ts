@@ -11,6 +11,8 @@ import {FeedbackProvider} from "../../../providers/feedback";
 import {PayPopoverPage} from "../../pay-popover/pay-popover";
 import {TeamServiceProvider} from "../../../providers/team-service";
 import {Team} from "../../../models/team-model";
+import {BehaviorSubject, Observable} from "rxjs";
+
 
 
 @IonicPage()
@@ -110,7 +112,7 @@ export class EventDetailPage {
     }
   }
 
-  confirmPayment() {
+  confirmPayment(invite) {
     let buttons = [
       {
         text: 'Abbrechen',
@@ -122,7 +124,7 @@ export class EventDetailPage {
       {
         text: 'Bestätigen',
         handler: () => {
-          this.acceptPayment();
+          this.acceptPayment(invite);
         }
       }
     ];
@@ -132,16 +134,19 @@ export class EventDetailPage {
 
   }
 
-  acceptPayment() {
-    this.eventInviteService.acceptEventPayment(this.inviteData.e_uuid).subscribe((result: any) => {
+  acceptPayment(invite) {
+    this.eventInviteService.acceptEventPayment(invite.e_uuid).subscribe((result: any) => {
     }, (err: any) => {
       console.log(err);
     }, () => {
       this.teamService.updateTeamBalance(this.userData.team_id, this.eventData.sum).subscribe((result: any) => {
         this.feedbackService.presentToast("Bezahlung akzeptiert. Es wurden " + this.eventData.sum + "€ in die Mannschaftskasse eingezahlt.");
-        this.inviteData.paid = 1;
+        invite.paid = 1;
+        this.inviteData = invite;
       }, (err: any) => {
         console.log(err);
+      }, () => {
+        console.log(this.inviteData);
       })
     });
   }

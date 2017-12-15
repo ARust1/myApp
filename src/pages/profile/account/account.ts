@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {PaymentListPage} from "./payment-list/payment-list";
+import {User} from "../../../models/user-model";
+import {PaymentProvider} from "../../../providers/payment";
+import {Observable} from "rxjs";
 
 /**
  * Generated class for the AccountPage page.
@@ -15,9 +18,16 @@ import {PaymentListPage} from "./payment-list/payment-list";
   templateUrl: 'account.html',
 })
 export class AccountPage {
+  @ViewChild(Slides) slides: Slides;
+
+  private userData: User;
+  private bankAccountData = [];
+  private bankAccountDetailsLoaded = false;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public paymentService: PaymentProvider) {
+    this.userData = this.navParams.get('userData');
   }
 
   ionViewDidLoad() {
@@ -25,9 +35,25 @@ export class AccountPage {
   }
 
   ngOnInit() {
+    this.getBankAccounts(this.userData.accountToken);
   }
 
   goToPaymentList() {
-    this.navCtrl.push(PaymentListPage);
+    this.navCtrl.push(PaymentListPage, {
+      userData: this.userData
+    });
+  }
+
+  getBankAccounts(accountToken: string): any {
+    let accountDetails;
+    this.paymentService.getStripeAccount(accountToken).subscribe((result: any) => {
+      console.log(result);
+      accountDetails = result;
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      this.bankAccountData = accountDetails.external_accounts.data;
+      this.bankAccountDetailsLoaded = true;
+    });
   }
 }

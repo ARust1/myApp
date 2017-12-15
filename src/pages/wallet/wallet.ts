@@ -27,40 +27,32 @@ export class WalletPage {
               private credentials: Credentials,
               public toastCtrl: ToastController) {
 
-    this.userData = this.navParams.data;
+    this.userData = this.navParams.get('userData');
 
 
   }
   ngOnInit() {
-    if(Object.keys(this.userData).length == 0) {
-      this.getData();
-    } else {
+    if(this.userData) {
       this.getTeamData(this.userData.team_id);
       this.getUserByTeamId(this.userData.team_id);
+    } else {
+      this.getData();
     }
 
   }
 
-  ionViewWillEnter() {
-    this.getUserByTeamId(this.userData.team_id);
-  }
-
   getData() {
-    let token = '';
     let userData: User;
     let teamData: Team;
     let teamUser: User[];
-    this.credentials.getToken().subscribe((result: any) => {
-      token = result;
-    }, (err: any) => {
-      console.log(err);
-    }, () => {
+    let token = this.credentials.getToken();
       this.userService.getUserData(token).subscribe((result: any) => {
         userData = result;
+        this.userData = userData;
+        console.log(userData.team_id);
       }, (err: any) => {
         console.log(err);
       }, () => {
-        this.userData = userData;
         this.teamService.getTeamById(userData.team_id).subscribe( (result) => {
           teamData = result;
         }, (err: any) => {
@@ -80,7 +72,6 @@ export class WalletPage {
           })
         })
       })
-    });
   }
 
   getTeamData(team_id: string): any {
@@ -101,8 +92,8 @@ export class WalletPage {
   }
 
   getUserData(): any {
-    this.credentials.getToken().subscribe((result: any) => {
-      let token: string = result;
+    let token = this.credentials.getToken();
+    if(token) {
       this.userService.getUserData(token).subscribe((result: any) => {
         this.userData = result;
         console.log(result);
@@ -110,10 +101,7 @@ export class WalletPage {
         console.log(error);
       }, () => {
       })
-    }, (err: any) => {
-      console.log(err)
-    });
-
+    }
   }
 
   presentToast(msg) {

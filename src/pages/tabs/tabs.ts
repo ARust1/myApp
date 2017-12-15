@@ -40,14 +40,12 @@ export class TabsPage {
   }
 
   getUserData(): any {
-    return this.credentials.getToken().subscribe((token: any) => {
+    let token = this.credentials.getToken();
       this.userService.getUserData(token).subscribe((result: any) => {
         console.log(result + "getData");
         this.userData = result;
       }, (error: any) => {
         console.log(error);
-      })
-    });
-
+      });
   }
 }

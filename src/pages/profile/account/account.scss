@@ -4,4 +4,82 @@ page-account {
       font-size: 2.3em;
     }
   }
+
+  ion-spinner {
+    align-self: center;
+    width: 48px;
+    height: 48px;
+    stroke: #567add !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -24px;
+    margin-top: -24px;
+  }
+
+  ion-grid {
+
+    .bank-account-container {
+      h1 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .swiper-container {
+        overflow: visible !important;
+      }
+      ion-slide.bank-account-details {
+        padding: 5px !important;
+
+        .bank-account-wrapper {
+          letter-spacing: 1px;
+          font-weight: 300;
+          font-size: 15px;
+          padding: 30px;
+          color: #ffffff;
+          height:190px;
+          border-radius: 8px;
+          background: linear-gradient(to right, #11998e, #38ef7d);
+          box-shadow: 0px 15px 23px -6px rgba(0,0,0,0.31) !important;
+          display: flex;
+          flex-flow: column;
+        }
+        div {
+          text-align: left;
+        }
+
+        .detail-h {
+          letter-spacing: 0px;
+          font-weight: 100;
+          font-size: 11px;
+          color: #dddddd;
+        }
+
+        .slide-zoom {
+          height: 100%;
+          display: flex !important;
+          flex-flow: column;
+          justify-content: space-between;
+        }
+
+        .bank-name {
+          text-shadow: 0px 1px #707070;
+          align-self: flex-end;
+        }
+
+        .bank-account-holder {
+          text-shadow: 0px 1px #707070;
+          font-size: 16px;
+          margin-top: auto;
+          padding-bottom: 10px;
+        }
+
+        .bank-iban {
+          font-size: 16px;
+          text-shadow: 0px 1px #707070;
+        }
+      }
+    }
+  }
+
 }

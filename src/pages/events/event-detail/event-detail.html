@@ -90,7 +90,7 @@
                 <span>hat noch nicht bezahlt</span>
               </div>
               <div class="payment-item" *ngIf="invite.paymentMethod == 1 && invite.participation != 1">
-                <button *ngIf="invite.paid == 0" ion-button outline (tap)="confirmPayment()">Barzahlung bestätigen</button>
+                <button *ngIf="invite.paid == 0 && userData.admin" ion-button outline (tap)="confirmPayment(invite)">Barzahlung bestätigen</button>
                 <button *ngIf="invite.paid == 1" ion-button>bezahlt</button>
               </div>
             </div>

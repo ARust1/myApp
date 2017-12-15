@@ -25,6 +25,7 @@ router.get('/:id?',function(req, res, next) {
   } else {
     if(req.query.token) {
       User.getUserByToken(req.query.token, function (err, rows) {
+        console.log(rows);
         var json = Response2JSON.JSONFY(rows);
         if (err) return res.json(err);
         res.json(json[0]);

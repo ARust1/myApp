@@ -38,19 +38,13 @@ import {EventServiceProvider} from "../providers/event-service";
 import {InviteServiceProvider} from "../providers/invite-service";
 import {FeedbackProvider} from "../providers/feedback";
 import { EventInviteProvider } from '../providers/event-invite';
-
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
-} from '@ionic-native/google-maps';
 import {AccountPage} from "../pages/profile/account/account";
 import {PaymentListPage} from "../pages/profile/account/payment-list/payment-list";
 import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
+import { PaymentProvider } from '../providers/payment';
+import {AngularFireModule} from "angularfire2";
+import {FIREBASE_CONF} from "./app.firebase.config";
+import {AngularFireAuthModule} from "angularfire2/auth";
 
 @NgModule({
   declarations: [
@@ -81,7 +75,9 @@ import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
     HttpModule,
     CalendarModule,
     IonicModule.forRoot(MyApp, {tabsHideOnSubPages: true}),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(FIREBASE_CONF),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -121,8 +117,8 @@ import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
     FeedbackProvider,
     GenericProvider,
     EventInviteProvider,
-    GoogleMaps,
     Stripe,
+    PaymentProvider
   ]
 })
 export class AppModule {}

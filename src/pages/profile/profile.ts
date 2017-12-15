@@ -170,19 +170,6 @@ export class ProfilePage {
           }
         },
         {
-          text: 'Leute einladen',
-          handler: () => {
-            this.getInviteToken();
-            this.presentPopover($event);
-          }
-        },
-        {
-          text: 'Konten verwalten',
-          handler: () => {
-            this.goToAccount();
-          }
-        },
-        {
           text: 'Abmelden',
           handler: () => {
             this.logoutConfirm();
@@ -201,8 +188,7 @@ export class ProfilePage {
     actionSheet.present();
   }
 
-  goToAccount() {
-
+  goToPaymentMethods() {
     this.navCtrl.push(AccountPage, {
       userData: this.userData
     });
@@ -222,10 +208,11 @@ export class ProfilePage {
     });
   }
 
-  presentPopover(event) {
+  presentInvitePopover($event) {
+    this.getInviteToken();
     let popover = this.popoverCtrl.create(InviteLinkPopoverPage, this.teamData);
     popover.present({
-      ev: event
+      ev: $event
     });
   }
 

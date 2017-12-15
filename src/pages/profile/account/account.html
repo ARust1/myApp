@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Konten</ion-title>
+    <ion-title></ion-title>
     <ion-buttons end>
       <button (tap)="goToPaymentList()">
         <ion-icon name="ios-add-outline"></ion-icon>
@@ -19,5 +19,29 @@
 
 
 <ion-content padding>
+  <ion-spinner *ngIf="!bankAccountDetailsLoaded"></ion-spinner>
+
+  <ion-grid *ngIf="bankAccountDetailsLoaded">
+    <ion-row class="bank-account-container">
+      <h1>Bankkonten</h1>
+      <ion-slides>
+        <ion-slide class="bank-account-details" *ngFor="let bankAccount of bankAccountData">
+          <div class="bank-account-wrapper">
+            <div class="bank-name">
+              {{ bankAccount.bank_name }}
+            </div>
+            <div class="bank-account-holder">
+              {{ bankAccount.account_holder_name }}
+            </div>
+            <div class="bank-iban">
+              <div class="detail-h">IBAN</div>
+              **** **** **** **** **{{ bankAccount.last4 }}
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>

@@ -2,11 +2,11 @@
 <ion-header no-border>
   <ion-navbar padding-right>
     <ion-title class="title-h">Ausflüge</ion-title>
-    <ion-buttons end *ngIf="userData.admin">
+    <ion-buttons end>
       <button>
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button  (click)="goToAddEvent()">
+      <button *ngIf="userData.admin" (click)="goToAddEvent()">
         <ion-icon name="ios-add-outline"></ion-icon>
       </button>
     </ion-buttons>

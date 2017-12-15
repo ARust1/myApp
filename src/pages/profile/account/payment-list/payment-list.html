@@ -1,8 +1,7 @@
 
 <ion-header>
 
-  <ion-navbar color="lightLightGrey">
-    <ion-title color="grey">Bezahlmöglichkeiten</ion-title>
+  <ion-navbar>
   </ion-navbar>
 
 </ion-header>
@@ -14,9 +13,8 @@
       <h4>Zahlungsmethode</h4>
     </ion-row>
     <ion-row class="payment-tabs">
-      <ion-col col-3 (click)="paymentMethod = 'ec'">EC</ion-col>
-      <ion-col col-3 (click)="paymentMethod = 'credit'">Credit</ion-col>
-      <ion-col col-3 (click)="paymentMethod = 'paypal'">Paypal</ion-col>
+      <ion-col col-6 (click)="paymentMethod = 'ec'">EC</ion-col>
+      <ion-col col-6 (click)="paymentMethod = 'credit'">Credit</ion-col>
     </ion-row>
 
     <ion-row class="ec" *ngIf="paymentMethod == 'ec'">
@@ -24,23 +22,21 @@
       <form>
         <ion-list>
           <ion-item>
-            <ion-label color="lightGrey">Inhaber</ion-label>
-            <ion-input name="holder"></ion-input>
+            <ion-label color="midGrey">Inhaber</ion-label>
+            <ion-input [(ngModel)]="stripeBankData.account_holder_name" name="account_holder_name"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label color="lightGrey">IBAN</ion-label>
-            <ion-input name="iban"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label color="lightGrey">Bank</ion-label>
-            <ion-input name="bank"></ion-input>
+            <ion-label color="midGrey">IBAN</ion-label>
+            <ion-input [(ngModel)]="stripeBankData.account_number" name="iban"></ion-input>
           </ion-item>
         </ion-list>
 
       </form>
 
       <div class="btn-container">
-        <button ion-button color="blue">Speichern</button>
+        <button ion-button block color="blue" (click)="createBankAccount()"><span *ngIf="!loadingActivated">Speichern</span>
+          <ion-spinner *ngIf="loadingActivated"></ion-spinner>
+        </button>
       </div>
     </ion-row>
 
@@ -49,7 +45,7 @@
       credit
 
       <div class="btn-container">
-        <button ion-button color="blue">Speichern</button>
+        <button ion-button block color="blue">Speichern</button>
       </div>
     </ion-row>
 
@@ -58,7 +54,9 @@
       paypal
 
       <div class="btn-container">
-        <button ion-button color="blue">Speichern</button>
+        <button ion-button block color="blue"><span *ngIf="!loadingActivated">Speichern</span>
+          <ion-spinner *ngIf="loadingActivated"></ion-spinner>
+        </button>
       </div>
     </ion-row>
   </ion-grid>

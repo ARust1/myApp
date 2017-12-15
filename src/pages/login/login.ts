@@ -7,6 +7,7 @@ import {SetupAccountPage} from "../setup-account/setup-account";
 import {Credentials} from "../../providers/credentials";
 import {AuthServiceProvider} from "../../providers/auth-service";
 import {UserServiceProvider} from "../../providers/user-service";
+import {AngularFireAuth} from "angularfire2/auth";
 
 @IonicPage()
 @Component({
@@ -24,8 +25,34 @@ export class LoginPage {
               public authService: AuthServiceProvider,
               public userService: UserServiceProvider,
               public loadingCtrl: LoadingController,
-              private credentials: Credentials) {
+              private credentials: Credentials,
+              private firebaseAuth: AngularFireAuth) {
   }
+
+ /* async login() {
+    try {
+      let result = this.firebaseAuth.auth.signInWithEmailAndPassword(this.loginData.email, this.loginData.password);
+      if(result) {
+        this.authService.requestToken(this.loginData.email).subscribe((result: any) => {
+          this.credentials.saveTokenToStorage(result);
+        }, (err: any) => {
+          console.log(err);
+        },() => {
+          this.userService.getUserData(this.loginData.email).subscribe( (result: any) => {
+            this.userData = result;
+          }, (err) => {
+            console.log(err);
+          }, () => {
+            //this.loading.dismiss();
+            this.goToApp();
+          });
+        });
+
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }*/
 
   doLogin() {
     //this.showLoader();

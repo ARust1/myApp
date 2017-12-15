@@ -1,7 +1,6 @@
 page-profile {
   ion-header {
     ion-icon[name="more"] {
-      font-size: 1.6em;
       //transform: rotate(-90deg);
     }
   }
@@ -33,6 +32,16 @@ page-profile {
 
         }
       }
+      ion-list {
+        margin-top: 30px !important;
+        border-top: 1px solid #dedede;
+
+        button {
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+      }
+
       ion-row {
         position: relative;
         ion-fab {
@@ -50,7 +59,6 @@ page-profile {
             width: 65px;
             height: auto;
             border-radius: 100%;
-            border: 1px solid #909090;
           }
           &.member-profile-name {
             align-self: center;

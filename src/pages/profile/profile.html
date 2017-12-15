@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar padding-right>
     <!--<ion-title>Profil</ion-title>-->
     <ion-buttons end>
       <button (click)="presentActionSheet($event)">
@@ -22,10 +22,10 @@
         <h5>{{userData.prename}} {{userData.surname}}</h5>
         <h6 class="member-profile-position">Sturm</h6>
       </ion-col>
-      <ion-col col-2 *ngIf="userData.back_number" class="member-profile-trickot">
+      <!--<ion-col col-2 *ngIf="userData.back_number" class="member-profile-trickot">
         <img src="../../assets/imgs/trickot.svg">
         <span class="trickot-number">{{userData.back_number}}</span>
-      </ion-col>
+      </ion-col>-->
     </ion-row>
     <!--<ion-row style="justify-content: center;">-->
       <!--<button ion-button (click)="presentProfileModal()">Profil bearbeiten</button>-->
@@ -60,5 +60,15 @@
     <ion-row *ngIf="inviteRequests && inviteRequests.length > 0">
       <div (click)="gToInviteRequests()">neue Team Anfragen ></div>
     </ion-row>
+    <ion-list>
+      <button ion-item (click)="goToPaymentMethods()">
+        <ion-icon name="ios-card-outline" item-start></ion-icon>
+        <ion-label>Bezahlmöglichkeiten</ion-label>
+      </button>
+      <button ion-item (click)="presentInvitePopover($event)">
+        <ion-icon name="ios-person-add-outline" item-start></ion-icon>
+        <ion-label>Leute einladen</ion-label>
+      </button>
+    </ion-list>
   </ion-grid>
 </ion-content>

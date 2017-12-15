@@ -1,6 +1,5 @@
 import { Injectable, isDevMode } from '@angular/core';
 import {Http, Headers, RequestOptions, } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
@@ -27,29 +26,23 @@ export class Credentials {
   }
 
   public getToken() {
-    return Observable.fromPromise(
-      this.storage.get(this.storageKeyToken)
-    ).share();
+    return localStorage.getItem(this.storageKeyToken)
   }
 
   public getUser(): any {
-    return Observable.fromPromise(
-      this.storage.get(this.storageKeyUser)
-    ).share();
+    localStorage.getItem(this.storageKeyUser)
   }
 
   public saveUserIdToStorage(userData: any) {
-    this.storage.set(this.storageKeyUser, userData.uuid);
+    localStorage.setItem(this.storageKeyUser, userData.uuid);
   }
 
   public saveTokenToStorage(uuid: string) {
-    this.storage.set(this.storageKeyToken, uuid);
+    localStorage.setItem(this.storageKeyToken, uuid);
   }
 
   public removeKey(key: string) {
-    return Observable.fromPromise(
-      this.storage.remove(key)
-    );
+      localStorage.removeItem(key)
   }
 
   public buildOptions(token) {

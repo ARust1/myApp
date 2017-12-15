@@ -20,7 +20,7 @@ page-payment-list {
           border-bottom: 1px solid #F4F4F4;
           padding-bottom: 20px;
 
-          ion-col[col-3] {
+          ion-col[col-6] {
             flex: 0 0 28% !important;
             width: 28% !important;
             max-width: 28% !important;
@@ -43,9 +43,19 @@ page-payment-list {
           display: flex;
           justify-content: center;
           position: fixed;
-          bottom: 0;
           left: 0;
-          bottom: 30px;
+          bottom: -4px;
+
+          button {
+            border-radius: 0 !important;
+            height: 5rem;
+
+            ion-spinner {
+              circle {
+                stroke: #fff;
+              }
+            }
+          }
         }
 
         &.ec {

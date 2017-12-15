@@ -9,4 +9,5 @@ export class User {
   public back_number?: number;
   public position?: string;
   public balance: number;
+  public accountToken: string;
 }

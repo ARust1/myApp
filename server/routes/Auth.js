@@ -67,6 +67,12 @@ router.post('/auth', function (req, res, next) {
   });
 });
 
+router.get('/auth/token', function(req,res,next) {
+  var token = jwt.sign({
+    email: req.query.email
+  }, 'y&6GEQxQ+P=r)+Zyve2&,C>^ILaSBxUbQ|!:aVs|ffM@%@Tc5#i}&be/5sAg/Jux');
+  res.json(token);
+});
 
 router.post('/register', function (req, res) {
   var body = req.body;
