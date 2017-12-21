@@ -45,6 +45,8 @@ import { PaymentProvider } from '../providers/payment';
 import {AngularFireModule} from "angularfire2";
 import {FIREBASE_CONF} from "./app.firebase.config";
 import {AngularFireAuthModule} from "angularfire2/auth";
+import {TransfersPage} from "../pages/profile/transfer-list/transfer-list";
+import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create/transfer-create";
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import {AngularFireAuthModule} from "angularfire2/auth";
     EventInviteListPage,
     AccountPage,
     PaymentListPage,
-    PayPopoverPage
+    PayPopoverPage,
+    TransfersPage,
+    TransferCreatePage
   ],
   imports: [
     BrowserModule,
@@ -101,7 +105,9 @@ import {AngularFireAuthModule} from "angularfire2/auth";
     EventInviteListPage,
     AccountPage,
     PaymentListPage,
-    PayPopoverPage
+    PayPopoverPage,
+    TransfersPage,
+    TransferCreatePage
   ],
   providers: [
     StatusBar,

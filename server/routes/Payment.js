@@ -37,6 +37,7 @@ router.put('/account/:id', function(req, res, next) {
   var state = body.state;
 
   var data = {
+    debit_negative_balances: true,
     legal_entity: {
       first_name: firstName,
       last_name: lastName,
@@ -77,6 +78,7 @@ router.delete('/account/:id', function(req, res, next) {
   });
 });
 
+
 /*
  * Add Bank Account to Stripe Account
  ************************************************
@@ -108,15 +110,19 @@ router.post('/account/bankAccount', function(req, res, next) {
         { external_account: token.id },
         function(err, card) {
           if(err) return res.json(err);
-          res.json(card);
+          res.json({
+            card: card,
+            btok: token
+          });
         }
       );
     }
   });
 });
 
+
 /*
- * Retrive Bank Account from Stripe Account
+ * Retrive Bank Accounts from a specific Stripe Account
  ************************************************
  */
 
@@ -130,6 +136,66 @@ router.get('/account/:id', function (req, res, next) {
     }
   );
 });
+
+
+/*
+ * Add Credit Card to Stripe Account
+ ************************************************
+ */
+
+router.post('/account/:id/card', function(req, res, next) {
+  var body = req.body;
+  var number = body.number,
+    expMonth = body.exp_month,
+    expYear = body.exp_year,
+    cvc = body.cvc;
+  var accountToken = req.params.id;
+  stripe.tokens.create({
+    card: {
+      "number": number,
+      "exp_month": expMonth,
+      "exp_year": expYear,
+      "cvc": cvc,
+      "currency": "USD"
+    }
+  }, function(err, token) {
+    if(err) {
+      return res.json(err);
+    } else {
+      stripe.accounts.createExternalAccount(
+        accountToken,
+        { external_account: token.id },
+        function(err, card) {
+          if(err) return res.json(err);
+          res.json(token.id);
+        });
+    }
+  });
+});
+
+
+/*
+ * Retrieve Credit Cards from a specific Stripe Account
+ *********************************************************
+ */
+
+router.get('/account/:id/cards', function (req, res, next) {
+  var accountToken = req.params.id;
+  stripe.accounts.listExternalAccounts(
+    accountToken,
+    {
+      object: "bank_account"
+    }, function(err, cards) {
+      if(err) return res.json(err);
+      res.json(cards);
+  });
+});
+
+
+/*
+ * Transfer Money to a specific Stripe Account
+ ************************************************
+ */
 
 router.post('/transfer', function(req, res, next) {
   var destination = req.body.destination;
@@ -145,15 +211,28 @@ router.post('/transfer', function(req, res, next) {
   });
 });
 
-router.get('/transfers', function(req, res, next) {
+
+/*
+ * Retrieve all Transfers
+ ************************************************
+ */
+
+router.get('/:id/transfers', function(req, res, next) {
+  var accountToken = req.params.id;
   stripe.transfers.list(
-    { limit: 3 },
+    { destination: accountToken },
     function(err, transfers) {
       if(err) return res.json(err);
       res.json(transfers);
     }
   );
 });
+
+
+/*
+ * Retrieve Account Balance
+ ************************************************
+ */
 
 router.get('/account/:id/balance', function(req, res, next) {
   var accountToken = req.params.id;
@@ -171,14 +250,19 @@ router.post('/account/:id/charge', function (req, res, next) {
   var amount = req.body.amount;
 
   stripe.charges.create({
-    amount: amount,
-    currency: "EUR",
-    source: accountToken
+    amount: Math.ceil(amount * 1.13),
+    currency: "eur",
+    source: "tok_de",
+    destination: {
+      amount: amount,
+      account: accountToken
+    }
   }, function (err, result) {
     if(err) return res.json(err);
     res.json(result);
   });
 });
+
 
 router.post('/account/:id/payout', function (req, res, next) {
   var accountToken = req.params.id;
@@ -193,6 +277,39 @@ router.post('/account/:id/payout', function (req, res, next) {
     if(err) return res.json(err);
     res.json(result);
   })
+});
+
+router.get('/account/:id/payouts', function(req, res, next) {
+
+  var accountToken = req.params.id;
+  stripe.accounts.listExternalAccounts(
+    accountToken,
+    {
+      object: "bank_account"
+    }, function(err, account) {
+      if(err) {
+        return res.json(err);
+      } else {
+        detailArr = [];
+        account.data.forEach(function(bankAcc) {
+          stripe.payouts.list(
+            { destination: bankAcc.id },
+            function(err, payouts) {
+              if(err) {
+                return res.json(err);
+              } else {
+                detailArr.push(payouts);
+              }
+            }
+          );
+        });
+        res.json(detailArr);
+      }
+
+    }
+  );
+
+
 });
 
 module.exports = router;

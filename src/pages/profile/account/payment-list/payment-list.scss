@@ -63,33 +63,7 @@ page-payment-list {
 
         }
 
-        form {
-          width: 100%;
-          padding: 0 16px;
-          ion-label,
-          ion-input {
-            font-weight: 700;
-            font-size: 13px;
-          }
-          ion-input {
-            text-align: right;
-            input {
-              text-align: right;
-            }
-          }
-          ion-list {
-            width: 100%;
-          }
-          ion-item {
-            width: 100%;
-            border: 1px solid #f4f4f4 !important;
-            border-radius: 3px !important;
-            margin-bottom: 10px !important;
-            .item-inner {
-              border-bottom: none !important;
-            }
-          }
-        }
+
       }
     }
   }

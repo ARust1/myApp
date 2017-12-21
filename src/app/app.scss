@@ -32,6 +32,34 @@ body {
 // Form
 // --------------------------------------------------
 
+form.custom {
+  width: 100%;
+  padding: 0 16px;
+  ion-label,
+  ion-input {
+    font-weight: 700;
+    font-size: 13px;
+  }
+  ion-input {
+    text-align: right;
+    input {
+      text-align: right;
+    }
+  }
+  ion-list {
+    width: 100%;
+  }
+  ion-item {
+    width: 100%;
+    border: 1px solid #f4f4f4 !important;
+    border-radius: 3px !important;
+    margin-bottom: 10px !important;
+    .item-inner {
+      border-bottom: none !important;
+    }
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -90,6 +118,35 @@ ion-header {
 
 // Buttons
 // --------------------------------------------------
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: -4px;
+
+  button {
+    border-radius: 0 !important;
+    height: 5rem;
+
+    .spinner-ios-ios line,
+    .spinner-ios-ios-small line {
+      stroke: #fff !important;
+    }
+    .spinner-ios,
+    .spinner-ios-ios {
+      width: 24px !important;
+      height: 24px !important;
+    }
+    ion-spinner {
+      circle {
+        stroke: #fff !important;
+      }
+    }
+  }
+}
 
 ion-icon[name="arrow-back"] {
   font-size: 1.8em !important;

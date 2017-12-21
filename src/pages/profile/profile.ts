@@ -16,6 +16,7 @@ import {TeamServiceProvider} from "../../providers/team-service";
 import {InviteServiceProvider} from "../../providers/invite-service";
 import {Credentials} from "../../providers/credentials";
 import {AccountPage} from "./account/account";
+import {TransfersPage} from "./transfer-list/transfer-list";
 
 @Component({
   selector: 'page-profile',
@@ -197,6 +198,12 @@ export class ProfilePage {
   goToEditProfile() {
     this.navCtrl.push(ProfileModalPage, {
       data : this.userData
+    });
+  }
+
+  goToTransfers() {
+    this.navCtrl.push(TransfersPage, {
+      userData: this.userData
     });
   }
 

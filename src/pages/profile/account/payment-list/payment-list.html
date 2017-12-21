@@ -9,17 +9,9 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <h4>Zahlungsmethode</h4>
-    </ion-row>
-    <ion-row class="payment-tabs">
-      <ion-col col-6 (click)="paymentMethod = 'ec'">EC</ion-col>
-      <ion-col col-6 (click)="paymentMethod = 'credit'">Credit</ion-col>
-    </ion-row>
-
-    <ion-row class="ec" *ngIf="paymentMethod == 'ec'">
+    <ion-row class="ec">
       <h4>details</h4>
-      <form>
+      <form class="custom">
         <ion-list>
           <ion-item>
             <ion-label color="midGrey">Inhaber</ion-label>
@@ -34,27 +26,8 @@
       </form>
 
       <div class="btn-container">
-        <button ion-button block color="blue" (click)="createBankAccount()"><span *ngIf="!loadingActivated">Speichern</span>
-          <ion-spinner *ngIf="loadingActivated"></ion-spinner>
-        </button>
-      </div>
-    </ion-row>
-
-    <ion-row *ngIf="paymentMethod == 'credit'">
-      <h4>details</h4>
-      credit
-
-      <div class="btn-container">
-        <button ion-button block color="blue">Speichern</button>
-      </div>
-    </ion-row>
-
-    <ion-row *ngIf="paymentMethod == 'paypal'">
-      <h4>details</h4>
-      paypal
-
-      <div class="btn-container">
-        <button ion-button block color="blue"><span *ngIf="!loadingActivated">Speichern</span>
+        <button ion-button block color="blue" (click)="createBankAccount()">
+          <span *ngIf="!loadingActivated">Speichern</span>
           <ion-spinner *ngIf="loadingActivated"></ion-spinner>
         </button>
       </div>

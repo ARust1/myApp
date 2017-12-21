@@ -65,7 +65,7 @@ export class EventsPage {
     this.navCtrl.push(EventModalPage, {
       userData : this.userData,
       events : this.eventArr
-    })
+    }, { animate: true, direction: 'forward' })
   }
 
   presentEventModal() {

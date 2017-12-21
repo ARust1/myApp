@@ -7,8 +7,8 @@ page-account {
 
   ion-spinner {
     align-self: center;
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     stroke: #567add !important;
     position: absolute;
     left: 50%;
@@ -23,7 +23,7 @@ page-account {
       h1 {
         width: 100%;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
       }
       .swiper-container {
         overflow: visible !important;
