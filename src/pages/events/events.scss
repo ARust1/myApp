@@ -44,7 +44,7 @@ page-events {
   }
 
   .scroll-content {
-    //background-color: #F6F6F6 !important;
+    background-color: #F3F3F3 !important;
   }
 
   ion-content {
@@ -63,39 +63,39 @@ page-events {
       ion-list {
         font-weight: 400;
 
+        ion-item {
+          .col {
+            padding: 2px !important;
+          }
+          border-radius: 5px;
+          box-shadow: -1px 1px 5px 0px rgba(0,0,0,0.13) !important;
+          margin-bottom: 5px !important;
+          font-weight: 700 !important;
+          color: #484848 !important;
+          letter-spacing: -0.3px;
+          .item-inner {
+            border-bottom: none !important;
 
+            .event-name {
+              font-size: 19px;
+            }
 
-        .event-sum {
-          text-align: center;
-          font-size: 17px;
-          font-weight: 400;
-          align-self: center;
-        }
-        .event-info {
-          //align-self: center;
-          justify-content: flex-start;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 140.5px;
-          padding-left: 16px;
-        }
-        .item-h {
-        }
-        .item-sub {
-          font-size: 12px !important;
-          font-weight: 300;
-          color: #9C9C9C;
-        }
-        .date {
-          font-weight: 300;
-          font-size: 11px;
-          align-self: center;
-          margin-left: 5px;
-        }
-        .event-date {
-          justify-content: flex-start;
-          padding-left: 16px;
+            .event-start {
+              font-weight: 400 !important;
+              font-size: 16px;
+            }
+
+            .event-location {
+              font-size: 14px;
+              font-weight: 400;
+              color: #C2C2C2;
+            }
+
+            .event-sum {
+              font-size: 16px;
+              font-weight: 400 !important;
+            }
+          }
         }
       }
     }

@@ -2,46 +2,60 @@ page-event-detail {
   ion-grid {
     padding: 5px 0 !important;
   }
+
  ion-list {
-   ion-item {
-     //border-bottom: none !important;
-     //border-top: none !important;
-     line-height: 14px !important;
-     .list-ios,
-     .item-block,
-     .item-inner {
-       //border-bottom: none !important;
-       .info {
-         margin-top: 5px;
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
+   width: 100%;
+
+   ion-label {
+     color: #aeacb4 !important;
+   }
+   ion-note,
+   ion-list-header span,
+   ion-list-header ion-label {
+     color: #484848 !important
+   }
+
+   &.option-list {
+     margin-bottom: 0 !important;
+     ion-item {
+       border-top: none !important;
+     }
+   }
+
+   &.statistic {
+     ion-label {
+       span {
+         align-self: flex-end;
        }
+       display: flex;
+       justify-content: space-between;
      }
-     .participation {
-       color: $font-light-grey;
-       font-size: 13px;
-     }
-     .payment {
-       color: $font-light-grey;
-       font-size: 13px;
-       .payment-item {
+   }
+
+   &.statistic,
+   &.details {
+
+     .list-header {
+       button {
+         color: #567add !important;
+         background-color: #fff !important;
+         ion-badge {
+           margin-right: 5px;
+         }
+       }
+       .item-inner {
+         font-weight: 400 !important;
        }
 
+     }
+
+     .item-inner {
+       font-size: 14px !important;
+       font-weight: 700;
+       color: #484848 !important;
      }
 
    }
-   &.option-list {
-     width: 100%;
-
-     ion-item {
-       padding-left: 0px !important;
-     }
-     .item-inner,
-     ion-label {
-       padding:0 !important;
-       margin: 0 !important;
-     }
 
 
    button[block] {
@@ -52,7 +66,7 @@ page-event-detail {
        border-width: 0.38pt;
      }
    }
- }
+
 
   .event-statistic {
     padding: 0 16px;

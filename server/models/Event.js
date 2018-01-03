@@ -45,7 +45,7 @@ var Event = {
     [paymentMethod, dateOfPayment, uuid], callback);
   },
   acceptPayment: function(uuid, callback) {
-    return db.query("UPDATE event_invite SET paid = 1 WHERE e_uuid = ?;", [uuid], callback);
+    return db.query("UPDATE event_invite SET paid = 1, payment_method = 0 WHERE e_uuid = ?;", [uuid], callback);
   }
 };
 

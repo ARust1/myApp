@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar padding-right>
-    <!--<ion-title>Profil</ion-title>-->
+    <ion-title>Profil</ion-title>
     <ion-buttons end>
       <button (click)="presentActionSheet($event)">
         <ion-icon name="more"></ion-icon>
@@ -61,13 +61,11 @@
       <div (click)="gToInviteRequests()">neue Team Anfragen ></div>
     </ion-row>
     <ion-list>
-      <button ion-item (click)="goToPaymentMethods()">
-        <ion-icon name="ios-card-outline" item-start></ion-icon>
-        <ion-label>Bezahlmöglichkeiten</ion-label>
-      </button>
       <button ion-item (click)="goToTransfers()">
-        <ion-icon name="ios-repeat-outline" item-start></ion-icon>
-        <ion-label>Überweisungen</ion-label>
+        <ion-icon name="ios-card-outline" item-start></ion-icon>
+        <ion-label>Guthaben</ion-label>
+        <ion-spinner item-end *ngIf="!balanceLoaded"></ion-spinner>
+        <ion-label class="balance" item-end *ngIf="balanceLoaded">{{ availableBalance / 100 || 0 | currency : "EUR" : 1 }}</ion-label>
       </button>
       <button ion-item (click)="presentInvitePopover($event)">
         <ion-icon name="ios-person-add-outline" item-start></ion-icon>

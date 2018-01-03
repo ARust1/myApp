@@ -35,7 +35,7 @@ export class PaymentProvider extends GenericProvider<any>{
   }
 
   createTransfer(stripeTransferData: any): Observable<any> {
-    return this.postRequest(this.buildUrl('/payment/account/bankAccount'), stripeTransferData);
+    return this.postRequest(this.buildUrl('/payment/transfer'), stripeTransferData);
   }
 
   listTransfers(accountToken: string): Observable<any> {
@@ -48,7 +48,7 @@ export class PaymentProvider extends GenericProvider<any>{
   }
 
   chargeStripeBankAccount(accountToken: string, amount: number): Observable<any> {
-    return this.postRequest(this.buildUrl('/payment/account/'+accountToken+'/charge'), {
+    return this.postRequest(this.buildUrl('/payment/account/'+accountToken+'/deposit'), {
       amount: amount
     });
   }

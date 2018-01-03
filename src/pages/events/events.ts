@@ -6,6 +6,7 @@ import {Event} from "../../models/event-model";
 import {EventDetailPage} from "./event-detail/event-detail";
 import {EventServiceProvider} from "../../providers/event-service";
 import {Observable} from "rxjs";
+import {PaymentProvider} from "../../providers/payment";
 
 @Component({
   selector: 'page-events',
@@ -15,11 +16,13 @@ export class EventsPage {
 
   private userData: User;
   private eventArr: Event[] = [];
+  private stripeAccountBalance: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
-              private eventService: EventServiceProvider) {
+              private eventService: EventServiceProvider,
+              private paymentService: PaymentProvider) {
 
 
     this.userData = this.navParams.data;
@@ -32,7 +35,21 @@ export class EventsPage {
     } else {
       this.getEventsByInvite(this.userData.uuid, this.userData.team_id);
     }
+    this.getStripeAccountBalance();
+  }
 
+  getStripeAccountBalance() {
+    let balanceDetails;
+    this.paymentService.getStripeAccountBalance(this.userData.accountToken).subscribe((result: any) => {
+      balanceDetails = result;
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      if(balanceDetails && balanceDetails.available && balanceDetails.pending) {
+        this.stripeAccountBalance = balanceDetails.available[0].amount;
+      }
+      console.log(this.stripeAccountBalance);
+    });
   }
 
   goToDetail(event) {
@@ -40,7 +57,8 @@ export class EventsPage {
     this.navCtrl.push(EventDetailPage, {
       eventData: event,
       userData : this.userData,
-      events : this.eventArr
+      events : this.eventArr,
+      stripeAccountBalance: this.stripeAccountBalance
     });
   }
 

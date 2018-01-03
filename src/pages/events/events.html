@@ -4,10 +4,10 @@
     <ion-title class="title-h">Ausflüge</ion-title>
     <ion-buttons end>
       <button>
-        <ion-icon name="ios-search-outline"></ion-icon>
+        <ion-icon name="ios-search-outline" color="primary"></ion-icon>
       </button>
       <button *ngIf="userData.admin" (click)="goToAddEvent()">
-        <ion-icon name="ios-add-outline"></ion-icon>
+        <ion-icon name="ios-add-outline" color="primary"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -23,22 +23,24 @@
   </ion-refresher>
   <ion-grid>
     <ion-list *ngIf="eventArr">
-      <ion-item *ngFor="let event of eventArr" (tap)="goToDetail(event)" detail-push>
-        <ion-row>
-          <ion-col class="event-info" col-6>
-            <div class="item-h">{{event.name}}</div>
-            <div class="item-sub">
-              Ort: {{event.location}}
-            </div>
-          </ion-col>
-          <ion-col class="event-sum" col-6>
-            € {{event.sum}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="event-date">
-          <ion-icon name="ios-calendar-outline"></ion-icon>
-          <div class="date">{{event.startDate}}</div>
-        </ion-row>
+      <ion-item *ngFor="let event of eventArr" (tap)="goToDetail(event)">
+            <ion-row>
+              <ion-col col-6 class="text-left event-name">
+                {{event.name}}
+              </ion-col>
+              <ion-col col-6 class="text-right event-start">
+                {{event.startDate}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6 class="text-left event-location">
+                {{event.location}}
+              </ion-col>
+              <ion-col col-6 class="text-right event-sum">
+                € {{event.sum}}
+              </ion-col>
+            </ion-row>
+
       </ion-item>
     </ion-list>
   </ion-grid>

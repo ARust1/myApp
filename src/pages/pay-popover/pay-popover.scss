@@ -1,11 +1,15 @@
 page-pay-popover {
   ion-grid {
     margin-top: 44px;
+    padding: 0 !important;
     ion-col {
       text-align: center;
-      border: 1px solid #E4E4E4;
-      margin: 10px !important;
-      border-radius: 4px;
+      border: 0.55px solid #E4E4E4;
+      padding: 16px 0 !important;
+
+      img {
+        width: 32px !important;
+      }
     }
     ion-icon {
       font-size: 2.6em !important;

@@ -16,12 +16,12 @@ export class FeedbackProvider {
               public alertCtrl: AlertController) {
   }
 
-  public presentToast(msg) {
+  public presentToast(msg, duration, position) {
 
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 3000,
-      position: 'bottom',
+      duration: duration,
+      position: position,
       dismissOnPageChange: true
     });
 

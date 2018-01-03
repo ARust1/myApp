@@ -1,26 +1,27 @@
-<ion-content>
-  <ion-header *ngIf="userData && teamData">
-    <div class="team-pic">
-      <div class="overlay">
-        <h4>{{teamData.name}}</h4>
-      </div>
-      <div class="team-logo">
-        <img src="../../assets/imgs/team_logo.jpg">
-      </div>
+<ion-header *ngIf="userData && teamData">
+  <!--<div class="team-pic">-->
+    <!--<div class="overlay">-->
+      <!--<h4>{{teamData.name}}</h4>-->
+    <!--</div>-->
+    <!--<div class="team-logo">-->
+      <!--<img src="../../assets/imgs/team_logo.jpg">-->
+    <!--</div>-->
+  <!--</div>-->
+  <ion-navbar>
+    <div class="team-logo">
+      <img src="../../assets/imgs/team_logo.jpg">
     </div>
-  </ion-header>
+    <h4>{{teamData.name}}</h4>
+  </ion-navbar>
+</ion-header>
 
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="none">
     </ion-refresher-content>
   </ion-refresher>
   <div class="wallet-content" *ngIf="userData && teamData">
-    <ion-row class="team-balance-options">
-      <button>
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-row>
     <ion-grid *ngIf="teamData">
       <ion-row >
         <span class="saldo">Team-Saldo</span>

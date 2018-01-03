@@ -6,6 +6,7 @@ var Response2JSON = require('../Response2JSON');
 var moment = require('moment');
 var stripe = require('stripe')('sk_test_tuvyZ0uIGcY61cYKLLsqkrUu');
 
+
 /*
  * Create, Update & Delete Stripe Account
  ************************************************
@@ -245,7 +246,20 @@ router.get('/account/:id/balance', function(req, res, next) {
   });
 });
 
-router.post('/account/:id/charge', function (req, res, next) {
+
+router.get('/account/:id/transactions', function (req, res, next) {
+  var accountToken = req.params.id;
+
+  stripe.balance.listTransactions({
+
+  }, function(err, transactions) {
+    if(err) return res.json(err);
+    res.json(transactions);
+  });
+});
+
+
+router.post('/account/:id/deposit', function (req, res, next) {
   var accountToken = req.params.id;
   var amount = req.body.amount;
 
@@ -260,6 +274,35 @@ router.post('/account/:id/charge', function (req, res, next) {
   }, function (err, result) {
     if(err) return res.json(err);
     res.json(result);
+  });
+});
+
+router.post('/account/:id/charge', function (req, res, next) {
+  var accountToken = req.params.id;
+  var amount = req.body.amount;
+  var destination = req.body.destination;
+  var description = req.body.description;
+
+  stripe.charges.create({
+    amount: amount,
+    currency: "eur",
+    description: description,
+    source: accountToken
+  }, function(err, charge) {
+    if(err) {
+      return res.json(err);
+    } else if(charge) {
+      stripe.transfers.create({
+        amount: amount,
+        currency: "EUR",
+        destination: destination
+      }, function(err, transfer) {
+        if(err) return res.json(err);
+        res.json(transfer);
+      });
+    }
+
+
   });
 });
 
@@ -290,27 +333,96 @@ router.get('/account/:id/payouts', function(req, res, next) {
       if(err) {
         return res.json(err);
       } else {
-        detailArr = [];
-        account.data.forEach(function(bankAcc) {
+        console.log(account.data);
           stripe.payouts.list(
-            { destination: bankAcc.id },
+            { limit: 3 },
             function(err, payouts) {
               if(err) {
                 return res.json(err);
               } else {
-                detailArr.push(payouts);
+                res.json(payouts);
               }
             }
           );
-        });
-        res.json(detailArr);
       }
 
     }
   );
-
-
 });
+
+router.post('/giropay', function(req, res, next) {
+  stripe.sources.create({
+    type: 'giropay',
+    amount: 1099,
+    currency: 'eur',
+    owner: {
+      name: 'Björn Soika'
+    },
+    redirect: {
+      return_url: 'http://192.168.0.73:3000/'
+    }
+  }, function(err, source) {
+    if(err) {
+      return res.json(err);
+    } else {
+      res.json(source)
+    }
+  });
+});
+
+router.post('/giropay/:src/charge', function(req, res, next) {
+  var src = req.params.src;
+
+  stripe.charges.create({
+    amount: 1099,
+    currency: "eur",
+    source: src
+  }, function(err, charge) {
+    if(err) {
+      return res.json(err);
+    } else {
+      res.json(charge)
+    }
+  });
+});
+
+
+router.post('/sofort', function(req, res, next) {
+  stripe.sources.create({
+    type: 'sofort',
+    amount: 1099,
+    currency: 'eur',
+    statement_descriptor: 'ORDER AT11990',
+    redirect: {
+      return_url: 'http://192.168.0.73:3000/'
+    },
+    sofort: {
+      country: 'DE'
+    }
+  }, function(err, result) {
+    if(err) {
+      return res.json(err);
+    } else {
+      res.json(result)
+    }
+  });
+});
+
+router.post('/sofort/:src/charge', function(req, res, next) {
+  var  src = req.params.src;
+  stripe.charges.create({
+    amount: 1099,
+    currency: "eur",
+    source: src
+  }, function(err, charge) {
+    if(err) {
+      return res.json(err);
+    } else {
+      res.json(charge)
+    }
+  });
+});
+
 
 module.exports = router;
 

@@ -7,38 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Einzahlung</ion-title>
   </ion-navbar>
 
+  <ion-toolbar no-border-top>
+    <ion-searchbar placeholder="Filter Items" (ionInput)="filterItems($event)"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
-
-  <form class="custom">
+<ion-content padding-top>
+  <ion-grid>
     <ion-list>
-      <ion-item>
-        <ion-label color="midGrey">Betrag</ion-label>
-        <ion-input type="number" [(ngModel)]="depositData.amount" (ionChange)='updateFee()' name="amount"></ion-input>
+      <ion-item *ngFor="let user of teamUser" (click)="openTransferPopover(user)">
+        <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
+        {{user.prename}} {{user.surname}}
       </ion-item>
-      <ion-item>
-        <ion-label color="midGrey">Gebühren</ion-label>
-        <ion-input type="number" [(ngModel)]="depositData.fee" name="fee"></ion-input>
-      </ion-item>
-
-      <div class="total-amount">
-        <span>Gesamt</span>
-        <ion-input aria-readonly="true" [(ngModel)]="depositData.total" name="total"></ion-input>
-      </div>
     </ion-list>
-  </form>
-
-  <div class="btn-container">
-    <button ion-button block color="blue" (click)="deposit()">
-      <span *ngIf="!loadingActivated && !depositSuccess">Bestätigen</span>
-      <ion-spinner *ngIf="loadingActivated"></ion-spinner>
-      <ion-icon *ngIf="!loadingActivated && depositSuccess" name="ios-checkmark-circle-outline"></ion-icon>
-    </button>
-  </div>
+  </ion-grid>
 
 </ion-content>

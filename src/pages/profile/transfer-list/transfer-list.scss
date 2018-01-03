@@ -1,5 +1,17 @@
 page-transfer-list {
 
+  .bank-details {
+    .label {
+      padding-left: 16px;
+      flex-direction: column !important;
+    }
+
+  }
+
+  ion-grid {
+    padding: 0 !important;
+  }
+
   ion-toolbar {
     &.balance {
       ion-col {
@@ -22,6 +34,7 @@ page-transfer-list {
   ion-list {
     .text-no-content {
       display: flex;
+      justify-content: center;
       position: absolute;
       left: 0;
       top: 0;

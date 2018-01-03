@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {PaymentProvider} from "../../../../providers/payment";
+import {IonicPage, NavController, NavParams, Popover, PopoverController} from 'ionic-angular';
 import {User} from "../../../../models/user-model";
+import {UserServiceProvider} from "../../../../providers/user-service";
+import * as _ from 'lodash';
+import {SearchProvider} from "../../../../providers/search";
+import {TransferPopoverPage} from "./transfer-popover/transfer-popover";
 
 /**
  * Generated class for the TransferCreatePage page.
@@ -17,54 +20,56 @@ import {User} from "../../../../models/user-model";
 })
 export class TransferCreatePage {
 
+  searchEnabled: boolean = false;
   private userData: User;
-  depositData = {
-    amount: 0,
-    fee: 0,
-    total: 0
-  };
-  loadingActivated: boolean = false;
-  depositSuccess: boolean = false;
+  private teamUser: User[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private paymentService: PaymentProvider,
-              private toastCtrl: ToastController) {
+              private userService: UserServiceProvider,
+              private searchProvider: SearchProvider,
+              private popoverCtrl: PopoverController) {
     this.userData = this.navParams.get('userData');
+    this.searchProvider.setUserList(this.teamUser);
   }
 
-  deposit() {
-    this.loadingActivated = true;
-    this.paymentService.chargeStripeBankAccount(this.userData.accountToken, this.depositData.amount * 100).subscribe((result: any) => {
+  ngOnInit() {
+    this.getTeamMember(this.userData.team_id);
+  }
 
+  ionViewDidLoad() {
+  }
+
+  getTeamMember(teamId: string) {
+    this.userService.getUserByTeamId(teamId).subscribe((result: any) => {
+     result = result.filter(item => {
+        return item.uuid !== this.userData.uuid;
+      });
+      this.teamUser = result;
     }, (err: any) => {
       console.log(err);
     }, () => {
-      this.loadingActivated = false;
-      this.depositSuccess = true;
-      setTimeout(() => {
-        this.navCtrl.pop();
-      }, 1500);
-    });
+      console.log(this.teamUser);
+
+    })
+  }
+
+  filterItems($event): any {
+    let val = $event.target.value;
+    if(val && val !== undefined && val !== '') {
+      this.teamUser = this.teamUser.filter(user => {
+        return user.prename.toLowerCase().indexOf(val.toLowerCase()) != -1
+          ||  user.surname.toLowerCase().indexOf(val.toLowerCase()) != -1;
+      });
+    } else {
+      this.getTeamMember(this.userData.team_id);
+    }
 
   }
 
-  updateFee() {
-    this.depositData.fee = Math.round((this.depositData.amount * 1.13 - this.depositData.amount) * 100) / 100;
-    this.depositData.total = Math.round((this.depositData.amount * 1.13) * 100) / 100;
-  }
-
-  presentToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Einzahlung erfolgreich',
-      duration: 1500,
-      position: 'bottom'
+  openTransferPopover(user) {
+    this.navCtrl.push(TransferPopoverPage, {
+      destinationData: user
     });
-
-    toast.onDidDismiss(() => {
-      this.navCtrl.pop();
-    });
-
-    toast.present();
   }
 }

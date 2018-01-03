@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController, AlertController} from 'ionic-angular';
 import {FeedbackProvider} from "../../providers/feedback";
 import {EventServiceProvider} from "../../providers/event-service";
 import {EventInviteProvider} from "../../providers/event-invite";
+import {PaymentProvider} from "../../providers/payment";
 
 /**
  * Generated class for the PayPopoverPage page.
@@ -19,25 +20,48 @@ import {EventInviteProvider} from "../../providers/event-invite";
 export class PayPopoverPage {
 
   private inviteData: any;
+  private stripeAccountBalance: number;
+  private eventData: Event;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public feedbackService: FeedbackProvider,
-              public eventInviteService: EventInviteProvider) {
+              public eventInviteService: EventInviteProvider,
+              private alertCtrl: AlertController,
+              private paymentService: PaymentProvider) {
+
     this.inviteData = this.navParams.get('inviteData');
+    this.eventData = this.navParams.get('eventData');
+    this.stripeAccountBalance = this.navParams.get('stripeAccountBalance');
   }
 
   ngOnInit() {
+    if(this.stripeAccountBalance === undefined) {
+      this.getStripeAccountBalance();
+    }
   }
 
   close() {
     this.viewCtrl.dismiss();
   }
 
+  getStripeAccountBalance() {
+    let balanceDetails;
+    this.paymentService.getStripeAccountBalance(this.userData.accountToken).subscribe((result: any) => {
+      balanceDetails = result;
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      if(balanceDetails && balanceDetails.available && balanceDetails.pending) {
+        this.stripeAccountBalance = balanceDetails.available[0].amount;
+      }
+    });
+  }
+
   private payAlertButtons = [
     {
-      text: 'Cancel',
+      text: 'Abbrechen',
       role: 'cancel',
       handler: () => {
         console.log('Cancel clicked');
@@ -64,11 +88,24 @@ export class PayPopoverPage {
     };
 
     this.eventInviteService.setEventPayment(this.inviteData.e_uuid, data).subscribe((result: any) => {
-      this.feedbackService.presentToast("Sie bezahlen bar!");
+      this.feedbackService.presentToast("Sie bezahlen bar!", 1500, 'middle');
       this.inviteData.paymentMethod = 1;
     }, (err: any) => {
       console.log(err)
     })
 
+  }
+
+  payWithBalance() {
+    console.log(this.eventData.sum + " " + this.stripeAccountBalance / 100);
+    if(this.stripeAccountBalance / 100 < this.eventData.sum) {
+        let alert = this.alertCtrl.create({
+          title: 'Zu wenig Guthaben!',
+          subTitle: 'Ihr Guthaben ist zu niedrig um diesen Ausflug bezahlen zu können.',
+          buttons: ['Ok']
+        });
+
+        alert.present();
+      }
   }
 }

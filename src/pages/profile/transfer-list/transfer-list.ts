@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import {User} from "../../../models/user-model";
 import {PaymentProvider} from "../../../providers/payment";
+import {DepositCreatePage} from "./deposit-create/deposit-create";
 import {TransferCreatePage} from "./transfer-create/transfer-create";
 
 /**
@@ -20,7 +21,6 @@ export class TransfersPage {
 
   private userData: User;
   private depositList = [];
-  private depositListLoaded = false;
   private transferList = [];
   private transferListLoaded = false;
   private payoutsList = [];
@@ -28,41 +28,31 @@ export class TransfersPage {
   private availableBalance: number;
   private pendingBalance: number;
   private balanceLoaded: boolean = false;
-  page = 'Deposit';
+  page = 'Balance';
+  private bankAccountData: any;
+  private bankAccountDetailsLoaded = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private paymentService: PaymentProvider) {
+              private paymentService: PaymentProvider,
+              private alertCtrl: AlertController) {
     this.userData = this.navParams.get('userData');
+    this.availableBalance = this.navParams.get('availableBalance');
+    this.pendingBalance = this.navParams.get('pendingBalance');
   }
 
   ngOnInit() {
     console.log(this.userData);
-    this.getStripeAccountBalance();
-    this.getTransfers();
-    this.getPayouts();
+    this.getDeposits();
+    this.getBankAccounts(this.userData.accountToken);
+    console.log(this.availableBalance / 100);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransfersPage');
   }
 
-  getStripeAccountBalance() {
-    let balanceDetails;
-    this.paymentService.getStripeAccountBalance(this.userData.accountToken).subscribe((result: any) => {
-      balanceDetails = result;
-    }, (err: any) => {
-      console.log(err);
-    }, () => {
-      this.availableBalance = balanceDetails.available[0].amount;
-      this.pendingBalance = balanceDetails.pending[0].amount;
-      console.log(this.availableBalance);
-      console.log(this.pendingBalance);
-      this.balanceLoaded = true;
-    });
-  }
-
-  getTransfers() {
+  getDeposits() {
     let transferDetails;
     this.paymentService.listTransfers(this.userData.accountToken).subscribe((result: any) => {
       transferDetails = result;
@@ -70,35 +60,80 @@ export class TransfersPage {
     }, (err: any) => {
       console.log(err);
     }, () => {
-      transferDetails.data.forEach(transfer => {
-        if(transfer.destination == this.userData.accountToken) {
-          this.depositList.push(transfer)
-        } else {
-          this.transferList.push(transfer)
-        }
-      });
-      console.log(this.depositList);
-      console.log(this.transferList);
+      if(transferDetails.data && transferDetails.data.length > 0) {
+        transferDetails.data.forEach(transfer => {
+          if(transfer.destination == this.userData.accountToken) {
+            this.depositList.push(transfer)
+          } else {
+            this.transferList.push(transfer)
+          }
+        });
+      }
+
       this.transferListLoaded = true;
     })
   }
 
+  goToCreateDeposit() {
+    this.navCtrl.push(DepositCreatePage, {
+      userData: this.userData
+    });
+  }
   goToCreateTransfer() {
     this.navCtrl.push(TransferCreatePage, {
       userData: this.userData
     });
   }
 
-  getPayouts() {
-    let payoutDetails;
-    this.paymentService.listPayouts(this.userData.accountToken).subscribe((result: any) => {
-      payoutDetails = result;
-      console.log(payoutDetails.data);
+  getBankAccounts(accountToken: string): any {
+    let accountDetails;
+    this.paymentService.getStripeAccount(accountToken).subscribe((result: any) => {
+      if(result) {
+        accountDetails = result;
+      }
+
     }, (err: any) => {
       console.log(err);
     }, () => {
-      this.payoutsList = payoutDetails.data;
-      this.payoutsListLoaded = true;
-    })
+      if(accountDetails.external_accounts) {
+        this.bankAccountData = accountDetails.external_accounts.data[0];
+        this.bankAccountDetailsLoaded = true;
+        console.log(this.bankAccountData);
+      }
+    });
+  }
+
+  payout() {
+    let alert = this.alertCtrl.create({
+      title: 'Auszahlen',
+      inputs: [
+        {
+          name: 'amount',
+          placeholder: 'Betrag',
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Auszahlen',
+          handler: data => {
+            console.log(data.amount);
+            if(data.amount > this.availableBalance / 100) {
+              console.log("ZU VIEL GELD!");
+            } else {
+              console.log("PASST!");
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

@@ -36,9 +36,17 @@ page-profile {
         margin-top: 30px !important;
         border-top: 1px solid #dedede;
 
+        .balance {
+          text-align: right !important;
+        }
+
         button {
           padding-top: 5px;
           padding-bottom: 5px;
+
+          .item-inner {
+            border-bottom: none !important;
+          }
         }
       }
 

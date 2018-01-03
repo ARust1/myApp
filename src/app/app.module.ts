@@ -46,7 +46,11 @@ import {AngularFireModule} from "angularfire2";
 import {FIREBASE_CONF} from "./app.firebase.config";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {TransfersPage} from "../pages/profile/transfer-list/transfer-list";
+import {DepositCreatePage} from "../pages/profile/transfer-list/deposit-create/deposit-create";
 import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create/transfer-create";
+import { SearchProvider } from '../providers/search';
+import {TransferPopoverPage} from "../pages/profile/transfer-list/transfer-create/transfer-popover/transfer-popover";
+import {EventParticipationPage} from "../pages/events/event-detail/event-participation/event-participation";
 
 @NgModule({
   declarations: [
@@ -66,13 +70,16 @@ import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create
     InviteLinkPopoverPage,
     EventModalPage,
     EventDetailPage,
+    EventParticipationPage,
     DatePickerPage,
     EventInviteListPage,
     AccountPage,
     PaymentListPage,
     PayPopoverPage,
     TransfersPage,
-    TransferCreatePage
+    DepositCreatePage,
+    TransferCreatePage,
+    TransferPopoverPage
   ],
   imports: [
     BrowserModule,
@@ -101,13 +108,16 @@ import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create
     InviteLinkPopoverPage,
     EventModalPage,
     EventDetailPage,
+    EventParticipationPage,
     DatePickerPage,
     EventInviteListPage,
     AccountPage,
     PaymentListPage,
     PayPopoverPage,
     TransfersPage,
-    TransferCreatePage
+    DepositCreatePage,
+    TransferCreatePage,
+    TransferPopoverPage
   ],
   providers: [
     StatusBar,
@@ -124,7 +134,8 @@ import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create
     GenericProvider,
     EventInviteProvider,
     Stripe,
-    PaymentProvider
+    PaymentProvider,
+    SearchProvider
   ]
 })
 export class AppModule {}

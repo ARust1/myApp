@@ -12,6 +12,7 @@ import {PayPopoverPage} from "../../pay-popover/pay-popover";
 import {TeamServiceProvider} from "../../../providers/team-service";
 import {Team} from "../../../models/team-model";
 import {BehaviorSubject, Observable} from "rxjs";
+import {EventParticipationPage} from "./event-participation/event-participation";
 
 
 
@@ -32,6 +33,8 @@ export class EventDetailPage {
   private declinedCount: number;
   private noReactionCount: number;
   private paidCount: number;
+  private badgeCount: number = 0;
+  private stripeAccountBalance: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -42,14 +45,21 @@ export class EventDetailPage {
 
     this.eventData = this.navParams.get('eventData');
     this.userData = this.navParams.get('userData');
+    this.stripeAccountBalance = this.navParams.get('stripeAccountBalance');
   }
 
   ngOnInit() {
+    this.getInviteList(this.eventData.uuid);
+    console.log(this.stripeAccountBalance);
   }
 
-  ionViewWillEnter() {
-    this.getInviteList(this.eventData.uuid);
 
+  goToParticipations() {
+    this.navCtrl.push(EventParticipationPage, {
+      userData: this.userData,
+      inviteList: this.inviteList,
+      eventData: this.eventData
+    })
   }
 
   getInviteList(event_id) {
@@ -72,7 +82,7 @@ export class EventDetailPage {
   acceptInvite() {
     this.eventInviteService.setEventParticipation(this.inviteData.e_uuid, 2).subscribe((result: any) => {
       this.inviteData.participation = 2;
-      this.feedbackService.presentToast("Sie nehmen am Ausflug " + this.eventData.name + " teil");
+      this.feedbackService.presentToast("Sie nehmen am Ausflug " + this.eventData.name + " teil", 1500, 'middle');
     }, (err: any) => {
       console.log(err);
     }, () => {
@@ -83,7 +93,7 @@ export class EventDetailPage {
   declineInvite() {
     this.eventInviteService.setEventParticipation(this.inviteData.e_uuid, 1).subscribe((result: any) => {
       this.inviteData.participation = 1;
-      this.feedbackService.presentToast("Sie haben dem Auslfug " + this.eventData.name + " abgesagt");
+      this.feedbackService.presentToast("Sie haben dem Auslfug " + this.eventData.name + " abgesagt", 1500, 'middle');
     }, (err: any) => {
       console.log(err);
     }, () => {
@@ -93,13 +103,15 @@ export class EventDetailPage {
 
   payEvent() {
     if (this.inviteData.participation == 1) {
-      this.feedbackService.presentToast("Sie müssen dem Ausflug erst zusagen bevor Sie bezahlen können");
+      this.feedbackService.presentToast("Sie müssen dem Ausflug erst zusagen bevor Sie bezahlen können", 1500, 'middle');
     } else {
       if(this.inviteData.paid != 0 || this.inviteData.paymentMethod != 0) {
-        this.feedbackService.presentToast("Sie haben bereits eine Bezahlung angegeben");
+        this.feedbackService.presentToast("Sie haben bereits eine Bezahlung angegeben",1500, 'middle');
       } else {
         let popover = this.popoverCtrl.create(PayPopoverPage, {
-          inviteData: this.inviteData
+          inviteData: this.inviteData,
+          stripeAccountBalance: this.stripeAccountBalance,
+          eventData: this.eventData
         });
         popover.present();
 
@@ -110,45 +122,6 @@ export class EventDetailPage {
         })
       }
     }
-  }
-
-  confirmPayment(invite) {
-    let buttons = [
-      {
-        text: 'Abbrechen',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Bestätigen',
-        handler: () => {
-          this.acceptPayment(invite);
-        }
-      }
-    ];
-    let message = "Sind Sie sicher, dass Sie die Bezahlung bestätigen wollen?";
-    let title = "Bezahlung bestätigen";
-    this.feedbackService.presentConfirmAlert(buttons, title, message);
-
-  }
-
-  acceptPayment(invite) {
-    this.eventInviteService.acceptEventPayment(invite.e_uuid).subscribe((result: any) => {
-    }, (err: any) => {
-      console.log(err);
-    }, () => {
-      this.teamService.updateTeamBalance(this.userData.team_id, this.eventData.sum).subscribe((result: any) => {
-        this.feedbackService.presentToast("Bezahlung akzeptiert. Es wurden " + this.eventData.sum + "€ in die Mannschaftskasse eingezahlt.");
-        invite.paid = 1;
-        this.inviteData = invite;
-      }, (err: any) => {
-        console.log(err);
-      }, () => {
-        console.log(this.inviteData);
-      })
-    });
   }
 
   updateEvent() {
@@ -186,6 +159,11 @@ export class EventDetailPage {
       switch (user.paid) {
         case 1:
           this.paidCount++;
+          break;
+      }
+      switch (user.paymentMethod) {
+        case 1:
+          this.badgeCount++;
           break;
       }
     })

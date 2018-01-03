@@ -1,0 +1,44 @@
+<!--
+  Generated template for the TransferCreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Einzahlung</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form class="custom">
+    <ion-list>
+      <ion-item>
+        <ion-label color="midGrey">Betrag</ion-label>
+        <ion-input type="number" [(ngModel)]="depositData.amount" (ionChange)='updateFee()' name="amount"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="midGrey">Gebühren</ion-label>
+        <ion-input type="number" [(ngModel)]="depositData.fee" name="fee"></ion-input>
+      </ion-item>
+
+      <div class="total-amount">
+        <span>Gesamt</span>
+        <ion-input aria-readonly="true" [(ngModel)]="depositData.total" name="total"></ion-input>
+      </div>
+    </ion-list>
+  </form>
+
+  <div class="btn-container">
+    <button ion-button block color="blue" (click)="deposit()">
+      <span *ngIf="!loadingActivated && !depositSuccess">Bestätigen</span>
+      <ion-spinner *ngIf="loadingActivated"></ion-spinner>
+      <ion-icon *ngIf="!loadingActivated && depositSuccess" name="ios-checkmark-circle-outline"></ion-icon>
+    </button>
+  </div>
+
+</ion-content>

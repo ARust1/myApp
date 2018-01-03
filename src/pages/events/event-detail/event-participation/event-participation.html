@@ -1,0 +1,41 @@
+<!--
+  Generated template for the EventParticipationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <ion-grid>
+    <ion-list *ngIf="inviteList">
+      <ion-item *ngFor="let invite of inviteList" padding-left padding-right>
+        <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
+        <span>{{invite.user.prename}} {{invite.user.surname}}</span>
+        <div class="info">
+          <div class="participation">
+            <span *ngIf="invite.participation == 0">noch nicht reagiert</span>
+            <span *ngIf="invite.participation == 1">nimmt nicht teil</span>
+            <span *ngIf="invite.participation == 2">nimmt teil</span>
+          </div>
+
+          <div class="payment" *ngIf="invite.participation == 2">
+            <div class="payment-item" *ngIf="invite.paid == 0 && invite.participation != 1">
+              <span>hat noch nicht bezahlt</span>
+            </div>
+            <div class="payment-item" *ngIf="invite.participation != 1">
+              <button *ngIf="invite.paid == 0 && userData.admin && invite.paymentMethod != 0" ion-button outline (tap)="confirmPayment(invite)">Barzahlung bestätigen</button>
+              <button *ngIf="invite.paid == 1" ion-button>bezahlt</button>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>

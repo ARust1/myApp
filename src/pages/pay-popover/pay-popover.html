@@ -20,14 +20,19 @@
           <div>Bar</div>
       </ion-col>
       <ion-col>
-        <ion-icon name="ios-card-outline"></ion-icon>
+        <img src="../../assets/icon/payment/creditcard.svg">
         <div>Kreditkarte</div>
       </ion-col>
     </ion-row>
     <ion-row>
+      <ion-col (tap)="payWithBalance()">
+        <img src="../../assets/icon/manschaftskasse.svg">
+        <div>Guthaben</div>
+        <div style="color: #aeacb4 !important;">{{ stripeAccountBalance / 100 || 0 | currency : "EUR" : 1 }}</div>
+      </ion-col>
       <ion-col>
-        <img src="../../assets/icon/payment/iconmonstr-paypal-1.svg">
-        <div>Paypal</div>
+        <img src="../../assets/icon/payment/giropay.svg">
+        <div>Giropay</div>
       </ion-col>
     </ion-row>
   </ion-grid>

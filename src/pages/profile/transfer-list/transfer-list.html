@@ -2,7 +2,6 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Überweisungen</ion-title>
     <ion-buttons end>
       <button *ngIf="page == 'Payouts'">
         <ion-icon name="ios-add-outline"></ion-icon>
@@ -11,31 +10,18 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="page" color="primary">
+      <ion-segment-button value="Balance">
+        Guthaben
+      </ion-segment-button>
       <ion-segment-button value="Deposit">
         Einzahlung
       </ion-segment-button>
-      <ion-segment-button value="Transfers">
-        Überweisungen
-      </ion-segment-button>
-      <ion-segment-button value="Payouts">
-        Auszahlung
-      </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
-  <ion-toolbar class="balance">
-    <ion-row>
-      <ion-col col-6>
-        verfügbar: {{ availableBalance / 100 || 0 | currency : "EUR" : 1 }}
-      </ion-col>
-      <ion-col col-6>
-        ausstehend: {{ pendingBalance / 100 || 0 | currency : "EUR" : 1 }}
-      </ion-col>
-    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-grid *ngIf="page == 'Deposit'">
     <ion-spinner *ngIf="!transferListLoaded"></ion-spinner>
@@ -59,60 +45,38 @@
       </div>
     </ion-list>
     <div class="btn-container">
-      <button ion-button block color="blue" (click)="goToCreateTransfer()">
+      <button ion-button block color="blue" (click)="goToCreateDeposit()">
         <span>Einzahlen</span>
       </button>
     </div>
   </ion-grid>
 
 
-  <ion-grid *ngIf="page == 'Transfers'">
+  <ion-grid *ngIf="page == 'Balance'">
     <ion-spinner *ngIf="!transferListLoaded"></ion-spinner>
     <ion-list *ngIf="transferListLoaded">
-      <div *ngIf="transferList && transferList.length > 0">
-        <ion-item *ngFor="let transfer of transferList">
-          <ion-icon color="primary" name="ios-repeat-outline" item-start></ion-icon>
-          <ion-label>
-            <span class="amount">{{ transfer.amount / 100 | currency : "EUR" : 1 }}</span>
-            <span class="date">{{ transfer.created * 1000 | date:'dd.MM.yyyy'}}</span>
-
-          </ion-label>
-
-        </ion-item>
-      </div>
-      <div class="text-no-content" *ngIf="transferList.length == 0">
-        <div>
-          <span><ion-icon name="ios-alert-outline"></ion-icon></span>
-          <span>Es wurden keine Überweisungen getätigt</span>
-        </div>
-      </div>
-    </ion-list>
-    <div class="btn-container">
-      <button ion-button block color="blue">
-        <span>Überweisen</span>
-      </button>
-    </div>
-  </ion-grid>
-
-
-  <ion-grid *ngIf="page == 'Payouts'">
-    <ion-spinner *ngIf="!payoutsListLoaded"></ion-spinner>
-    <ion-list *ngIf="payoutsListLoaded">
-      <div *ngIf="payoutsList && payoutsList.length > 0">
-      <ion-item *ngFor="let payouts of payoutsList">
-        <ion-icon color="primary" name="ios-arrow-round-down-outline" item-start></ion-icon>
-        <ion-label>
-          <span class="amount">{{ payouts.amount / 100 | currency : "EUR" : 1 }}</span>
-          <span class="date">{{ payouts.created * 1000 | date:'dd.MM.yyyy'}}</span>
-        </ion-label>
+      <ion-item>
+        <div item-start>Ausstehender Betrag</div>
+        <div item-content>{{ pendingBalance / 100 || 0 | currency : "EUR" : 1 }}</div>
       </ion-item>
-      </div>
-      <div class="text-no-content" *ngIf="!payoutsList">
-        <div>
-          <span><ion-icon name="ios-alert-outline"></ion-icon></span>
-          <span>Es wurden keine Auszahlungen getätigt</span>
-        </div>
-      </div>
+      <ion-grid>
+        <ion-row class="center-text">
+          <h1>{{ availableBalance / 100 || 0 | currency : "EUR" : 1 }}</h1>
+        </ion-row>
+        <ion-row class="center-text" padding-bottom>
+          <div>Verfügbares Guthaben</div>
+        </ion-row>
+
+        <button ion-button (click)="payout()">Auszahlen</button>
+      </ion-grid>
+      <ion-item>
+      </ion-item>
+      <ion-item detail-push class="bank-details" *ngIf="bankAccountDetailsLoaded">
+        <div>{{ bankAccountData.account_holder_name }}</div>
+        <div>{{ bankAccountData.bank_name }}</div>
+        <div>****{{ bankAccountData.last4 }}</div>
+      </ion-item>
     </ion-list>
   </ion-grid>
+
 </ion-content>

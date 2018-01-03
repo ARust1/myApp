@@ -48,7 +48,7 @@ export class PaymentListPage {
   createBankAccount() {
     this.loadingActivated = true;
     this.paymentService.addBankAccount(this.stripeBankData).subscribe((result: any) => {
-      this.feedbackService.presentToast("Bankkonto wurde erfolgreich hinzugefügt");
+
       console.log(result);
     }, (err: any) => {
       console.log(err);

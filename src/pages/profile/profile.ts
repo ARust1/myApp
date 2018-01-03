@@ -17,6 +17,7 @@ import {InviteServiceProvider} from "../../providers/invite-service";
 import {Credentials} from "../../providers/credentials";
 import {AccountPage} from "./account/account";
 import {TransfersPage} from "./transfer-list/transfer-list";
+import {PaymentProvider} from "../../providers/payment";
 
 @Component({
   selector: 'page-profile',
@@ -29,6 +30,9 @@ export class ProfilePage {
   private teamData: Team;
   private inviteRequests: User[];
   private clicked: boolean = false;
+  private availableBalance = 0;
+  private pendingBalance = 0;
+  private balanceLoaded: boolean = false;
 
   constructor(public app: App,
               public authService: AuthServiceProvider,
@@ -44,7 +48,8 @@ export class ProfilePage {
               public viewCtrl: ViewController,
               public modalCtrl: ModalController,
               public popoverCtrl: PopoverController,
-              private credentials: Credentials) {
+              private credentials: Credentials,
+              private paymentService: PaymentProvider) {
     this.userData = this.navParams.data;
 
     if(!this.userData.team_id) {
@@ -52,6 +57,10 @@ export class ProfilePage {
     } else {
       this.getTeamData();
     }
+  }
+
+  ngOnInit() {
+    this.getStripeAccountBalance();
   }
 
   ionViewDidLoad() {
@@ -70,6 +79,21 @@ export class ProfilePage {
       this.teamData = result;
     }, (err: any) => {
       this.presentToast("Oops. Da ist was schief gelaufen");
+    });
+  }
+
+  getStripeAccountBalance() {
+    let balanceDetails;
+    this.paymentService.getStripeAccountBalance(this.userData.accountToken).subscribe((result: any) => {
+      balanceDetails = result;
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      if(balanceDetails && balanceDetails.available && balanceDetails.pending) {
+        this.availableBalance = balanceDetails.available[0].amount;
+        this.pendingBalance = balanceDetails.pending[0].amount;
+      }
+      this.balanceLoaded = true;
     });
   }
 
@@ -189,12 +213,6 @@ export class ProfilePage {
     actionSheet.present();
   }
 
-  goToPaymentMethods() {
-    this.navCtrl.push(AccountPage, {
-      userData: this.userData
-    });
-  }
-
   goToEditProfile() {
     this.navCtrl.push(ProfileModalPage, {
       data : this.userData
@@ -203,7 +221,9 @@ export class ProfilePage {
 
   goToTransfers() {
     this.navCtrl.push(TransfersPage, {
-      userData: this.userData
+      userData: this.userData,
+      availableBalance: this.availableBalance,
+      pendingBalance: this.pendingBalance
     });
   }
 
