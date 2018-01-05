@@ -30,6 +30,6 @@ export class UserServiceProvider extends GenericProvider<User>{
   }
 
   updateUser(userData: User): Observable<User> {
-    return this.putRequest(this.buildUrl('/user'+userData.uuid), userData);
+    return this.putRequest(this.buildUrl('/user/'+userData.uuid), userData);
   }
 }

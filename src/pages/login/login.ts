@@ -7,7 +7,6 @@ import {SetupAccountPage} from "../setup-account/setup-account";
 import {Credentials} from "../../providers/credentials";
 import {AuthServiceProvider} from "../../providers/auth-service";
 import {UserServiceProvider} from "../../providers/user-service";
-import {AngularFireAuth} from "angularfire2/auth";
 
 @IonicPage()
 @Component({
@@ -25,8 +24,7 @@ export class LoginPage {
               public authService: AuthServiceProvider,
               public userService: UserServiceProvider,
               public loadingCtrl: LoadingController,
-              private credentials: Credentials,
-              private firebaseAuth: AngularFireAuth) {
+              private credentials: Credentials) {
   }
 
  /* async login() {
@@ -62,12 +60,12 @@ export class LoginPage {
 
       this.userService.getUserData(token).subscribe( (res: any) => {
         this.userData = res;
-
-
+        console.log(res);
       }, (err) => {
         console.log(err);
       }, () => {
         //this.loading.dismiss();
+        this.credentials.saveUserToStorage(this.userData);
         this.goToApp();
       });
     }, (err) => {
@@ -92,7 +90,9 @@ export class LoginPage {
 
   goToApp() {
     if(!this.userData.team_id) {
-      this.navCtrl.setRoot(SetupAccountPage);
+      this.navCtrl.setRoot(SetupAccountPage, {
+        userData: this.userData
+      })
     } else {
       this.navCtrl.setRoot(TabsPage, this.userData);
     }

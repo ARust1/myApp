@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController, AlertController} from 'ionic-angular';
 import {FeedbackProvider} from "../../providers/feedback";
-import {EventServiceProvider} from "../../providers/event-service";
 import {EventInviteProvider} from "../../providers/event-invite";
 import {PaymentProvider} from "../../providers/payment";
+import {Event} from "../../models/event-model";
+import {User} from "../../models/user-model";
 
 /**
  * Generated class for the PayPopoverPage page.
@@ -22,6 +23,7 @@ export class PayPopoverPage {
   private inviteData: any;
   private stripeAccountBalance: number;
   private eventData: Event;
+  private userData: User;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -34,6 +36,7 @@ export class PayPopoverPage {
     this.inviteData = this.navParams.get('inviteData');
     this.eventData = this.navParams.get('eventData');
     this.stripeAccountBalance = this.navParams.get('stripeAccountBalance');
+    this.userData = this.navParams.get('userData');
   }
 
   ngOnInit() {

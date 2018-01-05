@@ -129,6 +129,7 @@ export class ProfilePage {
 
   logout() {
     this.authService.logout().subscribe((result) => {
+      this.credentials.removeKey('userData');
     }, (err) => {
       this.presentToast(err);
     });

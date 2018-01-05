@@ -8,11 +8,21 @@ page-event-detail {
 
    ion-label {
      color: #aeacb4 !important;
+     font-weight: 400;
    }
    ion-note,
    ion-list-header span,
    ion-list-header ion-label {
      color: #484848 !important
+   }
+
+   ion-list-header {
+     ion-label {
+       text-transform: capitalize;
+       font-size: 22px;
+       font-weight: 700;
+       letter-spacing: -1px;
+     }
    }
 
    &.option-list {

@@ -5,6 +5,12 @@ export class User {
   public admin?: boolean;
   public prename?: string;
   public surname?: string;
+  public birthday?: string;
+  public city?: string;
+  public country?: string = 'DE';
+  public address_line?: string;
+  public postal_code?: string;
+  public state?: string;
   public team_id?: string;
   public back_number?: number;
   public position?: string;

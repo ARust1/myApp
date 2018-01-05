@@ -43,6 +43,13 @@ ion-app.md {
   display: none;
 }
 
+.toolbar-ios .segment-button {
+  max-width: 150px;
+  height: 2.9rem;
+  font-size: 1.2rem;
+  line-height: 2.7rem;
+}
+
 // Form
 // --------------------------------------------------
 
@@ -100,6 +107,12 @@ ion-navbar {
   .toolbar-background {
     border-bottom: 0 !important;
   }
+  button,
+  .back-button {
+    font-weight: 600;
+    font-size: 1.5rem !important;
+    color: #484848 !important
+  }
 }
 
 .toolbar-title {
@@ -107,10 +120,6 @@ ion-navbar {
   font-weight: 300 !important;
 }
 
-.back-button {
-  font-size: 1.5rem !important;
-  //color: #000000 !important;
-}
 ion-navbar {
   box-shadow: -2px -2px 2px 3px rgba(0, 0, 0, 0.11);
 }
@@ -132,6 +141,30 @@ ion-header {
 
 // Buttons
 // --------------------------------------------------
+ion-action-sheet,
+ion-alert {
+  button {
+    background-color: #FFFFFF !important;
+  }
+}
+ion-list {
+  button {
+    background-color: #FFFFFF !important;
+    color: #484848 !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.5px;
+  }
+}
+
+button {
+  background-color: #80CBC4 !important;
+}
+
+button[outline] {
+  border-color: #80CBC4 !important;
+  background-color: transparent !important;
+  color: #80CBC4 !important;
+}
 
 .btn-container {
   width: 100%;
@@ -142,6 +175,7 @@ ion-header {
   bottom: -4px;
 
   button {
+    background-color: #80CBC4 !important;
     border-radius: 0 !important;
     height: 5rem;
 
@@ -213,4 +247,16 @@ ion-popover {
   height: 55px;
   border-radius: 100%;
   margin-bottom: 3px;
+}
+
+// GOOOGLE MAPS CONTAINER
+// --------------------------------------------------
+
+.pac-container {
+  box-shadow: none;
+  border: 0.55px solid #c8c7cc;
+
+  &:after {
+    display: none;
+  }
 }

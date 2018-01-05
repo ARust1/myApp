@@ -1,0 +1,48 @@
+page-id-upload {
+  ion-navbar {
+    box-shadow: none !important;
+  }
+  ion-grid {
+    padding: 16px 28px !important;
+    color: #484848 !important;
+    div {
+      &:nth-child(1) {
+        font-size: 24px;
+      }
+      &:nth-child(2) {
+
+        margin-top: 50px;
+        font-size: 18px;
+      }
+      &:nth-child(3) {
+        margin-top: 20px;
+        font-size: 13px;
+      }
+    }
+
+    .stripe-info {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: row;
+      span {
+        align-self: center;
+        margin-left: 15px;
+      }
+      svg {
+        display: inline-block;
+        align-self: flex-start;
+      }
+    }
+  }
+  ion-buttons {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+      width: 150px !important;
+    }
+  }
+}

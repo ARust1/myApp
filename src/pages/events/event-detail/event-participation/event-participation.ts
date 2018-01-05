@@ -5,13 +5,7 @@ import {EventInvite} from "../../../../models/event-invite-model";
 import {User} from "../../../../models/user-model";
 import {FeedbackProvider} from "../../../../providers/feedback";
 import {TeamServiceProvider} from "../../../../providers/team-service";
-
-/**
- * Generated class for the EventParticipationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Event} from "../../../../models/event-model";
 
 @IonicPage()
 @Component({

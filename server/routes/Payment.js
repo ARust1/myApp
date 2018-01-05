@@ -6,7 +6,6 @@ var Response2JSON = require('../Response2JSON');
 var moment = require('moment');
 var stripe = require('stripe')('sk_test_tuvyZ0uIGcY61cYKLLsqkrUu');
 
-
 /*
  * Create, Update & Delete Stripe Account
  ************************************************
@@ -38,7 +37,7 @@ router.put('/account/:id', function(req, res, next) {
   var state = body.state;
 
   var data = {
-    debit_negative_balances: true,
+    debit_negative_balances: false,
     legal_entity: {
       first_name: firstName,
       last_name: lastName,
@@ -76,6 +75,42 @@ router.delete('/account/:id', function(req, res, next) {
     .then(function(err, result) {
       if(err) return res.json(err);
       res.json(result);
+  });
+});
+
+router.post('/account/:id/documents', function(req, res, next) {
+  var file_path = req.body.file_path;
+  var accountToken = req.params.id;
+
+  try {
+    var fp = new Buffer(file_path);
+  } catch (e) {
+    console.log(e);
+  }
+
+  console.log(fp);
+  stripe.fileUploads.create({
+    purpose: 'identity_document',
+    file: {
+      data: fp,
+      name: 'file.jpg',
+      type: 'application/octet-stream'
+    }
+  }, function(err, fileUpload) {
+    if(err) {
+      return res.json(err);
+    } else {
+      stripe.accounts.update(accountToken, {
+        legal_entity : {
+          verification: {
+            document: fileUpload.id
+          }
+        }
+      }, function(err, acct) {
+        if(err) return res.json(err);
+        res.json(acct);
+      });
+    }
   });
 });
 

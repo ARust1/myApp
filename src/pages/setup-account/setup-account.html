@@ -7,35 +7,74 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>
-      <!--<img src="../../assets/icon/manschaftskasse.svg">-->
-    </ion-title>
+    <ion-title>Profil</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+<form class="animated fadeIn">
+  <ion-list>
+    <ion-item class="cam">
+      <div class="cam-container" (tap)="goToPictureSelect()">
+        <ion-icon name="ios-camera-outline" *ngIf="!profileImg"></ion-icon>
+        <img *ngIf="profileImg" [src]="profileImg">
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="userData.prename" name="prename" type="text" placeholder="Vorname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="userData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="userData.birthday" name="birthday" placeholder="Geburtstag" (tap)="openDatePicker()"></ion-input>
+    </ion-item>
+    <div>{{ birthday }}</div>
+  </ion-list>
 
-  <ion-slides>
-    <ion-slide>
-      <h1>Team erstellen</h1>
-      <form>
-        <ion-item>
-          <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Teamname"></ion-input>
-        </ion-item>
-        <button ion-button (click)="createTeam()">Erstellen</button>
-      </form>
-    </ion-slide>
-    <ion-slide>
-      <h1>Team beitreten</h1>
-      <form>
-        <ion-item>
-          <ion-input [(ngModel)]="invite_token" name="name" type="text" placeholder="Einladungs Token"></ion-input>
-        </ion-item>
-        <button ion-button (click)="sendTeamRequest()">Anfrage senden</button>
-      </form>
-    </ion-slide>
-  </ion-slides>
+  <ion-list>
+    <ion-list-header>
+      Adresse
+    </ion-list-header>
+    <ion-item class="google-auto">
+      <input type="text" [(ngModel)] = "address"
+                 [options]='options'
+                 (FormatAddress)="getFormattedAddress($event)"
+                 angularGooglePlace autocomplete="off" placeholder="Straße" [ngModelOptions]="{standalone: true}">
+    </ion-item>
+  </ion-list>
+</form>
 
+  <div class="btn-container animated fadeIn" style="animation-delay: 0.1s;" (click)="goToIdUpload()">
+  <button ion-button block>
+    <span *ngIf="!updateLoading">Weiter</span>
+    <ion-spinner *ngIf="updateLoading"></ion-spinner>
+  </button>
+</div>
 </ion-content>
+
+
+
+<!--
+<ion-slides>
+  <ion-slide>
+    <h1>Team erstellen</h1>
+    <form>
+      <ion-item>
+        <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Teamname"></ion-input>
+      </ion-item>
+      <button ion-button (click)="createTeam()">Erstellen</button>
+    </form>
+  </ion-slide>
+  <ion-slide>
+    <h1>Team beitreten</h1>
+    <form>
+      <ion-item>
+        <ion-input [(ngModel)]="invite_token" name="name" type="text" placeholder="Einladungs Token"></ion-input>
+      </ion-item>
+      <button ion-button (click)="sendTeamRequest()">Anfrage senden</button>
+    </form>
+  </ion-slide>
+</ion-slides>-->

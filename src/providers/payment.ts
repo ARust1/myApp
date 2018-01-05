@@ -22,6 +22,12 @@ export class PaymentProvider extends GenericProvider<any>{
     return this.putRequest(this.buildUrl('/payment/account/'+accountToken), stripeData);
   }
 
+  uploadIdDocument(filePath: string, accountToken: string): Observable<any> {
+    return this.postRequest(this.buildUrl('/payment/account/'+accountToken+'/documents'), {
+      file_path: filePath
+    });
+  }
+
   deleteStripeAccount(accountToken: string): Observable<any> {
     return this.deleteRequest(this.buildUrl('/payment/account/'+accountToken));
   }

@@ -12,7 +12,6 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { CalendarModule } from "ion2-calendar";
 import { IonicStorageModule } from '@ionic/storage';
 import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
-import { Stripe } from '@ionic-native/stripe';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,15 +41,18 @@ import {AccountPage} from "../pages/profile/account/account";
 import {PaymentListPage} from "../pages/profile/account/payment-list/payment-list";
 import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
 import { PaymentProvider } from '../providers/payment';
-import {AngularFireModule} from "angularfire2";
-import {FIREBASE_CONF} from "./app.firebase.config";
-import {AngularFireAuthModule} from "angularfire2/auth";
 import {TransfersPage} from "../pages/profile/transfer-list/transfer-list";
 import {DepositCreatePage} from "../pages/profile/transfer-list/deposit-create/deposit-create";
 import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create/transfer-create";
 import { SearchProvider } from '../providers/search';
 import {TransferPopoverPage} from "../pages/profile/transfer-list/transfer-create/transfer-popover/transfer-popover";
 import {EventParticipationPage} from "../pages/events/event-detail/event-participation/event-participation";
+import { Camera } from '@ionic-native/camera';
+import {ImagePicker} from "@ionic-native/image-picker";
+import {DatePicker} from "@ionic-native/date-picker";
+import {IdUploadPage} from "../pages/setup-account/id-upload/id-upload";
+import {AngularGooglePlaceModule} from "angular-google-place";
+import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import {EventParticipationPage} from "../pages/events/event-detail/event-partici
     TransfersPage,
     DepositCreatePage,
     TransferCreatePage,
-    TransferPopoverPage
+    TransferPopoverPage,
+    IdUploadPage,
+    TeamSetupPage
   ],
   imports: [
     BrowserModule,
@@ -87,8 +91,7 @@ import {EventParticipationPage} from "../pages/events/event-detail/event-partici
     CalendarModule,
     IonicModule.forRoot(MyApp, {tabsHideOnSubPages: true}),
     IonicStorageModule.forRoot(),
-    AngularFireModule.initializeApp(FIREBASE_CONF),
-    AngularFireAuthModule
+    AngularGooglePlaceModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -117,7 +120,9 @@ import {EventParticipationPage} from "../pages/events/event-detail/event-partici
     TransfersPage,
     DepositCreatePage,
     TransferCreatePage,
-    TransferPopoverPage
+    TransferPopoverPage,
+    IdUploadPage,
+    TeamSetupPage
   ],
   providers: [
     StatusBar,
@@ -133,9 +138,12 @@ import {EventParticipationPage} from "../pages/events/event-detail/event-partici
     FeedbackProvider,
     GenericProvider,
     EventInviteProvider,
-    Stripe,
     PaymentProvider,
-    SearchProvider
+    SearchProvider,
+    Camera,
+    ImagePicker,
+    DatePicker
+
   ]
 })
 export class AppModule {}

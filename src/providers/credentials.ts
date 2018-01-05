@@ -1,6 +1,8 @@
 import { Injectable, isDevMode } from '@angular/core';
 import {Http, Headers, RequestOptions, } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import {User} from "../models/user-model";
+import localForage from "localforage";
 
 @Injectable()
 export class Credentials {
@@ -30,7 +32,12 @@ export class Credentials {
   }
 
   public getUser(): any {
-    localStorage.getItem(this.storageKeyUser)
+    let userData = localStorage.getItem(this.storageKeyUser);
+    return JSON.parse(userData);
+  }
+
+  public saveUserToStorage(userData: User) {
+    localStorage.setItem(this.storageKeyUser, JSON.stringify(userData));
   }
 
   public saveUserIdToStorage(userData: any) {

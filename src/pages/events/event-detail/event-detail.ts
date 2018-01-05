@@ -111,7 +111,8 @@ export class EventDetailPage {
         let popover = this.popoverCtrl.create(PayPopoverPage, {
           inviteData: this.inviteData,
           stripeAccountBalance: this.stripeAccountBalance,
-          eventData: this.eventData
+          eventData: this.eventData,
+          userData: this.userData
         });
         popover.present();
 

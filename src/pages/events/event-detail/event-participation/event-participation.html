@@ -26,11 +26,13 @@
           </div>
 
           <div class="payment" *ngIf="invite.participation == 2">
-            <div class="payment-item" *ngIf="invite.paid == 0 && invite.participation != 1">
+            <div class="payment-item" *ngIf="invite.participation != 1 && invite.paymentMethod == 1">
               <span>hat noch nicht bezahlt</span>
             </div>
             <div class="payment-item" *ngIf="invite.participation != 1">
-              <button *ngIf="invite.paid == 0 && userData.admin && invite.paymentMethod != 0" ion-button outline (tap)="confirmPayment(invite)">Barzahlung bestätigen</button>
+              <button *ngIf="invite.paid == 0
+              && userData.admin
+              && invite.paymentMethod != 0" ion-button outline (tap)="confirmPayment(invite)">Barzahlung bestätigen</button>
               <button *ngIf="invite.paid == 1" ion-button>bezahlt</button>
             </div>
           </div>

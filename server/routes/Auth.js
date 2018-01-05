@@ -4,7 +4,7 @@ var Auth = require('../models/Auth');
 var Payment = require('../models/Payment');
 var bcrypt = require('bcrypt');
 var Response2JSON = require('../Response2JSON');
-var stripe = require('stripe')('sk_test_R2b21EnvL5TS0vI4bhkft3Kc');
+var stripe = require('stripe')('sk_test_tuvyZ0uIGcY61cYKLLsqkrUu');
 
 var jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -91,20 +91,20 @@ router.post('/register', function (req, res) {
             }
           })
         } else {
-          stripe.customers.create({
-            email: email
-          }, function (err, customer) {
-            if (err) return res.status(500).json(err);
-            Payment.saveCustomerToken(customer.id, email, function (err, result) {
-                if (err) res.status(500).json({
-                  error: {
-                    userMessage: "Bei der Registrierung ist etwas schief gelaufen.",
-                    message: "Error saving customer token.",
-                    code: 5
-                  }
-                });
+          stripe.accounts.create({
+            country: "DE",
+            type: "custom"
+          }, function(err, result) {
+            if(err) {
+              return res.json(err);
+            } else {
+              console.log(result);
+              Payment.saveCustomerToken(result.id, email, function(err, result) {
+                if(err) return res.json(err);
+                res.json();
               })
-            });
+            }
+          });
           res.json(result)
         }
       });
