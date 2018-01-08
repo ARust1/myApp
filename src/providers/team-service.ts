@@ -46,4 +46,10 @@ export class TeamServiceProvider extends GenericProvider<Team>{
     };
     return this.putRequest(this.buildUrl('/team/'+uuid+'/balance'), data);
   }
+
+  saveProfileImg(uuid: string, team_logo: any): Observable<Team> {
+    return this.putRequest(this.buildUrl('/team/'+uuid+'/teamLogo'), {
+      team_logo: team_logo
+    });
+  }
 }

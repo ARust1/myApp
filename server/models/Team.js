@@ -1,10 +1,9 @@
 var db = require('../connection');
 
 var Team = {
-  createTeam: function (uuid, owner_id, name, callback) {
-    db.query("INSERT INTO team (uuid, name, owner_id) VALUES (?, ?, ?);",
-      [uuid, name, owner_id], callback);
-    db.query("SELECT * FROM team WHERE uuid = ?;", [uuid], callback);
+  createTeam: function (uuid, owner_id, name, team_logo, callback) {
+    return db.query("INSERT INTO team (uuid, name, owner_id, team_logo) VALUES (?, ?, ?, ?);",
+      [uuid, name, owner_id, team_logo], callback);
   },
   getAllTeams: function(callback) {
     return db.query("SELECT * FROM team", callback);
@@ -20,6 +19,9 @@ var Team = {
   },
   updateTeamBalance: function(uuid, amount, callback) {
     return db.query("UPDATE team SET balance = balance + ? WHERE uuid = ?;", [amount, uuid], callback);
+  },
+  saveImgUrl: function(uuid, imgUrl, callback) {
+    return db.query("UPDATE team SET team_logo = ? WHERE uuid = ?;", [imgUrl, uuid], callback);
   }
 };
 

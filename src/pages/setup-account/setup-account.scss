@@ -1,4 +1,5 @@
-page-setup-account {
+page-setup-account,
+page-team-setup {
   .scroll-content {
     background-color: #FAFAFA !important;
     padding-bottom: 50px;
@@ -7,6 +8,7 @@ page-setup-account {
   ion-list {
 
     .google-auto {
+      margin-bottom: 150px;
       input {
         width: 100%;
         text-align: center;
@@ -61,17 +63,17 @@ page-setup-account {
           position: relative;
           border-radius: 100%;
           border: 2px solid #E4E4E4;
-          display: inline-flex;
-          width: 68px;
-          height: 68px;
+          display: flex;
+          width: 75px;
+          height: 75px;
           justify-content: center;
           margin-bottom: 20px;
           margin-top: 20px;
 
           img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            display: inline-block;
+            width: 75px;
+            height: 75px;
             border-radius: 100%;
           }
         }

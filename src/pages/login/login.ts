@@ -7,6 +7,9 @@ import {SetupAccountPage} from "../setup-account/setup-account";
 import {Credentials} from "../../providers/credentials";
 import {AuthServiceProvider} from "../../providers/auth-service";
 import {UserServiceProvider} from "../../providers/user-service";
+import {HomePage} from "../home/home";
+import {IdUploadPage} from "../setup-account/id-upload/id-upload";
+import {TeamSetupPage} from "../setup-account/team-setup/team-setup";
 
 @IonicPage()
 @Component({
@@ -66,7 +69,9 @@ export class LoginPage {
       }, () => {
         //this.loading.dismiss();
         this.credentials.saveUserToStorage(this.userData);
-        this.goToApp();
+        if(this.credentials.getUser()) {
+          this.checkAccountSetup();
+        }
       });
     }, (err) => {
       console.log(err);
@@ -88,14 +93,55 @@ export class LoginPage {
     this.loading.present();
   }
 
-  goToApp() {
-    if(!this.userData.team_id) {
-      this.navCtrl.setRoot(SetupAccountPage, {
+  checkToken() {
+    let token = this.credentials.getToken();
+    if(token) {
+      this.navCtrl.setRoot(TabsPage, {
         userData: this.userData
-      })
-    } else {
-      this.navCtrl.setRoot(TabsPage, this.userData);
+      });
     }
+  }
+
+  checkAccountSetup() {
+    let userData: User = this.credentials.getUser();
+    let idUploaded: string = localStorage.getItem('idUpload');
+    console.log(idUploaded);
+    if(userData) {
+      if(userData.team_id) {
+        this.navCtrl.setRoot(TabsPage, {
+          userData: this.userData
+        });
+      } else {
+        if (!userData.prename && !userData.surname) {
+          console.log("1");
+          this.navCtrl.setRoot(SetupAccountPage, {
+            userData: this.userData
+          });
+        } else if (userData.prename && userData.surname && userData.birthday && !idUploaded) {
+          console.log("2");
+          this.navCtrl.setRoot(IdUploadPage, {
+            userData: this.userData
+          });
+        } else if (idUploaded === 'done' || idUploaded === 'skipped' || this.userData.profile.file) {
+          console.log("3");
+          this.navCtrl.setRoot(TeamSetupPage, {
+            userData: this.userData
+          });
+        } else if (userData.prename && userData.surname && userData.birthday && userData.profile.file === null && userData.team_id === null) {
+          console.log("4");
+          this.navCtrl.setRoot(TeamSetupPage, {
+            userData: this.userData
+          });
+        } else {
+          console.log("else");
+          this.checkToken()
+        }
+      }
+
+    } else {
+      this.navCtrl.setRoot(HomePage);
+    }
+
   }
 
 }

@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding no-bounce>
   <form>
     <ion-item>
       <ion-input [(ngModel)]="loginData.email" name="email" type="text" placeholder="Email" ></ion-input>
@@ -12,7 +12,7 @@
     <ion-item>
       <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
-    <button ion-button (click)="doLogin()">
+    <button ion-button class="b" (click)="doLogin()">
       Login
     </button>
   </form>

@@ -1,6 +1,6 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {
-  IonicPage, NavController, NavParams, Slides, ToastController, PopoverController,
+  IonicPage, NavController, NavParams, ToastController,
   ActionSheetController
 } from 'ionic-angular';
 import 'rxjs/add/operator/debounceTime';
@@ -10,15 +10,14 @@ import {TabsPage} from "../tabs/tabs";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {InviteServiceProvider} from "../../providers/invite-service";
-import {Camera, CameraOptions} from '@ionic-native/camera';
-import { storage, initializeApp } from 'firebase';
-import {FIREBASE_CONF} from "../../app/app.firebase.config";
 import * as moment from "moment";
-import {DomSanitizer} from "@angular/platform-browser";
 import {DatePicker} from "@ionic-native/date-picker";
 import {PaymentProvider} from "../../providers/payment";
 import {IdUploadPage} from "./id-upload/id-upload";
 import { Address } from 'angular-google-place';
+import {PictureProvider} from "../../providers/picture";
+import {FeedbackProvider} from "../../providers/feedback";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @IonicPage()
 @Component({
@@ -37,10 +36,10 @@ export class SetupAccountPage {
   private updateLoading: boolean = false;
   // public options = {type : 'address'};
   private googleAdress: Address;
-  address: any;
+  private base64Image: any;
 
-  constructor(private camera: Camera,
-              public navCtrl: NavController,
+
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
               public teamService: TeamServiceProvider,
@@ -48,14 +47,13 @@ export class SetupAccountPage {
               public paymentService: PaymentProvider,
               public inviteService: InviteServiceProvider,
               private actionSheetCtrl: ActionSheetController,
-              private sanitizer: DomSanitizer,
-              private datePicker: DatePicker) {
-
-    initializeApp(FIREBASE_CONF);
+              private datePicker: DatePicker,
+              private pictureService: PictureProvider,
+              private feedbackService: FeedbackProvider,
+              private keyboard: Keyboard) {
     this.userData = this.navParams.get('userData');
     this.teamData = new Team();
-    moment.locale("de");
-
+    this.userData.birthday = '26.12.1989';
   }
 
   ionViewWillLoad() {
@@ -97,7 +95,20 @@ export class SetupAccountPage {
       }, (err: any) => {
 
       }, () => {
-        this.navCtrl.push(IdUploadPage, {
+        // save stripeData for later usage
+        localStorage.setItem('stripeUpdateData', JSON.stringify(this.stripeUpdateData));
+        // save img to firebase
+        if(this.base64Image) {
+          this.pictureService.saveImgToFirebaseStorage(this.userData, this.base64Image).then(result => {
+            this.userService.saveProfileImg(this.userData.uuid, result.downloadURL).subscribe(result => {
+            }, (err: any) => {
+              console.log(err);
+            })
+          }, (err: any) => {
+            this.feedbackService.presentToast(err, 1500, 'middle');
+          });
+        }
+        this.navCtrl.setRoot(IdUploadPage, {
           userData: this.userData
         })
       })
@@ -105,11 +116,15 @@ export class SetupAccountPage {
 
   }
 
+  openKeyboard() {
+    this.keyboard.show();
+  }
+
   openDatePicker() {
     this.datePicker.show({
       date: new Date(),
       mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
     }).then(
       date => this.userData.birthday = moment(date).format('L'),
       err => console.log('Error occurred while getting date: ', err)
@@ -145,74 +160,21 @@ export class SetupAccountPage {
       actionSheet.present();
   }
 
-
-  async getPictures() {
-    let date = moment(new Date());
-    try {
-      const options: CameraOptions = {
-        quality: 50,
-        targetHeight: 400,
-        targetWidth: 600,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-        encodingType: this.camera.EncodingType.PNG,
-        mediaType: this.camera.MediaType.PICTURE
-      };
-
-      const result = await this.camera.getPicture(options);
-      const image: any = `data:image/png;base64,${result}`;
-      this.profileImg = this.sanitizer.bypassSecurityTrustResourceUrl(image);
-      /*const pictures = storage().ref(this.userData.email + '_' + date);
-      pictures.putString(image, 'data_url');*/
-
-
-    } catch (e) {
-      console.log(e);
-    }
-
+  getPictures() {
+    this.pictureService.getPictures().then(result => {
+      this.base64Image = result.base64Image;
+      this.profileImg = result.profileImg;
+    }, (err: any) => {
+      console.log(err);
+    });
   }
 
-  async takePicture() {
-    let date = moment(new Date());
-    try {
-      const options: CameraOptions = {
-        quality: 50,
-        targetHeight: 400,
-        targetWidth: 600,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        encodingType: this.camera.EncodingType.PNG,
-        mediaType: this.camera.MediaType.PICTURE,
-        correctOrientation: true
-      };
-
-      const result = await this.camera.getPicture(options);
-      const image: any = `data:image/png;base64,${result}`;
-      this.profileImg = this.sanitizer.bypassSecurityTrustResourceUrl(image);
-      const pictures = storage().ref(this.userData.email + '_' + date);
-       pictures.putString(image, 'data_url');
-
-
-    } catch (e) {
-      console.log(e);
-    }
-
-  }
-
-
-
-  createTeam() {
-    this.teamService.createTeam(this.userData.uuid, this.teamData.name).subscribe( (result: any) => {
-      this.userData.team_id = result.uuid;
-      this.userData.admin = true;
-      this.userService.updateUser(this.userData).subscribe( (result:any) => {
-        this.navCtrl.push(TabsPage, {
-          user: this.userData
-        })
-      }, (err: any) => {
-        this.presentToast("Oops. Da ist was schief gelaufen");
-      })
-    }, (error: any) => {
-      this.presentToast("Oops. Da ist was schief gelaufen");
+  takePicture() {
+    this.pictureService.takePicture().then(result => {
+      this.base64Image = result.base64Image;
+      this.profileImg = result.profileImg;
+    }, (err: any) => {
+      console.log(err);
     })
   }
 

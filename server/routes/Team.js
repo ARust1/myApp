@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Team = require('../models/Team');
 var User = require('../models/User');
+var Payment = require('../models/Payment');
 var Response2JSON = require('../Response2JSON');
 var uid = require('uuid/v4');
+var stripe = require('stripe')('sk_test_tuvyZ0uIGcY61cYKLLsqkrUu');
 
 router.get('/:id?',function(req, res, next) {
   if(req.params.id){
@@ -32,12 +34,29 @@ router.get('/:id?',function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var name = req.body.name,
-    owner_id = req.body.owner_id;
+    owner_id = req.body.owner_id,
+    team_logo = req.body.team_logo;
   var uuid = uid();
-  Team.createTeam(uuid, owner_id, name, function(err, results) {
+  Team.createTeam(uuid, owner_id, name,team_logo, function(err, results) {
     if(err) return res.json(err);
     if(results.length !== 0) {
-      res.json(results[0]);
+      stripe.accounts.create({
+        country: "DE",
+        type: "custom"
+      }, function(err, result) {
+        var stripeToken = result.id;
+        if(err) {
+          return res.json(err);
+        } else {
+          Payment.saveTeamStripeToken(result.id, uuid, function(err, result) {
+            if(err) return res.json(err);
+            res.json({
+              stripeToken: stripeToken,
+              team_id: uuid
+            });
+          })
+        }
+      });
     }
   });
 });
@@ -49,6 +68,13 @@ router.put('/invite_token', function(req, res, next) {
       if(err) return res.json(err);
       res.json(invite_token);
     })
+});
+
+router.put('/:id/teamLogo', function(req, res) {
+  Team.saveImgUrl(req.params.id, req.body.team_logo, function(err, result) {
+    if(err) return res.json(err);
+    res.json(result);
+  })
 });
 
 router.put('/:id/balance', function(req, res, next) {

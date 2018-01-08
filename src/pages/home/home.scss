@@ -3,12 +3,10 @@ page-home {
     width: 80%;
   }
   .scroll-content {
-    padding-top: 50%;
-  }
-  .logo-container {
-    flex-direction: column;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
+    flex-direction: column;
     color: $logo-grey;
   }
   ion-content {
@@ -17,11 +15,8 @@ page-home {
       width: 100px;
       height:auto;
     }
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
+    button {
+      margin-top: 35px !important;
     }
   }
   ion-footer {

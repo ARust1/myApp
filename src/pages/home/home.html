@@ -1,21 +1,12 @@
 <ion-content *ngIf="loggedIn">
 </ion-content>
 
-<ion-content *ngIf="!loggedIn">
-  <ion-grid>
-    <ion-row class="logo-container">
+<ion-content *ngIf="!loggedIn" no-bounce>
       <img src="../../assets/icon/manschaftskasse.svg">
       mannschaftskasse
-    </ion-row>
-    <ion-row>
-
-    </ion-row>
-  </ion-grid>
-  <ion-grid class="button-container">
-    <button ion-button (click)="goToLogin()">
-      Login
-    </button>
-  </ion-grid>
+      <button ion-button (click)="goToLogin()">
+        Login
+      </button>
 </ion-content>
 <ion-footer padding>
   <div class="register" (click)="goToRegister()">

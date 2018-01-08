@@ -16,4 +16,17 @@ export class User {
   public position?: string;
   public balance: number;
   public accountToken: string;
+  public profile: Profile;
+}
+
+export class Profile {
+  constructor(profileImg, file) {
+    this.profileImg = profileImg;
+    this.file = file;
+  }
+
+  public profileImg: string;
+  public file: string;
+
+
 }

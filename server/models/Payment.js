@@ -6,6 +6,9 @@ var Payment = {
   },
   getCustomerToken: function(uuid, callback) {
     return db.query("SELECT customerToken FROM user WHERE uuid = ?", [uuid], callback);
+  },
+  saveTeamStripeToken: function(stripeToken, uuid, callback) {
+    return db.query("UPDATE team SET stripeToken = ? WHERE uuid = ?", [stripeToken, uuid], callback);
   }
 };
 

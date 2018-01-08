@@ -8,14 +8,15 @@
     <!--</div>-->
   <!--</div>-->
   <ion-navbar>
-    <div class="team-logo">
-      <img src="../../assets/imgs/team_logo.jpg">
+    <div class="team-logo" (tap)="setTeamLogo()">
+      <img *ngIf="teamData.team_logo" [src]="teamData.team_logo">
+      <img *ngIf="!teamData.team_logo" src="../../assets/icon/icon-team-black.svg">
     </div>
     <h4>{{teamData.name}}</h4>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content no-bounce>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="none">
@@ -23,6 +24,9 @@
   </ion-refresher>
   <div class="wallet-content" *ngIf="userData && teamData">
     <ion-grid *ngIf="teamData">
+      <ion-row style="justify-content: flex-end">
+          <ion-icon name="more"></ion-icon>
+      </ion-row>
       <ion-row >
         <span class="saldo">Team-Saldo</span>
         <ion-col padding class="team-balance" col-10>

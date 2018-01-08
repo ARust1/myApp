@@ -6,6 +6,7 @@ import {HomePage} from "../../home/home";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {PaymentProvider} from "../../../providers/payment";
 import {TeamSetupPage} from "../team-setup/team-setup";
+import {UserServiceProvider} from "../../../providers/user-service";
 
 @IonicPage()
 @Component({
@@ -20,7 +21,8 @@ export class IdUploadPage {
               public navCtrl: NavController,
               public navParams: NavParams,
               private credentials: Credentials,
-              private paymentService: PaymentProvider) {
+              private paymentService: PaymentProvider,
+              private userService: UserServiceProvider) {
     this.userData = this.navParams.get('userData');
     if(!this.userData) {
       this.userData = this.credentials.getUser();
@@ -57,18 +59,24 @@ export class IdUploadPage {
       this.camera.getPicture(options).then((imageData) => {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64:
+        let file_id;
         this.paymentService.uploadIdDocument(imageData, this.userData.accountToken).subscribe((result: any) => {
-          this.result = result;
+          file_id = result;
         }, (err: any) => {
           console.log(err);
         }, () => {
-          localStorage.setItem('idUpload', 'done');
-          this.navCtrl.setRoot(TeamSetupPage, {
-            userData: this.userData
-          })
+          this.userService.saveFileId(this.userData.uuid, file_id).subscribe((result: any) => {
+            localStorage.setItem('idUpload', 'done');
+            this.navCtrl.setRoot(TeamSetupPage, {
+              userData: this.userData
+            })
+          }, (err: any) => {
+            console.log(err);
+          });
+
         })
       }, (err) => {
-        // Handle error
+        console.log(err);
       });
 
 

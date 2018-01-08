@@ -32,4 +32,16 @@ export class UserServiceProvider extends GenericProvider<User>{
   updateUser(userData: User): Observable<User> {
     return this.putRequest(this.buildUrl('/user/'+userData.uuid), userData);
   }
+
+  saveFileId(uuid: string, file_id: string): Observable<User> {
+    return this.putRequest(this.buildUrl('/user/'+uuid+'/identityCard'), {
+      file_id: file_id
+    });
+  }
+
+  saveProfileImg(uuid: string, profile_img: any): Observable<User> {
+    return this.putRequest(this.buildUrl('/user/'+uuid+'/profileImg'), {
+      profile_img: profile_img
+    });
+  }
 }

@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content no-bounce>
 <form class="animated fadeIn">
   <ion-list>
     <ion-item class="cam">
@@ -23,13 +23,13 @@
       </div>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="userData.prename" name="prename" type="text" placeholder="Vorname"></ion-input>
+      <ion-input [(ngModel)]="userData.prename" name="prename" type="text" placeholder="Vorname" (tap)="openKeyboard()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-input [(ngModel)]="userData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="userData.birthday" name="birthday" placeholder="Geburtstag" (tap)="openDatePicker()"></ion-input>
+      <ion-input [readonly]="true" [(ngModel)]="userData.birthday" name="birthday" placeholder="Geburtstag" (tap)="openDatePicker()"></ion-input>
     </ion-item>
     <div>{{ birthday }}</div>
   </ion-list>
@@ -47,14 +47,16 @@
   </ion-list>
 </form>
 
-  <div class="btn-container animated fadeIn" style="animation-delay: 0.1s;" (click)="goToIdUpload()">
-  <button ion-button block>
-    <span *ngIf="!updateLoading">Weiter</span>
-    <ion-spinner *ngIf="updateLoading"></ion-spinner>
-  </button>
-</div>
-</ion-content>
 
+</ion-content>
+<ion-footer>
+  <div class="btn-container animated fadeIn" style="animation-delay: 0.1s;" (click)="goToIdUpload()">
+    <button ion-button block>
+      <span *ngIf="!updateLoading">Weiter</span>
+      <ion-spinner *ngIf="updateLoading"></ion-spinner>
+    </button>
+  </div>
+</ion-footer>
 
 
 <!--

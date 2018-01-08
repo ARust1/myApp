@@ -7,12 +7,47 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Team</ion-title>
+    <ion-title>Mannschaft</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content no-bounce>
+
+  <ion-slides (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <h1></h1>
+      <form class="animated fadeIn">
+        <ion-list>
+          <ion-item class="cam">
+            <div class="cam-container" (tap)="getPictures()">
+              <ion-icon name="ios-camera-outline" *ngIf="!teamLogo"></ion-icon>
+              <img *ngIf="teamLogo" [src]="teamLogo">
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Mannschaftsname"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <h1></h1>
+    </ion-slide>
+  </ion-slides>
 
 </ion-content>
+
+<ion-footer>
+  <div class="btn-container">
+    <button ion-button block *ngIf="currentSlide === 0" class="animated fadeInUp" (tap)="createTeam()">
+      <span *ngIf="!loading">Mannschaft erstellen</span>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </button>
+    <button ion-button block *ngIf="currentSlide === 1" class="animated fadeInUp">
+      <span>Mannschaft beitreten</span>
+      <!--<ion-spinner *ngIf="updateLoading"></ion-spinner>-->
+    </button>
+  </div>
+</ion-footer>

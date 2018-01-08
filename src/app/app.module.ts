@@ -53,6 +53,8 @@ import {DatePicker} from "@ionic-native/date-picker";
 import {IdUploadPage} from "../pages/setup-account/id-upload/id-upload";
 import {AngularGooglePlaceModule} from "angular-google-place";
 import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
+import { PictureProvider } from '../providers/picture';
+import {Keyboard} from "@ionic-native/keyboard";
 
 @NgModule({
   declarations: [
@@ -89,7 +91,18 @@ import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
     BrowserModule,
     HttpModule,
     CalendarModule,
-    IonicModule.forRoot(MyApp, {tabsHideOnSubPages: true}),
+    IonicModule.forRoot(MyApp, {
+      activator: "highlight",
+      swipeBackEnabled: true,
+      backButtonText: '',
+      backButtonIcon: 'ios-arrow-back-outline',
+      scrollPadding: false,
+      scrollAssist: true,
+      autoFocusAssist: false,
+      tabsHideOnSubPages: true,
+      pageTransition: 'ios-transition',
+      iconMode: 'ios',
+    }),
     IonicStorageModule.forRoot(),
     AngularGooglePlaceModule
   ],
@@ -142,8 +155,9 @@ import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
     SearchProvider,
     Camera,
     ImagePicker,
-    DatePicker
-
+    DatePicker,
+    PictureProvider,
+    Keyboard
   ]
 })
 export class AppModule {}

@@ -4,4 +4,5 @@ export class Team {
   public owner_id: string;
   public balance: number;
   public invite_token: string;
+  public team_logo: string;
 }

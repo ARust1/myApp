@@ -31,6 +31,8 @@ export class RegisterPage {
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);
+    }, () => {
+      localStorage.clear();
     });
   }
 

@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {ActionSheetController, App, LoadingController, NavParams, ToastController, NavController} from "ionic-angular";
+import { App, NavParams, ToastController, NavController} from "ionic-angular";
 import {Team} from "../../models/team-model";
 import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
-import {Observable} from "rxjs";
-import {HomePage} from "../home/home";
-import {TabsPage} from "../tabs/tabs";
+import {PictureProvider} from "../../providers/picture";
 
 @Component({
   selector: 'page-wallet',
@@ -25,7 +23,8 @@ export class WalletPage {
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
               private credentials: Credentials,
-              public toastCtrl: ToastController) {
+              public toastCtrl: ToastController,
+              private pictureService: PictureProvider) {
 
     this.userData = this.navParams.get('userData');
 
@@ -39,6 +38,23 @@ export class WalletPage {
       this.getData();
     }
 
+  }
+
+  setTeamLogo() {
+    this.pictureService.getPictures().then(result => {
+      this.teamData.team_logo = result.profileImg;
+      this.pictureService.saveImgToFirebaseStorage(this.userData, result.base64Image).then(result => {
+        this.teamService.saveProfileImg(this.teamData.uuid, result.downloadURL).subscribe(result => {
+        }, (err: any) => {
+          console.log("ERR");
+          console.log(err.toString());
+        })
+      }, (err: any) => {
+        console.log(err);
+      });
+    }, (err: any) => {
+      console.log(err);
+    });
   }
 
   getData() {
