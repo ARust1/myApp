@@ -67,7 +67,7 @@ export class GenericProvider<T> {
     //console.log(res);
   }
 
-  extractData(res: Response) {
+  extractData(res: Response): Observable<T> {
     return res.json();
   }
 }

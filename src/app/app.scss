@@ -152,8 +152,27 @@ ion-segment-button {
   color: #80CBC4 !important;
 }
 
-button {
+form {
+  button[ion-button] {
+    background-color: transparent !important;
+  }
+}
+
+button[ion-button] {
   background-color: #80CBC4 !important;
+}
+
+button[ion-button="action-sheet-button"],
+button[ion-button="bar-button"],
+button[ion-button="alert-radio-button"],
+button[ion-button="alert-button"] {
+  background-color: #ffffff !important;
+}
+
+ion-navbar {
+  button[ion-button] {
+    background-color: transparent !important;
+  }
 }
 
 button[outline] {

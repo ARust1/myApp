@@ -1,0 +1,40 @@
+<!--
+  Generated template for the ModalUserAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button (click)="close()">
+        <ion-icon name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button>
+        fertig
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let user of userList">
+          <img *ngIf="!user.profile_img" class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
+          <img *ngIf="user.profile_img" class="profile-pic" [src]="user.profile_img" item-start>
+          <ion-label (tap)="saveUser(user)">
+              {{user.prename}} {{user.surname}}
+          </ion-label>
+          <div *ngIf="type === 'multi'" item-end (click)="addToInviteList(user)"><ion-icon name="add"></ion-icon></div>
+        </ion-item>
+      </ion-list>
+</ion-content>

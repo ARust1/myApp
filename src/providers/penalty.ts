@@ -16,55 +16,15 @@ import {Observable} from "rxjs";
 @Injectable()
 export class PenaltyProvider extends GenericProvider<Penalty>{
 
-  private preDefinedPenalties: Penalty[] = [
-    {
-      name: "unnötige rote Karte",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "unnötige gelbe/gelb-rote Karte",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "unvollständige Ausrüstung",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "Handy klingelt während der Mannschaftssitzung",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "unentschuldigtes Fehlen beim Training",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "unentschuldigtes Fehlen beim Spiel",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "zu spät zum Training",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    },
-    {
-      name: "zu spät zum Spiel",
-      user_id: null,
-      team_id: null,
-      amount: 0
-    }
+  private preDefinedPenalties: string[] = [
+    "unnötige rote Karte", 
+    "unnötige gelbe/gelb-rote Karte", 
+    "unvollständige Ausrüstung",
+    "Handy klingelt während der Mannschaftssitzung",
+    "unentschuldigtes Fehlen beim Training",
+    "unentschuldigtes Fehlen beim Spiel",
+    "zu spät zum Training",
+    "zu spät zum Spiel",
   ];
 
   constructor(public http: Http,
@@ -74,8 +34,10 @@ export class PenaltyProvider extends GenericProvider<Penalty>{
     super(http, storage, credentials);
   }
 
-  getPreDefinedPenalties(): Observable<Penalty[]> {
-    return this.getPreDefinedPenalties();
+  getPreDefinedPenalties(): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      resolve(this.preDefinedPenalties);
+    });
   }
 
   getPenaltiesByTeam(team_id: string): Observable<any> {

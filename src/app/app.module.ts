@@ -56,6 +56,8 @@ import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
 import { PictureProvider } from '../providers/picture';
 import {Keyboard} from "@ionic-native/keyboard";
 import { PenaltyProvider } from '../providers/penalty';
+import { PenaltyAddPage } from '../pages/penalties/penalty-add/penalty-add';
+import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/modal-user-add';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { PenaltyProvider } from '../providers/penalty';
     TransferCreatePage,
     TransferPopoverPage,
     IdUploadPage,
-    TeamSetupPage
+    TeamSetupPage,
+    PenaltyAddPage,
+    ModalUserAddPage
   ],
   imports: [
     BrowserModule,
@@ -136,7 +140,9 @@ import { PenaltyProvider } from '../providers/penalty';
     TransferCreatePage,
     TransferPopoverPage,
     IdUploadPage,
-    TeamSetupPage
+    TeamSetupPage,
+    PenaltyAddPage,
+    ModalUserAddPage
   ],
   providers: [
     StatusBar,

@@ -8,11 +8,20 @@
 
   <ion-navbar>
     <ion-title>Strafen</ion-title>
+    <ion-buttons end *ngIf="userData.admin">
+      <button (click)="goToAddPenalty()">
+        <ion-icon name="ios-add-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let penalty of penaltyList">
+      {{ penalty.name }}
+    </ion-item>
+  </ion-list>
 </ion-content>

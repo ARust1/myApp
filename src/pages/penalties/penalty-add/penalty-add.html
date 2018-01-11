@@ -1,0 +1,54 @@
+<!--
+  Generated template for the PenaltyAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Strafe hinzufügen</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+      <ion-segment [(ngModel)]="type" (ionChange)="onSegmentChange()">
+          <ion-segment-button value="predefined">
+            Typische Strafen
+          </ion-segment-button>
+          <ion-segment-button value="custom">
+            Eigene Strafen
+          </ion-segment-button>
+        </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+    <form>
+        <ion-list>
+          <ion-item *ngIf="type === 'predefined'">
+              <ion-label>Strafe</ion-label>
+              <ion-select [(ngModel)]="penaltyData.name" okText="Auswählen" cancelText="Abbrechen" name="name">
+                <ion-option *ngFor="let penalty of predefinedPenalties" value="{{penalty}}">{{ penalty }}</ion-option>
+              </ion-select>
+          </ion-item>
+          <ion-item *ngIf="type === 'custom'">
+              <ion-input [(ngModel)]="penaltyData.name" name="name" placeholder="Strafe"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input [readonly]="true" [(ngModel)]="userName" name="username" placeholder="Mannschafts Mitglied" (tap)="openUserAddModal()"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-input [(ngModel)]="penaltyData.amount" name="amount" placeholder="Betrag"></ion-input>
+            </ion-item>
+        </ion-list>
+      </form>  
+</ion-content>
+
+<ion-footer>
+    <div class="btn-container">
+      <button ion-button block (click)="addPenalty()">
+        <span>Spieler bestrafen</span>
+      </button>
+    </div>
+  </ion-footer>

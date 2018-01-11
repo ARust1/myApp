@@ -5,6 +5,8 @@ import {RegisterPage} from "../register/register";
 import {TabsPage} from "../tabs/tabs";
 import {Credentials} from "../../providers/credentials";
 import {Subscription} from "rxjs";
+import { User } from '../../models/user-model';
+import { WalletPage } from '../wallet/wallet';
 
 @IonicPage()
 @Component({

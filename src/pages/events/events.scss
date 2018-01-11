@@ -26,12 +26,11 @@ page-events {
       }
       ion-icon {
         &[name="ios-add-outline"] {
-          font-size: 2.5em !important;
           margin-left: 5px;
         }
 
         &[name="ios-search-outline"] {
-          font-size: 1.9em !important;
+          font-size: 1.4em !important;
         }
       }
     }
@@ -49,11 +48,6 @@ page-events {
 
   ion-content {
     //background: linear-gradient(rgba(240, 98, 146, 0.49), rgba(239, 83, 80, 0.49));
-
-    ion-refresher {
-
-    }
-
     .list-ios > .item-block:first-child {
       border-top: none !important;
     }

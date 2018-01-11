@@ -1,0 +1,13 @@
+page-penalty-add {
+    ion-list {
+        width: 100%;
+
+        ion-select {
+            max-width: 75% !important;
+
+            .select-text {
+                white-space: normal !important;
+            }
+        }
+    }
+}

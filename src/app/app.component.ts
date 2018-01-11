@@ -8,6 +8,9 @@ import {Credentials} from "../providers/credentials";
 
 import {initializeApp } from 'firebase';
 import {FIREBASE_CONF} from "./app.firebase.config";
+import { User } from '../models/user-model';
+import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,9 +29,18 @@ export class MyApp {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString("#80CBC4");
       splashScreen.hide();
-
     });
     initializeApp(FIREBASE_CONF);
+    
+    this.checkUser();
+    
   }
 
+  checkUser() {
+    const userData: User = JSON.parse(localStorage.getItem('userData'));
+    console.log("APP COMPONENT " + userData);
+    if(userData && typeof User) {
+      this.rootPage = TabsPage;
+    }
+  }
 }

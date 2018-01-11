@@ -56,4 +56,13 @@ export class FeedbackProvider {
   dismissLoader() {
     this.loading.dismiss();
   }
+
+  presentAlert(title: string, subtitle: string) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
 }

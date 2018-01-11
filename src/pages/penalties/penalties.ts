@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the PenaltiesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PenaltyAddPage } from './penalty-add/penalty-add';
+import { User } from '../../models/user-model';
+import { PenaltyProvider } from '../../providers/penalty';
+import { Penalty } from '../../models/penalty-model';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Events } from 'ionic-angular/util/events';
 
 @IonicPage()
 @Component({
@@ -15,11 +15,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PenaltiesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private userData: User;
+  private penaltyList: Penalty[];
+
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private penaltyService: PenaltyProvider,
+              public events: Events) {
+    this.userData = this.navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PenaltiesPage');
+  ngOnInit() {
+    this.getPenaltiesByTeam();
   }
 
+  ionViewWillEnter() {
+    this.events.subscribe('penalty:created', (penaltyData: Penalty) => {
+      this.penaltyList.push(penaltyData);
+    })
+  }
+
+  goToAddPenalty() {
+    this.navCtrl.push(PenaltyAddPage, {
+      userData: this.userData
+    })
+  }
+
+  getPenaltiesByTeam() {
+    this.penaltyService.getPenaltiesByTeam(this.userData.team_id).subscribe(result => {
+      this.penaltyList = result;
+    }, err => {
+      console.log(err);
+    })
+  }
 }

@@ -7,10 +7,15 @@ import localForage from "localforage";
 @Injectable()
 export class Credentials {
 
+  // private api = {
+  //   dev: 'http://192.168.0.73:3000/api/v1',
+  //   prod: 'http://91.92.128.99:3000/api/v1'
+  // };
+
   private api = {
-    dev: 'http://192.168.0.73:3000/api/v1',
-    prod: 'http://91.92.128.99:3000/api/v1'
-  };
+    dev: 'http://192.168.56.1:3000/api/v1',
+    prod: ''
+  }
 
   private token: string;
   private storageKeyUser = 'userData';
