@@ -5,6 +5,7 @@ var Payment = require('../models/Payment');
 var Response2JSON = require('../Response2JSON');
 var moment = require('moment');
 var stripe = require('stripe')('sk_test_tuvyZ0uIGcY61cYKLLsqkrUu');
+var fs = require('fs');
 
 /*
  * Create, Update & Delete Stripe Account
@@ -35,6 +36,7 @@ router.put('/account/:id', function(req, res, next) {
   var line1 = body.line;
   var postalCode = body.postal_code;
   var state = body.state;
+  var file_id = body.file_id;
 
   var data = {
     debit_negative_balances: false,
@@ -53,6 +55,9 @@ router.put('/account/:id', function(req, res, next) {
         line1: line1,
         postal_code: postalCode,
         state: state
+      },
+      verification: {
+        document: file_id
       }
     },
     tos_acceptance: {
@@ -83,23 +88,27 @@ router.post('/account/:id/documents', function(req, res, next) {
   var accountToken = req.params.id;
 
   try {
+    file_path = file_path.replace("file:///", "file://");
     var fp = new Buffer(file_path);
+    var fk = fs.readFileSync(fp);
   } catch (e) {
     console.log(e);
   }
 
-  console.log(fp);
+  console.log(fk);
   stripe.fileUploads.create({
     purpose: 'identity_document',
     file: {
-      data: fp,
+      data: fk,
       name: 'file.jpg',
       type: 'application/octet-stream'
     }
   }, function(err, fileUpload) {
     if(err) {
+      console.log(err);
       return res.json(err);
     } else {
+      console.log(fileUpload);
       stripe.accounts.update(accountToken, {
         legal_entity : {
           verification: {

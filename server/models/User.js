@@ -13,7 +13,7 @@ var User = {
   },
   getUserByTeamId:function(team_id, callback){
     return db.query("SELECT uuid," +
-      "email, prename, surname, admin, back_number, position, accountToken, birthday " +
+      "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img " +
       "FROM user where team_id = ?",[team_id],callback);
   },
   getUserByToken: function(token, callback) {
@@ -34,6 +34,9 @@ var User = {
   },
   saveImgUrl: function(uuid, imgUrl, callback) {
     return db.query("UPDATE user SET profile_img = ? WHERE uuid = ?;", [imgUrl, uuid], callback);
+  },
+  setTeam: function(uuid, team_id, callback) {
+    return db.query("UPDATE user SET team_id = ? WHERE uuid = ?;", [team_id, uuid], callback);
   }
 };
 

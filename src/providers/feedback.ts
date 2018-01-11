@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {ToastController, AlertController} from "ionic-angular";
+import {ToastController, AlertController, LoadingController} from "ionic-angular";
 
 /*
   Generated class for the FeedbackProvider provider.
@@ -12,8 +12,11 @@ import {ToastController, AlertController} from "ionic-angular";
 @Injectable()
 export class FeedbackProvider {
 
+  public loading: any;
+
   constructor(public toastCtrl: ToastController,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              private loadingCtrl: LoadingController) {
   }
 
   public presentToast(msg, duration, position) {
@@ -40,5 +43,17 @@ export class FeedbackProvider {
       buttons: buttons
     });
     alert.present();
+  }
+
+  showLoader(content?: string){
+    this.loading = this.loadingCtrl.create({
+      content: content
+    });
+
+    this.loading.present();
+  }
+
+  dismissLoader() {
+    this.loading.dismiss();
   }
 }

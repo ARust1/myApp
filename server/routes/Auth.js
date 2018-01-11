@@ -95,6 +95,7 @@ router.post('/register', function (req, res) {
             country: "DE",
             type: "custom"
           }, function(err, result) {
+            console.log(result.id);
             if(err) {
               return res.json(err);
             } else {

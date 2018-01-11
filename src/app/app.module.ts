@@ -55,6 +55,7 @@ import {AngularGooglePlaceModule} from "angular-google-place";
 import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
 import { PictureProvider } from '../providers/picture';
 import {Keyboard} from "@ionic-native/keyboard";
+import { PenaltyProvider } from '../providers/penalty';
 
 @NgModule({
   declarations: [
@@ -157,7 +158,8 @@ import {Keyboard} from "@ionic-native/keyboard";
     ImagePicker,
     DatePicker,
     PictureProvider,
-    Keyboard
+    Keyboard,
+    PenaltyProvider
   ]
 })
 export class AppModule {}

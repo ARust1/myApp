@@ -31,7 +31,4 @@ export class MyApp {
     initializeApp(FIREBASE_CONF);
   }
 
-
-
-
 }

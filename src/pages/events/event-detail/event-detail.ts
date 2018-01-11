@@ -43,6 +43,7 @@ export class EventDetailPage {
               public popoverCtrl: PopoverController,
               public teamService: TeamServiceProvider) {
 
+    this.inviteData = this.navParams.get('inviteData');
     this.eventData = this.navParams.get('eventData');
     this.userData = this.navParams.get('userData');
     this.stripeAccountBalance = this.navParams.get('stripeAccountBalance');

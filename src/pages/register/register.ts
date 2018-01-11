@@ -46,7 +46,7 @@ export class RegisterPage {
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Registriere...'
     });
 
     this.loading.present();

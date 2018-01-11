@@ -30,7 +30,7 @@ export class TabsPage {
               public credentials: Credentials) {
 
     this.userData = this.navParams.get('userData');
-
+    console.log("TABS " + JSON.stringify(this.userData));
   }
 
   ionViewWillEnter() {

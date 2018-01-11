@@ -42,6 +42,7 @@ page-wallet {
   }
   .scroll-content {
     margin-top: 149px !important;
+    padding-bottom: 51px;
   }
   ion-content {
     .team-balance-options {
@@ -70,10 +71,13 @@ page-wallet {
       }
       ion-row {
         justify-content: center;
+        padding: 16px 0;
         .saldo,
         .team-h {
-          flex-grow: 0;
-          color: $logo-grey;
+          width: 100%;
+          color: #000000;
+          text-align: center;
+
         }
         .team-member {
           display: flex;
@@ -132,6 +136,24 @@ page-wallet {
         }
       }
     }
+  }
+}
+
+.pending-balance {
+  font-size: 15px;
+  letter-spacing: 0px;
+  color: #dadada;
+  .balance {
+    color: #000000;
+  }
+}
+
+.spinner-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  ion-spinner {
+    align-self: center;
   }
 }
 

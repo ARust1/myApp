@@ -70,4 +70,13 @@ export class PaymentProvider extends GenericProvider<any>{
 
   }
 
+  transferFromStripeToStripeAccount(accountToken: string, amount: number, destinationToken: string, description?: string) {
+    return this.postRequest(this.buildUrl('/payment/account/'+accountToken+'/charge'), {
+      accountToken: accountToken,
+      amount: amount,
+      destination: destinationToken,
+      description: description
+    });
+  }
+
 }

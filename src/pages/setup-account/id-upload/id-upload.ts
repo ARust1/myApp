@@ -51,7 +51,7 @@ export class IdUploadPage {
         targetHeight: 400,
         targetWidth: 600,
         destinationType: this.camera.DestinationType.FILE_URI,
-        encodingType: this.camera.EncodingType.JPEG,
+        encodingType: this.camera.EncodingType.PNG,
         mediaType: this.camera.MediaType.PICTURE,
         correctOrientation: true
       };
@@ -60,13 +60,16 @@ export class IdUploadPage {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64:
         let file_id;
+
         this.paymentService.uploadIdDocument(imageData, this.userData.accountToken).subscribe((result: any) => {
           file_id = result;
+          console.log("FILE ID " + JSON.stringify(file_id));
         }, (err: any) => {
           console.log(err);
         }, () => {
           this.userService.saveFileId(this.userData.uuid, file_id).subscribe((result: any) => {
             localStorage.setItem('idUpload', 'done');
+            localStorage.setItem('file_id', file_id);
             this.navCtrl.setRoot(TeamSetupPage, {
               userData: this.userData
             })

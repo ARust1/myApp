@@ -83,9 +83,13 @@
 
     </ion-grid>
 
+
+</ion-content>
+
+<ion-footer>
   <div class="btn-container" *ngIf="inviteList && inviteData">
-    <button *ngIf="inviteData.participation === 2" ion-button block color="blue" (click)="payEvent()">
+    <button *ngIf="inviteData.participation === 2 && !inviteData.paid" ion-button block color="blue" (click)="payEvent()">
       <span>Bezahlen</span>
     </button>
   </div>
-</ion-content>
+</ion-footer>

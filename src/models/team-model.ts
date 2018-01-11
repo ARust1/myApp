@@ -5,4 +5,5 @@ export class Team {
   public balance: number;
   public invite_token: string;
   public team_logo: string;
+  public stripeToken: string;
 }

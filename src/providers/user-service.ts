@@ -44,4 +44,10 @@ export class UserServiceProvider extends GenericProvider<User>{
       profile_img: profile_img
     });
   }
+
+  setTeam(uuid: string, team_id: string): Observable<User> {
+    return this.putRequest(this.buildUrl('/user/'+uuid+'/team'), {
+      team_id: team_id
+    });
+  }
 }

@@ -46,7 +46,12 @@ export class PayPopoverPage {
   }
 
   close() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({
+      inviteData: this.inviteData,
+      stripeAccountBalance: this.stripeAccountBalance,
+      eventData: this.eventData,
+      userData: this.userData
+    });
   }
 
   getStripeAccountBalance() {
@@ -74,6 +79,23 @@ export class PayPopoverPage {
       text: 'Bar bezahlen',
       handler: () => {
         this.setCashPayment();
+        this.viewCtrl.dismiss(this.inviteData);
+      }
+    }
+  ];
+
+  private stripeTransferAlertButtons = [
+    {
+      text: 'Abbrechen',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    },
+    {
+      text: 'Mit Guthaben bezahlen',
+      handler: () => {
+        this.chargeStripeAccountBalance();
         this.viewCtrl.dismiss(this.inviteData);
       }
     }
@@ -109,6 +131,32 @@ export class PayPopoverPage {
         });
 
         alert.present();
-      }
+      } else {
+      let title: string = "Zahlung";
+      let message: string = "Sind Sie sicher, dass Sie den Ausflug mit ihrem Guthaben bezahlen wollen?";
+      this.feedbackService.presentConfirmAlert(this.stripeTransferAlertButtons, title, message);
+    }
   }
+
+  chargeStripeAccountBalance() {
+    this.feedbackService.showLoader("Transferiere...");
+    let teamStripeToken: string = localStorage.getItem('teamStripeToken');
+    console.log(teamStripeToken);
+    let description: string = "Mannschaftskasse | Ausflug: " + this.eventData.name;
+    this.paymentService.transferFromStripeToStripeAccount(this.userData.accountToken, this.eventData.sum * 100, teamStripeToken, description).subscribe(result => {
+    }, err => {
+      console.log(err);
+    }, () => {
+      this.stripeAccountBalance -= this.eventData.sum * 100;
+      this.eventInviteService.acceptEventPayment(this.inviteData.e_uuid).subscribe(result => {
+        this.inviteData.paid = 1;
+      }, err => {
+        console.log(err);
+      }, () => {
+        this.feedbackService.dismissLoader();
+        this.feedbackService.presentToast("Das Geld wurde überwiesen", 1500, 'bottom');
+      });
+    })
+  }
+
 }

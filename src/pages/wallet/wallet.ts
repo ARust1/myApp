@@ -6,6 +6,7 @@ import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {PictureProvider} from "../../providers/picture";
+import {PaymentProvider} from "../../providers/payment";
 
 @Component({
   selector: 'page-wallet',
@@ -16,6 +17,9 @@ export class WalletPage {
   private userData: User;
   private teamData: Team;
   private teamUser: User[];
+  private availableStripeTeamBalance: number;
+  private pendingStripeTeamBalance: number;
+  private dataLoaded: boolean = false;
 
   constructor(public app: App,
               public navCtrl: NavController,
@@ -24,20 +28,20 @@ export class WalletPage {
               public userService: UserServiceProvider,
               private credentials: Credentials,
               public toastCtrl: ToastController,
-              private pictureService: PictureProvider) {
+              private pictureService: PictureProvider,
+              private paymentService: PaymentProvider) {
 
     this.userData = this.navParams.get('userData');
-
 
   }
   ngOnInit() {
     if(this.userData) {
       this.getTeamData(this.userData.team_id);
       this.getUserByTeamId(this.userData.team_id);
+      this.dataLoaded = true;
     } else {
       this.getData();
     }
-
   }
 
   setTeamLogo() {
@@ -85,6 +89,8 @@ export class WalletPage {
             console.log(userData);
             console.log(teamData);
             console.log(teamUser);
+            localStorage.setItem('teamStripeToken', this.teamData.stripeToken);
+            this.getStripeTeamBalance();
           })
         })
       })
@@ -96,6 +102,7 @@ export class WalletPage {
     }, (err: any) => {
       this.presentToast(err);
     }, () => {
+      this.getStripeTeamBalance();
     });
   }
 
@@ -118,6 +125,20 @@ export class WalletPage {
       }, () => {
       })
     }
+  }
+
+  getStripeTeamBalance() {
+    this.paymentService.getStripeAccountBalance(this.teamData.stripeToken).subscribe(result => {
+      this.availableStripeTeamBalance = result.available[0].amount;
+      this.teamData.balance += result.available[0].amount / 100;
+      this.pendingStripeTeamBalance = result.pending[0].amount;
+    }, err => {
+      console.log(err);
+    }, () => {
+      console.log(this.availableStripeTeamBalance);
+      console.log(this.pendingStripeTeamBalance);
+      this.dataLoaded = true;
+    })
   }
 
   presentToast(msg) {

@@ -116,10 +116,6 @@ export class SetupAccountPage {
 
   }
 
-  openKeyboard() {
-    this.keyboard.show();
-  }
-
   openDatePicker() {
     this.datePicker.show({
       date: new Date(),
@@ -178,39 +174,19 @@ export class SetupAccountPage {
     })
   }
 
-  sendTeamRequest() {
-    this.teamService.getTeamByInviteToken(this.invite_token).subscribe((result: any) => {
-      this.team_id = result.uuid;
-      this.inviteService.sendRequest(this.team_id, this.userData.uuid).subscribe((result: any) => {
-        console.log(result);
-        this.presentToast("Anfrage wurde erfolgreich gesendet.");
-        this.navCtrl.push(TabsPage, {
-          user: this.userData
-        })
-      }, (error: any) => {
-        console.log(error);
-      })
-    }, (error: any) => {
-      console.log(error);
-    }, () => {
-
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
     });
 
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
-
-    presentToast(msg) {
-      let toast = this.toastCtrl.create({
-        message: msg,
-        duration: 3000,
-        position: 'bottom',
-        dismissOnPageChange: true
-      });
-
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-      });
-
-      toast.present();
-    }
 
 }

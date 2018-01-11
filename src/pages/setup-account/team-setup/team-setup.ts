@@ -11,13 +11,20 @@ import {PictureProvider} from "../../../providers/picture";
 import {PaymentProvider} from "../../../providers/payment";
 import {Credentials} from "../../../providers/credentials";
 import {HomePage} from "../../home/home";
+import {BehaviorSubject} from "rxjs";
 
-/**
- * Generated class for the TeamSetupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+class stripeUpdateData {
+  public first_name: string;
+  public last_name: string;
+  public day: string;
+  public month: string;
+  public year: string;
+  public city: string;
+  public line: string;
+  public postal_code: string;
+  public state: string;
+  public file_id: string;
+}
 
 @IonicPage()
 @Component({
@@ -33,6 +40,9 @@ export class TeamSetupPage {
   private base64Image: any;
   private teamLogo: any;
   private loading: boolean = false;
+  private invite_token: string;
+  private userSupscription: BehaviorSubject<User>;
+  private stripeUpdateData: stripeUpdateData;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -42,9 +52,11 @@ export class TeamSetupPage {
               private paymentService: PaymentProvider,
               private credentials: Credentials) {
     this.userData = this.navParams.get("userData");
+    this.userSupscription = new BehaviorSubject(this.userData);
     if(!this.userData) {
       this.credentials.getUser().then(result => {
         this.userData = result;
+        this.userSupscription = new BehaviorSubject(this.userData);
       }, err => {
         this.navCtrl.setRoot(HomePage);
       })
@@ -75,12 +87,19 @@ export class TeamSetupPage {
       this.userData.team_id = result.team_id;
       this.userData.admin = true;
       stripeToken = result.stripeToken;
+      console.log(stripeToken);
     }, (err: any) => {
       console.log(err.toString());
     }, () => {
-      let stripeUpdateData = localStorage.getItem('stripeUpdateData');
-      if(stripeUpdateData) {
-        this.paymentService.updateStripeAccount(JSON.parse(stripeUpdateData), stripeToken).subscribe((result: any) => {
+      let stripeData = localStorage.getItem('stripeUpdateData');
+      this.stripeUpdateData = JSON.parse(stripeData);
+      let file_id = localStorage.getItem('file_id');
+      if(file_id) {
+        this.stripeUpdateData.file_id = file_id;
+      }
+      if(stripeData) {
+        console.log(JSON.stringify(this.stripeUpdateData));
+        this.paymentService.updateStripeAccount(JSON.stringify(this.stripeUpdateData), stripeToken).subscribe((result: any) => {
         },(err: any) => {
           console.log("stripeUpdate " + err.toString());
         }, () => {
@@ -108,5 +127,23 @@ export class TeamSetupPage {
     })
   }
 
+  setTeam() {
+    this.loading = true;
+    let team_id;
+    this.teamService.getTeamByInviteToken(this.invite_token).subscribe(result => {
+      console.log(result);
+      team_id = result.uuid;
+      this.userService.setTeam(this.userData.uuid, result.uuid).subscribe(result => {
+        this.userData.team_id = team_id;
+        this.navCtrl.push(TabsPage, {
+          userData: this.userData
+        })
+      }, (err: any) => {
+        console.log(err);
+      })
+    }, (err: any) => {
+      console.log("Kein Team gefunden")
+    })
+  }
 
 }

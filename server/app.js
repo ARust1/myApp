@@ -4,12 +4,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var Invite = require('./routes/Invite');
+var Invite = require('./routes/Penalty');
 var Event = require('./routes/Event');
 var Team = require('./routes/Team');
 var User = require('./routes/User');
 var Auth = require('./routes/Auth');
 var Payment = require('./routes/Payment');
+var Penalty = require('./routes/Penalty');
 var app = express();
 
 var expressJWT = require('express-jwt');
@@ -31,11 +32,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-/*app.use(expressJWT({
+app.use(expressJWT({
   secret: 'y&6GEQxQ+P=r)+Zyve2&,C>^ILaSBxUbQ|!:aVs|ffM@%@Tc5#i}&be/5sAg/Jux'
 }).unless({
   path: ['/api/v1/auth', '/api/v1/register', '/api/v1/logout']
-}));*/
+}));
 
 app.use(apiUrl + '/', Auth);
 app.use(apiUrl + '/user', User);
@@ -43,6 +44,7 @@ app.use(apiUrl + '/team', Team);
 app.use(apiUrl + '/event', Event);
 app.use(apiUrl + '/invite', Invite);
 app.use(apiUrl + '/payment', Payment);
+app.use(apiUrl + '/penalties', Penalty);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

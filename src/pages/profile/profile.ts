@@ -51,23 +51,18 @@ export class ProfilePage {
               private credentials: Credentials,
               private paymentService: PaymentProvider) {
     this.userData = this.navParams.data;
+    console.log(this.userData);
 
-    if(!this.userData.team_id) {
-      this.teamData = new Team();
-    } else {
-      this.getTeamData();
-    }
+
+
   }
 
   ngOnInit() {
+    this.getTeamData();
     this.getStripeAccountBalance();
   }
 
   ionViewDidLoad() {
-    if(this.userData.team_id) {
-      this.getInviteRequests();
-      console.log(this.inviteRequests);
-    }
   }
 
   toggleClick() {
@@ -116,14 +111,6 @@ export class ProfilePage {
       this.teamData.invite_token = result;
     }, (err: any) => {
       console.log(err);
-    })
-  }
-
-  getInviteRequests() {
-    this.inviteService.getTeamRequests(this.userData.team_id).subscribe((result: any) => {
-      this.inviteRequests = result;
-    }, (error: any) => {
-      console.log(error);
     })
   }
 

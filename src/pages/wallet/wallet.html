@@ -16,29 +16,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content no-bounce>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="none">
-    </ion-refresher-content>
-  </ion-refresher>
+<ion-content *ngIf="!dataLoaded">
+  <div class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+</ion-content>
+
+<ion-content no-bounce *ngIf="dataLoaded">
   <div class="wallet-content" *ngIf="userData && teamData">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="none">
+      </ion-refresher-content>
+    </ion-refresher>
     <ion-grid *ngIf="teamData">
-      <ion-row style="justify-content: flex-end">
+      <ion-row style="justify-content: flex-end; padding: 0;">
           <ion-icon name="more"></ion-icon>
       </ion-row>
       <ion-row >
-        <span class="saldo">Team-Saldo</span>
+        <div class="saldo">Team-Saldo</div>
         <ion-col padding class="team-balance" col-10>
-          € {{teamData.balance}}
+          <div>€ {{teamData.balance}}</div>
+          <div class="pending-balance">ausstehend: <span class="balance">{{ pendingStripeTeamBalance / 100 || 0 | currency : "EUR" : 1 }}</span></div>
         </ion-col>
+
       </ion-row>
-      <!--<ion-row *ngIf="userData && userData.balance">
-        <span class="saldo">Mein Guthaben</span>
-        <ion-col padding class="team-balance" col-12>
-          € {{userData.balance}}
-        </ion-col>
-      </ion-row>-->
       <ion-row *ngIf="userData && !userData.balance">
         <span class="saldo">Mein Guthaben</span>
         <ion-col padding class="team-balance" col-12>
@@ -46,14 +48,13 @@
         </ion-col>
       </ion-row>
       <ion-row class="team-member" *ngIf="teamUser">
-        <!--<div class="line"></div>-->
         <div class="team-h">Mitglieder</div>
-        <!--<div class="line"></div>-->
       </ion-row>
       <ion-row padding-top class="team-member-list" *ngIf="teamUser">
         <ion-col col-3 *ngFor="let user of teamUser">
           <div>
-            <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg">
+            <img *ngIf="!user.profile_img" class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg">
+            <img *ngIf="user.profile_img" class="profile-pic" [src]="user.profile_img">
           </div>
           <div>{{user.prename}}</div>
           <div>{{user.surname}}</div>
