@@ -8,7 +8,7 @@ var User = {
   },
   getUserById:function(id, callback){
     return db.query("SELECT uuid," +
-      "email, prename, surname, team_id, admin, back_number, position, accountToken, birthday " +
+      "email, prename, surname, team_id, admin, back_number, position, accountToken, birthday, profile_img " +
       "FROM user where uuid = ?",[id],callback);
   },
   getUserByTeamId:function(team_id, callback){
@@ -16,10 +16,10 @@ var User = {
       "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img " +
       "FROM user where team_id = ?",[team_id],callback);
   },
-  getUserByToken: function(token, callback) {
+  getUserByEmail: function(email, callback) {
     return db.query('SELECT uuid, ' +
       'email, prename, surname, team_id, admin, back_number, position, accountToken, birthday, file_id, profile_img ' +
-      'FROM user WHERE token = ?;', [token], callback);
+      'FROM user WHERE email = ?;', [email], callback);
   },
   updateUser:function(uuid, User, callback){
     return db.query("UPDATE user " +

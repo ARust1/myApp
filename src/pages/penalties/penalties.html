@@ -1,13 +1,9 @@
-<!--
-  Generated template for the PenaltiesPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Strafen</ion-title>
+    <ion-title *ngIf="userData.admin">Strafenkatalog</ion-title>
+    <ion-title *ngIf="!userData.admin">Deine Strafen</ion-title>
     <ion-buttons end *ngIf="userData.admin">
       <button (click)="goToAddPenalty()">
         <ion-icon name="ios-add-outline"></ion-icon>
@@ -19,9 +15,37 @@
 
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
-    <ion-item *ngFor="let penalty of penaltyList">
-      {{ penalty.name }}
+    <ion-item *ngFor="let penalty of list">
+      <img *ngIf="!penalty.user.profile_img" class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
+      <img *ngIf="penalty.user.profile_img" class="profile-pic" [src]="penalty.user.profile_img" item-start>
+      <ion-label>
+        <div class="penalty-name">
+          <span>{{ penalty.name }}</span>
+          <ion-icon *ngIf="userData.admin" name="more" (tap)="openPenaltyOptions(penalty)"></ion-icon>
+        </div>
+        <div class="penalty-user">
+          <span class="name" *ngIf="userData.admin">{{penalty.user.prename}} {{penalty.user.surname}}</span>
+          <span class="penalty-amount" *ngIf="userData.admin">
+            <span class="amount">{{ penalty.amount }} €</span>
+            <button ion-button outline *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 0 && penalty.paymentMethod === 0" (click)="openPayPopover(penalty)">Bezahlen</button>
+            <button ion-button *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 1">Bezahlt</button>
+          </span>
+          <div class="penalty-amount" *ngIf="!userData.admin" style="width: 100%; justify-content: space-between">
+            <span class="amount">{{ penalty.amount }} €</span>
+            <button ion-button outline *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 0 && penalty.paymentMethod === 0" (click)="openPayPopover(penalty)">Bezahlen</button>
+            <button ion-button *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 1">Bezahlt</button>
+          </div>
+        </div>
+        <div class="payment-accept">
+          <button ion-button outline *ngIf="penalty.paid === 0 && penalty.paymentMethod === 1" (click)="acceptPayment(penalty)">Bezahlung bestätigen</button>
+        </div>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

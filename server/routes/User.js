@@ -14,8 +14,8 @@ router.get('/:id?',function(req, res, next) {
 
     });
   } else {
-    if(req.query.token) {
-      User.getUserByToken(req.query.token, function (err, rows) {
+    if(req.query.email) {
+      User.getUserByEmail(req.query.email, function (err, rows) {
         var json = Response2JSON.JSONFY(rows);
         var userProfileObj = {
           uuid: json[0].uuid,

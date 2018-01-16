@@ -24,7 +24,6 @@ import {TeamPage} from "../pages/team/team";
 import {ProfileModalPage} from "../pages/profile/profile-modal/profile-modal";
 import {EventModalPage} from "../pages/events/event-modal/event-modal";
 import {EventDetailPage} from "../pages/events/event-detail/event-detail";
-import {TeamRequestPage} from "../pages/profile/team-request/team-request";
 import {SetupAccountPage} from "../pages/setup-account/setup-account";
 import {InviteLinkPopoverPage} from "../pages/profile/invite-link-popover/invite-link-popover";
 import {Credentials} from "../providers/credentials";
@@ -41,11 +40,11 @@ import {AccountPage} from "../pages/profile/account/account";
 import {PaymentListPage} from "../pages/profile/account/payment-list/payment-list";
 import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
 import { PaymentProvider } from '../providers/payment';
-import {TransfersPage} from "../pages/profile/transfer-list/transfer-list";
-import {DepositCreatePage} from "../pages/profile/transfer-list/deposit-create/deposit-create";
-import {TransferCreatePage} from "../pages/profile/transfer-list/transfer-create/transfer-create";
+import {BalancePage} from "../pages/profile/balance/balance";
+import {DepositCreatePage} from "../pages/profile/balance/deposit-create/deposit-create";
+import {TransferCreatePage} from "../pages/profile/balance/transfer-create/transfer-create";
 import { SearchProvider } from '../providers/search';
-import {TransferPopoverPage} from "../pages/profile/transfer-list/transfer-create/transfer-popover/transfer-popover";
+import {TransferPopoverPage} from "../pages/profile/balance/transfer-create/transfer-popover/transfer-popover";
 import {EventParticipationPage} from "../pages/events/event-detail/event-participation/event-participation";
 import { Camera } from '@ionic-native/camera';
 import {ImagePicker} from "@ionic-native/image-picker";
@@ -58,6 +57,9 @@ import {Keyboard} from "@ionic-native/keyboard";
 import { PenaltyProvider } from '../providers/penalty';
 import { PenaltyAddPage } from '../pages/penalties/penalty-add/penalty-add';
 import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/modal-user-add';
+import {AutosizeDirective} from "../directives/autosize/autosize";
+import { BoardMessagesProvider } from '../providers/board-messages';
+import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/bankaccount-add";
 
 @NgModule({
   declarations: [
@@ -73,7 +75,6 @@ import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/
     LoginPage,
     RegisterPage,
     ProfileModalPage,
-    TeamRequestPage,
     InviteLinkPopoverPage,
     EventModalPage,
     EventDetailPage,
@@ -83,14 +84,16 @@ import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/
     AccountPage,
     PaymentListPage,
     PayPopoverPage,
-    TransfersPage,
+    BalancePage,
     DepositCreatePage,
     TransferCreatePage,
     TransferPopoverPage,
     IdUploadPage,
     TeamSetupPage,
     PenaltyAddPage,
-    ModalUserAddPage
+    ModalUserAddPage,
+    BankaccountAddPage,
+    AutosizeDirective
   ],
   imports: [
     BrowserModule,
@@ -125,7 +128,6 @@ import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/
     LoginPage,
     RegisterPage,
     ProfileModalPage,
-    TeamRequestPage,
     InviteLinkPopoverPage,
     EventModalPage,
     EventDetailPage,
@@ -135,14 +137,15 @@ import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/
     AccountPage,
     PaymentListPage,
     PayPopoverPage,
-    TransfersPage,
+    BalancePage,
     DepositCreatePage,
     TransferCreatePage,
     TransferPopoverPage,
     IdUploadPage,
     TeamSetupPage,
     PenaltyAddPage,
-    ModalUserAddPage
+    ModalUserAddPage,
+    BankaccountAddPage
   ],
   providers: [
     StatusBar,
@@ -165,7 +168,8 @@ import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/
     DatePicker,
     PictureProvider,
     Keyboard,
-    PenaltyProvider
+    PenaltyProvider,
+    BoardMessagesProvider
   ]
 })
 export class AppModule {}

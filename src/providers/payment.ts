@@ -40,6 +40,9 @@ export class PaymentProvider extends GenericProvider<any>{
     return this.postRequest(this.buildUrl('/payment/account/bankAccount'), stripeBankData);
   }
 
+  deleteBankAccount(ba_token: string): Observable<any> {
+    return this.deleteRequest(this.buildUrl('payment/account/bankAccount/'+ba_token));
+  }
   createTransfer(stripeTransferData: any): Observable<any> {
     return this.postRequest(this.buildUrl('/payment/transfer'), stripeTransferData);
   }

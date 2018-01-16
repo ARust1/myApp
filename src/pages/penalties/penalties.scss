@@ -1,3 +1,56 @@
 page-penalties {
+  .penalty-amount,
+  .penalty-name {
+    font-weight: 600;
+    font-size: 16px;
+    white-space: normal;
+    text-overflow: ellipsis;
+  }
 
+  .penalty-name {
+    display: flex;
+    justify-content: space-between;
+
+    ion-icon {
+      display: inline-block;
+      font-size: 1.4em !important;
+    }
+  }
+
+  .penalty-amount {
+    display: flex;
+    justify-content: flex-end;
+
+    span.amount {
+      align-self: center;
+    }
+
+    button {
+      padding: 0 0.5em;
+      height: 24px;
+      font-size: 1.3rem;
+      margin-left: 15px;
+    }
+  }
+  .penalty-user {
+    margin-top: 8px;
+    font-weight: 300;
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+    .name {
+      align-self: center;
+    }
+  }
+  .payment-accept {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      padding: 0 0.5em;
+      height: 24px;
+      font-size: 1.3rem;
+      margin-left: 15px;
+    }
+
+  }
 }

@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Events} from 'ionic-angular';
 import {User} from "../../../../models/user-model";
 import {PaymentProvider} from "../../../../providers/payment";
 
 /**
- * Generated class for the PaymentListPage page.
+ * Generated class for the BankaccountAddPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,13 +12,12 @@ import {PaymentProvider} from "../../../../providers/payment";
 
 @IonicPage()
 @Component({
-  selector: 'page-payment-list',
-  templateUrl: 'payment-list.html',
+  selector: 'page-bankaccount-add',
+  templateUrl: 'bankaccount-add.html',
 })
-export class PaymentListPage {
+export class BankaccountAddPage {
 
   private userData: User;
-  paymentMethod: string;
   private stripeBankData = {
     account_token: '',
     country: 'DE',
@@ -27,33 +26,33 @@ export class PaymentListPage {
     account_holder_type: 'individual',
     account_number: ''
   };
-
+  private bankData: any;
   private loadingActivated: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private paymentService: PaymentProvider) {
+              private paymentService: PaymentProvider,
+              public events: Events) {
     this.userData = this.navParams.get('userData');
     this.stripeBankData.account_token = this.userData.accountToken;
   }
 
-  ngOnInit() {
-  }
-
   ionViewDidLoad() {
+    console.log('ionViewDidLoad BankaccountAddPage');
   }
 
-  createBankAccount() {
+  createBankAccount()
+  {
     this.loadingActivated = true;
     this.paymentService.addBankAccount(this.stripeBankData).subscribe((result: any) => {
-
+      this.bankData = result.card;
       console.log(result);
     }, (err: any) => {
       console.log(err);
     }, () => {
+      this.events.publish('bankAccount:add', this.bankData);
       this.loadingActivated = false;
       this.navCtrl.pop();
     });
   }
-
 }

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, Popover, PopoverController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
 import {User} from "../../../../models/user-model";
 import {UserServiceProvider} from "../../../../providers/user-service";
-import * as _ from 'lodash';
 import {SearchProvider} from "../../../../providers/search";
 import {TransferPopoverPage} from "./transfer-popover/transfer-popover";
 
@@ -27,8 +26,7 @@ export class TransferCreatePage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private userService: UserServiceProvider,
-              private searchProvider: SearchProvider,
-              private popoverCtrl: PopoverController) {
+              private searchProvider: SearchProvider) {
     this.userData = this.navParams.get('userData');
     this.searchProvider.setUserList(this.teamUser);
   }

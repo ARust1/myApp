@@ -71,10 +71,15 @@
       </ion-grid>
       <ion-item>
       </ion-item>
-      <ion-item detail-push class="bank-details" *ngIf="bankAccountDetailsLoaded">
+      <ion-item detail-push class="bank-details" *ngIf="bankAccountDetailsLoaded && bankAccountData">
         <div>{{ bankAccountData.account_holder_name }}</div>
         <div>{{ bankAccountData.bank_name }}</div>
         <div>****{{ bankAccountData.last4 }}</div>
+      </ion-item>
+      <ion-item class="add-bankaccount" *ngIf="bankAccountDetailsLoaded && !bankAccountData">
+        <div>Du hast noch kein Bankkonto hinzugefügt um Guthaben an dein
+          Konto auszahlen zu können</div>
+        <button ion-button outline (click)="goToAddBankAccount()">Bankkonto hinzufügen</button>
       </ion-item>
     </ion-list>
   </ion-grid>

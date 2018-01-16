@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {PaymentListPage} from "./payment-list/payment-list";
 import {User} from "../../../models/user-model";
 import {PaymentProvider} from "../../../providers/payment";
-import {Observable} from "rxjs";
 
 /**
  * Generated class for the AccountPage page.

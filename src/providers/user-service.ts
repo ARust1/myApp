@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {Credentials} from "./credentials";
@@ -21,8 +21,8 @@ export class UserServiceProvider extends GenericProvider<User>{
     return this.getRequest(this.buildUrl('/user/'+uuid));
   }
 
-  getUserData(token: string): Observable<User> {
-    return this.getRequest(this.buildUrl('/user?token='+token));
+  getUserData(email: string): Observable<User> {
+    return this.getRequest(this.buildUrl('/user?email='+email));
   }
 
   getUserByTeamId(team_id: string): Observable<User> {

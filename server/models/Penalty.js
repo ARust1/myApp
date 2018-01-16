@@ -12,6 +12,16 @@ var Penalty = {
   },
   deletePenalty: function (uuid, callback) {
     return db.query("DELETE FROM penalties WHERE uuid = ?", [uuid], callback);
+  },
+  getPenaltyByUserId: function(user_id, callback) {
+    return db.query("SELECT * FROM penalties WHERE user_id = ?;", [user_id], callback);
+  },
+  setPenaltyPayment: function(uuid, paymentMethod, dateOfPayment, callback) {
+    return db.query("UPDATE penalties SET payment_method = ?, date_of_payment = ? WHERE uuid = ?;",
+      [paymentMethod, dateOfPayment, uuid], callback);
+  },
+  acceptPayment: function(uuid, callback) {
+    return db.query("UPDATE penalties SET paid = 1, payment_method = 0 WHERE uuid = ?;", [uuid], callback);
   }
 
 };

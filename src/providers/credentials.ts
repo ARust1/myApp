@@ -1,29 +1,24 @@
 import { Injectable, isDevMode } from '@angular/core';
-import {Http, Headers, RequestOptions, } from '@angular/http';
-import { Storage } from '@ionic/storage';
+import {Headers, RequestOptions, } from '@angular/http';
 import {User} from "../models/user-model";
-import localForage from "localforage";
 
 @Injectable()
 export class Credentials {
 
-  // private api = {
-  //   dev: 'http://192.168.0.73:3000/api/v1',
-  //   prod: 'http://91.92.128.99:3000/api/v1'
-  // };
+   private api = {
+      dev: 'http://192.168.0.73:3000/api/v1',
+      prod: 'http://91.92.128.99:3000/api/v1'
+   };
 
-  private api = {
+  /*private api = {
     dev: 'http://192.168.56.1:3000/api/v1',
     prod: ''
-  }
+  };*/
 
-  private token: string;
   private storageKeyUser = 'userData';
   private storageKeyToken = 'token';
 
-  constructor(private http: Http,
-              private storage: Storage) {
-
+  constructor() {
   }
 
   public getApiUrl(): string {
@@ -33,7 +28,7 @@ export class Credentials {
   }
 
   public getToken() {
-    return localStorage.getItem(this.storageKeyToken)
+    return localStorage.getItem(this.storageKeyToken);
   }
 
   public getUser(): any {

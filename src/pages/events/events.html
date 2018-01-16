@@ -18,7 +18,7 @@
 <ion-content no-bounce>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
-      pullingIcon="none">
+      refreshingSpinner="crescent">
     </ion-refresher-content>
   </ion-refresher>
   <ion-grid>
@@ -37,7 +37,7 @@
                 {{event.location}}
               </ion-col>
               <ion-col col-6 class="text-right event-sum">
-                € {{event.sum}}
+                € {{event.amount}}
               </ion-col>
             </ion-row>
 

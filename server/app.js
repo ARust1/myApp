@@ -11,6 +11,7 @@ var User = require('./routes/User');
 var Auth = require('./routes/Auth');
 var Payment = require('./routes/Payment');
 var Penalty = require('./routes/Penalty');
+var BoardMessages = require('./routes/BoardMessages');
 var app = express();
 
 var expressJWT = require('express-jwt');
@@ -45,6 +46,7 @@ app.use(apiUrl + '/event', Event);
 app.use(apiUrl + '/invite', Invite);
 app.use(apiUrl + '/payment', Payment);
 app.use(apiUrl + '/penalties', Penalty);
+app.use(apiUrl + '/boardMessages', BoardMessages);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

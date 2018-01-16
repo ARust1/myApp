@@ -65,8 +65,8 @@ export class WalletPage {
     let userData: User;
     let teamData: Team;
     let teamUser: User[];
-    let token = this.credentials.getToken();
-      this.userService.getUserData(token).subscribe((result: any) => {
+    let user: User = this.credentials.getUser();
+      this.userService.getUserData(user.email).subscribe((result: any) => {
         userData = result;
         this.userData = userData;
         console.log(userData.team_id);
@@ -85,11 +85,11 @@ export class WalletPage {
             console.log(err)
           }, () => {
             this.teamUser = teamUser;
-            console.log(token);
             console.log(userData);
             console.log(teamData);
             console.log(teamUser);
             localStorage.setItem('teamStripeToken', this.teamData.stripeToken);
+            this.getStripeUserBalance();
             this.getStripeTeamBalance();
           })
         })
@@ -102,6 +102,7 @@ export class WalletPage {
     }, (err: any) => {
       this.presentToast(err);
     }, () => {
+      this.getStripeUserBalance();
       this.getStripeTeamBalance();
     });
   }
@@ -115,9 +116,9 @@ export class WalletPage {
   }
 
   getUserData(): any {
-    let token = this.credentials.getToken();
-    if(token) {
-      this.userService.getUserData(token).subscribe((result: any) => {
+    let user: User = this.credentials.getUser();
+    if(user) {
+      this.userService.getUserData(user.email).subscribe((result: any) => {
         this.userData = result;
         console.log(result);
       }, (error: any) => {
@@ -138,6 +139,19 @@ export class WalletPage {
       console.log(this.availableStripeTeamBalance);
       console.log(this.pendingStripeTeamBalance);
       this.dataLoaded = true;
+    })
+  }
+
+  getStripeUserBalance() {
+    this.paymentService.getStripeAccountBalance(this.userData.accountToken).subscribe(result => {
+      console.log(result);
+      if(result) {
+        localStorage.setItem('userStripeBalance', result.available[0].amount);
+      }
+    }, err => {
+      console.log(err);
+    }, () => {
+      console.log(localStorage.getItem('userStripeBalance'));
     })
   }
 

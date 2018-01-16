@@ -1,0 +1,39 @@
+<!--
+  Generated template for the BankaccountAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding-top>
+  <form class="custom">
+    <ion-list>
+      <ion-item>
+        <ion-label color="midGrey">Inhaber</ion-label>
+        <ion-input [(ngModel)]="stripeBankData.account_holder_name" name="account_holder_name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="midGrey">IBAN</ion-label>
+        <ion-input [(ngModel)]="stripeBankData.account_number" name="iban"></ion-input>
+      </ion-item>
+    </ion-list>
+
+  </form>
+</ion-content>
+
+<ion-footer>
+  <div class="btn-container">
+    <button ion-button block color="blue" (click)="createBankAccount()">
+      <span *ngIf="!loadingActivated">Speichern</span>
+      <ion-spinner *ngIf="loadingActivated"></ion-spinner>
+    </button>
+  </div>
+</ion-footer>

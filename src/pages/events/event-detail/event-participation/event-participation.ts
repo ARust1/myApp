@@ -56,8 +56,8 @@ export class EventParticipationPage {
     }, (err: any) => {
       console.log(err);
     }, () => {
-      this.teamService.updateTeamBalance(this.userData.team_id, this.eventData.sum).subscribe((result: any) => {
-        this.feedbackService.presentToast("Bezahlung akzeptiert. Es wurden " + this.eventData.sum + "€ in die Mannschaftskasse eingezahlt.", 1500, 'middle');
+      this.teamService.updateTeamBalance(this.userData.team_id, this.eventData.amount).subscribe((result: any) => {
+        this.feedbackService.presentToast("Bezahlung akzeptiert. Es wurden " + this.eventData.amount + "€ in die Mannschaftskasse eingezahlt.", 1500, 'middle');
         invite.paid = 1;
         invite.paymentMethod = 0;
         this.inviteData = invite;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, App} from 'ionic-angular';
+import {NavController, NavParams, App, Events} from 'ionic-angular';
 
 import { ProfilePage } from '../profile/profile';
 import { EventsPage } from '../events/events';
@@ -24,13 +24,23 @@ export class TabsPage {
   tab4Root = TeamPage;
   tab5Root = ProfilePage;
 
+  eventsBadge: number = 0;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserServiceProvider,
-              public credentials: Credentials) {
+              public credentials: Credentials,
+              public events: Events) {
 
     this.userData = this.navParams.get('userData');
-    console.log("TABS " + JSON.stringify(this.userData));
+    if(!(localStorage.getItem('token'))) {
+      this.navCtrl.setRoot(HomePage);
+    }
+
+    events.subscribe('event:cash', () => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      this.eventsBadge += 1;
+    });
   }
 
   ionViewWillEnter() {
@@ -40,8 +50,8 @@ export class TabsPage {
   }
 
   getUserData(): any {
-    let token = this.credentials.getToken();
-      this.userService.getUserData(token).subscribe((result: any) => {
+    let userData: User = this.credentials.getUser();
+      this.userService.getUserData(userData.email).subscribe((result: any) => {
         console.log(result + "getData");
         this.userData = result;
       }, (error: any) => {

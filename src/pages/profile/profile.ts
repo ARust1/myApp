@@ -9,15 +9,13 @@ import { User } from "../../models/user-model";
 import {ProfileModalPage} from "./profile-modal/profile-modal";
 import {Team} from "../../models/team-model";
 import {InviteLinkPopoverPage} from "./invite-link-popover/invite-link-popover";
-import {TeamRequestPage} from "./team-request/team-request";
 import {AuthServiceProvider} from "../../providers/auth-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {TeamServiceProvider} from "../../providers/team-service";
-import {InviteServiceProvider} from "../../providers/invite-service";
-import {Credentials} from "../../providers/credentials";
-import {AccountPage} from "./account/account";
-import {TransfersPage} from "./transfer-list/transfer-list";
+import {BalancePage} from "./balance/balance";
 import {PaymentProvider} from "../../providers/payment";
+import {Credentials} from "../../providers/credentials";
+import {BankaccountAddPage} from "./balance/bankaccount-add/bankaccount-add";
 
 @Component({
   selector: 'page-profile',
@@ -38,7 +36,6 @@ export class ProfilePage {
               public authService: AuthServiceProvider,
               public teamService: TeamServiceProvider,
               public userService: UserServiceProvider,
-              public inviteService: InviteServiceProvider,
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
@@ -207,19 +204,11 @@ export class ProfilePage {
     });
   }
 
-  goToTransfers() {
-    this.navCtrl.push(TransfersPage, {
+  goToBalance() {
+    this.navCtrl.push(BalancePage, {
       userData: this.userData,
       availableBalance: this.availableBalance,
       pendingBalance: this.pendingBalance
-    });
-  }
-
-  gToInviteRequests() {
-    this.navCtrl.push(TeamRequestPage, {
-      userData: this.userData,
-      teamData: this.teamData,
-      inviteRequests: this.inviteRequests
     });
   }
 

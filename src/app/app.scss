@@ -143,23 +143,29 @@ ion-header {
 // --------------------------------------------------
 ion-segment-button {
   &.segment-activated {
-    background-color: #80CBC4 !important;
-    border: 1px solid #80CBC4 !important;
+    background-color: #56CCF2 !important;
+    background: -webkit-linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));
+    background: linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));
+    border: 1px solid #56CCF2 !important;
     color: #ffffff !important;
   }
 
-  border: 1px solid #80CBC4 !important;
-  color: #80CBC4 !important;
+  border: 1px solid #56CCF2 !important;
+  color: #56CCF2 !important;
 }
 
 form {
   button[ion-button] {
     background-color: transparent !important;
+    background: transparent !important;
   }
 }
 
 button[ion-button] {
-  background-color: #80CBC4 !important;
+  //background-color: #80CBC4 !important;
+  background-color: #56CCF2;
+  background: -webkit-linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));
+  background: linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));
 }
 
 button[ion-button="action-sheet-button"],
@@ -167,18 +173,21 @@ button[ion-button="bar-button"],
 button[ion-button="alert-radio-button"],
 button[ion-button="alert-button"] {
   background-color: #ffffff !important;
+  background: transparent !important;
 }
 
 ion-navbar {
   button[ion-button] {
     background-color: transparent !important;
+    background: transparent !important;
   }
 }
 
 button[outline] {
-  border-color: #80CBC4 !important;
+  border-color: rgba(47, 128, 237, 0.6) !important;
+  background: transparent !important;
   background-color: transparent !important;
-  color: #80CBC4 !important;
+  color: rgba(47, 128, 237, 0.6) !important;
 }
 
 .btn-container {
@@ -190,7 +199,10 @@ button[outline] {
   bottom: -4px;
 
   button {
-    background-color: #80CBC4 !important;
+    //background-color: #80CBC4 !important;
+    background: #56CCF2;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border-radius: 0 !important;
     height: 5rem;
 

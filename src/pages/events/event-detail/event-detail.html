@@ -16,13 +16,13 @@
           <ion-item *ngIf="inviteData">
             <ion-row>
               <ion-col col-6>
-                <button *ngIf="inviteData.participation === 0 || inviteData.participation === 1"
+                <button [disabled]="inviteData.paid || inviteData.paymentMethod == 1" *ngIf="inviteData.participation === 0 || inviteData.participation === 1"
                         ion-button block outline (click)="acceptInvite()" class="custom">zusagen</button>
                 <button *ngIf="inviteData.participation === 2"
                         ion-button block>zugesagt</button>
               </ion-col>
               <ion-col col-6>
-                <button *ngIf="inviteData.participation === 0 || inviteData.participation === 2"
+                <button [disabled]="inviteData.paid || inviteData.paymentMethod == 1" *ngIf="inviteData.participation === 0 || inviteData.participation === 2"
                         ion-button block outline (click)="declineInvite()">absagen</button>
                 <button *ngIf="inviteData.participation === 1"
                         ion-button block>abgesagt</button>
@@ -36,7 +36,7 @@
           <ion-list-header>
             <span>Statistik</span>
             <button (click)="goToParticipations()" style="display: flex;">
-              <ion-badge>{{ badgeCount }}</ion-badge>
+              <ion-badge *ngIf="userData.admin">{{ badgeCount }}</ion-badge>
               <span style="align-self: center; color:#567add !important;">Teilnehmer</span>
               <ion-icon style="align-self: center;margin-left: 5px;" name="ios-arrow-forward-outline"></ion-icon>
             </button>
@@ -77,7 +77,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Preis</ion-label>
-          <ion-note item-end>{{eventData.sum}} €</ion-note>
+          <ion-note item-end>{{eventData.amount}} €</ion-note>
         </ion-item>
       </ion-list>
 
@@ -88,8 +88,11 @@
 
 <ion-footer>
   <div class="btn-container" *ngIf="inviteList && inviteData">
-    <button *ngIf="inviteData.participation === 2 && !inviteData.paid" ion-button block color="blue" (click)="payEvent()">
+    <button *ngIf="inviteData.participation === 2 && !inviteData.paid && inviteData.paymentMethod == 0" ion-button block color="blue" (click)="payEvent()">
       <span>Bezahlen</span>
+    </button>
+    <button *ngIf="inviteData.participation === 2 && !inviteData.paid && inviteData.paymentMethod == 1" ion-button block color="blue" (click)="payEvent()">
+      <span>Barzahlung abgegeben</span>
     </button>
   </div>
 </ion-footer>

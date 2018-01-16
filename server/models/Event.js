@@ -2,12 +2,12 @@ var db = require('../connection');
 
 var Event = {
   createEvent: function (uuid, Event, callback) {
-    return db.query("INSERT INTO events (uuid, name, location, sum, team_id, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?, ?);",
-      [uuid, Event.name, Event.location, Event.sum, Event.team_id, Event.startDate, Event.endDate], callback);
+    return db.query("INSERT INTO events (uuid, name, location, amount, team_id, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?, ?);",
+      [uuid, Event.name, Event.location, Event.amount, Event.team_id, Event.startDate, Event.endDate], callback);
   },
   updateEvent: function(Event, callback) {
-    return db.query("UPDATE events SET name = ?, location = ?, sum = ?, startDate = ?, endDate = ? WHERE uuid = ?;" ,
-      [Event.name, Event.location, Event.sum, Event.startDate, Event.endDate, Event.uuid], callback);
+    return db.query("UPDATE events SET name = ?, location = ?, amount = ?, startDate = ?, endDate = ? WHERE uuid = ?;" ,
+      [Event.name, Event.location, Event.amount, Event.startDate, Event.endDate, Event.uuid], callback);
   },
   getAllEvents: function(callback) {
     return db.query("SELECT * FROM events", callback);
@@ -17,7 +17,7 @@ var Event = {
   },
   getEventsByInvite: function(user_id, team_id, callback) {
     return db.query("SELECT events.uuid, events.name, events.startDate, events.endDate, " +
-      "events.location, events.sum, events.team_id " +
+      "events.location, events.amount, events.team_id " +
       "FROM events, event_invite WHERE events.uuid = event_invite.event_id " +
       "AND team_id = ? " +
       "AND event_invite.user_id = ?;"

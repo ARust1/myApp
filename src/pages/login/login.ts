@@ -30,38 +30,13 @@ export class LoginPage {
               private credentials: Credentials) {
   }
 
- /* async login() {
-    try {
-      let result = this.firebaseAuth.auth.signInWithEmailAndPassword(this.loginData.email, this.loginData.password);
-      if(result) {
-        this.authService.requestToken(this.loginData.email).subscribe((result: any) => {
-          this.credentials.saveTokenToStorage(result);
-        }, (err: any) => {
-          console.log(err);
-        },() => {
-          this.userService.getUserData(this.loginData.email).subscribe( (result: any) => {
-            this.userData = result;
-          }, (err) => {
-            console.log(err);
-          }, () => {
-            //this.loading.dismiss();
-            this.goToApp();
-          });
-        });
-
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }*/
-
   doLogin() {
     //this.showLoader();
     this.authService.login(this.loginData).subscribe((data: any) => {
       let token = data.token;
       this.credentials.saveTokenToStorage(token);
 
-      this.userService.getUserData(token).subscribe( (res: any) => {
+      this.userService.getUserData(this.loginData.email).subscribe( (res: any) => {
         this.userData = res;
         console.log(res);
       }, (err) => {
@@ -95,7 +70,7 @@ export class LoginPage {
 
   checkToken() {
     let token = this.credentials.getToken();
-    if(token) {
+    if (token) {
       this.navCtrl.setRoot(TabsPage, {
         userData: this.userData
       });

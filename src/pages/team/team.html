@@ -7,12 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>debt</ion-title>
+    <ion-title>Pinnwand</ion-title>
+    <ion-buttons end>
+      <button (click)="getBoardMessages()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let message of boardMessages">
+      <div class="timestamp">{{ message.timestamp |  date:'d MMMM yy' }}</div>
+      {{ message.message }}
+      <div class="timestamp">{{ message.timestamp |  date:'H:mm' }}</div>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer *ngIf="userData.admin">
+  <ion-textarea [(ngModel)]="message" autosize placeholder="Nachricht.." name="message">
+  </ion-textarea>
+  <ion-buttons>
+    <button (click)="addBoardMessage()">
+      <ion-icon name="ios-send-outline"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-footer>

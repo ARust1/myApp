@@ -1,17 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {EventModalPage} from "../event-modal/event-modal";
 import {User} from "../../../models/user-model";
-import { Slides } from 'ionic-angular';
-import {EventServiceProvider} from "../../../providers/event-service";
 import {EventInviteProvider} from "../../../providers/event-invite";
 import {EventInvite} from "../../../models/event-invite-model";
 import {FeedbackProvider} from "../../../providers/feedback";
 import {PayPopoverPage} from "../../pay-popover/pay-popover";
 import {TeamServiceProvider} from "../../../providers/team-service";
 import {Team} from "../../../models/team-model";
-import {BehaviorSubject, Observable} from "rxjs";
 import {EventParticipationPage} from "./event-participation/event-participation";
 
 

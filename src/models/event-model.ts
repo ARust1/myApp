@@ -5,6 +5,6 @@ export class Event {
   public startDate: string;
   public endDate: string;
   public location: string;
-  public sum: number;
+  public amount: number;
   public team_id: string;
 }

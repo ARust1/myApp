@@ -21,8 +21,7 @@ export class InviteLinkPopoverPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private clipboard: Clipboard,
-              private viewCtrl: ViewController) {
+              private clipboard: Clipboard) {
     this.teamData = this.navParams.data;
   }
 

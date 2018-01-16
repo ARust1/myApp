@@ -142,6 +142,7 @@ router.post('/account/bankAccount', function(req, res, next) {
     bank_account: {
       country: country,
       currency: currency,
+      default_for_currency: false,
       account_holder_name: account_holder_name,
       account_holder_type: account_holder_type,
       account_number: account_number
@@ -182,6 +183,22 @@ router.get('/account/:id', function (req, res, next) {
   );
 });
 
+/*
+ * Delete Bank Accounts from a specific Stripe Account
+ ************************************************
+ */
+
+router.delete('/account/:id/bankAccount', function (req, res, next) {
+  var bankToken = req.body.bank_account;
+  stripe.accounts.deleteExternalAccount(
+    req.params.id,
+    bankToken,
+    function(err, confirmation) {
+      if(err) return res.json(err);
+      res.json(confirmation);
+    }
+  );
+});
 
 /*
  * Add Credit Card to Stripe Account

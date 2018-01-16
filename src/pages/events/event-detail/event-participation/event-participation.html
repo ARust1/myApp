@@ -7,6 +7,7 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-title>Teilnehmer</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,8 +27,8 @@
           </div>
 
           <div class="payment" *ngIf="invite.participation == 2">
-            <div class="payment-item" *ngIf="invite.participation != 1 && invite.paymentMethod == 1">
-              <span>hat noch nicht bezahlt</span>
+            <div class="payment-item" *ngIf="invite.participation != 1 && invite.paymentMethod == 1 && !userData.admin">
+              <span>Barzahlung</span>
             </div>
             <div class="payment-item" *ngIf="invite.participation != 1">
               <button *ngIf="invite.paid == 0

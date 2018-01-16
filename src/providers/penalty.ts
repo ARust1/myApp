@@ -17,8 +17,8 @@ import {Observable} from "rxjs";
 export class PenaltyProvider extends GenericProvider<Penalty>{
 
   private preDefinedPenalties: string[] = [
-    "unnötige rote Karte", 
-    "unnötige gelbe/gelb-rote Karte", 
+    "unnötige rote Karte",
+    "unnötige gelbe/gelb-rote Karte",
     "unvollständige Ausrüstung",
     "Handy klingelt während der Mannschaftssitzung",
     "unentschuldigtes Fehlen beim Training",
@@ -44,6 +44,10 @@ export class PenaltyProvider extends GenericProvider<Penalty>{
     return this.getRequest(this.buildUrl('/penalties/'+team_id));
   }
 
+  getPenaltiesByUserId(user_id: string): Observable<any> {
+    return this.getRequest(this.buildUrl('/penalties?user_id='+user_id));
+  }
+
   addPenalty(penaltyData: Penalty): Observable<Penalty> {
     return this.postRequest(this.buildUrl('/penalties'), {
       name: penaltyData.name,
@@ -55,5 +59,13 @@ export class PenaltyProvider extends GenericProvider<Penalty>{
 
   deletePenalty(uuid: string) {
     return this.deleteRequest(this.buildUrl('/penalties/'+uuid));
+  }
+
+  setPenaltyPayment(uuid, paymentMethod): Observable<Penalty> {
+    return this.putRequest(this.buildUrl('/penalties/payment/'+uuid), paymentMethod);
+  }
+
+  acceptPenaltyPayment(uuid): Observable<Penalty> {
+    return this.putRequest(this.buildUrl('/penalties/acceptPayment/'+uuid), {});
   }
 }

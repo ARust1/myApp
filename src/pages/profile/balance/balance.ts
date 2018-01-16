@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController, Events} from 'ionic-angular';
 import {User} from "../../../models/user-model";
 import {PaymentProvider} from "../../../providers/payment";
 import {DepositCreatePage} from "./deposit-create/deposit-create";
 import {TransferCreatePage} from "./transfer-create/transfer-create";
+import {BankaccountAddPage} from "./bankaccount-add/bankaccount-add";
 
 /**
  * Generated class for the TransfersPage page.
@@ -14,20 +15,17 @@ import {TransferCreatePage} from "./transfer-create/transfer-create";
 
 @IonicPage()
 @Component({
-  selector: 'page-transfer-list',
-  templateUrl: 'transfer-list.html',
+  selector: 'page-balance',
+  templateUrl: 'balance.html',
 })
-export class TransfersPage {
+export class BalancePage {
 
   private userData: User;
   private depositList = [];
   private transferList = [];
   private transferListLoaded = false;
-  private payoutsList = [];
-  private payoutsListLoaded = false;
   private availableBalance: number;
   private pendingBalance: number;
-  private balanceLoaded: boolean = false;
   page = 'Balance';
   private bankAccountData: any;
   private bankAccountDetailsLoaded = false;
@@ -35,10 +33,15 @@ export class TransfersPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private paymentService: PaymentProvider,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private events: Events) {
     this.userData = this.navParams.get('userData');
     this.availableBalance = this.navParams.get('availableBalance');
     this.pendingBalance = this.navParams.get('pendingBalance');
+
+    this.events.subscribe(('bankAccount:add'), (bankAccountData) => {
+      this.bankAccountData = bankAccountData;
+    })
   }
 
   ngOnInit() {
@@ -50,6 +53,12 @@ export class TransfersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransfersPage');
+  }
+
+  goToAddBankAccount() {
+    this.navCtrl.push(BankaccountAddPage, {
+      userData: this.userData
+    });
   }
 
   getDeposits() {
