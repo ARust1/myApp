@@ -14,7 +14,7 @@ var User = {
   getUserByTeamId:function(team_id, callback){
     return db.query("SELECT uuid," +
       "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img " +
-      "FROM user where team_id = ?",[team_id],callback);
+      "FROM user where team_id = ? ORDER BY admin DESC ",[team_id],callback);
   },
   getUserByEmail: function(email, callback) {
     return db.query('SELECT uuid, ' +

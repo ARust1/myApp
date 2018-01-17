@@ -63,10 +63,6 @@ export class TeamSetupPage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamSetupPage');
-  }
-
   slideChanged() {
     this.currentSlide = this.slides.getActiveIndex();
   }
@@ -99,7 +95,7 @@ export class TeamSetupPage {
       }
       if(stripeData) {
         console.log(JSON.stringify(this.stripeUpdateData));
-        this.paymentService.updateStripeAccount(JSON.stringify(this.stripeUpdateData), stripeToken).subscribe((result: any) => {
+        this.paymentService.updateStripeAccount(this.stripeUpdateData, stripeToken).subscribe((result: any) => {
         },(err: any) => {
           console.log("stripeUpdate " + err.toString());
         }, () => {

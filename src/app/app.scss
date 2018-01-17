@@ -141,17 +141,26 @@ ion-header {
 
 // Buttons
 // --------------------------------------------------
-ion-segment-button {
-  &.segment-activated {
-    background-color: #56CCF2 !important;
-    background: -webkit-linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));
-    background: linear-gradient(to left, rgba(47, 128, 237, 0.6), rgba(86, 204, 242, 0.8));
-    border: 1px solid #56CCF2 !important;
-    color: #ffffff !important;
-  }
+.segment-ios {
+  ion-segment-button {
+    &.segment-activated {
+      background-color: #56CCF2 !important;
+      border: 1px solid #56CCF2 !important;
+      color: #ffffff !important;
+    }
 
-  border: 1px solid #56CCF2 !important;
+    border: 1px solid #56CCF2 !important;
+    color: #56CCF2 !important;
+  }
+}
+
+.segment-md .segment-button {
   color: #56CCF2 !important;
+}
+
+.segment-md .segment-button.activated,
+.segment-md .segment-button.segment-activated {
+  border-color: #56CCF2 !important;
 }
 
 form {
@@ -286,4 +295,16 @@ ion-popover {
   &:after {
     display: none;
   }
+}
+
+// LIST STYLE
+// --------------------------------------------------
+
+.list-ios > .item-block:first-child {
+  border-top: none !important;
+}
+
+.list-ios > .item-block:last-child,
+.list-ios > .item-wrapper:last-child .item-block {
+  border-bottom: none !important;
 }

@@ -15,24 +15,20 @@ page-wallet {
       color: #000;
       width: 100%;
       text-align: center;
-      font-size: 3rem;
+      font-size: 2.6rem;
+      margin-top: 10px !important;
     }
     .team-logo {
+      width: 100%;
       z-index: 20;
       display: flex;
       justify-content: center;
-      //width: 80px;
-      //height: 80px;
-      //position: absolute;
-      //bottom: -18px;
-      //left: 50%;
-      //margin-left: -50px;
       img {
         display: block;
         background-color: #fff;
         border: 3px solid $logo-grey;
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         border-radius: 100%;
         //-webkit-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
         //-moz-box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.12);
@@ -41,8 +37,7 @@ page-wallet {
     }
   }
   .scroll-content {
-    margin-top: 149px !important;
-    padding-bottom: 51px;
+    margin-top: 169px !important;
   }
   ion-content {
     .team-balance-options {
@@ -58,7 +53,7 @@ page-wallet {
       }
     }
     .wallet-content {
-      padding: 16px 16px 0;
+      padding: 0 16px;
     }
     ion-grid {
       height: 100%;
@@ -101,12 +96,7 @@ page-wallet {
               justify-content: center;
               font-weight: 300;
             }
-            .profile-pic {
-              width: 48px;
-              height: 48px;
-              border-radius: 100%;
-              margin-bottom: 3px;
-            }
+
           }
         }
         ion-col {
@@ -168,5 +158,19 @@ ion-app.md {
       -moz-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
       box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
     }
+  }
+}
+
+.user-list {
+  margin-top: 20px;
+  .profile-pic {
+    width: 45px;
+    height: 45px;
+  }
+  .user-name {
+    font-weight: 600;
+  }
+  .user-admin {
+    font-size: 12px;
   }
 }

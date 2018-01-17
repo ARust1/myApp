@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import { App, NavParams, ToastController, NavController} from "ionic-angular";
+import {App, NavParams, ToastController, NavController, Refresher} from "ionic-angular";
 import {Team} from "../../models/team-model";
 import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
@@ -20,6 +20,7 @@ export class WalletPage {
   private availableStripeTeamBalance: number;
   private pendingStripeTeamBalance: number;
   private dataLoaded: boolean = false;
+  private segment: string = 'overview';
 
   constructor(public app: App,
               public navCtrl: NavController,
@@ -112,6 +113,8 @@ export class WalletPage {
       this.teamUser = result;
     }, (err: any) => {
       console.log(err)
+    }, () => {
+      console.log(this.teamUser);
     })
   }
 
@@ -177,6 +180,10 @@ export class WalletPage {
       this.getUserData();
       refresher.complete();
     }, 2000);
+  }
+
+  doPulling(refresher: Refresher) {
+    console.log('DOPULLING', refresher.progress);
   }
 
 }

@@ -1,19 +1,24 @@
 <ion-header *ngIf="userData && teamData">
-  <!--<div class="team-pic">-->
-    <!--<div class="overlay">-->
-      <!--<h4>{{teamData.name}}</h4>-->
-    <!--</div>-->
-    <!--<div class="team-logo">-->
-      <!--<img src="../../assets/imgs/team_logo.jpg">-->
-    <!--</div>-->
-  <!--</div>-->
   <ion-navbar>
     <div class="team-logo" (tap)="setTeamLogo()">
       <img *ngIf="teamData.team_logo" [src]="teamData.team_logo">
-      <img *ngIf="!teamData.team_logo" src="../../assets/icon/icon-team-black.svg">
+      <img *ngIf="!teamData.team_logo" src="assets/icon/icon-team-black.svg">
     </div>
     <h4>{{teamData.name}}</h4>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment" padding-left padding-right>
+      <ion-segment-button value="overview">
+        Überblick
+      </ion-segment-button>
+      <ion-segment-button value="member">
+        Mitglieder
+      </ion-segment-button>
+      <ion-segment-button value="balance">
+        Guthaben
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="!dataLoaded">
@@ -23,16 +28,15 @@
 </ion-content>
 
 <ion-content no-bounce *ngIf="dataLoaded">
-  <div class="wallet-content" *ngIf="userData && teamData">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content
-        pullingIcon="none">
-      </ion-refresher-content>
-    </ion-refresher>
-    <ion-grid *ngIf="teamData">
-      <ion-row style="justify-content: flex-end; padding: 0;">
-          <ion-icon name="more"></ion-icon>
-      </ion-row>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh..."
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+    <ion-grid *ngIf="segment === 'overview'">
       <ion-row >
         <div class="saldo">Team-Saldo</div>
         <ion-col padding class="team-balance" col-10>
@@ -47,21 +51,34 @@
           € 0
         </ion-col>
       </ion-row>
-      <ion-row class="team-member" *ngIf="teamUser">
-        <div class="team-h">Mitglieder</div>
-      </ion-row>
-      <ion-row padding-top class="team-member-list" *ngIf="teamUser">
-        <ion-col col-3 *ngFor="let user of teamUser">
-          <div>
-            <img *ngIf="!user.profile_img" class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg">
-            <img *ngIf="user.profile_img" class="profile-pic" [src]="user.profile_img">
-          </div>
-          <div>{{user.prename}}</div>
-          <div>{{user.surname}}</div>
-        </ion-col>
-      </ion-row>
     </ion-grid>
-  </div>
+
+  <ion-grid *ngIf="segment === 'member'">
+    <ion-list class="user-list">
+      <ion-item *ngFor="let user of teamUser">
+        <img *ngIf="!user.profile_img" class="profile-pic" src="assets/imgs/default-no-profile-pic.jpg" item-start>
+        <img *ngIf="user.profile_img" class="profile-pic" [src]="user.profile_img" item-start>
+        <ion-label>
+          <div class="user-name">
+            {{user.prename}}
+            {{user.surname}}
+          </div>
+          <div class="user-admin" *ngIf="user.admin">
+            Kassenwart
+          </div>
+        </ion-label>
+        <button *ngIf="userData.admin" ion-button outline item-end>Überweisen</button>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid *ngIf="segment === 'balance'">
+    <ion-list>
+      <ion-item>
+
+      </ion-item>
+    </ion-list>
+  </ion-grid>
 
 </ion-content>
 

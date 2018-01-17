@@ -7,7 +7,7 @@ import { BalancePage } from './balance';
     BalancePage,
   ],
   imports: [
-    IonicPageModule.forChild(TransfersPage),
+    IonicPageModule.forChild(BalancePage),
   ],
 })
 export class BalancePageModule {}
