@@ -60,6 +60,8 @@ import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/
 import {AutosizeDirective} from "../directives/autosize/autosize";
 import { BoardMessagesProvider } from '../providers/board-messages';
 import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/bankaccount-add";
+import {PaySelectPage} from "../pages/wallet/pay-select/pay-select";
+import { TransactionProvider } from '../providers/transaction';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/banka
     PenaltyAddPage,
     ModalUserAddPage,
     BankaccountAddPage,
-    AutosizeDirective
+    AutosizeDirective,
+    PaySelectPage
   ],
   imports: [
     BrowserModule,
@@ -109,7 +112,7 @@ import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/banka
       autoFocusAssist: false,
       tabsHideOnSubPages: true,
       pageTransition: 'ios-transition',
-      iconMode: 'ios',
+      iconMode: 'ios'
     }),
     IonicStorageModule.forRoot(),
     AngularGooglePlaceModule
@@ -145,7 +148,8 @@ import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/banka
     TeamSetupPage,
     PenaltyAddPage,
     ModalUserAddPage,
-    BankaccountAddPage
+    BankaccountAddPage,
+    PaySelectPage
   ],
   providers: [
     StatusBar,
@@ -169,7 +173,8 @@ import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/banka
     PictureProvider,
     Keyboard,
     PenaltyProvider,
-    BoardMessagesProvider
+    BoardMessagesProvider,
+    TransactionProvider
   ]
 })
 export class AppModule {}

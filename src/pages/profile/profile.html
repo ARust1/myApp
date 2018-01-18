@@ -22,41 +22,11 @@
         <h5>{{userData.prename}} {{userData.surname}}</h5>
         <h6 class="member-profile-position">Sturm</h6>
       </ion-col>
-      <!--<ion-col col-2 *ngIf="userData.back_number" class="member-profile-trickot">
-        <img src="../../assets/imgs/trickot.svg">
-        <span class="trickot-number">{{userData.back_number}}</span>
-      </ion-col>-->
     </ion-row>
-    <!--<ion-row style="justify-content: center;">-->
-      <!--<button ion-button (click)="presentProfileModal()">Profil bearbeiten</button>-->
-    <!--</ion-row>-->
   </ion-grid>
 
-  <ion-grid *ngIf="!userData.team_id">
-    <ion-row class="create-team">
-      <button ion-button (click)="toggleClick()">Team erstellen</button>
-      <button ion-button>Team beitreten</button>
-    </ion-row>
-    <ion-row *ngIf="clicked">
-      <form>
-        <ion-item>
-          <ion-icon name="people" item-start></ion-icon>
-          <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Teamname"></ion-input>
-          <ion-icon name="add" item-end (click)="createTeam()"></ion-icon>
-        </ion-item>
-      </form>
-    </ion-row>
-  </ion-grid>
   <ion-grid padding class="team-profile" *ngIf="userData.team_id && teamData">
-    <hr>
-    <ion-row>
-      <ion-col class="team-pic" col-3>
-        <img src="../../assets/imgs/team_logo.jpg">
-      </ion-col>
-      <ion-col col-7>
-        <h5>{{teamData.name}}</h5>
-      </ion-col>
-    </ion-row>
+
     <ion-list class="profile-options">
       <button ion-item (click)="goToBalance()">
         <ion-icon name="ios-card-outline" item-start></ion-icon>

@@ -7,7 +7,7 @@
     <h4>{{teamData.name}}</h4>
   </ion-navbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="segment" padding-left padding-right>
+    <ion-segment [(ngModel)]="segment">
       <ion-segment-button value="overview">
         Überblick
       </ion-segment-button>
@@ -40,7 +40,7 @@
       <ion-row >
         <div class="saldo">Team-Saldo</div>
         <ion-col padding class="team-balance" col-10>
-          <div>€ {{teamData.balance}}</div>
+          <div>€ {{ (this.teamData.balance / 100) + (this.availableBalance / 100) }}</div>
           <div class="pending-balance">ausstehend: <span class="balance">{{ pendingStripeTeamBalance / 100 || 0 | currency : "EUR" : 1 }}</span></div>
         </ion-col>
 
@@ -54,6 +54,12 @@
     </ion-grid>
 
   <ion-grid *ngIf="segment === 'member'">
+    <ion-searchbar placeholder="Suche"
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
     <ion-list class="user-list">
       <ion-item *ngFor="let user of teamUser">
         <img *ngIf="!user.profile_img" class="profile-pic" src="assets/imgs/default-no-profile-pic.jpg" item-start>
@@ -67,16 +73,43 @@
             Kassenwart
           </div>
         </ion-label>
-        <button *ngIf="userData.admin" ion-button outline item-end>Überweisen</button>
+        <button *ngIf="userData.admin" ion-button outline item-end (click)="openPaySelectPopover(user)">Überweisen</button>
       </ion-item>
     </ion-list>
   </ion-grid>
 
-  <ion-grid *ngIf="segment === 'balance'">
-    <ion-list>
-      <ion-item>
+  <ion-grid class="team-balance" *ngIf="segment === 'balance'">
+    <ion-row>
+    <h4>Online Saldo</h4>
+    <div class="saldo-available">{{ availableStripeTeamBalance / 100 || 0 | currency : "EUR" : 1 }}</div>
+      <div class="saldo-pending"><span>ausstehend:</span> {{ pendingStripeTeamBalance / 100 || 0 | currency : "EUR" : 1 }}</div>
+      <ion-buttons padding-top>
+        <button ion-button>
+          Einzahlen
+        </button>
+        <button ion-button outline>
+          Auszahlen
+        </button>
+      </ion-buttons>
+  </ion-row>
+    <ion-row>
+      <h4>Bar Saldo</h4>
+      <div class="saldo-available">{{ teamData.balance || 0 | currency : "EUR" : 1 }}</div>
+      <ion-buttons padding-top>
+        <button ion-button>
+          Einzahlen
+        </button>
+        <button ion-button outline>
+          Auszahlen
+        </button>
+      </ion-buttons>
+    </ion-row>
 
-      </ion-item>
+    <ion-list>
+      <button ion-item>
+        <ion-icon name="ios-repeat-outline" item-start></ion-icon>
+        <ion-label>Transaktionen</ion-label>
+      </button>
     </ion-list>
   </ion-grid>
 

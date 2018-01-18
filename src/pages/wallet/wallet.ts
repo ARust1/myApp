@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {App, NavParams, ToastController, NavController, Refresher} from "ionic-angular";
+import {App, NavParams, ToastController, NavController, Refresher, PopoverController} from "ionic-angular";
 import {Team} from "../../models/team-model";
 import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {PictureProvider} from "../../providers/picture";
 import {PaymentProvider} from "../../providers/payment";
+import {Keyboard} from "@ionic-native/keyboard";
+import {PaySelectPage} from "./pay-select/pay-select";
 
 @Component({
   selector: 'page-wallet',
@@ -17,10 +19,11 @@ export class WalletPage {
   private userData: User;
   private teamData: Team;
   private teamUser: User[];
-  private availableStripeTeamBalance: number;
-  private pendingStripeTeamBalance: number;
+  private availableStripeTeamBalance: number = 0;
+  private pendingStripeTeamBalance: number = 0;
   private dataLoaded: boolean = false;
   private segment: string = 'overview';
+  private totalBalance: number = 0;
 
   constructor(public app: App,
               public navCtrl: NavController,
@@ -30,10 +33,9 @@ export class WalletPage {
               private credentials: Credentials,
               public toastCtrl: ToastController,
               private pictureService: PictureProvider,
-              private paymentService: PaymentProvider) {
-
+              private paymentService: PaymentProvider,
+              public popoverCtrl: PopoverController) {
     this.userData = this.navParams.get('userData');
-
   }
   ngOnInit() {
     if(this.userData) {
@@ -134,13 +136,13 @@ export class WalletPage {
   getStripeTeamBalance() {
     this.paymentService.getStripeAccountBalance(this.teamData.stripeToken).subscribe(result => {
       this.availableStripeTeamBalance = result.available[0].amount;
-      this.teamData.balance += result.available[0].amount / 100;
       this.pendingStripeTeamBalance = result.pending[0].amount;
     }, err => {
       console.log(err);
     }, () => {
-      console.log(this.availableStripeTeamBalance);
-      console.log(this.pendingStripeTeamBalance);
+      console.log("available", this.availableStripeTeamBalance);
+      console.log("pending", this.pendingStripeTeamBalance);
+      console.log("team balance", this.teamData.balance);
       this.dataLoaded = true;
     })
   }
@@ -186,4 +188,12 @@ export class WalletPage {
     console.log('DOPULLING', refresher.progress);
   }
 
+  openPaySelectPopover(user: User) {
+    let popover = this.popoverCtrl.create(PaySelectPage, {
+      transactionUser: user,
+      teamData: this.teamData
+    });
+
+    popover.present();
+  }
 }

@@ -174,3 +174,20 @@ ion-app.md {
     font-size: 12px;
   }
 }
+
+.team-balance {
+  ion-row {
+    flex-flow: column !important;
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .saldo-available {
+    font-size: 3rem;
+  }
+
+    button {
+      height: 4.6rem !important;
+      width: 40%;
+    }
+}

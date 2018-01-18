@@ -1,0 +1,39 @@
+<ion-navbar>
+  <ion-segment [(ngModel)]="type" color="secondary">
+    <ion-segment-button value="cash">
+      Bar
+    </ion-segment-button>
+    <ion-segment-button value="balance">
+      Guthaben
+    </ion-segment-button>
+  </ion-segment>
+</ion-navbar>
+
+
+<ion-content>
+  <form class="custom">
+    <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="transactionData.recipient" name="recipient" placeholder="Empfänger" [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="transactionData.amount" name="amount" placeholder="Betrag">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea [(ngModel)]="transactionData.description" name="description" placeholder="Beschreibung">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <div class="btn-container">
+    <button ion-button block color="blue" (click)="transfer()">
+      <span>Bestätigen</span>
+      <ion-spinner *ngIf=""></ion-spinner>
+    </button>
+  </div>
+</ion-footer>

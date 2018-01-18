@@ -1,0 +1,17 @@
+page-pay-select {
+  ion-item {
+    font-weight: 600;
+    .item-inner {
+      margin-left: 10px !important;
+      border: none !important;
+    }
+  }
+  ion-list {
+    padding: 10px 0 !important;
+    margin: 0 !important;
+  }
+
+  ion-content {
+    padding-bottom: 50px;
+  }
+}

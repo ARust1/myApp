@@ -10,6 +10,7 @@ import {TeamPage} from "../team/team";
 import {User} from "../../models/user-model";
 import {Credentials} from "../../providers/credentials";
 import {UserServiceProvider} from "../../providers/user-service";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @Component({
   selector: 'page-tabs',
@@ -25,12 +26,14 @@ export class TabsPage {
   tab5Root = ProfilePage;
 
   eventsBadge: number = 0;
+  valueforngif:boolean = true;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserServiceProvider,
               public credentials: Credentials,
-              public events: Events) {
+              public events: Events,
+              public keyboard: Keyboard) {
 
     this.userData = this.navParams.get('userData');
     if(!(localStorage.getItem('token'))) {
@@ -41,6 +44,17 @@ export class TabsPage {
       // user and time are the same arguments passed in `events.publish(user, time)`
       this.eventsBadge += 1;
     });
+  }
+
+  ionViewDidEnter() {
+    this.keyboard.onKeyboardShow().subscribe(() => {
+      this.valueforngif = false
+      console.log("ONSHOW");
+    });
+    this.keyboard.onKeyboardHide().subscribe(() => {
+      this.valueforngif = true
+      console.log("ONHIDE");
+    })
   }
 
   ionViewWillEnter() {

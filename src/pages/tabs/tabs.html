@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs *ngIf="valueforngif">
   <ion-tab [root]="tab1Root" [rootParams]="userData" class="tabs-icon" tabTitle="Team" tabIcon="wallet"></ion-tab>
   <ion-tab [root]="tab2Root" [rootParams]="userData" class="tabs-icon" tabTitle="Ausflüge" tabIcon="events"></ion-tab>
   <ion-tab [root]="tab3Root" [rootParams]="userData" class="tabs-icon" tabTitle="Strafen" tabIcon="penalties"></ion-tab>
