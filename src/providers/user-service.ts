@@ -50,4 +50,10 @@ export class UserServiceProvider extends GenericProvider<User>{
       team_id: team_id
     });
   }
+
+  updateBalance(uuid: string, amount: number): Observable<User> {
+    return this.putRequest(this.buildUrl('/user/'+uuid+'/balance'), {
+      amount: amount
+    });
+  }
 }

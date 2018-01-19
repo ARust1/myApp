@@ -5,17 +5,15 @@
       <img *ngIf="!teamData.team_logo" src="assets/icon/icon-team-black.svg">
     </div>
     <h4>{{teamData.name}}</h4>
+    <div text-center style="font-size: 20px;">{{ availableStripeTeamBalance / 100 + teamData.balance | currency : "EUR" : 1  }}</div>
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="segment">
-      <ion-segment-button value="overview">
-        Überblick
+      <ion-segment-button value="balance">
+        Guthaben
       </ion-segment-button>
       <ion-segment-button value="member">
         Mitglieder
-      </ion-segment-button>
-      <ion-segment-button value="balance">
-        Guthaben
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -35,23 +33,6 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-
-    <ion-grid *ngIf="segment === 'overview'">
-      <ion-row >
-        <div class="saldo">Team-Saldo</div>
-        <ion-col padding class="team-balance" col-10>
-          <div>€ {{ (this.teamData.balance / 100) + (this.availableBalance / 100) }}</div>
-          <div class="pending-balance">ausstehend: <span class="balance">{{ pendingStripeTeamBalance / 100 || 0 | currency : "EUR" : 1 }}</span></div>
-        </ion-col>
-
-      </ion-row>
-      <ion-row *ngIf="userData && !userData.balance">
-        <span class="saldo">Mein Guthaben</span>
-        <ion-col padding class="team-balance" col-12>
-          € 0
-        </ion-col>
-      </ion-row>
-    </ion-grid>
 
   <ion-grid *ngIf="segment === 'member'">
     <ion-searchbar placeholder="Suche"
@@ -102,14 +83,36 @@
         <button ion-button outline>
           Auszahlen
         </button>
+        <button ion-button outline style="margin-top: 10px;">
+          <ion-icon style="font-size: 2.5rem; margin-right: 5px;" name="ios-repeat-outline" item-start></ion-icon>
+          <ion-label>Transaktionen anzeigen</ion-label>
+        </button>
       </ion-buttons>
     </ion-row>
 
     <ion-list>
-      <button ion-item>
-        <ion-icon name="ios-repeat-outline" item-start></ion-icon>
-        <ion-label>Transaktionen</ion-label>
-      </button>
+      <ion-row class="bank-account-container" *ngIf="bankAccountDetailsLoaded && bankAccountData">
+        <h4>Team Bankkonto</h4>
+          <div class="bank-account-details">
+            <div class="bank-account-wrapper">
+              <div class="bank-name">
+                {{ bankAccountData.bank_name }}
+              </div>
+              <div class="bank-account-holder">
+                {{ bankAccountData.account_holder_name }}
+              </div>
+              <div class="bank-iban">
+                <span>IBAN</span>
+                *** **** **** **{{ bankAccountData.last4 }}
+              </div>
+            </div>
+          </div>
+      </ion-row>
+      <ion-item style="margin-bottom: 20px;" class="add-bankaccount" *ngIf="bankAccountDetailsLoaded && !bankAccountData">
+        <div>Du hast noch kein Bankkonto hinzugefügt um Guthaben an dein
+          Konto auszahlen zu können</div>
+        <button ion-button outline (click)="goToAddBankAccount()">Bankkonto hinzufügen</button>
+      </ion-item>
     </ion-list>
   </ion-grid>
 

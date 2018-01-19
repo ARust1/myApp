@@ -3,22 +3,22 @@ var db = require('../connection');
 var User = {
   getAllUser: function(callback) {
     return db.query("SELECT uuid," +
-      "email, prename, surname, team_id, admin, back_number, position " +
+      "email, prename, surname, team_id, admin, back_number, position, balance " +
       "FROM user", callback);
   },
   getUserById:function(id, callback){
     return db.query("SELECT uuid," +
-      "email, prename, surname, team_id, admin, back_number, position, accountToken, birthday, profile_img " +
+      "email, prename, surname, team_id, admin, back_number, position, accountToken, birthday, profile_img, balance " +
       "FROM user where uuid = ?",[id],callback);
   },
   getUserByTeamId:function(team_id, callback){
     return db.query("SELECT uuid," +
-      "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img " +
+      "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img, balance " +
       "FROM user where team_id = ? ORDER BY admin DESC ",[team_id],callback);
   },
   getUserByEmail: function(email, callback) {
     return db.query('SELECT uuid, ' +
-      'email, prename, surname, team_id, admin, back_number, position, accountToken, birthday, file_id, profile_img ' +
+      'email, prename, surname, team_id, admin, back_number, position, accountToken, birthday, file_id, profile_img, balance ' +
       'FROM user WHERE email = ?;', [email], callback);
   },
   updateUser:function(uuid, User, callback){
@@ -37,6 +37,9 @@ var User = {
   },
   setTeam: function(uuid, team_id, callback) {
     return db.query("UPDATE user SET team_id = ? WHERE uuid = ?;", [team_id, uuid], callback);
+  },
+  updateUserBalance: function (uuid, amount, callback) {
+    return db.query('UPDATE user SET balance = balance + ? WHERE uuid = ?;', [amount, uuid], callback);
   }
 };
 

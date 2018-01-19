@@ -1,22 +1,5 @@
 page-balance {
 
-  .add-bankaccount {
-    padding: 16px 0 !important;
-    ion-label {
-      justify-content: center;
-      flex-direction: column;
-      white-space: unset;
-
-      div {
-        text-align: center;
-        font-weight: 600;
-      }
-      button {
-        align-self: center;
-        margin-top: 15px;
-      }
-    }
-  }
   .bank-details {
     .label {
       padding-left: 16px;

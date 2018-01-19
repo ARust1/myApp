@@ -23,6 +23,7 @@ router.get('/:id?',function(req, res, next) {
           prename: json[0].prename,
           surname: json[0].surname,
           admin: json[0].admin,
+          balance: json[0].balance,
           accountToken: json[0].accountToken,
           team_id: json[0].team_id,
           back_number: json[0].back_number,
@@ -77,6 +78,13 @@ router.put('/:id',function(req,res,next){
 
 router.put('/:id/team', function(req, res, next) {
   User.setTeam(req.params.id, req.body.team_id, function (err, result) {
+    if(err) return res.json(err);
+    res.json(result);
+  })
+});
+
+router.put('/:id/balance', function(req, res, next) {
+  User.updateUserBalance(req.params.id, req.body.amount, function (err, result) {
     if(err) return res.json(err);
     res.json(result);
   })

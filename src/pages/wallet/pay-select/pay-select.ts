@@ -7,13 +7,8 @@ import {Team} from "../../../models/team-model";
 import {Transaction} from "../../../models/transaction-model";
 import {TransactionProvider} from "../../../providers/transaction";
 import {TeamServiceProvider} from "../../../providers/team-service";
-
-/**
- * Generated class for the PaySelectPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {UserServiceProvider} from "../../../providers/user-service";
+import {Subscription} from "rxjs";
 
 @IonicPage()
 @Component({
@@ -27,6 +22,7 @@ export class PaySelectPage {
   private transactionUser: User;
   private teamData: Team;
   private transactionData: Transaction;
+  private teamSubscription: Subscription;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -34,7 +30,8 @@ export class PaySelectPage {
               public feedbackService: FeedbackProvider,
               private paymentService: PaymentProvider,
               private transactionService: TransactionProvider,
-              private teamService: TeamServiceProvider) {
+              private teamService: TeamServiceProvider,
+              private userService: UserServiceProvider) {
     this.transactionData = new Transaction();
     this.transactionUser = this.navParams.get('transactionUser');
     this.teamData = this.navParams.get('teamData');
@@ -47,7 +44,6 @@ export class PaySelectPage {
   }
 
   transfer() {
-    this.teamData.balance -= this.transactionData.amount;
     this.transactionData.timestamp = new Date();
     this.transactionData.type = this.type;
     this.transactionData.user_id = this.transactionUser.uuid;
@@ -55,7 +51,7 @@ export class PaySelectPage {
     if(this.type === 'balance') {
       this.paymentService.transferFromStripeToStripeAccount(
         this.teamData.stripeToken,
-        this.transactionData.amount,
+        this.transactionData.amount * 100,
         this.transactionUser.accountToken ,
         this.transactionData.description).subscribe(result => {
       }, err => {
@@ -71,16 +67,26 @@ export class PaySelectPage {
       })
     }
     if(this.type === 'cash') {
-      this.teamService.updateTeamBalance(this.teamData.uuid, -this.transactionData.amount).subscribe(result => {
+      this.teamSubscription = this.teamService.updateTeamBalance(this.teamData.uuid, -this.transactionData.amount).subscribe(result => {
       }, err => {
         console.log(err);
+        this.teamSubscription.unsubscribe();
       }, () => {
-        this.transactionService.addTransaction(this.transactionData).subscribe(result => {
+        this.userService.updateBalance(this.transactionUser.uuid, this.transactionData.amount).subscribe(result => {
+
         }, err => {
           console.log(err);
+          this.teamSubscription.unsubscribe();
         }, () => {
-          this.feedbackService.dismissLoader();
-          this.viewCtrl.dismiss();
+          this.transactionService.addTransaction(this.transactionData).subscribe(result => {
+          }, err => {
+            console.log(err);
+            this.teamSubscription.unsubscribe();
+          }, () => {
+            this.teamData.balance -= this.transactionData.amount;
+            this.feedbackService.dismissLoader();
+            this.viewCtrl.dismiss();
+          })
         })
       })
     }

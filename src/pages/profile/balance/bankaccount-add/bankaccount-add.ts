@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, Events} from 'ionic-angular';
 import {User} from "../../../../models/user-model";
 import {PaymentProvider} from "../../../../providers/payment";
+import {Team} from "../../../../models/team-model";
 
 /**
  * Generated class for the BankaccountAddPage page.
@@ -18,6 +19,7 @@ import {PaymentProvider} from "../../../../providers/payment";
 export class BankaccountAddPage {
 
   private userData: User;
+  private teamData: Team;
   private stripeBankData = {
     account_token: '',
     country: 'DE',
@@ -34,15 +36,20 @@ export class BankaccountAddPage {
               private paymentService: PaymentProvider,
               public events: Events) {
     this.userData = this.navParams.get('userData');
-    this.stripeBankData.account_token = this.userData.accountToken;
+    this.teamData = this.navParams.get('teamData');
+    if(this.userData) {
+      this.stripeBankData.account_token = this.userData.accountToken;
+    } else {
+      this.stripeBankData.account_token = this.teamData.stripeToken;
+    }
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BankaccountAddPage');
   }
 
-  createBankAccount()
-  {
+  createBankAccount() {
     this.loadingActivated = true;
     this.paymentService.addBankAccount(this.stripeBankData).subscribe((result: any) => {
       this.bankData = result.card;
@@ -50,7 +57,12 @@ export class BankaccountAddPage {
     }, (err: any) => {
       console.log(err);
     }, () => {
-      this.events.publish('bankAccount:add', this.bankData);
+      if(this.userData) {
+        this.events.publish('bankAccount:add', this.bankData);
+      } else {
+        this.events.publish('teamBankAccount:add', this.bankData);
+      }
+
       this.loadingActivated = false;
       this.navCtrl.pop();
     });

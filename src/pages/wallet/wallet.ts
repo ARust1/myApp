@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {App, NavParams, ToastController, NavController, Refresher, PopoverController} from "ionic-angular";
+import {App, NavParams, ToastController, NavController, Refresher, PopoverController, Events} from "ionic-angular";
 import {Team} from "../../models/team-model";
 import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
@@ -9,6 +9,7 @@ import {PictureProvider} from "../../providers/picture";
 import {PaymentProvider} from "../../providers/payment";
 import {Keyboard} from "@ionic-native/keyboard";
 import {PaySelectPage} from "./pay-select/pay-select";
+import {BankaccountAddPage} from "../profile/balance/bankaccount-add/bankaccount-add";
 
 @Component({
   selector: 'page-wallet',
@@ -22,8 +23,10 @@ export class WalletPage {
   private availableStripeTeamBalance: number = 0;
   private pendingStripeTeamBalance: number = 0;
   private dataLoaded: boolean = false;
-  private segment: string = 'overview';
+  private segment: string = 'balance';
   private totalBalance: number = 0;
+  private bankAccountDetailsLoaded: boolean = false;
+  private bankAccountData: any;
 
   constructor(public app: App,
               public navCtrl: NavController,
@@ -34,9 +37,14 @@ export class WalletPage {
               public toastCtrl: ToastController,
               private pictureService: PictureProvider,
               private paymentService: PaymentProvider,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              public events: Events) {
     this.userData = this.navParams.get('userData');
+    this.events.subscribe('teamBankAccount:add', bankAccountData => {
+      this.bankAccountData = bankAccountData;
+    })
   }
+
   ngOnInit() {
     if(this.userData) {
       this.getTeamData(this.userData.team_id);
@@ -94,6 +102,7 @@ export class WalletPage {
             localStorage.setItem('teamStripeToken', this.teamData.stripeToken);
             this.getStripeUserBalance();
             this.getStripeTeamBalance();
+            this.getBankAccounts();
           })
         })
       })
@@ -107,6 +116,7 @@ export class WalletPage {
     }, () => {
       this.getStripeUserBalance();
       this.getStripeTeamBalance();
+      this.getBankAccounts();
     });
   }
 
@@ -160,6 +170,23 @@ export class WalletPage {
     })
   }
 
+  getBankAccounts(): any {
+    let accountDetails;
+    this.paymentService.getStripeAccount(this.teamData.stripeToken).subscribe((result: any) => {
+      if(result) {
+        accountDetails = result;
+      }
+    }, (err: any) => {
+      console.log(err);
+    }, () => {
+      if(accountDetails.external_accounts) {
+        this.bankAccountData = accountDetails.external_accounts.data[0];
+        this.bankAccountDetailsLoaded = true;
+        console.log(this.bankAccountData);
+      }
+    });
+  }
+
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
@@ -195,5 +222,11 @@ export class WalletPage {
     });
 
     popover.present();
+  }
+
+  goToAddBankAccount() {
+    this.navCtrl.push(BankaccountAddPage, {
+      teamData: this.teamData
+    })
   }
 }

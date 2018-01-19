@@ -24,6 +24,10 @@ ion-app.md {
   color: #484848 !important;
 }
 
+.grey {
+  color: #E4E4E4 !important;
+}
+
 .text-right {
   text-align: right !important;
 }
@@ -333,4 +337,23 @@ body.keyboard-is-open ion-tabbar {
 
 body.keyboard-is-open scroll-content {
   margin-bottom: 0 !important;
+}
+
+.add-bankaccount {
+  text-align: center;
+  padding: 16px 0 !important;
+  ion-label {
+    justify-content: center;
+    flex-direction: column;
+    white-space: unset;
+
+    div {
+      text-align: center;
+      font-weight: 600;
+    }
+    button {
+      align-self: center;
+      margin-top: 15px;
+    }
+  }
 }
