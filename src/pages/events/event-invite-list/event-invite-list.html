@@ -23,7 +23,7 @@
 <ion-content>
   <ion-list *ngIf="userList">
     <ion-item *ngFor="let user of userList">
-      <img class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
+      <img class="profile-pic" src="assets/imgs/default-no-profile-pic.jpg" item-start>
       {{user.prename}} {{user.surname}}
       <div item-end (click)="addToInviteList(user)"><ion-icon name="add"></ion-icon></div>
     </ion-item>

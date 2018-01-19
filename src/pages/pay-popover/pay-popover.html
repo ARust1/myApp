@@ -22,7 +22,7 @@
     </ion-row>
     <ion-row>
       <ion-col (tap)="payWithBalance()">
-        <img src="../../assets/icon/manschaftskasse.svg">
+        <img src="assets/icon/manschaftskasse.svg">
         <div>Guthaben</div>
         <div style="color: #aeacb4 !important;">{{ stripeAccountBalance / 100 || 0 | currency : "EUR" : 1 }}</div>
       </ion-col>

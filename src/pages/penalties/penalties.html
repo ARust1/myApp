@@ -22,7 +22,7 @@
   </ion-refresher>
   <ion-list>
     <ion-item *ngFor="let penalty of list">
-      <img *ngIf="!penalty.user.profile_img" class="profile-pic" src="../../assets/imgs/default-no-profile-pic.jpg" item-start>
+      <img *ngIf="!penalty.user.profile_img" class="profile-pic" src="assets/imgs/default-no-profile-pic.jpg" item-start>
       <img *ngIf="penalty.user.profile_img" class="profile-pic" [src]="penalty.user.profile_img" item-start>
       <ion-label>
         <div class="penalty-name">
@@ -37,7 +37,7 @@
             <button ion-button *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 1">Bezahlt</button>
           </span>
           <div class="penalty-amount" *ngIf="!userData.admin" style="width: 100%; justify-content: space-between">
-            <span class="amount">{{ penalty.amount }} €</span>
+            <span class="amount">{{ penalty.amount || 0 | currency : "EUR" : 1 }} €</span>
             <button ion-button outline *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 0 && penalty.paymentMethod === 0" (click)="openPayPopover(penalty)">Bezahlen</button>
             <button ion-button *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 1">Bezahlt</button>
           </div>

@@ -129,122 +129,125 @@ page-wallet {
       }
     }
   }
-}
 
-.pending-balance {
-  font-size: 15px;
-  letter-spacing: 0px;
-  color: #dadada;
-  .balance {
-    color: #000000;
-  }
-}
-
-.spinner-container {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  ion-spinner {
-    align-self: center;
-  }
-}
-
-ion-icon[name="more"] {
-  font-size: 2.1em !important;
-}
-
-ion-app.md {
-  .team-logo {
-    img {
-      -webkit-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
-      -moz-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
-      box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
+  .pending-balance {
+    font-size: 15px;
+    letter-spacing: 0px;
+    color: #dadada;
+    .balance {
+      color: #000000;
     }
   }
-}
 
-.user-list {
-  margin-top: 20px;
-  .profile-pic {
-    width: 45px;
-    height: 45px;
-  }
-  .user-name {
-    font-weight: 600;
-  }
-  .user-admin {
-    font-size: 12px;
-  }
-}
-
-.team-balance {
-  ion-row {
-    flex-flow: column !important;
-    flex-direction: column !important;
-    text-align: center;
+  .spinner-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    ion-spinner {
+      align-self: center;
+    }
   }
 
-  .saldo-available {
-    font-size: 2rem;
+  ion-icon[name="more"] {
+    font-size: 2.1em !important;
   }
+
+  ion-app.md {
+    .team-logo {
+      img {
+        -webkit-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
+        -moz-box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
+        box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.22);
+      }
+    }
+  }
+
+  .user-list {
+    margin-top: 20px;
+    .profile-pic {
+      width: 45px;
+      height: 45px;
+    }
+    .user-name {
+      font-weight: 600;
+    }
+    .user-admin {
+      font-size: 12px;
+    }
+  }
+
+  .team-balance {
+    ion-row {
+      flex-flow: column !important;
+      flex-direction: column !important;
+      text-align: center;
+    }
+
+    .saldo-available {
+      font-size: 2rem;
+    }
 
     button {
       height: 3.6rem !important;
     }
-}
+  }
 
-ion-toolbar {
-  margin-top: 0 !important;
-}
+  ion-toolbar {
+    margin-top: 0 !important;
+  }
 
-ion-list {
-  text-align: center;
-  border-top: 1px solid #E4E4E4;
-}
+  ion-list {
+    text-align: center;
+    border-top: 1px solid #E4E4E4;
+  }
 
-ion-row {
-  display: block !important;
-}
 
-.bank-account-container {
-  .bank-account-details {
-    padding: 0 5vw 0 !important;
-    margin-bottom: 50px;
+  .bank-account-container {
+    .bank-account-details {
+      padding: 0 5vw 0 !important;
+      margin-bottom: 15px;
 
-    .bank-account-wrapper {
-      letter-spacing: 1px;
-      font-weight: 300;
-      font-size: 15px;
-      padding: 20px 30px;
-      color: #ffffff;
-      height:165px;
-      border-radius: 8px;
-      background: #00c6ff;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-      box-shadow: 0px 15px 23px -6px rgba(0,0,0,0.31) !important;
-      display: flex;
-      flex-flow: column;
-    }
-    div {
-      text-align: left;
-    }
+      .bank-account-wrapper {
+        letter-spacing: 1px;
+        font-weight: 300;
+        font-size: 15px;
+        padding: 20px 30px;
+        color: #ffffff;
+        height:165px;
+        border-radius: 8px;
+        background: #00c6ff;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        box-shadow: 0px 15px 23px -6px rgba(0,0,0,0.31) !important;
+        display: flex;
+        flex-flow: column;
+      }
+      div {
+        text-align: left;
+      }
 
-    .bank-name {
-      text-shadow: 0px 0.5px #707070;
-      align-self: flex-end;
-    }
+      .bank-name {
+        text-shadow: 0px 0.5px #707070;
+        align-self: flex-end;
+      }
 
-    .bank-account-holder {
-      text-shadow: 0px 1px #707070;
-      font-size: 16px;
-      margin-top: auto;
-      padding-bottom: 10px;
-    }
+      .bank-account-holder {
+        text-shadow: 0px 1px #707070;
+        font-size: 16px;
+        margin-top: auto;
+        padding-bottom: 10px;
+      }
 
-    .bank-iban {
-      font-size: 16px;
-      text-shadow: 0px 1px #707070;
+      .bank-iban {
+        font-size: 16px;
+        text-shadow: 0px 1px #707070;
+      }
     }
   }
+
+  ion-row {
+    display: block !important;
+  }
 }
+
+
