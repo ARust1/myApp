@@ -5,8 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
+    <ion-buttons end>
+      <button (click)="close()">
+        <ion-icon name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Einzahlung</ion-title>
   </ion-navbar>
 
@@ -15,7 +19,7 @@
 
 <ion-content padding>
 
-  <form class="custom">
+  <form class="custom" *ngIf="type === 'deposit:online'">
     <ion-list>
       <ion-item>
         <ion-label color="midGrey">Betrag</ion-label>
@@ -30,6 +34,15 @@
         <span>Gesamt</span>
         <ion-input aria-readonly="true" [(ngModel)]="depositData.total" name="total"></ion-input>
       </div>
+    </ion-list>
+  </form>
+
+  <form class="custom" *ngIf="type === 'deposit:cash'">
+    <ion-list>
+      <ion-item>
+        <ion-label color="midGrey">Betrag</ion-label>
+        <ion-input type="number" [(ngModel)]="depositData.amount" name="amount"></ion-input>
+      </ion-item>
     </ion-list>
   </form>
 

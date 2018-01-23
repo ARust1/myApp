@@ -43,6 +43,10 @@ export class PaySelectPage {
     console.log('ionViewDidLoad PaySelectPage');
   }
 
+  close() {
+    this.viewCtrl.dismiss();
+  }
+
   transfer() {
     this.transactionData.timestamp = new Date();
     this.transactionData.type = this.type;

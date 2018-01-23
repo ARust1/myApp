@@ -1,15 +1,19 @@
 import { Component } from '@angular/core';
 import {User} from "../../models/user-model";
-import {App, NavParams, ToastController, NavController, Refresher, PopoverController, Events} from "ionic-angular";
+import {
+  App, NavParams, ToastController, NavController, Refresher, PopoverController, Events,
+  ModalController
+} from "ionic-angular";
 import {Team} from "../../models/team-model";
 import {Credentials} from "../../providers/credentials";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {UserServiceProvider} from "../../providers/user-service";
 import {PictureProvider} from "../../providers/picture";
 import {PaymentProvider} from "../../providers/payment";
-import {Keyboard} from "@ionic-native/keyboard";
 import {PaySelectPage} from "./pay-select/pay-select";
 import {BankaccountAddPage} from "../profile/balance/bankaccount-add/bankaccount-add";
+import {DepositCreatePage} from "../profile/balance/deposit-create/deposit-create";
+import {PayoutCreatePage} from "../payout-create/payout-create";
 
 @Component({
   selector: 'page-wallet',
@@ -18,13 +22,12 @@ import {BankaccountAddPage} from "../profile/balance/bankaccount-add/bankaccount
 export class WalletPage {
 
   private userData: User;
-  private teamData: Team;
+  private teamData: Team = new Team();
   private teamUser: User[];
   private availableStripeTeamBalance: number = 0;
   private pendingStripeTeamBalance: number = 0;
   private dataLoaded: boolean = false;
   private segment: string = 'balance';
-  private totalBalance: number = 0;
   private bankAccountDetailsLoaded: boolean = false;
   private bankAccountData: any;
 
@@ -38,11 +41,23 @@ export class WalletPage {
               private pictureService: PictureProvider,
               private paymentService: PaymentProvider,
               public popoverCtrl: PopoverController,
+              public modalCtrl: ModalController,
               public events: Events) {
     this.userData = this.navParams.get('userData');
+
     this.events.subscribe('teamBankAccount:add', bankAccountData => {
       this.bankAccountData = bankAccountData;
-    })
+    });
+
+    this.events.subscribe('payout:cash', amount => {
+      this.teamData.balance -= amount / 100;
+    });
+
+    this.events.subscribe('deposit:cash', amount => {
+      console.log("teambalance", this.teamData.balance);
+      console.log("amount", amount);
+      this.teamData.balance += amount;
+    });
   }
 
   ngOnInit() {
@@ -211,17 +226,13 @@ export class WalletPage {
     }, 2000);
   }
 
-  doPulling(refresher: Refresher) {
-    console.log('DOPULLING', refresher.progress);
-  }
-
   openPaySelectPopover(user: User) {
-    let popover = this.popoverCtrl.create(PaySelectPage, {
+    let modal = this.modalCtrl.create(PaySelectPage, {
       transactionUser: user,
       teamData: this.teamData
     });
 
-    popover.present();
+    modal.present();
   }
 
   goToAddBankAccount() {
@@ -229,4 +240,23 @@ export class WalletPage {
       teamData: this.teamData
     })
   }
+
+  openWalletDeposit(type: string) {
+    let modal = this.modalCtrl.create(DepositCreatePage, {
+      type: type,
+      teamData: this.teamData
+    });
+
+    modal.present();
+  }
+
+  openWalletPayout(type: string) {
+    let modal = this.modalCtrl.create(PayoutCreatePage, {
+      type: type,
+      teamData: this.teamData
+    });
+
+    modal.present();
+  }
+
 }

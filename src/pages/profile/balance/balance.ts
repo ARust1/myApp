@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, AlertController, Events} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController, Events, ModalController} from 'ionic-angular';
 import {User} from "../../../models/user-model";
 import {PaymentProvider} from "../../../providers/payment";
 import {DepositCreatePage} from "./deposit-create/deposit-create";
-import {TransferCreatePage} from "./transfer-create/transfer-create";
 import {BankaccountAddPage} from "./bankaccount-add/bankaccount-add";
 
 /**
@@ -34,7 +33,8 @@ export class BalancePage {
               public navParams: NavParams,
               private paymentService: PaymentProvider,
               private alertCtrl: AlertController,
-              private events: Events) {
+              private events: Events,
+              private modalCtrl: ModalController) {
     this.userData = this.navParams.get('userData');
     this.availableBalance = this.navParams.get('availableBalance');
     this.pendingBalance = this.navParams.get('pendingBalance');
@@ -84,14 +84,12 @@ export class BalancePage {
   }
 
   goToCreateDeposit() {
-    this.navCtrl.push(DepositCreatePage, {
+    let modal = this.modalCtrl.create(DepositCreatePage, {
+      type: 'deposit:online',
       userData: this.userData
     });
-  }
-  goToCreateTransfer() {
-    this.navCtrl.push(TransferCreatePage, {
-      userData: this.userData
-    });
+
+    modal.present();
   }
 
   getBankAccounts(accountToken: string): any {

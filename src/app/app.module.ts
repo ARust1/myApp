@@ -42,9 +42,7 @@ import {PayPopoverPage} from "../pages/pay-popover/pay-popover";
 import { PaymentProvider } from '../providers/payment';
 import {BalancePage} from "../pages/profile/balance/balance";
 import {DepositCreatePage} from "../pages/profile/balance/deposit-create/deposit-create";
-import {TransferCreatePage} from "../pages/profile/balance/transfer-create/transfer-create";
 import { SearchProvider } from '../providers/search';
-import {TransferPopoverPage} from "../pages/profile/balance/transfer-create/transfer-popover/transfer-popover";
 import {EventParticipationPage} from "../pages/events/event-detail/event-participation/event-participation";
 import { Camera } from '@ionic-native/camera';
 import {ImagePicker} from "@ionic-native/image-picker";
@@ -62,6 +60,7 @@ import { BoardMessagesProvider } from '../providers/board-messages';
 import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/bankaccount-add";
 import {PaySelectPage} from "../pages/wallet/pay-select/pay-select";
 import { TransactionProvider } from '../providers/transaction';
+import {PayoutCreatePage} from "../pages/payout-create/payout-create";
 
 @NgModule({
   declarations: [
@@ -88,15 +87,14 @@ import { TransactionProvider } from '../providers/transaction';
     PayPopoverPage,
     BalancePage,
     DepositCreatePage,
-    TransferCreatePage,
-    TransferPopoverPage,
     IdUploadPage,
     TeamSetupPage,
     PenaltyAddPage,
     ModalUserAddPage,
     BankaccountAddPage,
     AutosizeDirective,
-    PaySelectPage
+    PaySelectPage,
+    PayoutCreatePage,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +110,9 @@ import { TransactionProvider } from '../providers/transaction';
       autoFocusAssist: false,
       tabsHideOnSubPages: true,
       pageTransition: 'ios-transition',
-      iconMode: 'ios'
+      iconMode: 'ios',
+      modalLeave: 'modal-slide-out',
+      modalEnter: 'modal-slide-in',
     }),
     IonicStorageModule.forRoot(),
     AngularGooglePlaceModule
@@ -142,14 +142,13 @@ import { TransactionProvider } from '../providers/transaction';
     PayPopoverPage,
     BalancePage,
     DepositCreatePage,
-    TransferCreatePage,
-    TransferPopoverPage,
     IdUploadPage,
     TeamSetupPage,
     PenaltyAddPage,
     ModalUserAddPage,
     BankaccountAddPage,
-    PaySelectPage
+    PaySelectPage,
+    PayoutCreatePage,
   ],
   providers: [
     StatusBar,
