@@ -49,9 +49,6 @@ export class ProfilePage {
               private paymentService: PaymentProvider) {
     this.userData = this.navParams.data;
     console.log(this.userData);
-
-
-
   }
 
   ngOnInit() {

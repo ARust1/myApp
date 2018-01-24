@@ -4,7 +4,7 @@ var Deposit = {
 
   getDepositsByTeam: function(team_id, callback) {
     return db.query("SELECT uuid, recipient, description, timestamp, type, team_id, amount, user_id, sender " +
-      "FROM deposits WHERE team_id = ?;", [team_id], callback);
+      "FROM deposits WHERE team_id = ? ORDER BY timestamp DESC;", [team_id], callback);
   },
   addDeposit: function (uuid, depositsData, callback) {
     return db.query("INSERT INTO deposits " +

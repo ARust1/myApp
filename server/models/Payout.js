@@ -4,7 +4,7 @@ var Payout = {
 
   getPayoutByTeam: function(team_id, callback) {
     return db.query("SELECT uuid, recipient, description, timestamp, type, team_id, amount, user_id " +
-      "FROM payouts WHERE team_id = ?;", [team_id], callback);
+      "FROM payouts WHERE team_id = ? ORDER BY timestamp DESC;", [team_id], callback);
   },
   addPayout: function (uuid, payoutData, callback) {
     return db.query("INSERT INTO payouts " +

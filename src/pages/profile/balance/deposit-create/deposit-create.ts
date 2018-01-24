@@ -110,6 +110,7 @@ export class DepositCreatePage {
           depositData.deposit_token = depositToken;
 
           this.depositService.addDeposit(depositData).subscribe(result => {
+            console.log(result);
           }, err => {
             console.log(err);
           }, () => {

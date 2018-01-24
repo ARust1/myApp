@@ -1,5 +1,6 @@
 page-deposit-list,
-page-payout-list {
+page-payout-list,
+page-transaction-list {
   .toolbar-md {
     padding: 0 !important;
   }
@@ -20,6 +21,7 @@ page-payout-list {
     align-self: center;
 
     div {
+      text-align: center;
       margin-top: 5px;
       display: flex;
       line-height: 11px;

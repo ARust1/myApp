@@ -8,6 +8,8 @@ import {DatePickerPage} from "./date-picker/date-picker";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 import {EventServiceProvider} from "../../../providers/event-service";
 import {EventInviteProvider} from "../../../providers/event-invite";
+import {DatePicker} from "@ionic-native/date-picker";
+import * as moment from "moment";
 
 @IonicPage()
 @Component({
@@ -29,6 +31,7 @@ export class EventModalPage {
               public eventService: EventServiceProvider,
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController,
+              private datePicker: DatePicker,
               public eventInviteService: EventInviteProvider) {
     this.deleteList = [];
   }
@@ -84,27 +87,25 @@ export class EventModalPage {
   }
 
   startDate() {
-    let popover = this.popoverCtrl.create(DatePickerPage);
-    popover.present();
-
-    popover.onDidDismiss(date => {
-      if(date) {
-        this.eventData.startDate = date.format('L');
-        console.log(this.eventData);
-      }
-    })
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+    }).then(
+      date => this.eventData.startDate = moment(date).format('L'),
+      err => console.log('Error occurred while getting date: ', err)
+    );
   }
 
   endDate() {
-    let popover = this.popoverCtrl.create(DatePickerPage);
-    popover.present();
-
-    popover.onDidDismiss(date => {
-      if(date) {
-        this.eventData.endDate = date.format('L');
-        console.log(this.eventData);
-      }
-    })
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+    }).then(
+      date => this.eventData.endDate = moment(date).format('L'),
+      err => console.log('Error occurred while getting date: ', err)
+    );
   }
 
   goToInviteList() {

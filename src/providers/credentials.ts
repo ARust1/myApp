@@ -5,15 +5,15 @@ import {User} from "../models/user-model";
 @Injectable()
 export class Credentials {
 
-   private api = {
+   /* private api = {
       dev: 'http://192.168.0.73:3000/api/v1',
       prod: 'http://91.92.128.99:3000/api/v1'
-   };
+   }; */
 
-  /*private api = {
+  private api = {
     dev: 'http://192.168.56.1:3000/api/v1',
     prod: ''
-  };*/
+  };
 
   private storageKeyUser = 'userData';
   private storageKeyToken = 'token';

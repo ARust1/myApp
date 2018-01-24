@@ -16,6 +16,8 @@ import {DepositCreatePage} from "../profile/balance/deposit-create/deposit-creat
 import {PayoutCreatePage} from "../payout-create/payout-create";
 import {DepositListPage} from "../deposit-list/deposit-list";
 import {PayoutListPage} from "../payout-list/payout-list";
+import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
+import { TransactionListPage } from '../transaction-list/transaction-list';
 
 @Component({
   selector: 'page-wallet',
@@ -44,6 +46,7 @@ export class WalletPage {
               private paymentService: PaymentProvider,
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController,
+              public actionSheetCtrl: ActionSheetController,
               public events: Events) {
     this.userData = this.navParams.get('userData');
 
@@ -271,5 +274,48 @@ export class WalletPage {
     this.navCtrl.push(PayoutListPage, {
       userData: this.userData
     });
+  }
+
+  presentMemberListActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Überweisungen anzeigen',
+          handler: () => {
+            this.goToTransactionList();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+ 
+    actionSheet.present();
+  }
+
+  goToTransactionList() {
+    this.navCtrl.push(TransactionListPage, {
+      userData: this.userData
+    })
+  }
+
+  onInput($event): any {
+    let val = $event.target.value;
+    console.log(val);
+    if(val && val !== undefined && val !== '') {
+      this.teamUser = this.teamUser.filter(user => {
+        return user.prename.toLowerCase().indexOf(val.toLowerCase()) !== -1
+        ||  user.surname.toLowerCase().indexOf(val.toLowerCase()) !== -1;
+      });
+    } else {
+      this.getUserByTeamId(this.userData.team_id);
+    }
+
   }
 }

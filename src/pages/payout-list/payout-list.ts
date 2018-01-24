@@ -5,13 +5,6 @@ import {DepositProvider} from "../../providers/deposit";
 import {PayoutProvider} from "../../providers/payout";
 import {Payout} from "../../models/stripe-payment-model";
 
-/**
- * Generated class for the PayoutListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-payout-list',
@@ -20,7 +13,9 @@ import {Payout} from "../../models/stripe-payment-model";
 export class PayoutListPage {
 
   private userData: User;
-  private payoutList: Payout[] = [];
+  private payoutCashList: Payout[] = [];
+  private payoutOnlineList: Payout[] = [];
+  private segment: string = 'online';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -30,16 +25,21 @@ export class PayoutListPage {
   }
 
   ngOnInit() {
-    this.getAllDeposits();
+    this.getAllPayouts();
   }
 
-  getAllDeposits() {
+  getAllPayouts() {
     this.payoutService.getPayoutsByTeam(this.userData.team_id).subscribe(result => {
-      this.payoutList = result;
+      result.forEach(payout => {
+        if(payout.type === 'online') {
+          this.payoutOnlineList.push(payout);
+        } else {
+          this.payoutCashList.push(payout);
+        }
+      })
     }, err => {
       console.log(err);
     }, () => {
-      console.log(this.payoutList);
     })
   }
 }

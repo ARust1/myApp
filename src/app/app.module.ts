@@ -65,6 +65,9 @@ import {DepositProvider} from "../providers/deposit";
 import {PayoutProvider} from "../providers/payout";
 import {DepositListPage} from "../pages/deposit-list/deposit-list";
 import {PayoutListPage} from "../pages/payout-list/payout-list";
+import { TransactionListPage } from '../pages/transaction-list/transaction-list';
+import { MemberFilterPipe } from '../pipes/member-filter/member-filter';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -100,7 +103,9 @@ import {PayoutListPage} from "../pages/payout-list/payout-list";
     PaySelectPage,
     PayoutCreatePage,
     DepositListPage,
-    PayoutListPage
+    PayoutListPage,
+    TransactionListPage,
+    MemberFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -156,7 +161,8 @@ import {PayoutListPage} from "../pages/payout-list/payout-list";
     PaySelectPage,
     PayoutCreatePage,
     DepositListPage,
-    PayoutListPage
+    PayoutListPage,
+    TransactionListPage
   ],
   providers: [
     StatusBar,

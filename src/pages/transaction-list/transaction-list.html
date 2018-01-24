@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Überweisungen</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="online">
+        Online
+      </ion-segment-button>
+      <ion-segment-button value="cash">
+        Bar
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="segment === 'online'">
+    <ion-item *ngFor="let transaction of transactionOnlineList">
+      <ion-row>
+        <ion-col class="deposit-date" col-3>
+          <span>{{ transaction.timestamp | date:'MMM' }}</span>
+          <span>{{ transaction.timestamp | date:'dd' }}</span>
+        </ion-col>
+
+        <ion-col class="deposit-name" col-5>
+          <div>{{ transaction.recipient }}</div>
+          <div style="font-size: 1.2rem; font-weight: 300;">{{ transaction.description }}</div>
+        </ion-col>
+
+        <ion-col class="deposit-amount" col-4>
+          + {{ transaction.amount | currency :"EUR" : 1 }}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="segment === 'cash'">
+    <ion-item *ngFor="let transaction of transactionCashList">
+      <ion-row>
+        <ion-col class="deposit-date" col-3>
+          <span>{{ transaction.timestamp | date:'MMM' }}</span>
+          <span>{{ transaction.timestamp | date:'dd' }}</span>
+        </ion-col>
+
+        <ion-col class="deposit-name" col-5>
+          <div>{{ transaction.recipient }}</div>
+          <div style="font-size: 1.2rem; font-weight: 300;">{{ transaction.description }}</div>
+        </ion-col>
+
+        <ion-col class="deposit-amount" col-4>
+          + {{ transaction.amount | currency :"EUR" : 1 }}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

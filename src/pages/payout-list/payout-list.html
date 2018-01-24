@@ -1,28 +1,58 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Auszahlungen</ion-title>
-  </ion-navbar>
-</ion-header>
-
-
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let payout of payoutList">
-      <ion-row>
-        <ion-col class="deposit-date" col-3>
-          <span>{{payout.timestamp | date:'MMM'}}</span>
-          <span>{{payout.timestamp | date:'dd'}}</span>
-        </ion-col>
-
-        <ion-col class="deposit-name" col-5>
-          <div>{{ payout.recipient }}</div>
-        </ion-col>
-
-        <ion-col class="deposit-amount" col-4>
-          - {{ payout.amount / 100 | currency :"EUR" : 1 }}
-        </ion-col>
-      </ion-row>
-    </ion-item>
-  </ion-list>
-</ion-content>
+    <ion-navbar>
+      <ion-title>Auszahlungen</ion-title>
+    </ion-navbar>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="online">
+          Online
+        </ion-segment-button>
+        <ion-segment-button value="cash">
+          Bar
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content>
+    <ion-list *ngIf="segment === 'online'">
+      <ion-item *ngFor="let payout of payoutOnlineList">
+        <ion-row>
+          <ion-col class="deposit-date" col-3>
+            <span>{{ payout.timestamp | date:'MMM' }}</span>
+            <span>{{ payout.timestamp | date:'dd' }}</span>
+          </ion-col>
+  
+          <ion-col class="deposit-name" col-5>
+            <div>{{ payout.recipient }}</div>
+            <div style="font-size: 1.2rem; font-weight: 300;">{{ payout.description }}</div>
+          </ion-col>
+  
+          <ion-col class="deposit-amount" col-4>
+            - {{ payout.amount / 100 | currency :"EUR" : 1 }}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngIf="segment === 'cash'">
+      <ion-item *ngFor="let payout of payoutCashList">
+        <ion-row>
+          <ion-col class="deposit-date" col-3>
+            <span>{{ payout.timestamp | date:'MMM' }}</span>
+            <span>{{ payout.timestamp | date:'dd' }}</span>
+          </ion-col>
+  
+          <ion-col class="deposit-name" col-5>
+            <div>{{ payout.recipient }}</div>
+            <div style="font-size: 1.2rem; font-weight: 300;">{{ payout.description }}</div>
+          </ion-col>
+  
+          <ion-col class="deposit-amount" col-4>
+            - {{ payout.amount / 100 | currency :"EUR" : 1 }}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-content>

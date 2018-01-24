@@ -76,7 +76,7 @@ export class PayoutCreatePage {
       }, err => {
         console.log(err);
       }, () => {
-        payoutData.type = 'card';
+        payoutData.type = 'online';
         payoutData.payout_token = this.stripeToken;
 
         this.payoutService.addPayout(payoutData).subscribe(result => {

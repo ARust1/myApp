@@ -38,8 +38,8 @@
       <ion-label>
         <ion-icon name="ios-calendar-outline" item-start></ion-icon>
       </ion-label>
-      <ion-input type="button" [(ngModel)]="eventData.startDate" name="startDate" (click)="startDate()" value="Anfang"></ion-input>
-      <ion-input type="button" [(ngModel)]="eventData.endDate" name="endDate" (click)="endDate()" value="Ende"></ion-input>
+      <ion-input [readonly]="true" [(ngModel)]="eventData.startDate" name="startDate" (click)="startDate()" placeholder="Anfang"></ion-input>
+      <ion-input [readonly]="true" [(ngModel)]="eventData.endDate" name="endDate" (click)="endDate()" placeholder="Ende"></ion-input>
     </ion-item>
     </ion-list>
     <ion-list class="invite-list">
