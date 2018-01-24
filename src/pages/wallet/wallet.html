@@ -27,19 +27,23 @@
 <ion-content no-bounce *ngIf="dataLoaded">
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingText="Pull to refresh..."
-      refreshingText="Refreshing...">
+    <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
 
   <ion-grid *ngIf="segment === 'member'">
-    <ion-searchbar placeholder="Teammitglied suchen"
-                   [(ngModel)]="myInput"
-                   [showCancelButton]="shouldShowCancel"
-                   (ionInput)="onInput($event)"
-                   (ionCancel)="onCancel($event)">
-    </ion-searchbar>
+    <ion-row class="search-row" no-padding>
+      <ion-searchbar placeholder="Teammitglied suchen"
+                     [(ngModel)]="myInput"
+                     [showCancelButton]="shouldShowCancel"
+                     (ionInput)="onInput($event)"
+                     (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+      <button>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-row>
+
     <ion-list class="user-list">
       <ion-item *ngFor="let user of teamUser">
         <img *ngIf="!user.profile_img" class="profile-pic" src="assets/imgs/default-no-profile-pic.jpg" item-start>
@@ -62,13 +66,12 @@
 
   <ion-grid class="team-balance" *ngIf="segment === 'balance'">
     <ion-row style="border-bottom: 1px solid #E4E4E4;">
-      <h4>Team Saldo</h4>
-      <div text-center style="font-size: 26px;">{{ availableStripeTeamBalance / 100 + teamData.balance | currency :
-        "EUR" : 1 }}
+      <h5>Team Saldo</h5>
+      <div text-center style="font-size: 2.1rem;">{{ availableStripeTeamBalance / 100 + teamData.balance | currency :"EUR" : 1 }}
       </div>
     </ion-row>
     <ion-row>
-      <div style="font-size: 19px;">
+      <div style="font-size: 1.6rem;">
         <span class="light">Online:</span>
         {{ availableStripeTeamBalance / 100 || 0 | currency : "EUR" : 1 }}
       </div>
@@ -90,7 +93,7 @@
     </ion-row>
 
     <ion-row>
-      <div style="font-size: 19px;"><span class="light">Bar:</span> {{ teamData.balance || 0 | currency : "EUR" : 1 }}
+      <div style="font-size: 1.6rem;"><span class="light">Bar:</span> {{ teamData.balance || 0 | currency : "EUR" : 1 }}
       </div>
       <ion-buttons style="margin-top: 10px;">
         <button ion-button (click)="openWalletDeposit('deposit:cash')">
@@ -104,8 +107,12 @@
 
     <ion-list style="border-bottom: 1px solid #E4E4E4;">
       <ion-item>
-        <ion-label>Transaktionen</ion-label>
-        <button ion-button outline item-end>anzeigen</button>
+        <ion-label>Einzahlungen</ion-label>
+        <button ion-button outline item-end (click)="openDepositList()">anzeigen</button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Auszahlungen</ion-label>
+        <button ion-button outline item-end (click)="openPayoutList()">anzeigen</button>
       </ion-item>
       <ion-item *ngIf="bankAccountDetailsLoaded && bankAccountData">
         <ion-label>Bankkonten</ion-label>

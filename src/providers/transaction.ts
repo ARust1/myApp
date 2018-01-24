@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {GenericProvider} from "./generic";
 import {Credentials} from "./credentials";
-import {Transaction} from "../models/transaction-model";
+import {Transaction} from "../models/stripe-payment-model";
 import {Observable} from "rxjs";
 import {Storage} from "@ionic/storage";
 
@@ -30,7 +30,8 @@ export class TransactionProvider extends GenericProvider<Transaction>{
       type: transactionData.type,
       team_id: transactionData.team_id,
       amount: transactionData.amount,
-      user_id: transactionData.user_id
+      user_id: transactionData.user_id,
+      transaction_token: transactionData.transaction_token
     })
   }
 

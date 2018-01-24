@@ -14,6 +14,8 @@ import {PaySelectPage} from "./pay-select/pay-select";
 import {BankaccountAddPage} from "../profile/balance/bankaccount-add/bankaccount-add";
 import {DepositCreatePage} from "../profile/balance/deposit-create/deposit-create";
 import {PayoutCreatePage} from "../payout-create/payout-create";
+import {DepositListPage} from "../deposit-list/deposit-list";
+import {PayoutListPage} from "../payout-list/payout-list";
 
 @Component({
   selector: 'page-wallet',
@@ -259,4 +261,15 @@ export class WalletPage {
     modal.present();
   }
 
+  openDepositList() {
+    this.navCtrl.push(DepositListPage, {
+      userData: this.userData
+    });
+  }
+
+  openPayoutList() {
+    this.navCtrl.push(PayoutListPage, {
+      userData: this.userData
+    });
+  }
 }

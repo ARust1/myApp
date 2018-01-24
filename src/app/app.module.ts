@@ -61,6 +61,10 @@ import {BankaccountAddPage} from "../pages/profile/balance/bankaccount-add/banka
 import {PaySelectPage} from "../pages/wallet/pay-select/pay-select";
 import { TransactionProvider } from '../providers/transaction';
 import {PayoutCreatePage} from "../pages/payout-create/payout-create";
+import {DepositProvider} from "../providers/deposit";
+import {PayoutProvider} from "../providers/payout";
+import {DepositListPage} from "../pages/deposit-list/deposit-list";
+import {PayoutListPage} from "../pages/payout-list/payout-list";
 
 @NgModule({
   declarations: [
@@ -95,6 +99,8 @@ import {PayoutCreatePage} from "../pages/payout-create/payout-create";
     AutosizeDirective,
     PaySelectPage,
     PayoutCreatePage,
+    DepositListPage,
+    PayoutListPage
   ],
   imports: [
     BrowserModule,
@@ -149,6 +155,8 @@ import {PayoutCreatePage} from "../pages/payout-create/payout-create";
     BankaccountAddPage,
     PaySelectPage,
     PayoutCreatePage,
+    DepositListPage,
+    PayoutListPage
   ],
   providers: [
     StatusBar,
@@ -173,7 +181,9 @@ import {PayoutCreatePage} from "../pages/payout-create/payout-create";
     Keyboard,
     PenaltyProvider,
     BoardMessagesProvider,
-    TransactionProvider
+    TransactionProvider,
+    DepositProvider,
+    PayoutProvider
   ]
 })
 export class AppModule {}

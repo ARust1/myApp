@@ -12,6 +12,8 @@ var Auth = require('./routes/Auth');
 var Payment = require('./routes/Payment');
 var Penalty = require('./routes/Penalty');
 var Transaction = require('./routes/Transaction');
+var Deposit = require('./routes/Deposit');
+var Payout = require('./routes/Payout');
 var BoardMessages = require('./routes/BoardMessages');
 var app = express();
 
@@ -49,6 +51,8 @@ app.use(apiUrl + '/payment', Payment);
 app.use(apiUrl + '/penalties', Penalty);
 app.use(apiUrl + '/boardMessages', BoardMessages);
 app.use(apiUrl + '/transactions', Transaction);
+app.use(apiUrl + '/deposits', Deposit);
+app.use(apiUrl + '/payouts', Payout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,7 +4,7 @@ import {User} from "../../../models/user-model";
 import {FeedbackProvider} from "../../../providers/feedback";
 import {PaymentProvider} from "../../../providers/payment";
 import {Team} from "../../../models/team-model";
-import {Transaction} from "../../../models/transaction-model";
+import {Transaction} from "../../../models/stripe-payment-model";
 import {TransactionProvider} from "../../../providers/transaction";
 import {TeamServiceProvider} from "../../../providers/team-service";
 import {UserServiceProvider} from "../../../providers/user-service";
@@ -58,9 +58,11 @@ export class PaySelectPage {
         this.transactionData.amount * 100,
         this.transactionUser.accountToken ,
         this.transactionData.description).subscribe(result => {
+          this.transactionData.transaction_token = result.id;
       }, err => {
         console.log(err);
       }, () => {
+          console.log(this.transactionData);
         this.transactionService.addTransaction(this.transactionData).subscribe(result => {
         }, err => {
           console.log(err);

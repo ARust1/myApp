@@ -13,13 +13,23 @@
     </ion-buttons>
     <ion-title>Einzahlung</ion-title>
   </ion-navbar>
-
+  <ion-toolbar *ngIf="this.type === 'deposit:online'">
+    <ion-segment [(ngModel)]="paymentType">
+      <ion-segment-button value="balance">
+        Guthaben
+      </ion-segment-button>
+      <ion-segment-button value="card">
+        Kreditkarte
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <form class="custom" *ngIf="type === 'deposit:online'">
+  <form class="custom" *ngIf="type === 'deposit:online' &&
+                              paymentType === 'card'">
     <ion-list>
       <ion-item>
         <ion-label color="midGrey">Betrag</ion-label>
@@ -34,6 +44,16 @@
         <span>Gesamt</span>
         <ion-input aria-readonly="true" [(ngModel)]="depositData.total" name="total"></ion-input>
       </div>
+    </ion-list>
+  </form>
+
+  <form class="custom" *ngIf="type === 'deposit:online' &&
+                              paymentType === 'balance'">
+    <ion-list>
+      <ion-item>
+        <ion-label color="midGrey">Betrag</ion-label>
+        <ion-input type="number" [(ngModel)]="depositData.amount" name="amount"></ion-input>
+      </ion-item>
     </ion-list>
   </form>
 

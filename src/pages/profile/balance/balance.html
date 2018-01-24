@@ -52,7 +52,7 @@
   </ion-grid>
 
 
-  <ion-grid *ngIf="page == 'Balance'">
+  <ion-grid class="transfer-list" *ngIf="page == 'Balance'">
     <ion-spinner *ngIf="!transferListLoaded"></ion-spinner>
     <ion-list *ngIf="transferListLoaded">
       <ion-item>

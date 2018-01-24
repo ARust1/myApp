@@ -1,0 +1,55 @@
+page-deposit-list,
+page-payout-list {
+  .toolbar-md {
+    padding: 0 !important;
+  }
+
+  .deposit-date {
+    display: inline-flex;
+    flex-flow: column;
+
+    span:first-child {
+      font-weight: 300 !important;
+    }
+    span {
+      font-weight: 600 !important;
+    }
+  }
+
+  .deposit-name {
+    align-self: center;
+
+    div {
+      margin-top: 5px;
+      display: flex;
+      line-height: 11px;
+      span {
+        align-self: center;
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+      span:first-child {
+        margin-right: 5px;
+        flex: 0.25;
+      }
+    }
+
+  }
+
+  .deposit-amount {
+    align-self: center;
+    text-align: right;
+  }
+
+  ion-list {
+    ion-label {
+      margin: 7px 8px 7px 0 !important;
+    }
+    ion-item:nth-child(2n+1) {
+      background-color: #f5f7fa !important;
+    }
+    .item-inner {
+      border: none !important;
+    }
+  }
+}

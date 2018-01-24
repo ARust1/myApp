@@ -44,7 +44,6 @@ page-wallet {
   }
   .scroll-content {
     margin-top: 120px !important;
-    padding-bottom: 49px !important;
   }
   ion-content {
     .team-balance-options {
@@ -249,6 +248,16 @@ page-wallet {
 
   ion-row {
     display: block !important;
+  }
+
+  .search-row {
+    button {
+      background-color: transparent !important;
+    }
+    ion-searchbar {
+      width: 85vw !important;
+      display: inline-flex !important;
+    }
   }
 }
 

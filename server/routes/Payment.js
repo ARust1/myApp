@@ -325,7 +325,7 @@ router.post('/account/:id/deposit', function (req, res, next) {
   var amount = req.body.amount;
 
   stripe.charges.create({
-    amount: Math.ceil(amount * 1.13),
+    amount: Math.ceil(amount * 1.013),
     currency: "eur",
     source: "tok_de",
     destination: {
