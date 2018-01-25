@@ -20,7 +20,7 @@
       refreshingSpinner="crescent">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list>
+  <ion-list *ngIf="list.length > 0">
     <ion-item *ngFor="let penalty of list">
       <img *ngIf="!penalty.user.profile_img" class="profile-pic" src="assets/imgs/default-no-profile-pic.jpg" item-start>
       <img *ngIf="penalty.user.profile_img" class="profile-pic" [src]="penalty.user.profile_img" item-start>
@@ -48,4 +48,8 @@
       </ion-label>
     </ion-item>
   </ion-list>
+  <div *ngIf="list.length === 0">
+    <h1>Du hast keine Strafen</h1>
+    <h3>Anscheinend warst du bis jetzt brav!</h3>
+  </div>
 </ion-content>

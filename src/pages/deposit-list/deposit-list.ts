@@ -4,13 +4,6 @@ import {DepositProvider} from "../../providers/deposit";
 import {User} from "../../models/user-model";
 import {Deposit} from "../../models/stripe-payment-model";
 
-/**
- * Generated class for the DepositListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-deposit-list',
@@ -36,7 +29,13 @@ export class DepositListPage {
 
   getAllDeposits() {
     this.depositService.getDepositsByTeam(this.userData.team_id).subscribe(result => {
-      result.forEach(deposit => {
+      let tmpResult = result;
+      if(!this.userData.admin) {
+        tmpResult = result.filter(deposit => {
+          deposit.user_id.indexOf(this.userData.uuid) != 0;
+        })
+      }
+      tmpResult.forEach(deposit => {
         if(deposit.type === 'cash') {
           this.depositCashList.push(deposit);
         } else {

@@ -39,7 +39,7 @@
                      (ionInput)="onInput($event)"
                      (ionCancel)="onCancel($event)">
       </ion-searchbar>
-      <button (click)="presentMemberListActionSheet()">
+      <button (click)="presentMemberListActionSheet()" *ngIf="userData.admin">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-row>
@@ -82,7 +82,7 @@
         </span>
       </div>
 
-      <ion-buttons style="margin-top: 10px;">
+      <ion-buttons style="margin-top: 10px;" *ngIf="userData.admin">
         <button ion-button (click)="openWalletDeposit('deposit:online')">
           Einzahlen
         </button>
@@ -90,17 +90,28 @@
           Auszahlen
         </button>
       </ion-buttons>
+
+      <ion-buttons style="margin-top: 10px;" *ngIf="!userData.admin">
+        <button ion-button (click)="openWalletDeposit('deposit:online')">
+          Einzahlen
+        </button>
+      </ion-buttons>
     </ion-row>
 
     <ion-row>
       <div style="font-size: 1.6rem;"><span class="light">Bar:</span> {{ teamData.balance || 0 | currency : "EUR" : 1 }}
       </div>
-      <ion-buttons style="margin-top: 10px;">
+      <ion-buttons style="margin-top: 10px;" *ngIf="userData.admin">
         <button ion-button (click)="openWalletDeposit('deposit:cash')">
           Einzahlen
         </button>
         <button ion-button outline (click)="openWalletPayout('payout:cash')">
           Auszahlen
+        </button>
+      </ion-buttons>
+      <ion-buttons style="margin-top: 10px;" *ngIf="!userData.admin">
+        <button ion-button (click)="openWalletDeposit('deposit:cash')">
+          Einzahlen
         </button>
       </ion-buttons>
     </ion-row>
@@ -110,7 +121,7 @@
         <ion-label>Einzahlungen</ion-label>
         <button ion-button outline item-end (click)="openDepositList()">anzeigen</button>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="userData.admin">
         <ion-label>Auszahlungen</ion-label>
         <button ion-button outline item-end (click)="openPayoutList()">anzeigen</button>
       </ion-item>
