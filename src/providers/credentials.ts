@@ -11,7 +11,7 @@ export class Credentials {
    }; */
 
   private api = {
-    dev: 'http://192.168.56.1:3000/api/v1',
+    dev: 'http://localhost:3000/api/v1',
     prod: ''
   };
 
