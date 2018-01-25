@@ -65,6 +65,8 @@ import {PayoutProvider} from "../providers/payout";
 import {DepositListPage} from "../pages/deposit-list/deposit-list";
 import {PayoutListPage} from "../pages/payout-list/payout-list";
 import { TransactionListPage } from '../pages/transaction-list/transaction-list';
+import {FCM} from "@ionic-native/fcm";
+import { PushProvider } from '../providers/push';
 
 @NgModule({
   declarations: [
@@ -184,7 +186,9 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
     BoardMessagesProvider,
     TransactionProvider,
     DepositProvider,
-    PayoutProvider
+    PayoutProvider,
+    FCM,
+    PushProvider
   ]
 })
 export class AppModule {}
