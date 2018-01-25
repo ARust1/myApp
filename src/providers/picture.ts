@@ -7,12 +7,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import { storage } from 'firebase';
 import {User} from "../models/user-model";
 
-/*
-  Generated class for the PictureProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class PictureProvider {
 
@@ -46,11 +41,12 @@ export class PictureProvider {
     } catch (e) {
       console.log(e);
     } finally {
-      result = {
-        base64Image: this.base64Image,
-        profileImg: this.profileImg
-      };
-
+      if(result) {
+        result = {
+          base64Image: this.base64Image,
+          profileImg: this.profileImg
+        };
+      }
     }
     return result;
 
@@ -77,11 +73,12 @@ export class PictureProvider {
     } catch (e) {
       console.log(e);
     } finally {
-      result = {
-        base64Image: this.base64Image,
-        profileImg: this.profileImg
-      };
-
+      if(result) {
+        result = {
+          base64Image: this.base64Image,
+          profileImg: this.profileImg
+        };
+      }
     }
     return result;
   }
