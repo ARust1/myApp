@@ -17,7 +17,6 @@ import {IdUploadPage} from "./id-upload/id-upload";
 import { Address } from 'angular-google-place';
 import {PictureProvider} from "../../providers/picture";
 import {FeedbackProvider} from "../../providers/feedback";
-import {Keyboard} from "@ionic-native/keyboard";
 
 @IonicPage()
 @Component({
@@ -49,8 +48,7 @@ export class SetupAccountPage {
               private actionSheetCtrl: ActionSheetController,
               private datePicker: DatePicker,
               private pictureService: PictureProvider,
-              private feedbackService: FeedbackProvider,
-              private keyboard: Keyboard) {
+              private feedbackService: FeedbackProvider) {
     this.userData = this.navParams.get('userData');
     this.teamData = new Team();
     this.userData.birthday = '26.12.1989';

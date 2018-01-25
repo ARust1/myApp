@@ -51,7 +51,6 @@ import {IdUploadPage} from "../pages/setup-account/id-upload/id-upload";
 import {AngularGooglePlaceModule} from "angular-google-place";
 import {TeamSetupPage} from "../pages/setup-account/team-setup/team-setup";
 import { PictureProvider } from '../providers/picture';
-import {Keyboard} from "@ionic-native/keyboard";
 import { PenaltyProvider } from '../providers/penalty';
 import { PenaltyAddPage } from '../pages/penalties/penalty-add/penalty-add';
 import { ModalUserAddPage } from '../pages/penalties/penalty-add/modal-user-add/modal-user-add';
@@ -181,7 +180,6 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
     ImagePicker,
     DatePicker,
     PictureProvider,
-    Keyboard,
     PenaltyProvider,
     BoardMessagesProvider,
     TransactionProvider,

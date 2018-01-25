@@ -11,21 +11,18 @@ import {FIREBASE_CONF} from "./app.firebase.config";
 import { User } from '../models/user-model';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { TabsPage } from '../pages/tabs/tabs';
-import {Keyboard} from "@ionic-native/keyboard";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   private rootPage:any = HomePage;
-  private Keyboard: any;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private app: App,
-              private credentials: Credentials,
-              private keyboard: Keyboard) {
+              private credentials: Credentials) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
