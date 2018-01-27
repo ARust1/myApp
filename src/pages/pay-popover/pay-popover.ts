@@ -7,6 +7,7 @@ import {Event} from "../../models/event-model";
 import {User} from "../../models/user-model";
 import {Penalty} from "../../models/penalty-model";
 import {PenaltyProvider} from "../../providers/penalty";
+import { PushProvider } from '../../providers/push';
 
 
 @IonicPage()
@@ -31,6 +32,7 @@ export class PayPopoverPage
               public penaltyService: PenaltyProvider,
               private alertCtrl: AlertController,
               private paymentService: PaymentProvider,
+              private pushService: PushProvider,
               public events: Events)
   {
     this.inviteData = this.navParams.get('inviteData');
@@ -127,6 +129,7 @@ export class PayPopoverPage
         console.log(err)
       }, () => {
         this.events.publish('event:cash');
+        this.sendPush(':cash');
       })
     }
     if(this.penaltyData) {
@@ -137,6 +140,7 @@ export class PayPopoverPage
         console.log(err)
       }, () => {
         this.events.publish('penalty:cash');
+        this.sendPush('penalty:cash');
       })
     }
 
@@ -192,6 +196,7 @@ export class PayPopoverPage
         }, err => {
           console.log(err);
         }, () => {
+          this.sendPush('event:online');
           this.feedbackService.dismissLoader();
           this.feedbackService.presentToast("Das Geld wurde überwiesen", 1500, 'bottom');
         });
@@ -209,6 +214,7 @@ export class PayPopoverPage
         }, err => {
           console.log(err);
         }, () => {
+          this.sendPush('penalty:online');
           this.feedbackService.dismissLoader();
           this.feedbackService.presentToast("Das Geld wurde überwiesen", 1500, 'bottom');
         });
@@ -216,4 +222,35 @@ export class PayPopoverPage
     }
   }
 
+  sendPush(type: string) {
+    let message: string = this.userData.prename + " " + this.userData.surname;
+    switch (type) {
+      case 'event:cash':
+        message += ' möchte den Ausflug ' + this.eventData.name + " Bar bezahlen";
+        break;
+      case 'event:balance':
+        message += ' hat den Ausflug ' + this.eventData.name + " Online bezahlt";
+        break;
+      case 'penalty:cash':
+        message += ' möchte die Strafe ' + this.penaltyData.name + " Bar bezahlen";
+        break;
+      case 'penalty:balance':
+        message += ' hat die Strafe ' + this.penaltyData.name + " Online bezahlt";
+        break;
+    }
+    let tokenArr: Array<any>;
+    this.pushService.getPushOfTeamWalletManager(this.userData.team_id).subscribe(token => {
+      console.log("token of wallet manager", token);
+      tokenArr = token;
+    }, err => {
+      console.error(err);
+    }, () => {
+      console.log("tokenArr", tokenArr);
+      this.pushService.sendPush(tokenArr, message).subscribe(result => {
+        console.log(result);
+      }, err => {
+        console.error(err);
+      })
+    })
+  }
 }

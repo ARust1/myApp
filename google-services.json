@@ -10,6 +10,37 @@
       "client_info": {
         "mobilesdk_app_id": "1:1014521322964:android:a18b589a810471a4",
         "android_client_info": {
+          "package_name": "com.mannschaftskasse.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014521322964-fbah6e3t952lcsfueb287dlmnnun7po1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCld2BH_HJ2TeQe5z1VtaMNbA5Jp-RQtsE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014521322964:android:764d2cb7da3280eb",
+        "android_client_info": {
           "package_name": "io.ionic.starter"
         }
       },

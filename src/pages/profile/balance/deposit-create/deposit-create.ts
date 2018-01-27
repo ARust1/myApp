@@ -7,6 +7,7 @@ import {TeamServiceProvider} from "../../../../providers/team-service";
 import {DepositProvider} from "../../../../providers/deposit";
 import {Credentials} from "../../../../providers/credentials";
 import {Deposit} from "../../../../models/stripe-payment-model";
+import { PushProvider } from '../../../../providers/push';
 
 @IonicPage()
 @Component({
@@ -37,6 +38,7 @@ export class DepositCreatePage {
               private paymentService: PaymentProvider,
               private teamService: TeamServiceProvider,
               private depositService: DepositProvider,
+              private pushService: PushProvider,
               private toastCtrl: ToastController,
               private events: Events,
               private credentials: Credentials) {
@@ -86,6 +88,11 @@ export class DepositCreatePage {
           }, err => {
             console.log(err);
           }, () => {
+
+            if(!this.currentUser.admin) {
+              this.sendPush();
+            }
+
             this.loadingActivated = false;
             this.depositSuccess = true;
             setTimeout(() => {
@@ -114,6 +121,11 @@ export class DepositCreatePage {
           }, err => {
             console.log(err);
           }, () => {
+
+            if(!this.currentUser.admin) {
+              this.sendPush();
+            }
+
             this.loadingActivated = false;
             this.depositSuccess = true;
             setTimeout(() => {
@@ -138,6 +150,11 @@ export class DepositCreatePage {
         }, err => {
           console.log(err);
         }, () => {
+
+          if(!this.currentUser.admin) {
+            this.sendPush();
+          }
+
           this.loadingActivated = false;
           this.depositSuccess = true;
           //this.events.publish('deposit:cash', this.depositData.amount);
@@ -148,8 +165,6 @@ export class DepositCreatePage {
         });
       })
     }
-
-
   }
 
   close() {
@@ -173,5 +188,18 @@ export class DepositCreatePage {
     });
 
     toast.present();
+  }
+
+  sendPush() {
+    this.pushService.getPushOfTeamWalletManager(this.currentUser.team_id).subscribe((tokens: Array<any>) => {
+      let message: string = this.currentUser.prename + " " + this.currentUser.surname + " hat " + this.depositData.amount + "€ in die Mannschaftskasse eingezahlt";
+      this.pushService.sendPush(tokens, message).subscribe(result => {
+        console.log(result);
+      }, err => {
+        console.error(err);
+      })
+    }, err => {
+      console.error(err);
+    });
   }
 }

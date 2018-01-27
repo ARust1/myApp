@@ -90,4 +90,18 @@ router.put('/:id/balance', function(req, res, next) {
   })
 });
 
+router.patch('/:id/laundry', function(req, res, next) {
+  var team_id = req.body.team_id;
+  User.resetLaundry(team_id, function(err, result) {
+    if(err) return res.json(err);
+    console.log(result);
+    if(result) {
+      User.setLaundryService(req.params.id, function(err, result) {
+        if(err) return res.json(err);
+        res.json(result);
+      })
+    }
+  })
+});
+
 module.exports = router;

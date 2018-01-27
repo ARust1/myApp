@@ -56,4 +56,10 @@ export class UserServiceProvider extends GenericProvider<User>{
       amount: amount
     });
   }
+
+  setLaundry(uuid: string, team_id: string): Observable<User> {
+    return this.patchRequest(this.buildUrl('/user/'+uuid+'/laundry'), {
+      team_id: team_id
+    });
+  }
 }

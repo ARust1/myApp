@@ -13,7 +13,7 @@ var User = {
   },
   getUserByTeamId:function(team_id, callback){
     return db.query("SELECT uuid," +
-      "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img, balance " +
+      "email, prename, surname, admin, back_number, position, accountToken, birthday, profile_img, balance, laundry " +
       "FROM user where team_id = ? ORDER BY admin DESC ",[team_id],callback);
   },
   getUserByEmail: function(email, callback) {
@@ -40,6 +40,12 @@ var User = {
   },
   updateUserBalance: function (uuid, amount, callback) {
     return db.query('UPDATE user SET balance = balance + ? WHERE uuid = ?;', [amount, uuid], callback);
+  },
+  resetLaundry(team_id, callback) {
+    return db.query("UPDATE user SET laundry = 0 WHERE team_id = ?;", [team_id], callback);
+  } ,
+  setLaundryService: function(user_id, callback) {
+    return db.query("UPDATE user set laundry = 1 WHERE uuid = ?;", [user_id], callback);
   }
 };
 

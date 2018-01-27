@@ -49,6 +49,15 @@ export class GenericProvider<T> {
         .catch(this.catchError);
   }
 
+  patchRequest(url, data): Observable<T> {
+    let token = this.credentials.getToken();
+      let options = this.credentials.buildOptions(token);
+      return this.http.patch(url, JSON.stringify(data) ,options)
+        .do(this.logResponse)
+        .map(this.extractData)
+        .catch(this.catchError);
+  }
+
   deleteRequest(url): Observable<T> {
     let token = this.credentials.getToken();
       let options = this.credentials.buildOptions(token);

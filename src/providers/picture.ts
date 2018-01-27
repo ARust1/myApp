@@ -41,12 +41,10 @@ export class PictureProvider {
     } catch (e) {
       console.log(e);
     } finally {
-      if(result) {
         result = {
           base64Image: this.base64Image,
           profileImg: this.profileImg
         };
-      }
     }
     return result;
 

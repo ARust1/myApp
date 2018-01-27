@@ -32,7 +32,7 @@
         <div class="penalty-user">
           <span class="name" *ngIf="userData.admin">{{penalty.user.prename}} {{penalty.user.surname}}</span>
           <span class="penalty-amount" *ngIf="userData.admin">
-            <span class="amount">{{ penalty.amount }} €</span>
+            <span class="amount">{{ penalty.amount || 0 | currency : "EUR" : 1 }} €</span>
             <button ion-button outline *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 0 && penalty.paymentMethod === 0" (click)="openPayPopover(penalty)">Bezahlen</button>
             <button ion-button *ngIf="penalty.user.uuid === userData.uuid && penalty.paid === 1">Bezahlt</button>
           </span>
@@ -43,7 +43,8 @@
           </div>
         </div>
         <div class="payment-accept">
-          <button ion-button outline *ngIf="penalty.paid === 0 && penalty.paymentMethod === 1" (click)="acceptPayment(penalty)">Bezahlung bestätigen</button>
+          <button ion-button outline *ngIf="userData.admin && penalty.paid === 0 && penalty.paymentMethod === 1" (click)="acceptPayment(penalty)">Barzahlung bestätigen</button>
+          <button ion-button outline *ngIf="!userData.admin && penalty.paid === 0 && penalty.paymentMethod === 1">auf Bestätigung warten</button>
         </div>
       </ion-label>
     </ion-item>

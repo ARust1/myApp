@@ -10,6 +10,7 @@ import {PayPopoverPage} from "../../pay-popover/pay-popover";
 import {TeamServiceProvider} from "../../../providers/team-service";
 import {Team} from "../../../models/team-model";
 import {EventParticipationPage} from "./event-participation/event-participation";
+import { PushProvider } from '../../../providers/push';
 
 
 
@@ -38,7 +39,8 @@ export class EventDetailPage {
               public eventInviteService: EventInviteProvider,
               public feedbackService: FeedbackProvider,
               public popoverCtrl: PopoverController,
-              public teamService: TeamServiceProvider) {
+              public teamService: TeamServiceProvider,
+              private pushService: PushProvider) {
 
     this.inviteData = this.navParams.get('inviteData');
     this.eventData = this.navParams.get('eventData');
@@ -85,6 +87,9 @@ export class EventDetailPage {
       console.log(err);
     }, () => {
       this.buildStatistic();
+      if(!this.userData.admin) {
+        this.sendPush("accept");
+      }
     });
   }
 
@@ -96,6 +101,9 @@ export class EventDetailPage {
       console.log(err);
     }, () => {
       this.buildStatistic();
+      if(!this.userData.admin) {
+        this.sendPush("decline");
+      }
     });
   }
 
@@ -104,7 +112,7 @@ export class EventDetailPage {
       this.feedbackService.presentToast("Sie müssen dem Ausflug erst zusagen bevor Sie bezahlen können", 1500, 'middle');
     } else {
       if(this.inviteData.paid != 0 || this.inviteData.paymentMethod != 0) {
-        this.feedbackService.presentToast("Sie haben bereits eine Bezahlung angegeben",1500, 'middle');
+        this.feedbackService.presentToast("Sie haben bereits eine Bezahlung angegeben", 1500, 'middle');
       } else {
         let popover = this.popoverCtrl.create(PayPopoverPage, {
           inviteData: this.inviteData,
@@ -165,6 +173,29 @@ export class EventDetailPage {
           this.badgeCount++;
           break;
       }
+    })
+  }
+
+  sendPush(type: string) {
+    let message: string = this.userData.prename + " " + this.userData.surname + " hat dem Ausflug ";
+    if(type === 'accept') {
+      message += "zugesat";
+    } else {
+      message += "abgesagt";
+    }
+    let tokenArr: Array<any>;
+    this.pushService.getPushOfTeamWalletManager(this.userData.team_id).subscribe(token => {
+      console.log("token of wallet manager", token);
+      tokenArr = token;
+    }, err => {
+      console.error(err);
+    }, () => {
+      console.log("tokenArr", tokenArr);
+      this.pushService.sendPush(tokenArr, message).subscribe(result => {
+        console.log(result);
+      }, err => {
+        console.error(err);
+      })
     })
   }
 }

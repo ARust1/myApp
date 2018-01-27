@@ -1,4 +1,5 @@
 page-wallet {
+  color: rgb(20, 23, 26)  !important;
   [padding] {
     padding: 12px !important;
   }
@@ -13,7 +14,7 @@ page-wallet {
     padding-top: 10px !important;
     h4 {
       margin-left: 16px;
-      font-weight: 300;
+      font-weight: 700;
       color: #000;
       width: 100%;
       line-height: 31px !important;
@@ -43,7 +44,7 @@ page-wallet {
     }
   }
   .scroll-content {
-    margin-top: 120px !important;
+    margin-top: 149px !important;
   }
   ion-content {
     .team-balance-options {
@@ -119,19 +120,6 @@ page-wallet {
         }
       }
     }
-    .no-team {
-      display: flex;
-      height: 100%;
-      ion-grid {
-        align-self: center;
-
-        ion-row:nth-child(1) {
-          font-size: 29px;
-          font-weight: 700;
-          margin-bottom: 30px;
-        }
-      }
-    }
   }
 
   .pending-balance {
@@ -167,9 +155,13 @@ page-wallet {
   }
 
   .user-list {
+    .label-md {
+      margin: 17px 8px 17px 0;
+    }
     .profile-pic {
       width: 45px;
       height: 45px;
+      margin-right: 20px;
     }
     .user-name {
       font-weight: 600;
@@ -192,62 +184,25 @@ page-wallet {
     }
 
     button {
-      height: 2.9rem !important;
+      font-weight: 700;
     }
-  }
-
-  ion-toolbar {
-    margin-top: 0 !important;
   }
 
   ion-list {
     text-align: center;
     border-top: 1px solid #E4E4E4;
-  }
 
-
-  .bank-account-container {
-    .bank-account-details {
-      padding: 0 5vw 0 !important;
-      margin-bottom: 15px;
-
-      .bank-account-wrapper {
-        letter-spacing: 1px;
-        font-weight: 300;
-        font-size: 15px;
-        padding: 20px 30px;
-        color: #ffffff;
-        height:165px;
-        border-radius: 8px;
-        background: #00c6ff;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        box-shadow: 0px 15px 23px -6px rgba(0,0,0,0.31) !important;
-        display: flex;
-        flex-flow: column;
-      }
-      div {
-        text-align: left;
-      }
-
-      .bank-name {
-        align-self: flex-end;
-      }
-
-      .bank-account-holder {
-        font-size: 16px;
-        margin-top: auto;
-        padding-bottom: 10px;
-      }
-
-      .bank-iban {
-        font-size: 16px;
-      }
+    button {
+      background-color: transparent !important;
+      transform: rotate(90deg);
     }
   }
 
   ion-row {
     display: block !important;
+    button[ion-button] {
+      padding: 5px 40px !important;
+    }
   }
 
   .search-row {
@@ -259,6 +214,29 @@ page-wallet {
       display: inline-flex !important;
     }
   }
+
+  ion-toolbar {
+    padding: 0 16px !important;
+    ion-segment {
+      height: 38px !important;
+      margin-top: 20px !important;
+    }
+  }
+
+  .ion-md-settings:before,
+  .ion-ios-settings:before,
+  .ion-ios-settings-outline:before {
+    content: url('../assets/icon/settings.svg');
+  }
+
+  .laundry-mark {
+    position: absolute;
+    width: 35px;
+    top: 1px;
+    left: 47px;
+
+  }
+  
 }
 
 

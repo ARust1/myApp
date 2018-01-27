@@ -8,6 +8,7 @@ import { ModalController } from 'ionic-angular/components/modal/modal-controller
 import { FeedbackProvider } from '../../../providers/feedback';
 import { Events } from 'ionic-angular/util/events';
 import {UserServiceProvider} from "../../../providers/user-service";
+import { PushProvider } from '../../../providers/push';
 
 @IonicPage()
 @Component({
@@ -29,6 +30,7 @@ export class PenaltyAddPage {
               private modalCtrl: ModalController,
               private feedbackService: FeedbackProvider,
               private userService: UserServiceProvider,
+              private pushService: PushProvider,
               public events: Events) {
     this.userData = this.navParams.get('userData');
     this.penaltyData = new Penalty();
@@ -90,6 +92,7 @@ export class PenaltyAddPage {
           }, err => {
             console.log(err);
           }, () => {
+            this.sendPush();
             this.events.publish('penalty:created', penaltyData);
             console.log(this.events);
             this.navCtrl.pop();
@@ -99,5 +102,23 @@ export class PenaltyAddPage {
       } else {
         this.feedbackService.presentAlert("Falsche Eingabe", "Alle Felder müssen ausgefüllt werden");
       }
+  }
+
+  sendPush() {
+    let message: string = this.penaltyData.name;
+    let tokenArr: Array<any>;
+    this.pushService.getPushTokenByUser(this.penaltyUser.uuid).subscribe(token => {
+      console.log("token", token);
+      tokenArr = token;
+    }, err => {
+      console.error(err);
+    }, () => {
+      console.log("tokenArr", tokenArr);
+      this.pushService.sendPush(tokenArr, message).subscribe(result => {
+        console.log(result);
+      }, err => {
+        console.error(err);
+      })
+    })
   }
 }

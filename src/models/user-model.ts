@@ -17,6 +17,7 @@ export class User {
   public balance: number;
   public accountToken: string;
   public profile: Profile;
+  public laundry?: boolean;
 }
 
 export class Profile {

@@ -12,7 +12,7 @@
 
 .tab-button[aria-selected="true"] {
   .tab-button-text {
-    color: $font-grey !important;
+    color: #56CCF2 !important;
   }
 }
 
@@ -25,7 +25,7 @@
   text-transform: uppercase !important;
   font-weight:700 !important;
   letter-spacing:0.4px !important;
-  color: $logo-grey !important;
+  color:  rgb(102, 117, 127) !important;
   font-size: 9px !important;
   margin-top: -2px !important;
 }
@@ -34,43 +34,88 @@
   min-height:45px !important;
 
   ion-icon {
-    padding-bottom: 8px;
+    min-width: 30px !important;
   }
 }
 
 .tab-button-icon:before {
+  transition: .3s all;
   display: block;
-  width: 20px;
-  height:20px;
-  margin: auto;
+  width: 30px;
+  height:30px;
+  margin: 0 auto;
+}
+
+.tab-button[aria-selected="true"] {
+  .ion-md-wallet:before,
+  .ion-ios-wallet:before,
+  .ion-ios-wallet-outline:before {
+    content: url('../assets/icon/wallet.svg');
+  }
+  
+  .ion-md-events:before,
+  .ion-ios-events:before,
+  .ion-ios-events-outline:before {
+    content: url('../assets/icon/calendar.svg');
+  }
+  
+  .ion-md-profile:before,
+  .ion-ios-profile:before,
+  .ion-ios-profile-outline:before {
+    content: url('../assets/icon/user.svg');
+  }
+  
+  .ion-md-penalties:before,
+  .ion-ios-penalties:before,
+  .ion-ios-penalties-outline:before {
+    content: url('../assets/icon/referee.svg');
+  }
+  
+  .ion-md-debt:before,
+  .ion-ios-debt:before,
+  .ion-ios-debt-outline:before {
+    content: url('../assets/icon/list.svg');
+  }
+  
+  .ion-md-list:before,
+  .ion-ios-list:before,
+  .ion-ios-list-outline:before {
+    content: url('../assets/icon/message.svg');
+  }
 }
 
 .ion-md-wallet:before,
 .ion-ios-wallet:before,
 .ion-ios-wallet-outline:before {
-  content: url('../assets/icon/wallet.svg');
+  content: url('../assets/icon/wallet_unselec.svg');
 }
 
 .ion-md-events:before,
 .ion-ios-events:before,
 .ion-ios-events-outline:before {
-  content: url('../assets/icon/calendar.svg');
+  content: url('../assets/icon/calendar_unselec.svg');
 }
 
 .ion-md-profile:before,
 .ion-ios-profile:before,
 .ion-ios-profile-outline:before {
-  content: url('../assets/icon/user.svg');
+  content: url('../assets/icon/user_unselec.svg');
 }
 
 .ion-md-penalties:before,
 .ion-ios-penalties:before,
 .ion-ios-penalties-outline:before {
-  content: url('../assets/icon/referee.svg');
+  content: url('../assets/icon/referee_unselec.svg');
 }
 
 .ion-md-debt:before,
 .ion-ios-debt:before,
 .ion-ios-debt-outline:before {
   content: url('../assets/icon/list.svg');
+}
+
+.ion-md-list:before,
+.ion-ios-list:before,
+.ion-ios-list-outline:before {
+  content: url('../assets/icon/message_unselec.svg');
 }

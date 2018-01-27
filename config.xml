@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <name>Mannschaftskasse</name>
+    <description>An awesome App to administrate a Team Wallet.</description>
+    <author email="me@alexanderrust.de" href="http://alexanderrust.de   /">Alexander Rust</author>
+    <content original-src="index.html" src="http://192.168.0.73:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -20,7 +20,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="StatusBarBackgroundColor" value="#ffffff" />
+    <preference name="StatusBarBackgroundColor" value="#E4E4E4" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -41,6 +41,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -77,7 +78,9 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <resource-file src="google-services.json" target="google-services.json" />
     </platform>
+    <allow-navigation href="http://192.168.0.73:8101" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-clipboard" spec="^1.1.1" />
@@ -91,4 +94,9 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Profil Foto" />
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <plugin name="phonegap-plugin-push" spec="^2.1.2">
+        <variable name="FCM_VERSION" value="11.0.1" />
+        <variable name="1014521322964" value="1:956432534015:android:df201d13e7261425" />
+        <variable name="SENDER_ID" value="1:1014521322964:android:764d2cb7da3280eb" />
+    </plugin>
 </widget>

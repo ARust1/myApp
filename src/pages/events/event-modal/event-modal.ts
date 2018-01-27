@@ -4,12 +4,12 @@ import {
 } from 'ionic-angular';
 import {Event} from "../../../models/event-model";
 import {User} from "../../../models/user-model";
-import {DatePickerPage} from "./date-picker/date-picker";
 import {EventInviteListPage} from "../event-invite-list/event-invite-list";
 import {EventServiceProvider} from "../../../providers/event-service";
 import {EventInviteProvider} from "../../../providers/event-invite";
 import {DatePicker} from "@ionic-native/date-picker";
 import * as moment from "moment";
+import { PushProvider } from '../../../providers/push';
 
 @IonicPage()
 @Component({
@@ -32,7 +32,8 @@ export class EventModalPage {
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController,
               private datePicker: DatePicker,
-              public eventInviteService: EventInviteProvider) {
+              public eventInviteService: EventInviteProvider,
+              private pushService: PushProvider) {
     this.deleteList = [];
   }
 
@@ -74,12 +75,25 @@ export class EventModalPage {
   }
 
   persistInviteList(event_id) {
+    let message: string = "Du wurdest zum Ausflug " + this.eventData.name + " eingeladen.";
     this.inviteList.map(invite => {
       this.eventInviteService.addEventInvite(invite.uuid, event_id).subscribe((result: any) => {
       }, (err: any) => {
         console.log(err);
+      }, () => {
+        this.pushService.getPushTokenByUser(invite.uuid).subscribe(token => {
+          console.log("Token per User", token);
+          this.pushService.sendPush(token, message).subscribe(result => {
+            console.log(result);
+          }, err => {
+            console.error(err);
+          })
+        }, err => {
+          console.error(err);
+        })
       });
     });
+    
   }
 
   dismiss() {

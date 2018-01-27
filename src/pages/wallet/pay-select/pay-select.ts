@@ -9,6 +9,7 @@ import {TransactionProvider} from "../../../providers/transaction";
 import {TeamServiceProvider} from "../../../providers/team-service";
 import {UserServiceProvider} from "../../../providers/user-service";
 import {Subscription} from "rxjs";
+import { PushProvider } from '../../../providers/push';
 
 @IonicPage()
 @Component({
@@ -31,16 +32,15 @@ export class PaySelectPage {
               private paymentService: PaymentProvider,
               private transactionService: TransactionProvider,
               private teamService: TeamServiceProvider,
-              private userService: UserServiceProvider) {
+              private userService: UserServiceProvider,
+              private pushService: PushProvider) {
+
     this.transactionData = new Transaction();
     this.transactionUser = this.navParams.get('transactionUser');
     this.teamData = this.navParams.get('teamData');
     this.transactionData.recipient = this.transactionUser.prename + " " + this.transactionUser.surname;
     this.transactionData.team_id = this.teamData.uuid;
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PaySelectPage');
   }
 
   close() {
@@ -67,6 +67,7 @@ export class PaySelectPage {
         }, err => {
           console.log(err);
         }, () => {
+          this.sendPush();
           this.feedbackService.dismissLoader();
           this.viewCtrl.dismiss();
         })
@@ -89,6 +90,7 @@ export class PaySelectPage {
             console.log(err);
             this.teamSubscription.unsubscribe();
           }, () => {
+            this.sendPush();
             this.teamData.balance -= this.transactionData.amount;
             this.feedbackService.dismissLoader();
             this.viewCtrl.dismiss();
@@ -96,6 +98,25 @@ export class PaySelectPage {
         })
       })
     }
+  }
+
+  sendPush() {
+    this.pushService.getPushOfUserByStripeToken(this.transactionUser.accountToken).subscribe((tokens: Array<any>) => {
+      let message: string = null;
+      if(this.type === 'cash') {
+        message = "Dir wurden " + this.transactionData.amount + "€ auf dein Bar Guthaben überwiesen";
+      }
+      if(this.type === 'balance') {
+        message = "Dir wurden " + this.transactionData.amount + "€ auf dein Online Guthaben überwiesen";
+      }
+      this.pushService.sendPush(tokens, message).subscribe(result => {
+        console.log(result);
+      }, err => {
+        console.error(err);
+      })
+    }, err => {
+      console.error(err);
+    });
   }
 
 }

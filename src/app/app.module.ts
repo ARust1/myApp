@@ -11,7 +11,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { Clipboard } from '@ionic-native/clipboard';
 import { CalendarModule } from "ion2-calendar";
 import { IonicStorageModule } from '@ionic/storage';
-import {DatePickerPage} from "../pages/events/event-modal/date-picker/date-picker";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -65,6 +64,8 @@ import {PayoutProvider} from "../providers/payout";
 import {DepositListPage} from "../pages/deposit-list/deposit-list";
 import {PayoutListPage} from "../pages/payout-list/payout-list";
 import { TransactionListPage } from '../pages/transaction-list/transaction-list';
+import { Push } from '@ionic-native/push';
+import { PushProvider } from '../providers/push';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,6 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
     EventModalPage,
     EventDetailPage,
     EventParticipationPage,
-    DatePickerPage,
     EventInviteListPage,
     AccountPage,
     PaymentListPage,
@@ -120,6 +120,8 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
       iconMode: 'ios',
       modalLeave: 'modal-slide-out',
       modalEnter: 'modal-slide-in',
+      actionSheetEnter: 'action-sheet-slide-in',
+      actionSheetLeave: 'action-sheet-slide-out'
     }),
     IonicStorageModule.forRoot(),
     AngularGooglePlaceModule
@@ -142,7 +144,6 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
     EventModalPage,
     EventDetailPage,
     EventParticipationPage,
-    DatePickerPage,
     EventInviteListPage,
     AccountPage,
     PaymentListPage,
@@ -184,7 +185,9 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
     BoardMessagesProvider,
     TransactionProvider,
     DepositProvider,
-    PayoutProvider
+    PayoutProvider,
+    Push,
+    PushProvider
   ]
 })
 export class AppModule {}

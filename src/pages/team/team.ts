@@ -4,6 +4,7 @@ import {User} from "../../models/user-model";
 import {BoardMessagesProvider} from "../../providers/board-messages";
 import {BoardMessage} from "../../models/boardmessage-model";
 import * as moment from "moment";
+import { PushProvider } from '../../providers/push';
 /**
  * Generated class for the DebtPage page.
  *
@@ -28,6 +29,7 @@ export class TeamPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private boardMessageService: BoardMessagesProvider,
+              private pushService: PushProvider,
               public element:ElementRef) {
     moment.locale("de");
     this.userData = this.navParams.data;
@@ -80,7 +82,17 @@ export class TeamPage {
       this.message = '';
       this.textArea.style.height = '38px';
       this.scrollToBottom();
+      this.sendPushToTeam();
     })
+  }
+
+  sendPushToTeam() {
+    let message: string = "Neuer Pinnwand Eintrag";
+    this.pushService.sendPushToTopic(this.userData.team_id, message).subscribe(result => {
+      console.log(result);
+    }, err => {
+      console.error(err);
+    }); 
   }
 
 }

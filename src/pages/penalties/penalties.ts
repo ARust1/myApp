@@ -9,6 +9,7 @@ import {UserServiceProvider} from "../../providers/user-service";
 import {PayPopoverPage} from "../pay-popover/pay-popover";
 import {TeamServiceProvider} from "../../providers/team-service";
 import {FeedbackProvider} from "../../providers/feedback";
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 
 @IonicPage()
 @Component({
@@ -31,6 +32,7 @@ export class PenaltiesPage {
               private teamService: TeamServiceProvider,
               private feedbackService: FeedbackProvider,
               private actionSheetCtrl: ActionSheetController,
+              private modalCtrl: ModalController,
               public events: Events) {
     this.userData = this.navParams.data;
     this.events.subscribe('penalty:created', (penaltyData: Penalty) => {
@@ -114,14 +116,14 @@ export class PenaltiesPage {
 
   openPayPopover(penaltyData: Penalty) {
     console.log(this.userData);
-    let popover = this.popoverCtrl.create(PayPopoverPage, {
+    let modal = this.modalCtrl.create(PayPopoverPage, {
       userData: this.userData,
       penaltyData: penaltyData,
       stripeAccountBalance: this.stripeAccountBalance
     });
-    popover.present();
+    modal.present();
 
-    popover.onDidDismiss(data => {
+    modal.onDidDismiss(data => {
       if(data) {
         console.log(data);
       }
@@ -132,7 +134,6 @@ export class PenaltiesPage {
     console.log('Begin async operation', refresher);
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
   }

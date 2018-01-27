@@ -18,6 +18,7 @@ import {DepositListPage} from "../deposit-list/deposit-list";
 import {PayoutListPage} from "../payout-list/payout-list";
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { TransactionListPage } from '../transaction-list/transaction-list';
+import { PushProvider } from '../../providers/push';
 
 @Component({
   selector: 'page-wallet',
@@ -47,6 +48,7 @@ export class WalletPage {
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController,
               public actionSheetCtrl: ActionSheetController,
+              private pushService: PushProvider,
               public events: Events) {
     this.userData = this.navParams.get('userData');
 
@@ -317,5 +319,119 @@ export class WalletPage {
       this.getUserByTeamId(this.userData.team_id);
     }
 
+  }
+
+  presentSettingsActionSheet() {
+    let buttons = [
+      {
+        text: 'Einzahlungen anzeigen',
+        handler: () => {
+          this.openDepositList();
+        }
+      },
+      {
+        text: 'Auszahlungen anzeigen',
+        handler: () => {
+          this.openPayoutList();
+        }
+      },
+      {
+        text: 'Überweisungen anzeigen',
+        handler: () => {
+          this.goToTransactionList();
+        }
+      },
+      
+      {
+        text: 'Abbrechen',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }
+    ]
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: buttons
+    });
+    if(this.bankAccountData) {
+      buttons.push(
+        {
+          text: 'Bankkonto anzeigen',
+          handler: () => {
+          }
+        },
+      );
+    } else {
+      buttons.push(
+        {
+          text: 'Bankkonto hinzufügen',
+          handler: () => {
+            this.goToAddBankAccount()
+          }
+        },
+      );
+    }
+
+    actionSheet.present();
+  }
+
+  presentUserListActionSheet(user: User) {
+    let buttons = [
+      
+      {
+        text: 'Wäschedienst zuweisen',
+        handler: () => {
+          this.setLaundry(user);
+        }
+      },
+      {
+        text: 'Abbrechen',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }
+    ]
+    if(this.userData.admin) {
+      buttons.unshift(
+        {
+          text: 'Überweisen',
+          handler: () => {
+            this.openPaySelectPopover(user);
+          }
+        },
+      );
+    }
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: buttons
+    });
+    
+
+    actionSheet.present();
+  }
+
+  setLaundry(user: User) {
+    let oldLaundryUser: any = this.teamUser.filter((user: any) => {
+      return user.laundry == true;
+    });
+    console.log(oldLaundryUser);
+    this.userService.setLaundry(user.uuid, this.userData.team_id).subscribe(result => {
+      console.log(result);
+      oldLaundryUser[0].laundry = false;
+      user.laundry = true;
+    }, err => {
+      console.error(err);
+    }, () => {
+      let message: string = 'Du hast Wäschedienst!';
+      this.pushService.getPushTokenByUser(user.uuid).subscribe(token => {
+        console.log(token);
+        this.pushService.sendPush(token, message).subscribe(result => {
+        }, err => {
+          console.error(err);
+        })
+      }, err => {
+        console.error(err);
+      })
+    }) 
   }
 }

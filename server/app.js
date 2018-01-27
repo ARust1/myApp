@@ -15,6 +15,7 @@ var Transaction = require('./routes/Transaction');
 var Deposit = require('./routes/Deposit');
 var Payout = require('./routes/Payout');
 var BoardMessages = require('./routes/BoardMessages');
+var PushToken = require('./routes/PushToken');
 var app = express();
 
 var expressJWT = require('express-jwt');
@@ -53,6 +54,7 @@ app.use(apiUrl + '/boardMessages', BoardMessages);
 app.use(apiUrl + '/transactions', Transaction);
 app.use(apiUrl + '/deposits', Deposit);
 app.use(apiUrl + '/payouts', Payout);
+app.use(apiUrl + '/pushTokens', PushToken);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
