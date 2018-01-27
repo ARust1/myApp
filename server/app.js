@@ -14,6 +14,7 @@ var Penalty = require('./routes/Penalty');
 var Transaction = require('./routes/Transaction');
 var Deposit = require('./routes/Deposit');
 var Payout = require('./routes/Payout');
+var PushToken = require('./routes/PushToken');
 var BoardMessages = require('./routes/BoardMessages');
 var PushToken = require('./routes/PushToken');
 var app = express();

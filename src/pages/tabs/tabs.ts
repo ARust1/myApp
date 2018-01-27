@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, App, Events} from 'ionic-angular';
+import {NavController, NavParams, App, Events, Platform} from 'ionic-angular';
 
 import { ProfilePage } from '../profile/profile';
 import { EventsPage } from '../events/events';
@@ -45,6 +45,15 @@ export class TabsPage {
       this.navCtrl.setRoot(HomePage);
     }
 
+    if(this.platform.is('android')) {
+      if(this.userData) {
+        this.pushService.saveToken(this.userData.uuid, this.userData.team_id);
+      }
+      this.pushService.onNotification();
+    } else {
+      console.log("nischt cordova");
+    }
+
     events.subscribe('event:cash', () => {
       // user and time are the same arguments passed in `events.publish(user, time)`
       this.eventsBadge += 1;
@@ -66,6 +75,10 @@ export class TabsPage {
         this.userData = result;
       }, (error: any) => {
         console.log(error);
+      }, () => {
+        if(this.platform.is('android')) {
+          this.pushService.saveToken(this.userData.uuid, this.userData.team_id);
+        }
       });
   }
 
