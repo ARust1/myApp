@@ -5,15 +5,44 @@
 </ion-header>
 
 <ion-content padding no-bounce>
-  <form>
+  <form [formGroup]="registerForm" (ngSubmit)="doSignup()">
+    <!-- Email Field -->
     <ion-item>
-      <ion-input [(ngModel)]="regData.email" name="email" type="text" placeholder="Email" ></ion-input>
+      <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+      <ion-icon *ngIf="registerForm.controls.email.valid" name="ios-checkmark-outline" item-end color="green"></ion-icon>
+      <ion-icon *ngIf="invalid || !registerForm.controls.email.valid && registerForm.controls.email.touched" name="ios-close-circle-outline" item-end color="danger"></ion-icon>
     </ion-item>
+    <div class="form-error-container animated shake" *ngIf="invalid || registerForm.controls.email.hasError('required') 
+                          && registerForm.controls.email.touched">
+      <span>Email erforderlich.</span>
+  </div>
+    <div class="form-error-container animated shake" *ngIf="registerForm.controls.email.hasError('email') 
+                          && registerForm.controls.email.touched
+                          && !registerForm.controls.email.hasError('required')">
+      <span>Ungültige Email Adresse.</span>
+    </div>
+
+
+    <!-- Password Field -->
     <ion-item>
-      <ion-input [(ngModel)]="regData.password" name="password" type="password" placeholder="Password"></ion-input>
+      <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+      <ion-icon *ngIf="registerForm.controls.password.valid" name="ios-checkmark-outline" item-end color="green"></ion-icon>
+      <ion-icon *ngIf="invalid || !registerForm.controls.password.valid && registerForm.controls.password.touched" name="ios-close-circle-outline" item-end color="danger"></ion-icon>
     </ion-item>
-    <button ion-button (click)="doSignup()">
+    <div class="form-error-container animated shake" *ngIf="invalid || registerForm.controls.password.hasError('required') 
+                          && registerForm.controls.password.touched">
+      <span>Passwort erforderlich.</span>
+  </div>
+    <div class="form-error-container animated shake" *ngIf="registerForm.controls.password.hasError('minlength') 
+                          && registerForm.controls.password.touched
+                          && !registerForm.controls.password.hasError('required')">
+      <span>Ey! Das Passwort muss mindestens 6 Zeichen lang sein</span>
+    </div>
+
+
+    <button ion-button type="submit">
       Registrieren
     </button>
   </form>
 </ion-content>
+

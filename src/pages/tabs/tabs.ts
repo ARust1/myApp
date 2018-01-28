@@ -69,7 +69,10 @@ export class TabsPage {
   }
 
   handlePushNotifications() {
-    let userData: User = this.credentials.getUser();
+    let userData: User = this.credentials.getUser() || this.userData;
+    if(!userData) {
+      this.navCtrl.setRoot(HomePage);
+    }
     this.platform.ready().then(() => {
       if (this.platform.is('cordova')) {
         try {

@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.73:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -99,4 +99,5 @@
         <variable name="1014521322964" value="1:956432534015:android:df201d13e7261425" />
         <variable name="SENDER_ID" value="1:1014521322964:android:764d2cb7da3280eb" />
     </plugin>
+    <plugin name="cordova-plugin-sim" spec="^1.3.3" />
 </widget>

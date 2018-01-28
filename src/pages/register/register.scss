@@ -1,6 +1,6 @@
 page-register {
   button[ion-button] {
-    background-color: #80CBC4 !important;
+    background-color: #56CCF2 !important;
   }
   .button {
     width: 80%;
@@ -8,5 +8,17 @@ page-register {
   }
   .scroll-content {
     padding-top: 40% !important;
+  }
+
+  .form-error-container {
+    width: 100%;
+    color: #ff5a5f;
+    font-size: 1.2rem;
+    font-weight: 300;
+    padding-left: 16px;
+    margin-top: 5px;
+    .form-error-msg {
+
+    }
   }
 }

@@ -66,6 +66,7 @@ import {PayoutListPage} from "../pages/payout-list/payout-list";
 import { TransactionListPage } from '../pages/transaction-list/transaction-list';
 import { Push } from '@ionic-native/push';
 import { PushProvider } from '../providers/push';
+import { Sim } from '@ionic-native/sim';
 
 @NgModule({
   declarations: [
@@ -187,7 +188,8 @@ import { PushProvider } from '../providers/push';
     DepositProvider,
     PayoutProvider,
     Push,
-    PushProvider
+    PushProvider,
+    Sim
   ]
 })
 export class AppModule {}
