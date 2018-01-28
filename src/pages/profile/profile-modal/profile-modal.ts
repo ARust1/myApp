@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController, ViewController} from 'ionic-angular';
 import {User} from "../../../models/user-model";
 import {UserServiceProvider} from "../../../providers/user-service";
+import { PictureProvider } from '../../../providers/picture';
 
 /**
  * Generated class for the ProfileModalPage page.
@@ -23,8 +24,10 @@ export class ProfileModalPage {
               public toastCtrl: ToastController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
-              public userService: UserServiceProvider) {
-    this.userData = this.navParams.get('data');
+              public userService: UserServiceProvider,
+              private pictureService: PictureProvider) {
+    this.userData = this.navParams.get('userData');
+    console.log("profile edit", this.userData);
   }
 
   dismiss() {
@@ -37,6 +40,25 @@ export class ProfileModalPage {
     }, (err) => {
       this.presentToast(err);
     })
+  }
+
+  setProfileImg() {
+    this.pictureService.getPictures().then(result => {
+      if(result) {
+        this.userData.profile.profileImg = result.profileImg;
+      }
+      this.pictureService.saveImgToFirebaseStorage(this.userData, result.base64Image).then(result => {
+        this.userService.saveProfileImg(this.userData.uuid, result.downloadURL).subscribe(result => {
+        }, (err: any) => {
+          console.log("ERR");
+          console.log(err.toString());
+        })
+      }, (err: any) => {
+        console.log(err);
+      });
+    }, (err: any) => {
+      console.log(err);
+    });
   }
 
   presentToast(msg) {

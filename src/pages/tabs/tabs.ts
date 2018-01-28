@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams, App, Events, Platform} from 'ionic-angular';
-
 import { ProfilePage } from '../profile/profile';
 import { EventsPage } from '../events/events';
 import { WalletPage } from '../wallet/wallet';
@@ -11,7 +10,6 @@ import {User} from "../../models/user-model";
 import {Credentials} from "../../providers/credentials";
 import {UserServiceProvider} from "../../providers/user-service";
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
-import { Platform } from 'ionic-angular/platform/platform';
 import { PushProvider } from '../../providers/push';
 import { PushToken } from '../../models/push-token-model';
 
@@ -45,15 +43,6 @@ export class TabsPage {
       this.navCtrl.setRoot(HomePage);
     }
 
-    if(this.platform.is('android')) {
-      if(this.userData) {
-        this.pushService.saveToken(this.userData.uuid, this.userData.team_id);
-      }
-      this.pushService.onNotification();
-    } else {
-      console.log("nischt cordova");
-    }
-
     events.subscribe('event:cash', () => {
       // user and time are the same arguments passed in `events.publish(user, time)`
       this.eventsBadge += 1;
@@ -76,9 +65,6 @@ export class TabsPage {
       }, (error: any) => {
         console.log(error);
       }, () => {
-        if(this.platform.is('android')) {
-          this.pushService.saveToken(this.userData.uuid, this.userData.team_id);
-        }
       });
   }
 

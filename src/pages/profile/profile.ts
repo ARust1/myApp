@@ -16,6 +16,7 @@ import {BalancePage} from "./balance/balance";
 import {PaymentProvider} from "../../providers/payment";
 import {Credentials} from "../../providers/credentials";
 import {BankaccountAddPage} from "./balance/bankaccount-add/bankaccount-add";
+import { PictureProvider } from '../../providers/picture';
 
 @Component({
   selector: 'page-profile',
@@ -54,9 +55,6 @@ export class ProfilePage {
   ngOnInit() {
     this.getTeamData();
     this.getStripeAccountBalance();
-  }
-
-  ionViewDidLoad() {
   }
 
   toggleClick() {
@@ -197,7 +195,7 @@ export class ProfilePage {
 
   goToEditProfile() {
     this.navCtrl.push(ProfileModalPage, {
-      data : this.userData
+      userData : this.userData
     });
   }
 

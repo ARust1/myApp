@@ -1,4 +1,5 @@
-page-event-modal {
+page-event-modal,
+page-profile-modal {
   ion-list {
     .list-ios,
     .item-block,
@@ -48,5 +49,11 @@ page-event-modal {
     }
     .toolbar-background {
     }
+  }
+
+  .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
+  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom: 1px solid #dedede !important;
+    box-shadow: none !important;
   }
 }

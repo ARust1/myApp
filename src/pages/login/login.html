@@ -12,10 +12,14 @@
     <ion-item>
       <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
+    <ion-item *ngIf="errorMsg">
+      {{ errorMsg }}
+    </ion-item>
     <button ion-button class="b" (click)="doLogin()">
       Login
     </button>
   </form>
+  <button style="width: 100%; text-align:center; background-color: transparent;" color="none">Passwort vergessen?</button>
 </ion-content>
 <ion-footer padding>
   <div class="register" (click)="goToRegister()">

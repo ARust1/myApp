@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Mannschaftskasse</name>
-    <description>An awesome App to administrate a Team Wallet.</description>
-    <author email="me@alexanderrust.de" href="http://alexanderrust.de   /">Alexander Rust</author>
+    <name>MyApp</name>
+    <description>An awesome Ionic/Cordova app.</description>
+    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content original-src="index.html" src="http://192.168.0.73:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

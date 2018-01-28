@@ -68,7 +68,6 @@ export class GenericProvider<T> {
   }
 
   catchError(error: Response | any) {
-    console.log(error);
     return Observable.throw(error.json() || "Error");
   }
 

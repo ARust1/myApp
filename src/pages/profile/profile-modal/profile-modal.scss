@@ -3,6 +3,14 @@ page-profile-modal {
 
   }
 
+  ion-list-header {
+    padding-left: 8px !important;
+  }
+
+  .text-input-md {
+    margin: 18px 8px !important;
+  }
+
   ion-content {
     ion-row {
       &.member-profile-pic {
@@ -12,29 +20,7 @@ page-profile-modal {
           width: 100px;
           height:100px;
           border-radius: 100%;
-          border: 1px solid #909090;
-        }
-        .add {
-          align-self: flex-end;
-          right: 55%;
-          height: 24px;
-          width: 24px;
-          position: absolute;
-          background-color: #fff;
-          display: flex;
-          border-radius: 100%;
-          justify-content: center;
-          .add-img {
-            position: absolute;
-            display: block;
-            width: 65%;
-            margin: auto;
-            align-self: center;
-            text-align: center;
-            color: #ffffff;
-            font-size: 1.3em;
-            font-weight:700;
-          }
+          border: 3px solid #E4E4E4;
         }
       }
       form {

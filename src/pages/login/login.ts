@@ -21,6 +21,7 @@ export class LoginPage {
   private userData: User;
   private loading: any;
   private loginData = { email:'', password:'' };
+  private errorMsg: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -49,7 +50,8 @@ export class LoginPage {
         }
       });
     }, (err) => {
-      console.log(err);
+      this.errorMsg = err.error.userMessage;
+      console.log(this.errorMsg);
     });
   }
 

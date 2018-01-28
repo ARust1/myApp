@@ -17,27 +17,28 @@
 
 <ion-content padding>
   <ion-row class="member-profile-pic">
-      <img class="pic" src="assets/imgs/default-no-profile-pic.jpg">
-    <span class="add">
-      <!--<img class="add-img" src="../../assets/icon/pencil.svg">-->
-      <ion-icon name="add" class="add-img"></ion-icon>
-    </span>
+      <img *ngIf="!userData.profile.profile_img" class="pic" src="assets/imgs/default-no-profile-pic.jpg" (tap)="setProfileImg()">
+      <img *ngIf="userData.profile.profile_img" class="pic" [src]="userData.profile.profile_img" (tap)="setProfileImg()">
   </ion-row>
   <ion-row>
     <form>
+    <ion-list class="event-list">
+      <ion-list-header>
+        Über dich
+      </ion-list-header>
       <ion-item>
-        <ion-icon name="mail" item-start></ion-icon>
         <ion-input [(ngModel)]="userData.email" name="email" type="email" placeholder="Email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-icon name="person" item-start></ion-icon>
         <ion-input [(ngModel)]="userData.prename" name="prename" type="text" placeholder="Vorname"></ion-input>
-        <ion-input [(ngModel)]="userData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-icon name="shirt" item-start=""></ion-icon>
+          <ion-input [(ngModel)]="userData.surname" name="surname" type="text" placeholder="Nachname"></ion-input>
+        </ion-item>
+      <ion-item>
         <ion-input [(ngModel)]="userData.back_number" name="back_number" type="text" placeholder="Rückennummer"></ion-input>
       </ion-item>
+      </ion-list>
     </form>
   </ion-row>
 </ion-content>
