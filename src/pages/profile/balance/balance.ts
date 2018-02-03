@@ -4,6 +4,8 @@ import {User} from "../../../models/user-model";
 import {PaymentProvider} from "../../../providers/payment";
 import {DepositCreatePage} from "./deposit-create/deposit-create";
 import {BankaccountAddPage} from "./bankaccount-add/bankaccount-add";
+import { FeedbackProvider } from '../../../providers/feedback';
+import { IdUploadPage } from '../../setup-account/id-upload/id-upload';
 
 /**
  * Generated class for the TransfersPage page.
@@ -32,6 +34,7 @@ export class BalancePage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private paymentService: PaymentProvider,
+              private feedbackService: FeedbackProvider,
               private alertCtrl: AlertController,
               private events: Events,
               private modalCtrl: ModalController) {
@@ -110,6 +113,26 @@ export class BalancePage {
     });
   }
 
+
+  private idUploadBtns = [
+    {
+      text: 'Abbrechen',
+      role: 'cancel',
+      handler: data => {
+        console.log('Cancel clicked');
+      }
+    },
+    {
+      text: 'Hochladen',
+      role: 'cancel',
+      handler: data => {
+        this.navCtrl.push(IdUploadPage, {
+          userData: this.userData
+        })
+      }
+    }
+  ]
+
   payout() {
     let alert = this.alertCtrl.create({
       title: 'Auszahlen',
@@ -132,10 +155,14 @@ export class BalancePage {
           text: 'Auszahlen',
           handler: data => {
             console.log(data.amount);
-            if(data.amount > this.availableBalance / 100) {
-              console.log("ZU VIEL GELD!");
+            if(!this.userData.profile.file) {
+              this.feedbackService.presentConfirmAlert(this.idUploadBtns, "Personalausweis nötig", "Um Geld auszahlen zu können, wird dein Ausweis benötigt.")
             } else {
-              console.log("PASST!");
+              if(data.amount > this.availableBalance / 100) {
+                console.log("ZU VIEL GELD!");
+              } else {
+                console.log("PASST!");
+              }
             }
           }
         }

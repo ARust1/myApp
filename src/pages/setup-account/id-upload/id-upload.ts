@@ -7,6 +7,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 import {PaymentProvider} from "../../../providers/payment";
 import {TeamSetupPage} from "../team-setup/team-setup";
 import {UserServiceProvider} from "../../../providers/user-service";
+import { BalancePage } from '../../profile/balance/balance';
 
 @IonicPage()
 @Component({
@@ -15,6 +16,7 @@ import {UserServiceProvider} from "../../../providers/user-service";
 })
 export class IdUploadPage {
 
+  private lastPage: any;
   private userData: User;
   private result: any;
   constructor(private camera: Camera,
@@ -23,6 +25,7 @@ export class IdUploadPage {
               private credentials: Credentials,
               private paymentService: PaymentProvider,
               private userService: UserServiceProvider) {
+    this.lastPage = this.navCtrl.last().component;
     this.userData = this.navParams.get('userData');
     if(!this.userData) {
       this.userData = this.credentials.getUser();
@@ -39,9 +42,15 @@ export class IdUploadPage {
 
   skipIdUpload() {
     localStorage.setItem('idUpload', 'skipped');
-    this.navCtrl.setRoot(TeamSetupPage, {
-      userData: this.userData
-    })
+    if(this.lastPage === BalancePage) {
+      console.log("skip");
+      this.navCtrl.pop();
+    } else {
+      console.log("skip else");
+      this.navCtrl.setRoot(TeamSetupPage, {
+        userData: this.userData
+      })
+    }
   }
 
   async takePicture() {
@@ -57,12 +66,10 @@ export class IdUploadPage {
       };
 
       this.camera.getPicture(options).then((imageData) => {
-        // imageData is either a base64 encoded string or a file URI
-        // If it's base64:
         let file_id;
 
         this.paymentService.uploadIdDocument(imageData, this.userData.accountToken).subscribe((result: any) => {
-          file_id = result;
+          file_id = result.file;
           console.log("FILE ID " + JSON.stringify(file_id));
         }, (err: any) => {
           console.log(err);
@@ -70,9 +77,15 @@ export class IdUploadPage {
           this.userService.saveFileId(this.userData.uuid, file_id).subscribe((result: any) => {
             localStorage.setItem('idUpload', 'done');
             localStorage.setItem('file_id', file_id);
-            this.navCtrl.setRoot(TeamSetupPage, {
-              userData: this.userData
-            })
+            if(this.lastPage === BalancePage) {
+              console.log("skip");
+              this.navCtrl.pop();
+            } else {
+              console.log("skip else");
+              this.navCtrl.setRoot(TeamSetupPage, {
+                userData: this.userData
+              })
+            }
           }, (err: any) => {
             console.log(err);
           });

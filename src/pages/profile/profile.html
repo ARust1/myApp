@@ -19,7 +19,7 @@
         <img *ngIf="!userData.profile.profile_img" class="pic" src="assets/imgs/default-no-profile-pic.jpg">
         <img *ngIf="userData.profile.profile_img" class="pic" [src]="userData.profile.profile_img">
       </ion-col>
-      <ion-col col-7 class="member-profile-name">
+      <ion-col col-7 class="member-profile-name" padding>
         <h5>{{userData.prename}} {{userData.surname}}</h5>
         <h6 class="member-profile-position"></h6>
       </ion-col>

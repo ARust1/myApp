@@ -5,21 +5,26 @@
 </ion-header>
 
 <ion-content padding no-bounce>
+  <div class="img-container">
+      <img src="assets/icon/manschaftskasse.svg">
+      mannschaftskasse
+  </div>
   <form >
     <ion-item>
-      <ion-input [(ngModel)]="loginData.email" name="email" type="email" placeholder="Email" ></ion-input>
+      <ion-input [(ngModel)]="loginData.email" name="email" type="email" placeholder="Email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
+      <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Passwort"></ion-input>
     </ion-item>
-    <ion-item *ngIf="errorMsg">
-      {{ errorMsg }}
-    </ion-item>
+    <button class="forgot" style="width: 100%; text-align:center; background-color: transparent;" color="none">Passwort vergessen?</button>
     <button ion-button class="b" (click)="doLogin()">
       Login
     </button>
+    
+    <ion-item *ngIf="errorMsg">
+        {{ errorMsg }}
+      </ion-item>
   </form>
-  <button style="width: 100%; text-align:center; background-color: transparent;" color="none">Passwort vergessen?</button>
 </ion-content>
 <ion-footer padding>
   <div class="register" (click)="goToRegister()">

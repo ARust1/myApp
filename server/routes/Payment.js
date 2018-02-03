@@ -6,6 +6,7 @@ var Response2JSON = require('../Response2JSON');
 var moment = require('moment');
 var stripe = require('stripe')('sk_test_tuvyZ0uIGcY61cYKLLsqkrUu');
 var fs = require('fs');
+const http = require("http");
 
 /*
  * Create, Update & Delete Stripe Account
@@ -88,19 +89,21 @@ router.post('/account/:id/documents', function(req, res, next) {
   var accountToken = req.params.id;
 
   try {
-    file_path = file_path.replace("file:///", "file://");
-    var fp = new Buffer(file_path);
-    var fk = fs.readFileSync(fp);
+    const options = {
+      url: file_path,
+      encoding: null
+    };
+    var string = '../routes/Front.jpg';
+    var fp = fs.readFileSync(string);
   } catch (e) {
     console.log(e);
   }
 
-  console.log(fk);
   stripe.fileUploads.create({
     purpose: 'identity_document',
     file: {
-      data: fk,
-      name: 'file.jpg',
+      data: fp,
+      name: 'file.png',
       type: 'application/octet-stream'
     }
   }, function(err, fileUpload) {
@@ -116,8 +119,11 @@ router.post('/account/:id/documents', function(req, res, next) {
           }
         }
       }, function(err, acct) {
-        if(err) return res.json(err);
-        res.json(acct);
+        //if(err) return res.json(err);
+        res.json({
+          account: acct,
+          file: fileUpload.id
+        });
       });
     }
   });

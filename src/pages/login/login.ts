@@ -10,6 +10,7 @@ import {UserServiceProvider} from "../../providers/user-service";
 import {HomePage} from "../home/home";
 import {IdUploadPage} from "../setup-account/id-upload/id-upload";
 import {TeamSetupPage} from "../setup-account/team-setup/team-setup";
+import { ValidateAccountPage } from '../validate-account/validate-account';
 
 @IonicPage()
 @Component({
@@ -45,9 +46,23 @@ export class LoginPage {
       }, () => {
         //this.loading.dismiss();
         this.credentials.saveUserToStorage(this.userData);
-        if(this.credentials.getUser()) {
+
+        this.authService.checkValidationStatus(this.userData.uuid).subscribe(result => {
+          console.log(result.validated);
+          if(result.validated === 1) {
+            this.checkAccountSetup();
+          } else {
+            console.log("login", this.userData);
+            this.navCtrl.push(ValidateAccountPage, {
+              userData: this.userData
+            })
+          }
+        }, err => {
+          console.error(err);
+        });
+        /* if(this.credentials.getUser()) {
           this.checkAccountSetup();
-        }
+        } */
       });
     }, (err) => {
       this.errorMsg = err.error.userMessage;
@@ -116,6 +131,7 @@ export class LoginPage {
       }
 
     } else {
+      console.log("else");
       this.navCtrl.setRoot(HomePage);
     }
 

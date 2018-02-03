@@ -12,6 +12,9 @@ import {UserServiceProvider} from "../../providers/user-service";
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { PushProvider } from '../../providers/push';
 import { PushToken } from '../../models/push-token-model';
+import { SetupAccountPage } from '../setup-account/setup-account';
+import { IdUploadPage } from '../setup-account/id-upload/id-upload';
+import { TeamSetupPage } from '../setup-account/team-setup/team-setup';
 
 @Component({
   selector: 'page-tabs',
@@ -135,4 +138,5 @@ export class TabsPage {
 
     })
   }
+
 }

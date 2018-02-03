@@ -8,6 +8,7 @@ import {DepositProvider} from "../../../../providers/deposit";
 import {Credentials} from "../../../../providers/credentials";
 import {Deposit} from "../../../../models/stripe-payment-model";
 import { PushProvider } from '../../../../providers/push';
+import { CurrencyPipe } from '@angular/common';
 
 @IonicPage()
 @Component({
@@ -20,9 +21,9 @@ export class DepositCreatePage {
   private teamData: Team;
   private currentUser: User;
   private depositData = {
-    amount: 0,
-    fee: 0,
-    total: 0,
+    amount: null,
+    fee: null,
+    total: null,
     description: ''
   };
   private loadingActivated: boolean = false;
@@ -41,7 +42,8 @@ export class DepositCreatePage {
               private pushService: PushProvider,
               private toastCtrl: ToastController,
               private events: Events,
-              private credentials: Credentials) {
+              private credentials: Credentials,
+              private currencyPipe: CurrencyPipe) {
 
     this.currentUser = this.credentials.getUser();
 
@@ -57,6 +59,10 @@ export class DepositCreatePage {
       this.stripeToken = this.teamData.stripeToken;
       this.recipient = this.teamData.name;
     }
+  }
+
+  getCurrency(amount: number) {
+    return this.currencyPipe.transform(amount, 'EUR', true, '1.2-2');
   }
 
   deposit() {
@@ -172,6 +178,8 @@ export class DepositCreatePage {
   }
 
   updateFee() {
+    let amount = parseFloat(this.depositData.amount).toFixed(2);
+    console.log(amount);
     this.depositData.fee = Math.round((this.depositData.amount * 1.013 - this.depositData.amount) * 100) / 100;
     this.depositData.total = Math.round((this.depositData.amount * 1.013) * 100) / 100;
   }

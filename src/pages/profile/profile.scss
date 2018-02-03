@@ -1,10 +1,4 @@
 page-profile {
-  ion-header {
-    ion-icon[name="more"] {
-      //transform: rotate(-90deg);
-    }
-  }
-
   .profile-options {
     button {
       background-color: #ffffff !important;
@@ -69,12 +63,12 @@ page-profile {
         }
         ion-col {
           &.member-profile-pic img {
-            width: 65px;
-            height: auto;
+            display: block;
+            width: 100%;
+            height: 82.5px;
             border-radius: 100%;
           }
           &.member-profile-name {
-            align-self: center;
           }
           &.member-profile-trickot {
             .trickot-number {

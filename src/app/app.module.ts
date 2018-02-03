@@ -67,6 +67,9 @@ import { TransactionListPage } from '../pages/transaction-list/transaction-list'
 import { Push } from '@ionic-native/push';
 import { PushProvider } from '../providers/push';
 import { Sim } from '@ionic-native/sim';
+import { ValidateAccountPage } from '../pages/validate-account/validate-account';
+import { CurrencyPipe } from '@angular/common';
+import { BankAccountListPage } from '../pages/bank-account-list/bank-account-list';
 
 @NgModule({
   declarations: [
@@ -102,7 +105,9 @@ import { Sim } from '@ionic-native/sim';
     PayoutCreatePage,
     DepositListPage,
     PayoutListPage,
-    TransactionListPage
+    TransactionListPage,
+    ValidateAccountPage,
+    BankAccountListPage
   ],
   imports: [
     BrowserModule,
@@ -160,7 +165,9 @@ import { Sim } from '@ionic-native/sim';
     PayoutCreatePage,
     DepositListPage,
     PayoutListPage,
-    TransactionListPage
+    TransactionListPage,
+    ValidateAccountPage,
+    BankAccountListPage
   ],
   providers: [
     StatusBar,
@@ -189,7 +196,8 @@ import { Sim } from '@ionic-native/sim';
     PayoutProvider,
     Push,
     PushProvider,
-    Sim
+    Sim,
+    CurrencyPipe
   ]
 })
 export class AppModule {}

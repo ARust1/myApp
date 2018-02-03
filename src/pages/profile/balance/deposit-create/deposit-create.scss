@@ -3,11 +3,18 @@ page-deposit-create {
     padding-top: 30px;
   }
 
+  ion-input {
+    input {
+      text-align: right !important;
+    }
+  }
+
   .total-amount {
     display: flex;
-    padding: 0 8px 0 16px;
+    padding: 0 0 0 16px;
     span {
-      align-self: center;
+      margin-top: 18px;
+      margin-right: 22px;
       font-weight: 700;
     }
   }

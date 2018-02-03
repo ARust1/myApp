@@ -13,7 +13,7 @@
     </ion-buttons>
     <ion-title>Einzahlung</ion-title>
   </ion-navbar>
-  <ion-toolbar *ngIf="this.type === 'deposit:online'">
+  <ion-toolbar *ngIf="this.type === 'deposit:online'" padding-left padding-right>
     <ion-segment [(ngModel)]="paymentType">
       <ion-segment-button value="balance">
         Guthaben
@@ -28,40 +28,36 @@
 
 <ion-content padding>
 
-  <form class="custom" *ngIf="type === 'deposit:online' &&
+  <form *ngIf="type === 'deposit:online' &&
                               paymentType === 'card'">
     <ion-list>
       <ion-item>
-        <ion-label color="midGrey">Betrag</ion-label>
-        <ion-input type="number" [(ngModel)]="depositData.amount" (ionChange)='updateFee()' name="amount"></ion-input>
+        <ion-input type="number" class="margin-top-40" [(ngModel)]="depositData.amount" (ionChange)='updateFee()' placeholder="Betrag" name="amount"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="midGrey">Gebühren</ion-label>
-        <ion-input type="number" [(ngModel)]="depositData.fee" name="fee"></ion-input>
+        <ion-input type="number" class="margin-top-20" [(ngModel)]="depositData.fee" placeholder="Gebühr" name="fee"></ion-input>
       </ion-item>
 
       <div class="total-amount">
         <span>Gesamt</span>
-        <ion-input aria-readonly="true" [(ngModel)]="depositData.total" name="total"></ion-input>
+        <ion-input aria-readonly="true" class="margin-top-20" [(ngModel)]="depositData.total" name="total"></ion-input>
       </div>
     </ion-list>
   </form>
 
-  <form class="custom" *ngIf="type === 'deposit:online' &&
+  <form *ngIf="type === 'deposit:online' &&
                               paymentType === 'balance'">
     <ion-list>
       <ion-item>
-        <ion-label color="midGrey">Betrag</ion-label>
-        <ion-input type="number" [(ngModel)]="depositData.amount" name="amount"></ion-input>
+        <ion-input type="number" [(ngModel)]="depositData.amount" placeholder="Betrag" name="amount"></ion-input>
       </ion-item>
     </ion-list>
   </form>
 
-  <form class="custom" *ngIf="type === 'deposit:cash'">
+  <form *ngIf="type === 'deposit:cash'">
     <ion-list>
       <ion-item>
-        <ion-label color="midGrey">Betrag</ion-label>
-        <ion-input type="number" [(ngModel)]="depositData.amount" name="amount"></ion-input>
+        <ion-input type="number" [(ngModel)]="depositData.amount" placeholder="Betrag" name="amount"></ion-input>
       </ion-item>
     </ion-list>
   </form>

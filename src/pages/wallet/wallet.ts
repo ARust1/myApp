@@ -19,6 +19,8 @@ import {PayoutListPage} from "../payout-list/payout-list";
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { TransactionListPage } from '../transaction-list/transaction-list';
 import { PushProvider } from '../../providers/push';
+import { BankAccountListPage } from '../bank-account-list/bank-account-list';
+import { SetupAccountPage } from '../setup-account/setup-account';
 
 @Component({
   selector: 'page-wallet',
@@ -101,15 +103,20 @@ export class WalletPage {
     let user: User = this.credentials.getUser();
       this.userService.getUserData(user.email).subscribe((result: any) => {
         userData = result;
+        if(!userData.team_id) {
+          this.app.getRootNav().setRoot(SetupAccountPage, {
+            userData: userData
+          });
+        }
         this.userData = userData;
         console.log(userData.team_id);
+        
       }, (err: any) => {
         console.log(err);
       }, () => {
         this.teamService.getTeamById(userData.team_id).subscribe( (result) => {
           teamData = result;
         }, (err: any) => {
-          this.presentToast(err);
         }, () => {
           this.teamData = teamData;
           this.userService.getUserByTeamId(teamData.uuid).subscribe((result: any) => {
@@ -278,6 +285,13 @@ export class WalletPage {
     });
   }
 
+  goToBankAccountDetail() {
+    this.navCtrl.push(BankAccountListPage, {
+      userData: this.userData,
+      bankAccountData: this.bankAccountData
+    });
+  }
+
   presentMemberListActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: '',
@@ -358,6 +372,7 @@ export class WalletPage {
         {
           text: 'Bankkonto anzeigen',
           handler: () => {
+            this.goToBankAccountDetail();
           }
         },
       );

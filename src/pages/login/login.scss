@@ -1,13 +1,41 @@
-page-login {
+page-login,
+page-register,
+page-validate-account {
+
+  .forgot {
+    color: #56CCF2 !important;
+    font-weight: 700;
+    margin-top: 10px;
+    text-align: left !important;
+    padding-left: 34px;
+    font-size: 1.2rem;
+  }
+
+  .img-container {
+    margin-bottom: 25px;
+    color: #dadada;
+    text-align: center;
+    font-weight: 700;
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 80px;
+      height: auto;
+    }
+  }
+  
   .button {
     margin-top: 35px !important;
-    width: 80%;
+    width: 90%;
+    
   }
   button[ion-button] {
-    background-color: #80CBC4 !important;
+    background-color: #56CCF2 !important;
+    height: 4.6rem !important;
+    border-radius: 26px;
   }
   .scroll-content {
-    padding-top: 40% !important;
+    padding-top: 35% !important;
   }
   ion-footer {
     color: $font-grey !important;
@@ -20,7 +48,8 @@ page-login {
       font-weight: 300;
       span {
         margin-left: 2px;
-        font-weight: 400;
+        font-weight: 700;
+        color: #56CCF2;
       }
     }
   }
