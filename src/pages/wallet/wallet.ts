@@ -21,6 +21,10 @@ import { TransactionListPage } from '../transaction-list/transaction-list';
 import { PushProvider } from '../../providers/push';
 import { BankAccountListPage } from '../bank-account-list/bank-account-list';
 import { SetupAccountPage } from '../setup-account/setup-account';
+import { TabsPage } from '../tabs/tabs';
+import { IdUploadPage } from '../setup-account/id-upload/id-upload';
+import { TeamSetupPage } from '../setup-account/team-setup/team-setup';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-wallet',
@@ -104,9 +108,10 @@ export class WalletPage {
       this.userService.getUserData(user.email).subscribe((result: any) => {
         userData = result;
         if(!userData.team_id) {
-          this.app.getRootNav().setRoot(SetupAccountPage, {
+          /* this.app.getRootNav().setRoot(SetupAccountPage, {
             userData: userData
-          });
+          }); */
+          this.checkAccountSetup();
         }
         this.userData = userData;
         console.log(userData.team_id);
@@ -448,5 +453,55 @@ export class WalletPage {
         console.error(err);
       })
     }) 
+  }
+  checkAccountSetup() {
+    let userData: User = this.credentials.getUser();
+    let idUploaded: string = localStorage.getItem('idUpload');
+    console.log(idUploaded);
+    if(userData) {
+      if(userData.team_id) {
+        this.app.getRootNav().setRoot(TabsPage, {
+          userData: userData
+        });
+      } else {
+        if (!userData.prename && !userData.surname) {
+          console.log("1");
+          this.app.getRootNav().setRoot(SetupAccountPage, {
+            userData: userData
+          });
+        } else if (userData.prename && userData.surname && userData.birthday && !idUploaded) {
+          console.log("2");
+          this.app.getRootNav().setRoot(IdUploadPage, {
+            userData: userData
+          });
+        } else if (idUploaded === 'done' || idUploaded === 'skipped' || this.userData.profile.file) {
+          console.log("3");
+          this.app.getRootNav().setRoot(TeamSetupPage, {
+            userData: userData
+          });
+        } else if (userData.prename && userData.surname && userData.birthday && userData.profile.file === null && userData.team_id === null) {
+          console.log("4");
+          this.app.getRootNav().setRoot(TeamSetupPage, {
+            userData: userData
+          });
+        } else {
+          console.log("else");
+          this.checkToken()
+        }
+      }
+
+    } else {
+      this.app.getRootNav().setRoot(HomePage);
+    }
+
+  }
+
+  checkToken() {
+    let token = this.credentials.getToken();
+    if (token) {
+      this.app.getRootNav().setRoot(TabsPage, {
+        userData: this.userData
+      });
+    }
   }
 }

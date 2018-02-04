@@ -2,9 +2,9 @@
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {LoginPage} from "../login/login";
  import {AuthServiceProvider} from "../../providers/auth-service";
-import { Sim } from '@ionic-native/sim';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { FeedbackProvider } from '../../providers/feedback';
+import { UserServiceProvider } from '../../providers/user-service';
 
 @IonicPage()
 @Component({
@@ -18,6 +18,8 @@ export class RegisterPage {
   regData = { email:'', password:'' };
   private registerForm : FormGroup;
   private invalid: boolean = false;
+  private emailExists: boolean = false;
+  private errMsg: string = '';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,7 +27,6 @@ export class RegisterPage {
               public authService: AuthServiceProvider,
               public loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
-              private sim: Sim,
               private formBuilder: FormBuilder) {
 
     this.registerForm = this.formBuilder.group({
@@ -37,39 +38,25 @@ export class RegisterPage {
   }
 
   doSignup() {
-    this.invalid = true;
     if(this.registerForm.valid) {
       this.showLoader();
+      this.registerForm.value.email = this.registerForm.value.email.toLowerCase();
       this.authService.register(this.registerForm.value).subscribe((result) => {
-        this.loading.dismiss();
-        this.navCtrl.pop();
+        if(result) {
+          this.loading.dismiss();
+          this.navCtrl.pop();
+        }
       }, (err) => {
         this.loading.dismiss();
-        this.presentToast(err);
+        console.log(err);
+        this.errMsg = err.error.userMessage;
       }, () => {
         localStorage.clear();
-        //this.handleSimInfo();
       });
     } else {
       this.feedbackService.presentAlert("Ungültige Eingaben", "Bitte überprüfen Sie ihre Eingaben.")
     }
     
-  }
-
-  handleSimInfo() {
-    this.sim.getSimInfo().then(
-      (info) => console.log('Sim info: ', info),
-      (err) => console.log('Unable to get sim info: ', err)
-    );
-    
-    this.sim.hasReadPermission().then(
-      (info) => console.log('Has permission: ', info)
-    );
-    
-    this.sim.requestReadPermission().then(
-      () => console.log('Permission granted'),
-      () => console.log('Permission denied')
-    );
   }
 
   goBack() {

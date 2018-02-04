@@ -1,15 +1,26 @@
 page-setup-account,
 page-team-setup {
+
+  ion-header {
+    background-color: #FAFAFA !important;
+  }
+
+  form button[ion-button] {
+    background: #56CCF2 !important;
+    margin-top: 40px;
+    height: 5rem;
+  }
+
   .scroll-content {
     background-color: #FAFAFA !important;
-    padding-bottom: 50px;
     display: flex;
   }
   ion-list {
 
     .google-auto {
-      margin-bottom: 150px;
+      border-bottom: 1px solid #dedede !important;
       input {
+        font-weight: 700;
         width: 100%;
         text-align: center;
         border: none !important;
@@ -23,10 +34,12 @@ page-team-setup {
     width: 100%;
 
     ion-list-header {
+      margin-top: 20px !important;
       padding-left: 0 !important;
       border-bottom: none !important;
       margin-bottom: 0 !important;
       background-color: transparent !important;
+      border-top: none !important;
       ion-label {
         margin-left: 0 !important;
         margin-bottom: 5px !important;
@@ -43,12 +56,16 @@ page-team-setup {
     ion-item {
       background-color: transparent !important;
       padding-left: 0px !important;
+      &:nth-child(n+1) {
+        margin-top: 20px;
+      }
 
       .item-inner {
         padding-right: 0 !important;
       }
 
       &.cam {
+        margin-top: 0 !important;
         border-top: none !important;
         .item-inner {
           border-bottom: none !important;
@@ -97,8 +114,15 @@ page-team-setup {
   }
   form {
     width: 100%;
+    display: block !important;
     ion-input {
       text-align: center;
+      font-weight: 700;
+
+      &[placeholder] {
+        font-weight: 700;
+      }
     }
+    
   }
 }

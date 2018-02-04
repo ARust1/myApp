@@ -1,23 +1,5 @@
-<!--
-  Generated template for the TeamSetupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Mannschaft</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content no-bounce>
-
-  <ion-slides (ionSlideDidChange)="slideChanged()">
-    <ion-slide>
-      <h1></h1>
       <form class="animated fadeIn">
         <ion-list>
           <ion-item class="cam">
@@ -29,31 +11,30 @@
           <ion-item>
             <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Mannschaftsname"></ion-input>
           </ion-item>
+          <ion-item>
+              <ion-select placeholder="Sportart" name="teamType" [(ngModel)]="teamType">
+                <ion-option value="football">⚽Fussball</ion-option>
+                <ion-option value="basketball">Basketball</ion-option>
+              </ion-select>
+            </ion-item>
         </ion-list>
+        <button ion-button class="animated fadeInUp" (tap)="createTeam()">
+            <span *ngIf="!loading">Erstellen</span>
+            <ion-spinner *ngIf="loading"></ion-spinner>
+          </button>
       </form>
-    </ion-slide>
-    <ion-slide>
+      <div class="or">ODER</div>
       <form class="animated fadeIn">
         <ion-list>
           <ion-item>
             <ion-input [(ngModel)]="invite_token" name="invite_token" type="text" placeholder="Einladungstoken"></ion-input>
           </ion-item>
         </ion-list>
+        <button ion-button class="animated fadeInUp" (tap)="createTeam()">
+            <span *ngIf="!loading">Beitreten</span>
+            <ion-spinner *ngIf="loading"></ion-spinner>
+          </button>
       </form>
-    </ion-slide>
-  </ion-slides>
 
 </ion-content>
 
-<ion-footer>
-  <div class="btn-container">
-    <button ion-button block *ngIf="currentSlide === 0" class="animated fadeInUp" (tap)="createTeam()">
-      <span *ngIf="!loading">Mannschaft erstellen</span>
-      <ion-spinner *ngIf="loading"></ion-spinner>
-    </button>
-    <button ion-button block *ngIf="currentSlide === 1" class="animated fadeInUp" (tap)="setTeam()">
-      <span>Mannschaft beitreten</span>
-      <!--<ion-spinner *ngIf="updateLoading"></ion-spinner>-->
-    </button>
-  </div>
-</ion-footer>

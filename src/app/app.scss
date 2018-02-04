@@ -284,6 +284,31 @@ button[outline] {
   }
 }
 
+button {
+  //background-color: #80CBC4 !important;
+  background: #32CDDA;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #51DDE9, #32CDDA);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, 51DDE9, #32CDDA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 0 !important;
+  height: 5rem;
+
+  .spinner-ios-ios line,
+  .spinner-ios-ios-small line {
+    stroke: #fff !important;
+  }
+  .spinner-ios,
+  .spinner-ios-ios {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  ion-spinner {
+    circle,
+    .spinner-md-crescent circle {
+      stroke: #fff !important;
+    }
+  }
+}
+
 ion-spinner[name="dots"] {
   width: 68px;
   height: 48px;

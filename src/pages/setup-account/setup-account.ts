@@ -17,6 +17,9 @@ import {IdUploadPage} from "./id-upload/id-upload";
 import { Address } from 'angular-google-place';
 import {PictureProvider} from "../../providers/picture";
 import {FeedbackProvider} from "../../providers/feedback";
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ViewChild, ElementRef } from '@angular/core';
+import { Credentials } from '../../providers/credentials';
 
 @IonicPage()
 @Component({
@@ -31,12 +34,14 @@ export class SetupAccountPage {
   private team_id: string;
   private invite_token: string;
   private profileImg: any;
-  birthday: any;
+  private birthday: any;
   private updateLoading: boolean = false;
-  // public options = {type : 'address'};
   private googleAdress: Address;
   private base64Image: any;
+  private userSetupForm : FormGroup;
 
+  @ViewChild('google')
+  google:ElementRef;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -48,15 +53,29 @@ export class SetupAccountPage {
               private actionSheetCtrl: ActionSheetController,
               private datePicker: DatePicker,
               private pictureService: PictureProvider,
-              private feedbackService: FeedbackProvider) {
+              private feedbackService: FeedbackProvider,
+              private formBuilder: FormBuilder,
+              private credentials: Credentials) {
     this.userData = this.navParams.get('userData');
     this.teamData = new Team();
-    this.userData.birthday = '26.12.1989';
+    
+    console.log(this.userData);
+
+    this.userSetupForm = this.formBuilder.group({
+      prename: ['', Validators.compose([Validators.required])],
+      surname: ['', Validators.compose([Validators.required])],
+      birthday: ['26.12.1989', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      city: ['', Validators.compose([Validators.required])],
+      zip: ['', Validators.compose([Validators.required])],
+      state: ['', Validators.compose([Validators.required])],
+      country_code: ['', Validators.compose([Validators.required])]
+    });
+
   }
 
-  ionViewWillLoad() {
-
-  }
+  ngAfterViewInit() {
+  } 
 
   getFormattedAddress(event: any) {
     this.googleAdress = event;
@@ -69,21 +88,26 @@ export class SetupAccountPage {
   }
 
   goToIdUpload() {
+    console.log(this.userSetupForm);
+    if(this.userSetupForm.valid) {
     this.updateLoading = true;
-    let dateArr = this.userData.birthday.split('.');
+    let dateArr = this.userSetupForm.value.birthday.split('.');
     this.stripeUpdateData = {
-      "first_name": this.userData.prename,
-      "last_name": this.userData.surname,
+      "first_name": this.userSetupForm.value.prename,
+      "last_name": this.userSetupForm.value.surname,
       "day": dateArr[0],
       "month": dateArr[1],
       "year": dateArr[2],
-      "city": this.userData.city,
-      "country_code": this.userData.country,
-      "line": this.userData.address_line,
-      "postal_code": this.userData.postal_code,
-      "state": this.userData.state
+      "city": this.userSetupForm.value.city,
+      "country_code": this.userSetupForm.value.country,
+      "line": this.userSetupForm.value.address,
+      "postal_code": this.userSetupForm.value.postal_code,
+      "state": this.userSetupForm.value.state
     };
-
+    
+    this.userData.prename = this.userSetupForm.value.prename;
+    this.userData.surname = this.userSetupForm.value.surname;
+    console.log(this.userData);
     this.paymentService.updateStripeAccount(this.stripeUpdateData, this.userData.accountToken).subscribe((result: any) => {
     }, (err: any) => {
       console.log(err);
@@ -106,12 +130,13 @@ export class SetupAccountPage {
             this.feedbackService.presentToast(err, 1500, 'middle');
           });
         }
+        this.credentials.saveUserToStorage(this.userData);
         this.navCtrl.setRoot(IdUploadPage, {
           userData: this.userData
         })
       })
     })
-
+  }
   }
 
   openDatePicker() {

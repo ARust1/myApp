@@ -84,9 +84,9 @@ router.post('/register', function (req, res) {
     bcrypt.hash(password, salt, function (err, hash) {
       Auth.register(email, hash, function (err, result) {
         if (err) {
-          res.json({
+          res.status(409).json({
             error: {
-              userMessage: "Bei der Registrierung ist etwas schief gelaufen.",
+              userMessage: "Email existiert bereits.",
               message: err,
               code: 5
             }

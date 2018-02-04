@@ -1,8 +1,32 @@
 page-team-setup {
+  .scroll-content {
+    display: flex;
+    flex-flow: column;
+  }
 
-
-  .slide-zoom {
-    height: 100%;
+  .or {
+    margin: 50px 0 30px 0;
+    font-weight: 700;
     text-align: center;
+  }
+
+  form {
+    text-align: center;
+    ion-select {
+      width: 100%;
+      text-align: center;
+      button[ion-button] {
+        height: inherit !important;
+        border-radius: 26px !important;
+        width: 100%;
+        background: inherit !important;
+        border-bottom: 1px solid #dedede !important;
+      }
+    }
+    button[ion-button] {
+      width: 90%;
+      height: 4.6rem !important;
+      border-radius: 26px !important;
+    }
   }
 }

@@ -13,8 +13,8 @@
     <!-- Email Field -->
     <ion-item>
       <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
-      <ion-icon *ngIf="registerForm.controls.email.valid" name="ios-checkmark-outline" item-end color="green"></ion-icon>
-      <ion-icon *ngIf="invalid || !registerForm.controls.email.valid && registerForm.controls.email.touched" name="ios-close-circle-outline" item-end color="danger"></ion-icon>
+      <ion-icon *ngIf="!errMsg && registerForm.controls.email.valid" name="ios-checkmark-outline" item-end color="green"></ion-icon>
+      <ion-icon *ngIf="errMsg || invalid || !registerForm.controls.email.valid && registerForm.controls.email.touched" name="ios-close-circle-outline" item-end color="danger"></ion-icon>
     </ion-item>
     <div class="form-error-container animated shake" *ngIf="invalid || registerForm.controls.email.hasError('required') 
                           && registerForm.controls.email.touched">
@@ -42,7 +42,7 @@
                           && !registerForm.controls.password.hasError('required')">
       <span>Ey! Das Passwort muss mindestens 6 Zeichen lang sein</span>
     </div>
-
+    <div color="danger">{{ errMsg }}</div>
 
     <button ion-button type="submit">
       Registrieren
