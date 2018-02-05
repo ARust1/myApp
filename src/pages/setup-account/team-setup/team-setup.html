@@ -20,9 +20,10 @@
               </ion-select>
             </ion-item>
         </ion-list>
+        <div>{{ createTeamErrorMsg }}</div>
         <button ion-button class="animated fadeInUp" (tap)="createTeam()">
-            <span *ngIf="!loading">Erstellen</span>
-            <ion-spinner *ngIf="loading"></ion-spinner>
+            <span *ngIf="!createTeamLoading">Erstellen</span>
+            <ion-spinner *ngIf="createTeamLoading"></ion-spinner>
           </button>
       </form>
       <div class="or">ODER</div>
@@ -32,9 +33,10 @@
             <ion-input [(ngModel)]="invite_token" name="invite_token" type="text" placeholder="Einladungstoken"></ion-input>
           </ion-item>
         </ion-list>
-        <button ion-button class="animated fadeInUp" (tap)="createTeam()">
-            <span *ngIf="!loading">Beitreten</span>
-            <ion-spinner *ngIf="loading"></ion-spinner>
+        <div>{{ setTeamErrorMsg }}</div>
+        <button ion-button class="animated fadeInUp" (tap)="setTeam()">
+            <span *ngIf="!setTeamLoading">Beitreten</span>
+            <ion-spinner *ngIf="setTeamLoading"></ion-spinner>
           </button>
       </form>
 

@@ -5,8 +5,6 @@ import {TabsPage} from "../../tabs/tabs";
 import {User} from "../../../models/user-model";
 import {Team} from "../../../models/team-model";
 import {UserServiceProvider} from "../../../providers/user-service";
-import { ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
 import {PictureProvider} from "../../../providers/picture";
 import {PaymentProvider} from "../../../providers/payment";
 import {Credentials} from "../../../providers/credentials";
@@ -32,17 +30,17 @@ class stripeUpdateData {
   templateUrl: 'team-setup.html',
 })
 export class TeamSetupPage {
-  @ViewChild(Slides) slides: Slides;
 
   private userData: User;
   private teamData: Team = new Team();
-  currentSlide: number = 0;
   private base64Image: any;
   private teamLogo: any;
-  private loading: boolean = false;
+  private createTeamLoading: boolean = false;
+  private setTeamLoading: boolean = false;
   private invite_token: string;
-  private userSupscription: BehaviorSubject<User>;
   private stripeUpdateData: stripeUpdateData;
+  private createTeamErrorMsg: string = null;
+  private setTeamErrorMsg; string = null;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -52,19 +50,13 @@ export class TeamSetupPage {
               private paymentService: PaymentProvider,
               private credentials: Credentials) {
     this.userData = this.navParams.get("userData");
-    this.userSupscription = new BehaviorSubject(this.userData);
     if(!this.userData) {
       this.credentials.getUser().then(result => {
         this.userData = result;
-        this.userSupscription = new BehaviorSubject(this.userData);
       }, err => {
         this.navCtrl.setRoot(HomePage);
       })
     }
-  }
-
-  slideChanged() {
-    this.currentSlide = this.slides.getActiveIndex();
   }
 
   getPictures() {
@@ -77,7 +69,8 @@ export class TeamSetupPage {
   }
 
   createTeam() {
-    this.loading = true;
+    if(this.teamData.name) {
+      this.createTeamLoading = true;
     let stripeToken: string;
     this.teamService.createTeam(this.userData.uuid, this.teamData.name).subscribe( (result: any) => {
       this.userData.team_id = result.team_id;
@@ -121,10 +114,15 @@ export class TeamSetupPage {
         })
       }
     })
+    } else {
+      this.createTeamErrorMsg = 'Bitte alle Felder ausfüllen.';
+      console.log(this.createTeamErrorMsg);
+    }
   }
 
   setTeam() {
-    this.loading = true;
+    if(this.invite_token) {
+      this.setTeamLoading = true;
     let team_id;
     this.teamService.getTeamByInviteToken(this.invite_token).subscribe(result => {
       console.log(result);
@@ -140,6 +138,9 @@ export class TeamSetupPage {
     }, (err: any) => {
       console.log("Kein Team gefunden")
     })
+    } else {
+      this.setTeamErrorMsg = 'Bitte den Einladungstoken angeben.';
+    }
   }
 
 }
