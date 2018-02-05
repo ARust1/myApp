@@ -5,7 +5,13 @@ page-team-setup {
   }
 
   .item-select {
-    justify-content: center;
+    .input-wrapper {
+      justify-content: center !important;
+    }
+  
+    .select-icon {
+      position: absolute !important;
+    }
 
     [placeholder] {
       font-weight: 700;
@@ -16,6 +22,26 @@ page-team-setup {
     margin: 50px 0 30px 0;
     font-weight: 700;
     text-align: center;
+    color: #484848;
+    padding-right: 16px;
+    padding-left: 16px;
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 40%;
+      background: #919191;
+      margin-top: 7px;
+    }
+
+    &::after {
+      float: left;
+    }
+    &::before {
+      float: right;
+    }
   }
 
   form {

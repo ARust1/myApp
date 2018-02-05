@@ -12,7 +12,7 @@
             <ion-input [(ngModel)]="teamData.name" name="name" type="text" placeholder="Mannschaftsname"></ion-input>
           </ion-item>
           <ion-item>
-              <ion-select placeholder="Sportart" name="teamType" [(ngModel)]="teamType">
+              <ion-select okText="Auswählen" cancelText="Abbrechen" placeholder="Sportart" name="teamType" [(ngModel)]="teamType">
                 <ion-option value="soccer">⚽ Fussball</ion-option>
                 <ion-option value="basketball">🏀 Basketball</ion-option>
                 <ion-option value="volleyball">🏐 Volleyball</ion-option>

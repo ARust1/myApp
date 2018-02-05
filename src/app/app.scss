@@ -111,6 +111,51 @@ form {
   background-image: none !important;
 }
 
+// Alert Box
+// --------------------------------------------------
+.alert-md .alert-wrapper,
+.alter-wrapper {
+  max-width: 300px !important;
+  min-width: 280px !important;
+  border-radius: 6px !important;
+}
+
+.alert-head {
+  display: none !important;
+}
+
+.alert-head + div + div{
+  padding: 10px 5px 5px 5px !important;
+}
+
+.alert-radio-group {
+  border-top: none !important;
+}
+
+.alert-button-group {
+  justify-content: space-evenly !important;
+  padding: 0 8px 8px !important; 
+  
+  .alert-button .button-inner {
+    justify-content: center !important;
+
+  }
+
+  .alert-button {
+    margin: 0 !important;
+    max-height: 40px;
+    color: #000 !important;
+    text-transform: capitalize !important;
+    flex: 0.5 !important;
+    text-align: center !important;
+    padding: 0px 10px !important;
+
+    &:nth-child(1) {
+      border-right: 1px solid #dedede !important;
+    }
+  }
+}
+
 // Toolbar
 // --------------------------------------------------
 

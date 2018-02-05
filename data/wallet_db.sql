@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Feb 2018 um 00:39
+-- Erstellungszeit: 06. Feb 2018 um 00:00
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 7.1.1
 
@@ -285,7 +285,6 @@ CREATE TABLE `team` (
 INSERT INTO `team` (`uuid`, `name`, `owner_id`, `balance`, `invite_token`, `team_logo`, `stripeToken`) VALUES
 ('10a021b3-c466-4ef8-abaa-066c57e16fae', 'Vfb Bottrop', '5b7fa85e-bca9-11e7-bff5-080027c12564', 348.5, 'XBnsK', 'https://firebasestorage.googleapis.com/v0/b/test-2d3d6.appspot.com/o/a_1516994668837?alt=media&token=52d404f2-4ec0-4d4d-b2ca-d07855a15a1d', 'acct_1Bi2jpL6azr2z1xp'),
 ('5332e53a-7d81-4ea7-9bd6-add9e09cd9bb', 'Zzzzz', 'fde723cf-f3b8-11e7-af46-fcaa14968dfd', 150, 'dxvxf', 'https://firebasestorage.googleapis.com/v0/b/test-2d3d6.appspot.com/o/k_1515336197259?alt=media&token=929b8257-4f47-4be5-bc1d-587d9229800a', 'acct_1BhfN0AaBOC1EYY5'),
-('bdc908b9-aedb-4c60-befa-fbac97e28e97', NULL, 'dad40d60-09da-11e8-8c58-fcaa14968dfd', 0, NULL, NULL, 'acct_1BruN6ERemiVqmzz'),
 ('f38f9b3a-77d7-4fd8-8dc9-5c13233e32e2', 'BLALBLA', '40524588-fafc-11e7-a882-fcaa14968dfd', 0, NULL, NULL, 'acct_1Bl16EFUvqFjjzQp');
 
 -- --------------------------------------------------------
@@ -365,7 +364,7 @@ INSERT INTO `user` (`uuid`, `email`, `password`, `prename`, `surname`, `birthday
 ('5b7fa85e-bca9-11e7-bff5-080027c12564', 'me@alexanderrust.de', '$2a$10$NYjJHr1aOB6wz84m9B5h.uYNpzRZbjqX1v3Ep60gSCy7oQULxboE.', 'Alexander', 'Rust', '26.12.1989', '10a021b3-c466-4ef8-abaa-066c57e16fae', 1, 7, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTc2MTI0MzZ9.VnzIwHfJB5bIOXlSiP3UPGdVl8uwXAhO-9jiHr6ISfw', 3, 'acct_1BbE8vFDl2q5tObj', 'file_1BrO2EJ1lJBgMAwInPH0ylEL', 'https://firebasestorage.googleapis.com/v0/b/test-2d3d6.appspot.com/o/me%40alexanderrust.de_1517104554648?alt=media&token=e7c3d421-d86a-44d8-958f-14418ab8a359', 0, 1, 8570),
 ('bc296374-0438-11e8-a068-fcaa14968dfd', 'dd', '$2a$10$F2wYmF.HdSdXYKd9o2dbD.of2fMwyb7qfpmxBxfLrFuYQipUCyCX2', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 'acct_1BpHHUH5VeuiSySR', NULL, NULL, 0, 0, NULL),
 ('d668c74c-0438-11e8-a068-fcaa14968dfd', 'A', '$2a$10$F4lOSuMqlfAuScP1MSme1.rxEzzV/Ba34l3VAOBggu2J0S21oAc4m', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 'acct_1BpHICHYHGu0tPTR', NULL, NULL, 0, 0, NULL),
-('dad40d60-09da-11e8-8c58-fcaa14968dfd', 'herelivesalex@googlemail.com', '$2a$10$d/CKmR1RVcnnl58mj2guYeKSDWU6a6atLjE3LExclYQZxjBCgpsXC', 'Alexander', 'Rust', NULL, NULL, 0, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTc3NzA1NjF9.w-J36Z58MSK7E7Qn_BpTyO7QQSESbMeeorKqyWTi2jw', 0, 'acct_1BrsPbEB46MaWHPA', NULL, NULL, 0, 1, 6773),
+('dad40d60-09da-11e8-8c58-fcaa14968dfd', 'herelivesalex@googlemail.com', '$2a$10$d/CKmR1RVcnnl58mj2guYeKSDWU6a6atLjE3LExclYQZxjBCgpsXC', 'Alexander', 'Rust', NULL, NULL, 1, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTc3NzA1NjF9.w-J36Z58MSK7E7Qn_BpTyO7QQSESbMeeorKqyWTi2jw', 0, 'acct_1BrsPbEB46MaWHPA', NULL, NULL, 0, 1, 6773),
 ('f819dff0-c01d-11e7-8758-080027c12564', 'frank', '$2a$10$W0haIbWOnT8fa9d14jOeGekb1aHXvsoq5o05f3jgA4Ag7CVma/2rO', 'Frank', 'Rust', NULL, '10a021b3-c466-4ef8-abaa-066c57e16fae', 0, 9, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDk2NjIwNjZ9.aZYhZh_8BWpVC7Ig-jTVKIDpj-iEZ-us__YC39UjJbY', 0, 'acct_1BeWOPLkw0gmFrzE', NULL, NULL, 1, 0, NULL),
 ('fde723cf-f3b8-11e7-af46-fcaa14968dfd', 'k', '$2a$10$DA4IiGzKj6S35U31OlnPuehK5Fk.EkRyJxcRULceABjb1W78giL1a', 'A', 'R', '26.12.1989', '5332e53a-7d81-4ea7-9bd6-add9e09cd9bb', 1, NULL, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTU0MjU2NDd9.05VTuNvdNDcEY4OhU0ahuk8RrvUZoXW2TMheNeikDv4', 0, 'acct_1BhfM5Clz1BK1JaT', NULL, 'https://firebasestorage.googleapis.com/v0/b/test-2d3d6.appspot.com/o/k_1515336197259?alt=media&token=929b8257-4f47-4be5-bc1d-587d9229800a', 0, 0, NULL),
 ('fe13d609-bcb7-11e7-8dd7-080027c12564', 'b', '$2a$10$wgcCGaRzq5JFZU5V5duHjuysnRsCavjx8P1LT3QLSzU23AiwBMZay', 'Björn', 'Soika', NULL, '10a021b3-c466-4ef8-abaa-066c57e16fae', 0, 5, NULL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTc1OTExNzF9.QsGWe6GE1KIzfAG_D6Wdh2F4-riV4LtVUa8OT8YHbn0', 1, 'acct_1Bi2FeGsSj7kv9O1', NULL, NULL, 0, 1, 3717);
