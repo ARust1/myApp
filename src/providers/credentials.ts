@@ -6,7 +6,7 @@ import {User} from "../models/user-model";
 export class Credentials {
 
     private api = {
-      dev: 'http://192.168.0.73:3000/api/v1',
+      dev: 'http://localhost:3000/api/v1',
       prod: 'http://91.92.128.99:3000/api/v1'
    };
 

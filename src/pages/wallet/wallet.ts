@@ -474,7 +474,7 @@ export class WalletPage {
           this.app.getRootNav().setRoot(IdUploadPage, {
             userData: userData
           });
-        } else if (idUploaded === 'done' || idUploaded === 'skipped' || this.userData.profile.file) {
+        } else if (idUploaded === 'done' || idUploaded === 'skipped' || userData.profile.file) {
           console.log("3");
           this.app.getRootNav().setRoot(TeamSetupPage, {
             userData: userData

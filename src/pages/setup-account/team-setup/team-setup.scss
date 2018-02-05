@@ -4,6 +4,14 @@ page-team-setup {
     flex-flow: column;
   }
 
+  .item-select {
+    justify-content: center;
+
+    [placeholder] {
+      font-weight: 700;
+    }
+  }
+
   .or {
     margin: 50px 0 30px 0;
     font-weight: 700;

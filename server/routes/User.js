@@ -31,7 +31,7 @@ router.get('/:id?',function(req, res, next) {
           birthday: json[0].birthday,
           profile: {
             profile_img: json[0].profile_img,
-            file_id: json[0].file_id
+            file: json[0].file_id
           }
         };
         if (err) return res.json(err);
